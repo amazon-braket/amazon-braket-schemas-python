@@ -1,13 +1,62 @@
-## My Project
+**DO NOT SHARE OR TALK ABOUT THE CONTENTS OF THIS LIBRARY per the Amazon Beta NDA you signed.**
 
-TODO: Fill this README out!
+**aqx-python-ir** is a library that contains all the intermediate representations (IR) for AQx quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the AQx SDK and AQx API for quantum programs.
 
-Be sure to:
+## Usage
+There is currently only one kind of IR and that is the JsonAwsQuantumCircuitDescription, jaqcd. See below for it's usage.
 
-* Change the title in this README
-* Edit your repository description on GitHub
+**Serializing python structures**
+```python
+from aqx.ir.jaqcd import CNot, H, Program
+
+program = Program(instructions=[H(target=0), CNot(control=0, target=1)])
+print(program.json(indent=2))
+
+"""
+{
+  "instructions": [
+    {
+      "target": 0,
+      "type": "h"
+    },
+    {
+      "control": 0,
+      "target": 1,
+      "type": "cnot"
+    }
+  ]
+}
+"""
+```
+
+**Deserializing into python structures**
+```python
+from aqx.ir.jaqcd import Program
+
+json_string = """
+{
+  "instructions": [
+    {
+      "target": 0,
+      "type": "h"
+    },
+    {
+      "control": 0,
+      "target": 1,
+      "type": "cnot"
+    }
+  ]
+}
+"""
+
+program = Program.parse_raw(json_string)
+print(program)
+
+"""
+instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)]
+"""
+```
 
 ## License
 
 This project is licensed under the Apache-2.0 License.
-
