@@ -1,6 +1,21 @@
 **DO NOT SHARE OR TALK ABOUT THE CONTENTS OF THIS LIBRARY per the Amazon Beta NDA you signed.**
 
-**aqx-python-ir** is a library that contains all the intermediate representations (IR) for AQx quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the AQx SDK and AQx API for quantum programs.
+Amazon Qx Python IR is an open source library that contains all the intermediate representations (IR) for AQx quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the AQx SDK and AQx API for quantum programs.
+
+## Installation
+
+### Prerequisites
+- Python 3.7+
+### Steps
+ ```bash
+ git clone https://github.com/aws/aqx-python-ir.git
+ pip install -e aqx-python-ir
+ ```
+
+ To install test dependencies for running tests locally run:
+ ```bash
+ pip install -e "aqx-python-ir[test]"
+ ```
 
 ## Usage
 There is currently only one kind of IR and that is the JsonAwsQuantumCircuitDescription, jaqcd. See below for it's usage.
@@ -56,6 +71,34 @@ print(program)
 instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)]
 """
 ```
+
+## Documentation
+TODO
+
+## Testing
+
+Make sure to install test dependencies first:
+```bash
+pip install -e "aqx-python-ir[test]"
+```
+
+To run the unit tests:
+```bash
+tox
+```
+
+To run an individual test:
+```bash
+tox -- -k 'your_test'
+```
+
+## Building Sphinx docs
+`cd` into the `doc` directory and run:
+```bash
+make html
+```
+
+You can edit the templates for any of the pages in the docs by editing the .rst files in the `doc` directory and then running `make html` again.
 
 ## License
 
