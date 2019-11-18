@@ -11,7 +11,12 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from aqx.ir.jaqcd.instructions import (
+from aqx.ir.jaqcd.instructions import (  # noqa: F401
+    CY,
+    CZ,
+    XX,
+    YY,
+    ZZ,
     CCNot,
     CNot,
     CPhaseShift,
@@ -19,8 +24,6 @@ from aqx.ir.jaqcd.instructions import (
     CPhaseShift01,
     CPhaseShift10,
     CSwap,
-    CY,
-    CZ,
     H,
     I,
     ISwap,
@@ -30,18 +33,14 @@ from aqx.ir.jaqcd.instructions import (
     Ry,
     Rz,
     S,
-    Swap,
     Si,
+    Swap,
     T,
     Ti,
     V,
     Vi,
     X,
-    XX,
     Y,
-    YY,
     Z,
-    ZZ
 )
-from aqx.ir.jaqcd.program import Program
-
+from aqx.ir.jaqcd.program import Program  # noqa: F401

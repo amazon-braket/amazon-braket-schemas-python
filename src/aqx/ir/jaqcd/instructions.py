@@ -361,7 +361,7 @@ class PSwap(DoubleTarget, Angle):
 
 class PhaseShift(SingleTarget, Angle):
     """
-    Phase shift gate. Shifts the phase between |0> and |1> by a given angle.
+    Phase shift gate. Shifts the phase between \\|0> and \\|1> by a given angle.
 
     Attributes:
         type (str): The instruction type. default = "phaseshift". (type) is optional.
@@ -404,7 +404,7 @@ class CPhaseShift(SingleTarget, SingleControl, Angle):
 
 class CPhaseShift00(SingleTarget, SingleControl, Angle):
     """
-    Controlled phase shift gate that phases the |00> state.
+    Controlled phase shift gate that phases the \\|00> state.
 
     Attributes:
         type (str): The instruction type. default = "cphaseshift00". (type) is optional.
@@ -426,7 +426,7 @@ class CPhaseShift00(SingleTarget, SingleControl, Angle):
 
 class CPhaseShift01(SingleTarget, SingleControl, Angle):
     """
-    Controlled phase shift gate that phases the |01> state.
+    Controlled phase shift gate that phases the \\|01> state.
 
     Attributes:
         type (str): The instruction type. default = "cphaseshift01". (type) is optional.
@@ -448,7 +448,7 @@ class CPhaseShift01(SingleTarget, SingleControl, Angle):
 
 class CPhaseShift10(SingleTarget, SingleControl, Angle):
     """
-    Controlled phase shift gate that phases the |10> state.
+    Controlled phase shift gate that phases the \\|10> state.
 
     Attributes:
         type (str): The instruction type. default = "cphaseshift10". (type) is optional.
