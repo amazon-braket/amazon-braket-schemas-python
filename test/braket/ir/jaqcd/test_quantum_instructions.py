@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from aqx.ir.jaqcd import (
+from braket.ir.jaqcd import (
     CY,
     CZ,
     XX,
@@ -47,7 +47,7 @@ from aqx.ir.jaqcd import (
     Y,
     Z,
 )
-from aqx.ir.jaqcd.shared_models import (
+from braket.ir.jaqcd.shared_models import (
     Angle,
     DoubleControl,
     DoubleTarget,

@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from aqx.ir.jaqcd.shared_models import (
+from braket.ir.jaqcd.shared_models import (
     Angle,
     DoubleControl,
     DoubleTarget,
@@ -23,7 +23,7 @@ from aqx.ir.jaqcd.shared_models import (
 
 
 """
-Instructions that can be supplied to the aqx.ir.jaqcd.Program.
+Instructions that can be supplied to the braket.ir.jaqcd.Program.
 
 To add a new instruction:
     - Implement a class in this module.
@@ -36,7 +36,7 @@ To add a new instruction:
       - NOTE: Due to how multiple inhertiance works in Python it is easiest to define a
         type enum class within each instruction, instead of calling the relevant parent
         constructors to initialize it correctly.
-    - Inherit any classes from aqx.ir.jaqcd.shared_models.
+    - Inherit any classes from braket.ir.jaqcd.shared_models.
     - Write up docstrings to define the instruction, properties, and examples.
 """
 

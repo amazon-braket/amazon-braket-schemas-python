@@ -13,7 +13,7 @@
 
 from typing import List, Union
 
-from aqx.ir.jaqcd.instructions import (
+from braket.ir.jaqcd.instructions import (
     CY,
     CZ,
     XX,

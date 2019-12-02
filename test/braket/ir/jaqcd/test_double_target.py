@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from aqx.ir.jaqcd.shared_models import DoubleTarget
+from braket.ir.jaqcd.shared_models import DoubleTarget
 from pydantic import ValidationError
 
 

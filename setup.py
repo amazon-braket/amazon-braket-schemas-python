@@ -14,7 +14,7 @@
 from setuptools import find_namespace_packages, setup
 
 setup(
-    name="aqx-ir",
+    name="braket-ir",
     version="0.1.1",
     license="Apache License 2.0",
     python_requires=">= 3.7",
