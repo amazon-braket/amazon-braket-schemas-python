@@ -12,20 +12,30 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from aqx.ir.jaqcd import CNot, Program
+from braket.ir.jaqcd.shared_models import SingleTarget
 from pydantic import ValidationError
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_instructions_property():
-    Program()
+def test_missing_target():
+    SingleTarget()
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_non_instruction():
-    Program(instructions=["foo"])
+def test_non_int():
+    SingleTarget(target="foo")
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_partial_non_instruction():
-    Program(instructions=[CNot(control=0, target=1), "foo"])
+def test_lt_zero():
+    SingleTarget(target=-1)
+
+
+def test_gte_zero():
+    for target in [0, 1]:
+        obj = SingleTarget(target=target)
+        assert obj.target == target
+
+
+def test_extra_params():
+    SingleTarget(target=0, foo="bar")

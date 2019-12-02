@@ -12,50 +12,40 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from aqx.ir.jaqcd.shared_models import DoubleControl
+from braket.ir.jaqcd.shared_models import Angle
 from pydantic import ValidationError
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_controls():
-    DoubleControl()
+def test_missing_angle():
+    Angle()
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_non_int():
-    DoubleControl(controls=[0, "foo"])
+def test_non_float():
+    Angle(angle="foo")
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_lt_zero():
-    DoubleControl(controls=[-1, -2])
+def test_nan_float():
+    Angle(angle=float("nan"))
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_lt_zero():
-    DoubleControl(controls=[0, -1])
+def test_inf_float():
+    Angle(angle=float("inf"))
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_empty_list():
-    DoubleControl(controls=[])
+def test_negative_inf_float():
+    Angle(angle=float("-inf"))
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test_list_of_1():
-    DoubleControl(controls=[1])
+def test_float():
+    angle = 0.15
+    obj = Angle(angle=angle)
+    assert obj.angle == angle
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test_list_of_3():
-    DoubleControl(controls=[1, 2, 3])
-
-
-def test_list_gte_zero():
-    controls = [0, 1]
-    obj = DoubleControl(controls=controls)
-    assert obj.controls == controls
-
-
-def test_list_extra_params():
-    DoubleControl(controls=[0, 1], foo="bar")
+def test_extra_params():
+    Angle(angle=0, foo="bar")

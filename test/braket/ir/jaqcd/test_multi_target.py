@@ -12,35 +12,45 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from aqx.ir.jaqcd.shared_models import SingleControl
+from braket.ir.jaqcd.shared_models import MultiTarget
 from pydantic import ValidationError
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_control():
-    SingleControl()
+def test_missing_targets():
+    MultiTarget()
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_non_int():
-    SingleControl(control="foo")
+def test_list_partial_non_int():
+    MultiTarget(targets=[0, "foo"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_int_lt_zero():
-    SingleControl(control=-1)
-
-
-def test_int_gte_zero():
-    for control in (0, 1):
-        obj = SingleControl(control=control)
-        assert obj.control == control
-
-
-def test_int_extra_params():
-    SingleControl(control=0, foo="bar")
+def test_list_lt_zero():
+    MultiTarget(targets=[-1, -2])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list():
-    SingleControl(control=[0])
+def test_list_partial_lt_zero():
+    MultiTarget(targets=[0, -1])
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_empty_list():
+    MultiTarget(targets=[])
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_list_of_1():
+    MultiTarget(targets=[1])
+
+
+def test_list_gte_zero():
+    targets = [0, 1]
+    obj = MultiTarget(targets=targets)
+    assert obj.targets == targets
+
+
+def test_list_extra_params():
+    MultiTarget(targets=[0, 1], foo="bar")

@@ -11,36 +11,21 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from aqx.ir.jaqcd.instructions import (  # noqa: F401
-    CY,
-    CZ,
-    XX,
-    YY,
-    ZZ,
-    CCNot,
-    CNot,
-    CPhaseShift,
-    CPhaseShift00,
-    CPhaseShift01,
-    CPhaseShift10,
-    CSwap,
-    H,
-    I,
-    ISwap,
-    PhaseShift,
-    PSwap,
-    Rx,
-    Ry,
-    Rz,
-    S,
-    Si,
-    Swap,
-    T,
-    Ti,
-    V,
-    Vi,
-    X,
-    Y,
-    Z,
-)
-from aqx.ir.jaqcd.program import Program  # noqa: F401
+import pytest
+from braket.ir.jaqcd import CNot, Program
+from pydantic import ValidationError
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_instructions_property():
+    Program()
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_non_instruction():
+    Program(instructions=["foo"])
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_partial_non_instruction():
+    Program(instructions=[CNot(control=0, target=1), "foo"])

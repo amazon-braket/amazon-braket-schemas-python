@@ -1,6 +1,6 @@
 **DO NOT SHARE OR TALK ABOUT THE CONTENTS OF THIS LIBRARY per the Amazon Beta NDA you signed.**
 
-Amazon Qx Python IR is an open source library that contains all the intermediate representations (IR) for AQx quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the AQx SDK and AQx API for quantum programs.
+Amazon Braket Python IR is an open source library that contains all the intermediate representations (IR) for Amazon Braket quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the Amazon Braket SDK and Amazon Braket API for quantum programs.
 
 ## Installation
 
@@ -8,13 +8,13 @@ Amazon Qx Python IR is an open source library that contains all the intermediate
 - Python 3.7+
 ### Steps
  ```bash
- git clone https://github.com/aws/aqx-python-ir.git
- pip install -e aqx-python-ir
+ git clone https://github.com/aws/braket-python-ir.git
+ pip install -e braket-python-ir
  ```
 
  To install test dependencies for running tests locally run:
  ```bash
- pip install -e "aqx-python-ir[test]"
+ pip install -e "braket-python-ir[test]"
  ```
 
 ## Usage
@@ -22,7 +22,7 @@ There is currently only one kind of IR and that is the JsonAwsQuantumCircuitDesc
 
 **Serializing python structures**
 ```python
-from aqx.ir.jaqcd import CNot, H, Program
+from braket.ir.jaqcd import CNot, H, Program
 
 program = Program(instructions=[H(target=0), CNot(control=0, target=1)])
 print(program.json(indent=2))
@@ -46,7 +46,7 @@ print(program.json(indent=2))
 
 **Deserializing into python structures**
 ```python
-from aqx.ir.jaqcd import Program
+from braket.ir.jaqcd import Program
 
 json_string = """
 {
@@ -79,7 +79,7 @@ TODO
 
 Make sure to install test dependencies first:
 ```bash
-pip install -e "aqx-python-ir[test]"
+pip install -e "braket-python-ir[test]"
 ```
 
 To run the unit tests:

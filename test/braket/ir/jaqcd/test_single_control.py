@@ -12,40 +12,35 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from aqx.ir.jaqcd.shared_models import Angle
+from braket.ir.jaqcd.shared_models import SingleControl
 from pydantic import ValidationError
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_angle():
-    Angle()
+def test_missing_control():
+    SingleControl()
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_non_float():
-    Angle(angle="foo")
+def test_non_int():
+    SingleControl(control="foo")
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_nan_float():
-    Angle(angle=float("nan"))
+def test_int_lt_zero():
+    SingleControl(control=-1)
+
+
+def test_int_gte_zero():
+    for control in (0, 1):
+        obj = SingleControl(control=control)
+        assert obj.control == control
+
+
+def test_int_extra_params():
+    SingleControl(control=0, foo="bar")
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_inf_float():
-    Angle(angle=float("inf"))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_negative_inf_float():
-    Angle(angle=float("-inf"))
-
-
-def test_float():
-    angle = 0.15
-    obj = Angle(angle=angle)
-    assert obj.angle == angle
-
-
-def test_extra_params():
-    Angle(angle=0, foo="bar")
+def test_list():
+    SingleControl(control=[0])
