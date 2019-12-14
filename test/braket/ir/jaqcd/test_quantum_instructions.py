@@ -18,6 +18,7 @@ from braket.ir.jaqcd import (
     CY,
     CZ,
     XX,
+    XY,
     YY,
     ZZ,
     CCNot,
@@ -87,6 +88,7 @@ testdata = [
     (XX, [DoubleTarget, Angle], "xx"),
     (YY, [DoubleTarget, Angle], "yy"),
     (ZZ, [DoubleTarget, Angle], "zz"),
+    (XY, [DoubleTarget, Angle], "xy"),
 ]
 
 

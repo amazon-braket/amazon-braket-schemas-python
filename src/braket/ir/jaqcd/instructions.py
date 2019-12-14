@@ -321,6 +321,8 @@ class ISwap(DoubleTarget):
     ISwap gate. Swaps the state of two qubits, applying a -i phase to q1 when it is in the 1 state
         and a -i phase to q2 when it is in the 0 state.
 
+    This is equivalent to XY(pi)
+
     Attributes:
         type (str): The instruction type. default = "iswap". (type) is optional.
             This should be unique among all instruction types.
@@ -357,6 +359,28 @@ class PSwap(DoubleTarget, Angle):
         pswap = "pswap"
 
     type = Type.pswap
+
+
+class XY(DoubleTarget, Angle):
+    """
+    Rotates between \\|01> and \\|10> by the given angle.
+
+    Attributes:
+        type (str): The instruction type. default = "xy". (type) is optional.
+            This should be unique among all instruction types.
+        angle (float): The angle in radians.
+            inf, -inf, and NaN are not allowable inputs.
+        targets (List[int]): The target qubits.
+            This is a list with two items and all items are int >= 0.
+
+    Examples:
+        >>> XY(targets=[0, 1], angle=0.15)
+    """
+
+    class Type(str, Enum):
+        xy = "xy"
+
+    type = Type.xy
 
 
 class PhaseShift(SingleTarget, Angle):

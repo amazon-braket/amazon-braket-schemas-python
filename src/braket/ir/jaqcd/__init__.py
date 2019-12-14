@@ -15,6 +15,7 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     CY,
     CZ,
     XX,
+    XY,
     YY,
     ZZ,
     CCNot,
