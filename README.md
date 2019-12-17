@@ -6,9 +6,10 @@ Amazon Braket Python IR is an open source library that contains all the intermed
 
 ### Prerequisites
 - Python 3.7+
+
 ### Steps
  ```bash
- git clone https://github.com/aws/braket-python-ir.git
+ git clone https://github.com/aws/braket-python-ir.git  --branch stable/latest
  pip install -e braket-python-ir
  ```
 
@@ -73,7 +74,13 @@ instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<T
 ```
 
 ## Documentation
-TODO
+
+First `cd` into the `doc` directory and run:
+```bash
+make html
+```
+
+Then open `BRAKET_IR_ROOT/build/documentation/html/index.html` in a browser to view the docs.
 
 ## Testing
 
@@ -91,14 +98,6 @@ To run an individual test:
 ```bash
 tox -- -k 'your_test'
 ```
-
-## Building Sphinx docs
-`cd` into the `doc` directory and run:
-```bash
-make html
-```
-
-You can edit the templates for any of the pages in the docs by editing the .rst files in the `doc` directory and then running `make html` again.
 
 ## License
 
