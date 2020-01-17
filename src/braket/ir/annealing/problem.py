@@ -33,13 +33,25 @@ class Problem(BaseModel):
 
     Attributes:
         - type: The type of problem; can be either "QUBO" or "ISING"
-        = linear: Linear terms of the model.
-        - quadratic: Quadratic terms of the model.
+        - linear: Linear coefficients of the model, expressed as a map of term
+            to coefficient. For example,
+                0.3 * x_0 - 0.3 * x_4
+            is expressed as
+                {0: 0.3, 4: -0.3}
+        - quadratic: Quadratic coefficients of the model, expressed as a map of
+            the first variable in the term to a map of the second variable to the
+            corresponding quadratic term's coefficient. For example,
+                0.667 * x_0 * x_5 + 3 * x_0 * x_6 + 0.1 * x_2 * x_4
+            is expressed as
+                {0: {5: 0.667, 6: 3}, 2: {4: 0.1}}
 
     Examples:
-        >>> Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={(0, 5): 0.667})
+        >>> Problem(type=ProblemType.QUBO,
+        >>>         linear={0: 0.3, 4: -0.3},
+        >>>         quadratic={0: {5: 0.667, 6: 3}, 2: {4: 0.1}})
     """
 
     type: ProblemType
     linear: Dict[conint(ge=0), float]
     quadratic: Dict[Tuple[conint(ge=0), conint(ge=0)], float]
+    quadratic: Dict[conint(ge=0), Dict[conint(ge=0), float]]
