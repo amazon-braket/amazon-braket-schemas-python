@@ -20,26 +20,25 @@ def test_creation():
     problem = Problem(
         type=ProblemType.QUBO,
         linear={0: 0.3333, 1: -0.333, 4: -0.333, 5: 0.333},
-        quadratic={(0, 4): 0.667, (0, 5): -1, (1, 4): 0.667, (1, 5): 0.667},
+        quadratic={"0,4": 0.667, "0,5": -1, "1,4": 0.667, "1,5": 0.667},
     )
     assert problem.type == ProblemType.QUBO
     assert problem.linear == {0: 0.3333, 1: -0.333, 4: -0.333, 5: 0.333}
-    assert problem.quadratic == {(0, 4): 0.667, (0, 5): -1, (1, 4): 0.667, (1, 5): 0.667}
+    assert problem.quadratic == {"0,4": 0.667, "0,5": -1, "1,4": 0.667, "1,5": 0.667}
+    assert Problem.parse_raw(problem.json()) == problem
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_type():
     Problem(
         linear={0: 0.3333, 1: -0.333, 4: -0.333, 5: 0.333},
-        quadratic={(0, 4): 0.667, (0, 5): -1, (1, 4): 0.667, (1, 5): 0.667},
+        quadratic={"0,4": 0.667, "0,5": -1, (1, 4): 0.667, "1,5": 0.667},
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_linear():
-    Problem(
-        type=ProblemType.QUBO, quadratic={(0, 4): 0.667, (0, 5): -1, (1, 4): 0.667, (1, 5): 0.667}
-    )
+    Problem(type=ProblemType.QUBO, quadratic={"0,4": 0.667, "0,5": -1, "1,4": 0.667, "1,5": 0.667})
 
 
 @pytest.mark.xfail(raises=ValidationError)

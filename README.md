@@ -24,6 +24,7 @@ There is currently only one kind of IR and that is the JsonAwsQuantumCircuitDesc
 **Serializing python structures**
 ```python
 from braket.ir.jaqcd import CNot, H, Program
+from braket.ir.annealing import Problem, ProblemType
 
 program = Program(instructions=[H(target=0), CNot(control=0, target=1)])
 print(program.json(indent=2))
@@ -43,13 +44,25 @@ print(program.json(indent=2))
   ]
 }
 """
+
+problem = Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={"0,5": 0.667})
+print(problem.json(indent=2))
+
+"""
+{
+  "type": "QUBO",
+  "linear": {0: 0.3, 4: -0.3},
+  "quadratic": {"0,5": 0.667}
+}
+"""
 ```
 
 **Deserializing into python structures**
 ```python
 from braket.ir.jaqcd import Program
+from braket.ir.annealing import Problem
 
-json_string = """
+jaqcd_string = """
 {
   "instructions": [
     {
@@ -65,12 +78,28 @@ json_string = """
 }
 """
 
-program = Program.parse_raw(json_string)
+program = Program.parse_raw(jaqcd_string)
 print(program)
 
 """
 instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)]
 """
+
+annealing_string = """
+{
+  "type": "QUBO",
+  "linear": {0: 0.3, 4: -0.3},
+  "quadratic": {"0,5": 0.667}
+}
+"""
+
+problem = Problem.parse_raw(annealing_string)
+print(problem)
+
+"""
+type=<ProblemType.QUBO: 'QUBO'>, linear={0: 0.3, 4: -0.3}, quadratic={'0,5': 0.667}
+"""
+
 ```
 
 ## Documentation

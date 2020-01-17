@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Dict, Tuple
+from typing import Dict
 
 from pydantic import BaseModel, conint
 
@@ -33,13 +33,14 @@ class Problem(BaseModel):
 
     Attributes:
         - type: The type of problem; can be either "QUBO" or "ISING"
-        = linear: Linear terms of the model.
-        - quadratic: Quadratic terms of the model.
+        - linear: Linear terms of the model.
+        - quadratic: Quadratic terms of the model, keyed on comma-separated
+            variables as strings
 
     Examples:
-        >>> Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={(0, 5): 0.667})
+        >>> Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={"0,5": 0.667})
     """
 
     type: ProblemType
     linear: Dict[conint(ge=0), float]
-    quadratic: Dict[Tuple[conint(ge=0), conint(ge=0)], float]
+    quadratic: Dict[str, float]
