@@ -41,11 +41,6 @@ def test_empty_list():
     MultiControl(controls=[])
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test_list_of_1():
-    MultiControl(controls=[1])
-
-
 def test_list_gte_zero():
     controls = [0, 1]
     obj = MultiControl(controls=controls)

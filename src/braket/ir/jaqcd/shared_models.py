@@ -53,7 +53,7 @@ class MultiTarget(BaseModel):
         >>> MultiTarget(targets=[0, 1])
     """
 
-    targets: conlist(conint(ge=0), min_items=2)
+    targets: conlist(conint(ge=0), min_items=1)
 
 
 class MultiControl(BaseModel):
@@ -67,7 +67,7 @@ class MultiControl(BaseModel):
         >>> MultiControl(controls=[0, 1])
     """
 
-    controls: conlist(conint(ge=0), min_items=2)
+    controls: conlist(conint(ge=0), min_items=1)
 
 
 class DoubleControl(BaseModel):
@@ -111,3 +111,26 @@ class Angle(BaseModel):
     """
 
     angle: confloat(gt=float("-inf"), lt=float("inf"))
+
+
+class TwoDimensionalMatrix(BaseModel):
+    """
+    Two dimensional non-empty matrix.
+
+    Attributes:
+        matrix (List[List[List[float]]]): Two dimensional matrix with complex entries.
+            Each complex number is represented using a List[float] of size 2, with
+            element[0] being the real part and element[1] imaginary.
+            inf, -inf, and NaN are not allowable inputs for the element.
+
+    Examples:
+        >>> TwoDimensionalMatrix(matrix=[[[0, 0], [1, 0]], [[1, 0], [0, 0]]])
+    """
+
+    matrix: conlist(
+        conlist(
+            conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+            min_items=1,
+        ),
+        min_items=1,
+    )

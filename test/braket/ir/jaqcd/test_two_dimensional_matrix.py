@@ -12,40 +12,40 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd.shared_models import MultiTarget
+from braket.ir.jaqcd.shared_models import TwoDimensionalMatrix
 from pydantic import ValidationError
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_targets():
-    MultiTarget()
+    TwoDimensionalMatrix()
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_list_partial_non_int():
-    MultiTarget(targets=[0, "foo"])
+    TwoDimensionalMatrix(matrix=[[0, "foo"]])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_lt_zero():
-    MultiTarget(targets=[-1, -2])
+def test_empty_nested_list():
+    TwoDimensionalMatrix(matrix=[[]])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_lt_zero():
-    MultiTarget(targets=[0, -1])
+def test_element_list_size_gt_two():
+    TwoDimensionalMatrix(matrix=[[[0, 1, 2]]])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_empty_list():
-    MultiTarget(targets=[])
+    TwoDimensionalMatrix(matrix=[])
 
 
 def test_list_gte_zero():
-    targets = [0, 1]
-    obj = MultiTarget(targets=targets)
-    assert obj.targets == targets
+    matrix = [[[1.0, 0], [0, 1]], [[0.0, 1], [1, 0]]]
+    obj = TwoDimensionalMatrix(matrix=matrix)
+    assert obj.matrix == matrix
 
 
 def test_list_extra_params():
-    MultiTarget(targets=[0, 1], foo="bar")
+    TwoDimensionalMatrix(matrix=[[[1.0, 0], [0, 1]], [[0.0, 1], [1, 0]]], foo="bar")

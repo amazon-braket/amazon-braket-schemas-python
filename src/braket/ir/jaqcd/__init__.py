@@ -38,6 +38,7 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     Swap,
     T,
     Ti,
+    Unitary,
     V,
     Vi,
     X,

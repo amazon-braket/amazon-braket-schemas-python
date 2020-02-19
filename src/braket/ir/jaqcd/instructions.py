@@ -17,8 +17,10 @@ from braket.ir.jaqcd.shared_models import (
     Angle,
     DoubleControl,
     DoubleTarget,
+    MultiTarget,
     SingleControl,
     SingleTarget,
+    TwoDimensionalMatrix,
 )
 
 
@@ -675,3 +677,23 @@ class Vi(SingleTarget):
         vi = "vi"
 
     type = Type.vi
+
+
+class Unitary(TwoDimensionalMatrix, MultiTarget):
+    """
+    Arbitrary unitary matrix gate
+
+    Attributes:
+        type (str): The instruction type. default = "unitary". (type) is optional.
+            This should be unique among all instruction types.
+        targets (List[int]): The target qubits. This is a list with ints and all ints >= 0.
+        matrix (List[List[List[float]]]): The unitary matrix specifying the behavior of the gate.
+
+    Examples:
+        >>> Unitary(targets=[0], matrix=[[[0, 0], [1, 0]],[[1, 0], [0, 1]]])
+    """
+
+    class Type(str, Enum):
+        unitary = "unitary"
+
+    type = Type.unitary

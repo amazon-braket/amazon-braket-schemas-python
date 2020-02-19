@@ -42,6 +42,7 @@ from braket.ir.jaqcd import (
     Swap,
     T,
     Ti,
+    Unitary,
     V,
     Vi,
     X,
@@ -52,8 +53,10 @@ from braket.ir.jaqcd.shared_models import (
     Angle,
     DoubleControl,
     DoubleTarget,
+    MultiTarget,
     SingleControl,
     SingleTarget,
+    TwoDimensionalMatrix,
 )
 from pydantic import ValidationError
 
@@ -89,6 +92,7 @@ testdata = [
     (YY, [DoubleTarget, Angle], "yy"),
     (ZZ, [DoubleTarget, Angle], "zz"),
     (XY, [DoubleTarget, Angle], "xy"),
+    (Unitary, [TwoDimensionalMatrix, MultiTarget], "unitary"),
 ]
 
 
@@ -129,6 +133,10 @@ def multi_control_valid_input():
     return {"controls": [0, 1, 2]}
 
 
+def two_dimensional_matrix_valid_input():
+    return {"matrix": [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]}
+
+
 def type_invalid_input():
     return {"type": "gobbledygook"}
 
@@ -158,6 +166,7 @@ def create_valid_json(subclasses, type):
         "SingleControl": single_control_valid_input,
         "DoubleControl": two_control_valid_input,
         "MultiControl": multi_control_valid_input,
+        "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
         "Type": type_valid_input,
     }
     return create_json(switcher, subclasses)
@@ -185,6 +194,7 @@ def test_invalid_type(testclass, subclasses, type):
         "SingleControl": single_control_valid_input,
         "DoubleControl": two_control_valid_input,
         "MultiControl": multi_control_valid_input,
+        "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
         "Type": type_invalid_input,
     }
     create_class_instance(switcher, testclass, subclasses)
