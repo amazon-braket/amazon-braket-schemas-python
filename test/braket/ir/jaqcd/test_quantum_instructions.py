@@ -59,6 +59,13 @@ from braket.ir.jaqcd.shared_models import (
     TwoDimensionalMatrix,
 )
 from pydantic import ValidationError
+from test_common import (
+    create_class_instance,
+    create_switcher,
+    create_valid_class_instance,
+    create_valid_json,
+    idfn,
+)
 
 testdata = [
     (H, [SingleTarget], "h"),
@@ -96,87 +103,6 @@ testdata = [
 ]
 
 
-def idfn(val):
-    if isinstance(val, list):
-        return "_".join([item.__name__ for item in val])
-    elif hasattr(val, __name__):
-        return val.__name__
-    else:
-        return str(val)
-
-
-def single_target_valid_input():
-    return {"target": 0}
-
-
-def two_target_valid_input():
-    return {"targets": [0, 1]}
-
-
-def multi_target_valid_input():
-    return {"targets": [0, 1, 2]}
-
-
-def angle_valid_input():
-    return {"angle": 0.123}
-
-
-def single_control_valid_input():
-    return {"control": 0}
-
-
-def two_control_valid_input():
-    return {"controls": [0, 1]}
-
-
-def multi_control_valid_input():
-    return {"controls": [0, 1, 2]}
-
-
-def two_dimensional_matrix_valid_input():
-    return {"matrix": [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]}
-
-
-def type_invalid_input():
-    return {"type": "gobbledygook"}
-
-
-def create_class_instance(switcher, testclass, subclasses):
-    input = create_json(switcher, subclasses)
-    return testclass(**input)
-
-
-def create_json(switcher, subclasses):
-    input = {}
-    for subclass in subclasses:
-        input.update(switcher.get(subclass.__name__, lambda: "Invalid subclass")())
-    input.update(switcher.get("Type")())
-    return input
-
-
-def create_valid_json(subclasses, type):
-    def type_valid_input():
-        return {"type": type}
-
-    switcher = {
-        "SingleTarget": single_target_valid_input,
-        "DoubleTarget": two_target_valid_input,
-        "MultiTarget": multi_target_valid_input,
-        "Angle": angle_valid_input,
-        "SingleControl": single_control_valid_input,
-        "DoubleControl": two_control_valid_input,
-        "MultiControl": multi_control_valid_input,
-        "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
-        "Type": type_valid_input,
-    }
-    return create_json(switcher, subclasses)
-
-
-def create_valid_class_instance(testclass, subclasses, type):
-    input = create_valid_json(subclasses, type)
-    return testclass(**input)
-
-
 @pytest.mark.parametrize("testclass,subclasses,type", testdata, ids=idfn)
 def test_subclass(testclass, subclasses, type):
     for subclass in subclasses:
@@ -186,17 +112,7 @@ def test_subclass(testclass, subclasses, type):
 @pytest.mark.parametrize("testclass,subclasses,type", testdata, ids=idfn)
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_type(testclass, subclasses, type):
-    switcher = {
-        "SingleTarget": single_target_valid_input,
-        "DoubleTarget": two_target_valid_input,
-        "MultiTarget": multi_target_valid_input,
-        "Angle": angle_valid_input,
-        "SingleControl": single_control_valid_input,
-        "DoubleControl": two_control_valid_input,
-        "MultiControl": multi_control_valid_input,
-        "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
-        "Type": type_invalid_input,
-    }
+    switcher = create_switcher(type="gobbledygook")
     create_class_instance(switcher, testclass, subclasses)
 
 

@@ -19,11 +19,11 @@ Amazon Braket Python IR is an open source library that contains all the intermed
  ```
 
 ## Usage
-There is currently only one kind of IR and that is the JsonAwsQuantumCircuitDescription, jaqcd. See below for it's usage.
+There are currently two types of IR, including jacqd (JsonAwsQuantumCircuitDescription) and annealing. See below for their usage.
 
 **Serializing python structures**
 ```python
-from braket.ir.jaqcd import CNot, H, Program
+from braket.ir.jaqcd import CNot, H, Program, Expectation
 from braket.ir.annealing import Problem, ProblemType
 
 program = Program(instructions=[H(target=0), CNot(control=0, target=1)])
@@ -40,6 +40,37 @@ print(program.json(indent=2))
       "control": 0,
       "target": 1,
       "type": "cnot"
+    }
+  ],
+  "results": null
+}
+"""
+
+program = Program(instructions=[H(target=0), CNot(control=0, target=1)], results=[Expectation(targets=[1], observable=['x'])])
+print(program.json(indent=2))
+
+"""
+{
+  "instructions": [
+    {
+      "target": 0,
+      "type": "h"
+    },
+    {
+      "control": 0,
+      "target": 1,
+      "type": "cnot"
+    }
+  ],
+  "results": [
+    {
+      "observable": [
+        "x"
+      ],
+      "targets": [
+        1
+      ],
+      "type": "expectation"
     }
   ]
 }
@@ -74,6 +105,17 @@ jaqcd_string = """
       "target": 1,
       "type": "cnot"
     }
+  ],
+  "results": [
+    {
+      "observable": [
+        "x"
+      ],
+      "targets": [
+        1
+      ],
+      "type": "expectation"
+    }
   ]
 }
 """
@@ -82,7 +124,7 @@ program = Program.parse_raw(jaqcd_string)
 print(program)
 
 """
-instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)]
+instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)] results=[Expectation(observable=['x'], targets=[1], type=<Type.expectation: 'expectation'>)]
 """
 
 annealing_string = """

@@ -11,7 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import BaseModel, confloat, conint, conlist
+from typing import Optional, Union
+
+from pydantic import BaseModel, confloat, conint, conlist, constr
 
 
 class SingleTarget(BaseModel):
@@ -47,13 +49,27 @@ class MultiTarget(BaseModel):
     Variable length target indices.
 
     Attributes:
-        targets (List[int]): A list with at least two items and all items are int >= 0.
+        targets (List[int]): A list with items that are all int >= 0.
 
     Examples:
         >>> MultiTarget(targets=[0, 1])
     """
 
     targets: conlist(conint(ge=0), min_items=1)
+
+
+class OptionalMultiTarget(BaseModel):
+    """
+    Optional variable length target indices
+
+    Attributes:
+        targets (Optional[List[int]]): A list with items that are all int >= 0.
+
+    Examples:
+        >>> OptionalMultiTarget(targets=[0, 1])
+    """
+
+    targets: Optional[conlist(conint(ge=0), min_items=1)]
 
 
 class MultiControl(BaseModel):
@@ -134,3 +150,50 @@ class TwoDimensionalMatrix(BaseModel):
         ),
         min_items=1,
     )
+
+
+class Observable(BaseModel):
+    """
+    An observable - could be a single operator or the tensor product of multiple operators.
+
+    Attributes:
+        observable (List[Union[str, List[List[List[float]]]]): A list with at least
+            one item and items are strings matching the observable regex
+            or a two dimensional matrix with complex entries.
+            Each complex number is represented using a List[float] of size 2, with
+            element[0] being the real part and element[1] imaginary.
+            inf, -inf, and NaN are not allowable inputs for the element.
+
+    Examples:
+        >>> Observable(observable=["x"])
+        >>> Observable(observable=[[[0, 0], [1, 0]], [[1, 0], [0, 0]]])
+    """
+
+    observable: conlist(
+        Union[
+            constr(regex="(x|y|z|h|i)"),
+            conlist(
+                conlist(
+                    conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+                    min_items=1,
+                ),
+                min_items=1,
+            ),
+        ],
+        min_items=1,
+    )
+
+
+class OptionalMultiState(BaseModel):
+    """
+    A list of states in bitstring form.
+
+    Attributes:
+        states (Optional[List[string]]): Variable length list with all strings matching the
+            state regex or None
+
+    Examples:
+        >>> OptionalMultiState(states=["10", "10"])
+    """
+
+    states: Optional[conlist(constr(regex="^[01]+$", min_length=1), min_items=1)]

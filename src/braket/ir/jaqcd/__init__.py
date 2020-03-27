@@ -46,3 +46,11 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     Z,
 )
 from braket.ir.jaqcd.program import Program  # noqa: F401
+from braket.ir.jaqcd.results import (  # noqa: F401
+    Amplitude,
+    Expectation,
+    Probability,
+    Sample,
+    StateVector,
+    Variance,
+)

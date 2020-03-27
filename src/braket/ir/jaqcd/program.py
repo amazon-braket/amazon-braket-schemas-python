@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List, Union
+from typing import List, Optional, Union
 
 from braket.ir.jaqcd.instructions import (
     CY,
@@ -46,6 +46,14 @@ from braket.ir.jaqcd.instructions import (
     X,
     Y,
     Z,
+)
+from braket.ir.jaqcd.results import (
+    Amplitude,
+    Expectation,
+    Probability,
+    Sample,
+    StateVector,
+    Variance,
 )
 from pydantic import BaseModel
 
@@ -96,4 +104,7 @@ class Program(BaseModel):
             Z,
             ZZ,
         ]
+    ]
+    results: Optional[
+        List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]
     ]
