@@ -108,11 +108,9 @@ class StateVector(BaseModel):
     Attributes:
         type (str): The result type. default = "statevector". (type) is optional.
             This should be unique among all result types.
-        states (Optional[List[string]]): Variable length list with with all strings
-            matching the state regex
 
     Examples:
-        >>> StateVector(states=["01", "10"])
+        >>> StateVector()
     """
 
     class Type(str, Enum):
