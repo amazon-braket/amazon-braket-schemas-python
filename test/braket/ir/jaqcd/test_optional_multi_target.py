@@ -12,39 +12,39 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd import CNot, Expectation, Program
+from braket.ir.jaqcd.shared_models import OptionalMultiTarget
 from pydantic import ValidationError
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_instructions_property():
-    Program()
+def test_missing_targets():
+    OptionalMultiTarget()
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_non_instruction():
-    Program(instructions=["foo"])
+def test_list_partial_non_int():
+    OptionalMultiTarget(targets=[0, "foo"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_partial_non_instruction():
-    Program(instructions=[CNot(control=0, target=1), "foo"])
+def test_list_lt_zero():
+    OptionalMultiTarget(targets=[-1, -2])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_partial_non_result():
-    Program(
-        instructions=[CNot(control=0, target=1)],
-        results=[Expectation(targets=[1], observable=["x"]), CNot(control=0, target=1)],
-    )
+def test_list_partial_lt_zero():
+    OptionalMultiTarget(targets=[0, -1])
 
 
-def test_instruction_no_results():
-    Program(instructions=[CNot(control=0, target=1)])
+@pytest.mark.xfail(raises=ValidationError)
+def test_empty_list():
+    OptionalMultiTarget(targets=[])
 
 
-def test_instruction_with_results():
-    Program(
-        instructions=[CNot(control=0, target=1)],
-        results=[Expectation(targets=[1], observable=["x"])],
-    )
+def test_list_gte_zero():
+    targets = [0, 1]
+    obj = OptionalMultiTarget(targets=targets)
+    assert obj.targets == targets
+
+
+def test_list_extra_params():
+    OptionalMultiTarget(targets=[0, 1], foo="bar")

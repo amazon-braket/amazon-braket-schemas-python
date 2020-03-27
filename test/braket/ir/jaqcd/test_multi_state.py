@@ -12,39 +12,35 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd import CNot, Expectation, Program
+from braket.ir.jaqcd.shared_models import MultiState
 from pydantic import ValidationError
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_instructions_property():
-    Program()
+def test_missing_states():
+    MultiState()
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_non_instruction():
-    Program(instructions=["foo"])
+def test_list_partial_non_str():
+    MultiState(states=[20, "101"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_partial_non_instruction():
-    Program(instructions=[CNot(control=0, target=1), "foo"])
+def test_list_partial_non_matching_regex():
+    MultiState(states=["10202", "01"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_partial_non_result():
-    Program(
-        instructions=[CNot(control=0, target=1)],
-        results=[Expectation(targets=[1], observable=["x"]), CNot(control=0, target=1)],
-    )
+def test_empty_list():
+    MultiState(states=[])
 
 
-def test_instruction_no_results():
-    Program(instructions=[CNot(control=0, target=1)])
+def test_list_matching_regex():
+    states = ["1", "10101"]
+    obj = MultiState(states=states)
+    assert obj.states == states
 
 
-def test_instruction_with_results():
-    Program(
-        instructions=[CNot(control=0, target=1)],
-        results=[Expectation(targets=[1], observable=["x"])],
-    )
+def test_list_extra_params():
+    MultiState(states=["01", "01101"], foo="bar")
