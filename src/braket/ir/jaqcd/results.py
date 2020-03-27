@@ -13,17 +13,27 @@
 
 from enum import Enum
 
-from braket.ir.jaqcd.shared_models import Observable, OptionalMultiState, OptionalMultiTarget
+from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
+from pydantic import BaseModel
 
 
 class Expectation(OptionalMultiTarget, Observable):
     """
     Expectation of specified targets and observable as requested result.
+    If no targets are specified, the observable must only operate on 1 qubit and it
+    will be applied to all qubits in parallel. Otherwise, the number of specified targets
+    must be equivalent to the number of qubits the observable can be applied to.
 
     Attributes:
         type (str): The result type. default = "expectation". (type) is optional.
             This should be unique among all result types.
         targets (Optional[List[int]]): The target qubits. This is a list of int >= 0.
+        observable (List[Union[str, List[List[List[float]]]]): A list with at least
+            one item and items are strings matching the observable regex
+            or a two dimensional hermitian matrix with complex entries.
+            Each complex number is represented using a List[float] of size 2, with
+            element[0] being the real part and element[1] imaginary.
+            inf, -inf, and NaN are not allowable inputs for the element.
 
     Examples:
         >>> Expectation(targets=[1], observable=["x"])
@@ -38,6 +48,9 @@ class Expectation(OptionalMultiTarget, Observable):
 class Sample(OptionalMultiTarget, Observable):
     """
     Sample for specified targets and observable as requested result.
+    If no targets are specified, the observable must only operate on 1 qubit and it
+    will be applied to all qubits in parallel. Otherwise, the number of specified targets
+    must be equivalent to the number of qubits the observable can be applied to.
 
     Attributes:
         type (str): The result type. default = "sample". (type) is optional.
@@ -45,7 +58,7 @@ class Sample(OptionalMultiTarget, Observable):
         targets (Optional[List[int]]): The target qubits. This is a list of int >= 0.
         observable (List[Union[str, List[List[List[float]]]]): A list with at least
             one item and items are strings matching the observable regex
-            or a two dimensional matrix with complex entries.
+            or a two dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -63,6 +76,9 @@ class Sample(OptionalMultiTarget, Observable):
 class Variance(OptionalMultiTarget, Observable):
     """
     Variance of specified targets and observables as requested result.
+    If no targets are specified, the observable must only operate on 1 qubit and it
+    will be applied to all qubits in parallel. Otherwise, the number of specified targets
+    must be equivalent to the number of qubits the observable can be applied to.
 
     Attributes:
         type (str): The result type. default = "variance". (type) is optional.
@@ -70,7 +86,7 @@ class Variance(OptionalMultiTarget, Observable):
         targets (List[int]): The target qubits. This is a list of int >= 0.
         observable (List[Union[str, List[List[List[float]]]]): A list with at least
             one item and items are strings matching the observable regex
-            or a two dimensional matrix with complex entries.
+            or a two dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -85,9 +101,9 @@ class Variance(OptionalMultiTarget, Observable):
     type = Type.variance
 
 
-class StateVector(OptionalMultiState):
+class StateVector(BaseModel):
     """
-    State vector of specified states as requested result.
+    The full state vector as requested result.
 
     Attributes:
         type (str): The result type. default = "statevector". (type) is optional.
@@ -105,14 +121,14 @@ class StateVector(OptionalMultiState):
     type = Type.statevector
 
 
-class Amplitude(OptionalMultiState):
+class Amplitude(MultiState):
     """
     Amplitudes of specified states as requested result.
 
     Attributes:
         type (str): The result type. default = "amplitude". (type) is optional.
             This should be unique among all result types.
-        states (Optional[List[string]]): Variable length list with with all strings
+        states (List[string]): Variable length list with with all strings
             matching the state regex
 
     Examples:
@@ -127,7 +143,8 @@ class Amplitude(OptionalMultiState):
 
 class Probability(OptionalMultiTarget):
     """
-    Probability of specified targets as requested result.
+    Probability of all states if no targets are specified or the marginal probability
+        of a restricted set of states if only a subset of all qubits are specified as targets
 
     Attributes:
         type (str): The result type. default = "probability". (type) is optional.

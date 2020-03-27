@@ -48,7 +48,7 @@ def observable_valid_input():
     return {"observable": [[[[0, 0], [1, 0]], [[1, 0], [0, 0]]], "x"]}
 
 
-def optional_multi_state_valid_input():
+def multi_state_valid_input():
     return {"states": ["100", "010"]}
 
 
@@ -79,7 +79,7 @@ def create_switcher(type):
         "MultiControl": multi_control_valid_input,
         "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
         "Observable": observable_valid_input,
-        "OptionalMultiState": optional_multi_state_valid_input,
+        "MultiState": multi_state_valid_input,
         "OptionalMultiTarget": multi_target_valid_input,
         "Type": type_valid_input,
     }

@@ -12,34 +12,35 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd.shared_models import OptionalMultiState
+from braket.ir.jaqcd.shared_models import MultiState
 from pydantic import ValidationError
 
 
+@pytest.mark.xfail(raises=ValidationError)
 def test_missing_states():
-    OptionalMultiState()
+    MultiState()
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_list_partial_non_str():
-    OptionalMultiState(states=[20, "101"])
+    MultiState(states=[20, "101"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_list_partial_non_matching_regex():
-    OptionalMultiState(states=["10202", "01"])
+    MultiState(states=["10202", "01"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_empty_list():
-    OptionalMultiState(states=[])
+    MultiState(states=[])
 
 
 def test_list_matching_regex():
     states = ["1", "10101"]
-    obj = OptionalMultiState(states=states)
+    obj = MultiState(states=states)
     assert obj.states == states
 
 
 def test_list_extra_params():
-    OptionalMultiState(states=["01", "01101"], foo="bar")
+    MultiState(states=["01", "01101"], foo="bar")

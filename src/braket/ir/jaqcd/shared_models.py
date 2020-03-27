@@ -154,12 +154,13 @@ class TwoDimensionalMatrix(BaseModel):
 
 class Observable(BaseModel):
     """
-    An observable - could be a single operator or the tensor product of multiple operators.
+    An observable. If given list is more than one element, this is the tensor product
+    of each operator in the list.
 
     Attributes:
         observable (List[Union[str, List[List[List[float]]]]): A list with at least
             one item and items are strings matching the observable regex
-            or a two dimensional matrix with complex entries.
+            or a two dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -175,25 +176,25 @@ class Observable(BaseModel):
             conlist(
                 conlist(
                     conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-                    min_items=1,
+                    min_items=2,
                 ),
-                min_items=1,
+                min_items=2,
             ),
         ],
         min_items=1,
     )
 
 
-class OptionalMultiState(BaseModel):
+class MultiState(BaseModel):
     """
     A list of states in bitstring form.
 
     Attributes:
-        states (Optional[List[string]]): Variable length list with all strings matching the
-            state regex or None
+        states (List[string]): Variable length list with all strings matching the
+            state regex
 
     Examples:
-        >>> OptionalMultiState(states=["10", "10"])
+        >>> lMultiState(states=["10", "10"])
     """
 
-    states: Optional[conlist(constr(regex="^[01]+$", min_length=1), min_items=1)]
+    states: conlist(constr(regex="^[01]+$", min_length=1), min_items=1)

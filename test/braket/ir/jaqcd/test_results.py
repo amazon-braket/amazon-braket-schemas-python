@@ -10,7 +10,7 @@ from braket.ir.jaqcd.results import (
     StateVector,
     Variance,
 )
-from braket.ir.jaqcd.shared_models import Observable, OptionalMultiState, OptionalMultiTarget
+from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
 from pydantic import ValidationError
 from test_common import (
     create_class_instance,
@@ -21,11 +21,11 @@ from test_common import (
 )
 
 testdata = [
-    (Amplitude, [OptionalMultiState], "amplitude"),
+    (Amplitude, [MultiState], "amplitude"),
     (Expectation, [OptionalMultiTarget, Observable], "expectation"),
     (Sample, [OptionalMultiTarget, Observable], "sample"),
     (Probability, [OptionalMultiTarget], "probability"),
-    (StateVector, [OptionalMultiState], "statevector"),
+    (StateVector, [], "statevector"),
     (Variance, [OptionalMultiTarget, Observable], "variance"),
 ]
 
