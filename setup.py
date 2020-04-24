@@ -32,7 +32,7 @@ setup(
             "pytest-cov",
             "pytest-rerunfailures",
             "pytest-xdist",
-            "sphinx",
+            "sphinx < 3.0.0",
             "sphinx-rtd-theme",
             "tox",
         ]
