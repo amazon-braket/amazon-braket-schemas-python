@@ -97,6 +97,8 @@ class Program(BaseModel):
     """
     Root object of the JsonAwsQuantumCircuitDescription IR.
 
+
+
     Attributes:
         - instructions: List of instructions.
         - basis_rotation_instructions: List of instructions for rotation to desired measurement
@@ -108,6 +110,42 @@ class Program(BaseModel):
         >>> Program(instructions=[H(target=0), CNot(control=0, target=1)],
         ...     results=[Expectation(targets=[0], observable=['x'])],
         ...     basis_rotation_instructions=[H(target=0)])
+
+
+    Note:
+        The type `GateInstructions` includes the following instructions:
+        CCNot,
+        CNot,
+        CPhaseShift,
+        CPhaseShift00,
+        CPhaseShift01,
+        CPhaseShift10,
+        CSwap,
+        CY,
+        CZ,
+        H,
+        I,
+        ISwap,
+        PhaseShift,
+        PSwap,
+        Rx,
+        Ry,
+        Rz,
+        S,
+        Swap,
+        Si,
+        T,
+        Ti,
+        Unitary,
+        V,
+        Vi,
+        X,
+        XX,
+        XY,
+        Y,
+        YY,
+        Z,
+        ZZ
     """
 
     instructions: List[GateInstructions]
