@@ -99,12 +99,15 @@ class Program(BaseModel):
 
     Attributes:
         - instructions: List of instructions.
-        - basis_rotation_instructions: List of instructions for rotation to desired measurement bases
+        - basis_rotation_instructions: List of instructions for rotation to desired measurement
+            bases
         - results: List of requested results
 
     Examples:
         >>> Program(instructions=[H(target=0), Rz(angle=0.15, target=1)])
-        >>> Program(instructions=[H(target=0)], basis_rotation_instructions=[])
+        >>> Program(instructions=[H(target=0), CNot(control=0, target=1)],
+        ...     results=[Expectation(targets=[0], observable=['x'])],
+        ...     basis_rotation_instructions=[H(target=0)])
     """
 
     instructions: List[GateInstructions]
