@@ -42,11 +42,16 @@ print(program.json(indent=2))
       "type": "cnot"
     }
   ],
-  "results": null
+  "results": null,
+  "basis_rotation_instructions": null
 }
 """
 
-program = Program(instructions=[H(target=0), CNot(control=0, target=1)], results=[Expectation(targets=[1], observable=['x'])])
+program = Program(
+    instructions=[H(target=0), CNot(control=0, target=1)],
+    results=[Expectation(targets=[0], observable=['x'])],
+    basis_rotation_instructions=[H(target=0)]
+)
 print(program.json(indent=2))
 
 """
@@ -68,9 +73,15 @@ print(program.json(indent=2))
         "x"
       ],
       "targets": [
-        1
+        0
       ],
       "type": "expectation"
+    }
+  ],
+  "basis_rotation_instructions": [
+    {
+      "target": 0,
+      "type": "h"
     }
   ]
 }
@@ -112,9 +123,15 @@ jaqcd_string = """
         "x"
       ],
       "targets": [
-        1
+        0
       ],
       "type": "expectation"
+    }
+  ],
+  "basis_rotation_instructions": [
+    {
+      "target": 0,
+      "type": "h"
     }
   ]
 }
@@ -124,7 +141,7 @@ program = Program.parse_raw(jaqcd_string)
 print(program)
 
 """
-instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)] results=[Expectation(observable=['x'], targets=[1], type=<Type.expectation: 'expectation'>)]
+instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)] results=[Expectation(observable=['x'], targets=[0], type=<Type.expectation: 'expectation'>)] basis_rotation_instructions=[H(target=0, type=<Type.h: 'h'>)]
 """
 
 annealing_string = """

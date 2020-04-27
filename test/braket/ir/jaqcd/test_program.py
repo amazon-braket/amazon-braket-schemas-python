@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd import CNot, Expectation, Program
+from braket.ir.jaqcd import CNot, Expectation, H, Program
 from pydantic import ValidationError
 
 
@@ -48,3 +48,19 @@ def test_instruction_with_results():
         instructions=[CNot(control=0, target=1)],
         results=[Expectation(targets=[1], observable=["x"])],
     )
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_partial_non_rotation_basis_instruction():
+    Program(
+        instructions=[CNot(control=0, target=1)],
+        basis_rotation_instructions=[Expectation(targets=[1], observable=["x"]), H(target=1)],
+    )
+
+
+def test_no_rotation_basis_instruction():
+    Program(instructions=[CNot(control=0, target=1)],)
+
+
+def test_rotation_basis_instruction():
+    Program(instructions=[CNot(control=0, target=1)], basis_rotation_instructions=[H(target=1)])
