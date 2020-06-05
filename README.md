@@ -18,6 +18,19 @@ Amazon Braket Python IR is an open source library that contains all the intermed
  pip install -e "braket-python-ir[test]"
  ```
 
+You can check your currently installed version of `braket-python-ir` with `pip show`:
+
+```bash
+pip show braket-python-ir
+```
+
+or alternatively from within Python:
+
+```
+>>> from braket import ir
+>>> ir.__version__
+```
+
 ## Usage
 There are currently two types of IR, including jacqd (JsonAwsQuantumCircuitDescription) and annealing. See below for their usage.
 
