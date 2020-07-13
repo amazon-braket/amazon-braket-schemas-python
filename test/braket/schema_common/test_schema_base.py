@@ -14,39 +14,20 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.jaqcd.shared_models import MultiTarget
+from braket.schema_common.schema_base import BraketSchemaBase
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_targets():
-    MultiTarget()
+def test_missing_properties():
+    BraketSchemaBase()
+
+
+def test_schema_base_correct(braket_schema_header):
+    schema = BraketSchemaBase(braketSchemaHeader=braket_schema_header)
+    assert schema.braketSchemaHeader == braket_schema_header
+    assert BraketSchemaBase.parse_raw(schema.json()) == schema
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_non_int():
-    MultiTarget(targets=[0, "foo"])
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_list_lt_zero():
-    MultiTarget(targets=[-1, -2])
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_lt_zero():
-    MultiTarget(targets=[0, -1])
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_empty_list():
-    MultiTarget(targets=[])
-
-
-def test_list_gte_zero():
-    targets = [0, 1]
-    obj = MultiTarget(targets=targets)
-    assert obj.targets == targets
-
-
-def test_list_extra_params():
-    MultiTarget(targets=[0, 1], foo="bar")
+def test_header_name_incorrect():
+    BraketSchemaBase(braketSchemaHeader=120)

@@ -1,6 +1,15 @@
 import json
 
 import pytest
+from pydantic import ValidationError
+from test_common import (
+    create_class_instance,
+    create_switcher,
+    create_valid_class_instance,
+    create_valid_json,
+    idfn,
+)
+
 from braket.ir.jaqcd.program import Program
 from braket.ir.jaqcd.results import (
     Amplitude,
@@ -11,14 +20,6 @@ from braket.ir.jaqcd.results import (
     Variance,
 )
 from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
-from pydantic import ValidationError
-from test_common import (
-    create_class_instance,
-    create_switcher,
-    create_valid_class_instance,
-    create_valid_json,
-    idfn,
-)
 
 testdata = [
     (Amplitude, [MultiState], "amplitude"),

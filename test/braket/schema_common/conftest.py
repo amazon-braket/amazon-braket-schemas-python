@@ -11,4 +11,21 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from ._version import __version__  # noqa: F401
+import pytest
+
+from braket.schema_common.schema_header import BraketSchemaHeader
+
+
+@pytest.fixture
+def name():
+    return "braket.test.schema"
+
+
+@pytest.fixture
+def version():
+    return "1.0"
+
+
+@pytest.fixture
+def braket_schema_header(name, version):
+    return BraketSchemaHeader(name=name, version=version)

@@ -9,6 +9,10 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License
 
-from ._version import __version__  # noqa: F401
+from braket.task_result.additional_metadata import AdditionalMetadata  # noqa: F401
+from braket.task_result.annealing_task_result import AnnealingTaskResult  # noqa: F401
+from braket.task_result.dwave_metadata import DWaveMetadata, DWaveTiming  # noqa: F401
+from braket.task_result.gate_model_task_result import GateModelTaskResult, ResultType  # noqa: F401
+from braket.task_result.task_metadata import TaskMetadata  # noqa: F401

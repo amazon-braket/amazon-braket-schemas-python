@@ -13,6 +13,8 @@
 
 from typing import List, Optional, Union
 
+from pydantic import BaseModel
+
 from braket.ir.jaqcd.instructions import (
     CY,
     CZ,
@@ -55,7 +57,6 @@ from braket.ir.jaqcd.results import (
     StateVector,
     Variance,
 )
-from pydantic import BaseModel
 
 GateInstructions = Union[
     CCNot,
