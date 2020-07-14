@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from pydantic import conint, constr
 
@@ -27,7 +27,8 @@ class TaskMetadata(BraketSchemaBase):
         shots (str): the number of shots for the task
         deviceId (str): the ID of the device on which the task ran.
             For AWS devices, this is the device ARN.
-        deviceParameters (str): the device parameters of the task. Default is None.
+        deviceParameters (Dict[str, Any]): the device parameters of the task. Default is None.
+            # TODO: replace with device schema
         createdAt (str): the timestamp of creation;
             the format must be in ISO-8601/RFC3339 string format YYYY-MM-DDTHH:mm:ss.sssZ.
             Default is None.
@@ -45,7 +46,7 @@ class TaskMetadata(BraketSchemaBase):
     id: constr(min_length=1)
     shots: conint(ge=0)
     deviceId: constr(min_length=1)
-    deviceParameters: Optional[constr(min_length=1)]
+    deviceParameters: Optional[Dict[str, Any]] # TODO: replace with device schema
     createdAt: Optional[constr(min_length=1, max_length=24)]
     endedAt: Optional[constr(min_length=1, max_length=24)]
     status: Optional[constr(min_length=1, max_length=20)]

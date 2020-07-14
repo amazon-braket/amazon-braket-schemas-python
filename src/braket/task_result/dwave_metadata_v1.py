@@ -14,6 +14,7 @@
 from typing import Optional
 
 from pydantic import BaseModel, conint, conlist
+from braket.schema_common.schema_base import BraketSchemaBase
 
 
 class DWaveTiming(BaseModel):
@@ -41,7 +42,7 @@ class DWaveTiming(BaseModel):
     readoutTimePerRun: Optional[conint(ge=0)]
 
 
-class DWaveMetadata(BaseModel):
+class DWaveMetadata(BraketSchemaBase):
     """
     The D-Wave metadata result schema.
 

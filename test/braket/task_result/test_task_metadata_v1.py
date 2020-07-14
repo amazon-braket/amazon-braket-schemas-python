@@ -14,7 +14,7 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.task_result.task_metadata import TaskMetadata
+from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -33,7 +33,7 @@ def test_correct_metadata_minimum(braket_schema_header, id, device_id, shots):
 
 
 def test_correct_metadata_all(braket_schema_header, id, device_id, shots):
-    device_parameters = "{}"
+    device_parameters = {"test": 1} # TODO: replace with device schema
     createdAt = "2020-01-02T03:04:05.006Z"
     endedAt = "2020-01-03T03:04:05.006Z"
     status = "COMPLETED"

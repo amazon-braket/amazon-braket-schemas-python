@@ -17,7 +17,7 @@ from pydantic import BaseModel
 
 from braket.ir.annealing import Problem
 from braket.ir.jaqcd import Program
-from braket.task_result.dwave_metadata import DWaveMetadata
+from braket.task_result.dwave_metadata_v1 import DWaveMetadata
 
 
 class AdditionalMetadata(BaseModel):

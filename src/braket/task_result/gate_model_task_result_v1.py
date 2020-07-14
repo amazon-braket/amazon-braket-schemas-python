@@ -18,7 +18,7 @@ from pydantic import BaseModel, confloat, conint, conlist, constr
 from braket.ir.jaqcd.results import Expectation, Probability, Sample, StateVector, Variance
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.task_result.additional_metadata import AdditionalMetadata
-from braket.task_result.task_metadata import TaskMetadata
+from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
 class ResultType(BaseModel):

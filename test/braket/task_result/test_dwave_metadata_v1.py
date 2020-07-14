@@ -14,16 +14,16 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.task_result.dwave_metadata import DWaveMetadata, DWaveTiming
+from braket.task_result.dwave_metadata_v1 import DWaveMetadata, DWaveTiming
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_properties():
-    DWaveMetadata()
+def test_missing_properties(braket_schema_header):
+    DWaveMetadata(braketSchemaHeader=braket_schema_header)
 
 
-def test_dwave_metadata_correct(active_variables, dwave_timing):
-    metadata = DWaveMetadata(activeVariables=active_variables, timing=dwave_timing)
+def test_dwave_metadata_correct(active_variables, dwave_timing, braket_schema_header):
+    metadata = DWaveMetadata(braketSchemaHeader=braket_schema_header, activeVariables=active_variables, timing=dwave_timing)
     assert metadata.activeVariables == active_variables
     assert metadata.timing == dwave_timing
     assert DWaveMetadata.parse_raw(metadata.json()) == metadata
@@ -31,8 +31,8 @@ def test_dwave_metadata_correct(active_variables, dwave_timing):
 
 @pytest.mark.parametrize("active_variables", [(23), ([-1])])
 @pytest.mark.xfail(raises=ValidationError)
-def test_active_variables_incorrect(active_variables, dwave_timing):
-    DWaveMetadata(activeVariables=active_variables, timing=dwave_timing)
+def test_active_variables_incorrect(braket_schema_header, active_variables, dwave_timing):
+    DWaveMetadata(braketSchemaHeader=braket_schema_header, activeVariables=active_variables, timing=dwave_timing)
 
 
 @pytest.mark.xfail(raises=ValidationError)

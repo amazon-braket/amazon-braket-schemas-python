@@ -15,7 +15,7 @@ import pytest
 from pydantic import ValidationError
 
 from braket.ir.annealing import ProblemType
-from braket.task_result.annealing_task_result import AnnealingTaskResult
+from braket.task_result.annealing_task_result_v1 import AnnealingTaskResult
 
 
 @pytest.fixture

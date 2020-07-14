@@ -15,7 +15,7 @@ import pytest
 from pydantic import ValidationError
 
 from braket.ir.jaqcd.results import Probability
-from braket.task_result.gate_model_task_result import GateModelTaskResult, ResultType
+from braket.task_result.gate_model_task_result_v1 import GateModelTaskResult, ResultType
 
 
 @pytest.fixture

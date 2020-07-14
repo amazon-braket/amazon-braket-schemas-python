@@ -14,7 +14,7 @@
 from pydantic import BaseModel
 
 from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
-
+from importlib import import_module
 
 class BraketSchemaBase(BaseModel):
     """
@@ -25,3 +25,28 @@ class BraketSchemaBase(BaseModel):
     """
 
     braketSchemaHeader: BraketSchemaHeader
+
+
+def import_schema_module(schema: BraketSchemaBase):
+    """
+    Imports the module that holds the schema given the schema
+
+    Args:
+        schema (BraketSchemaBase): the schema
+
+    Returns:
+        module of the schema
+
+    Raises:
+        ModuleNotFoundError: If the schema module cannot be found according to
+        schema header
+
+    Examples:
+        >> schema = BraketSchemaBase.parse_raw(json_string)
+        >> module = import_schema_module(schema)
+        >> module.AnnealingTaskResult.parse_raw(json_string)
+    """
+    name = schema.braketSchemaHeader.name
+    version = schema.braketSchemaHeader.version
+    module_name = name + "_v"+version.split('.')[0]
+    return import_module(module_name)

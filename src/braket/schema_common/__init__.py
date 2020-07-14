@@ -11,5 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from braket.schema_common.schema_base import BraketSchemaBase  # noqa: F401
+from braket.schema_common.schema_base import BraketSchemaBase, import_schema_module  # noqa: F401
 from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
+

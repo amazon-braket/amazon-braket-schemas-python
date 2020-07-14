@@ -17,8 +17,14 @@ from braket.ir.annealing import Problem, ProblemType
 from braket.ir.jaqcd import CNot, Program
 from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
-from braket.task_result.dwave_metadata import DWaveMetadata, DWaveTiming
-from braket.task_result.task_metadata import TaskMetadata
+from braket.task_result.dwave_metadata_v1 import DWaveMetadata, DWaveTiming
+from braket.task_result.task_metadata_v1 import TaskMetadata
+
+
+
+@pytest.fixture
+def braket_schema_header():
+    return BraketSchemaHeader(name="test_schema", version="1.0")
 
 
 @pytest.fixture
@@ -46,8 +52,8 @@ def dwave_timing():
 
 
 @pytest.fixture
-def dwave_metadata(active_variables, dwave_timing):
-    return DWaveMetadata(activeVariables=active_variables, timing=dwave_timing)
+def dwave_metadata(active_variables, dwave_timing, braket_schema_header):
+    return DWaveMetadata(braketSchemaHeader=braket_schema_header, activeVariables=active_variables, timing=dwave_timing)
 
 
 @pytest.fixture
@@ -72,11 +78,6 @@ def program():
 @pytest.fixture
 def additional_metadata_gate_model(program):
     return AdditionalMetadata(action=program)
-
-
-@pytest.fixture
-def braket_schema_header():
-    return BraketSchemaHeader(name="test_schema", version="1.0")
 
 
 @pytest.fixture
