@@ -14,5 +14,8 @@
 from braket.task_result.additional_metadata import AdditionalMetadata  # noqa: F401
 from braket.task_result.annealing_task_result_v1 import AnnealingTaskResult  # noqa: F401
 from braket.task_result.dwave_metadata_v1 import DWaveMetadata, DWaveTiming  # noqa: F401
-from braket.task_result.gate_model_task_result_v1 import GateModelTaskResult, ResultType  # noqa: F401
+from braket.task_result.gate_model_task_result_v1 import (  # noqa: F401
+    GateModelTaskResult,
+    ResultType,
+)
 from braket.task_result.task_metadata_v1 import TaskMetadata  # noqa: F401

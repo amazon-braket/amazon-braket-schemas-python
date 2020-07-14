@@ -46,7 +46,7 @@ class TaskMetadata(BraketSchemaBase):
     id: constr(min_length=1)
     shots: conint(ge=0)
     deviceId: constr(min_length=1)
-    deviceParameters: Optional[Dict[str, Any]] # TODO: replace with device schema
+    deviceParameters: Optional[Dict[str, Any]]  # TODO: replace with device schema
     createdAt: Optional[constr(min_length=1, max_length=24)]
     endedAt: Optional[constr(min_length=1, max_length=24)]
     status: Optional[constr(min_length=1, max_length=20)]

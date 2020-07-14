@@ -11,10 +11,12 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
+from importlib import import_module
+
 from pydantic import BaseModel
 
 from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
-from importlib import import_module
+
 
 class BraketSchemaBase(BaseModel):
     """
@@ -48,5 +50,5 @@ def import_schema_module(schema: BraketSchemaBase):
     """
     name = schema.braketSchemaHeader.name
     version = schema.braketSchemaHeader.version
-    module_name = name + "_v"+version.split('.')[0]
+    module_name = name + "_v" + version.split(".")[0]
     return import_module(module_name)

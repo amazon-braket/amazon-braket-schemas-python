@@ -13,4 +13,3 @@
 
 from braket.schema_common.schema_base import BraketSchemaBase, import_schema_module  # noqa: F401
 from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
-

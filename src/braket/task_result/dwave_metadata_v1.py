@@ -14,6 +14,7 @@
 from typing import Optional
 
 from pydantic import BaseModel, conint, conlist
+
 from braket.schema_common.schema_base import BraketSchemaBase
 
 
