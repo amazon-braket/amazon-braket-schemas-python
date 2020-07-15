@@ -14,6 +14,15 @@
 import json
 
 import pytest
+from pydantic import ValidationError
+from test_common import (
+    create_class_instance,
+    create_switcher,
+    create_valid_class_instance,
+    create_valid_json,
+    idfn,
+)
+
 from braket.ir.jaqcd import (
     CY,
     CZ,
@@ -57,14 +66,6 @@ from braket.ir.jaqcd.shared_models import (
     SingleControl,
     SingleTarget,
     TwoDimensionalMatrix,
-)
-from pydantic import ValidationError
-from test_common import (
-    create_class_instance,
-    create_switcher,
-    create_valid_class_instance,
-    create_valid_json,
-    idfn,
 )
 
 testdata = [

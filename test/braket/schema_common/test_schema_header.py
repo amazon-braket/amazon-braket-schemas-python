@@ -14,39 +14,36 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.jaqcd.shared_models import MultiTarget
+from braket.schema_common.schema_header import BraketSchemaHeader
+
+
+@pytest.fixture
+def name():
+    return "braket.test.schema"
+
+
+@pytest.fixture
+def version():
+    return "1.0"
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_targets():
-    MultiTarget()
+def test_missing_properties():
+    BraketSchemaHeader()
+
+
+def test_schema_header_correct(name, version):
+    header = BraketSchemaHeader(name=name, version=version)
+    assert header.name == name
+    assert header.version == version
+    assert BraketSchemaHeader.parse_raw(header.json()) == header
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_non_int():
-    MultiTarget(targets=[0, "foo"])
+def test_header_name_incorrect(version):
+    BraketSchemaHeader(name="", version=version)
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_list_lt_zero():
-    MultiTarget(targets=[-1, -2])
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_list_partial_lt_zero():
-    MultiTarget(targets=[0, -1])
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_empty_list():
-    MultiTarget(targets=[])
-
-
-def test_list_gte_zero():
-    targets = [0, 1]
-    obj = MultiTarget(targets=targets)
-    assert obj.targets == targets
-
-
-def test_list_extra_params():
-    MultiTarget(targets=[0, 1], foo="bar")
+def test_header_version_incorrect(name):
+    BraketSchemaHeader(name=name, version="")

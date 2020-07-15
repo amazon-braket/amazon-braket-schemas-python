@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd.shared_models import TwoDimensionalMatrix
 from pydantic import ValidationError
+
+from braket.ir.jaqcd.shared_models import TwoDimensionalMatrix
 
 
 @pytest.mark.xfail(raises=ValidationError)

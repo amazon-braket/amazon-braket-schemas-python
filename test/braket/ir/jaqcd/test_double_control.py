@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd.shared_models import DoubleControl
 from pydantic import ValidationError
+
+from braket.ir.jaqcd.shared_models import DoubleControl
 
 
 @pytest.mark.xfail(raises=ValidationError)

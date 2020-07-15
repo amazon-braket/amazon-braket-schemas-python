@@ -13,8 +13,9 @@
 
 from enum import Enum
 
-from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
 from pydantic import BaseModel
+
+from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
 
 
 class Expectation(OptionalMultiTarget, Observable):

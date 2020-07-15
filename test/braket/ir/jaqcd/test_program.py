@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd import CNot, Expectation, H, Program
 from pydantic import ValidationError
+
+from braket.ir.jaqcd import CNot, Expectation, H, Program
 
 
 @pytest.mark.xfail(raises=ValidationError)

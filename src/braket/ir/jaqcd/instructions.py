@@ -23,7 +23,6 @@ from braket.ir.jaqcd.shared_models import (
     TwoDimensionalMatrix,
 )
 
-
 """
 Instructions that can be supplied to the braket.ir.jaqcd.Program.
 
