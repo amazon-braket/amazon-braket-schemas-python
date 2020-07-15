@@ -45,7 +45,7 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     Y,
     Z,
 )
-from braket.ir.jaqcd.program import Program  # noqa: F401
+from braket.ir.jaqcd.program_v1 import Program  # noqa: F401
 from braket.ir.jaqcd.results import (  # noqa: F401
     Amplitude,
     Expectation,

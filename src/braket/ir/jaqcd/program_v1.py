@@ -13,7 +13,7 @@
 
 from typing import List, Optional, Union
 
-from pydantic import BaseModel
+from pydantic import Field
 
 from braket.ir.jaqcd.instructions import (
     CY,
@@ -57,6 +57,7 @@ from braket.ir.jaqcd.results import (
     StateVector,
     Variance,
 )
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 GateInstructions = Union[
     CCNot,
@@ -94,17 +95,20 @@ GateInstructions = Union[
 ]
 
 
-class Program(BaseModel):
+class Program(BraketSchemaBase):
     """
     Root object of the JsonAwsQuantumCircuitDescription IR.
 
 
 
     Attributes:
-        - instructions: List of instructions.
-        - basis_rotation_instructions: List of instructions for rotation to desired measurement
-            bases
-        - results: List of requested results
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
+            to set this value. Only default is allowed.
+        instructions (List[GateInstructions]): List of instructions.
+        basis_rotation_instructions (List[GateInstructions]): List of instructions for
+            rotation to desired measurement bases. Default is None.
+        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]):
+            List of requested results. Default is None.
 
     Examples:
         >>> Program(instructions=[H(target=0), Rz(angle=0.15, target=1)])
@@ -149,6 +153,8 @@ class Program(BaseModel):
         ZZ
     """
 
+    _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     instructions: List[GateInstructions]
     results: Optional[
         List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]

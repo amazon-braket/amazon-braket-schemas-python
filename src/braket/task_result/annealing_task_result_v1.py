@@ -38,11 +38,11 @@ class AnnealingTaskResult(BraketSchemaBase):
 
     """
 
-    ANNEALING_TASK_RESULT_HEADER = BraketSchemaHeader(
+    _ANNEALING_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.annealing_task_result", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=ANNEALING_TASK_RESULT_HEADER, const=ANNEALING_TASK_RESULT_HEADER
+        default=_ANNEALING_TASK_RESULT_HEADER, const=_ANNEALING_TASK_RESULT_HEADER
     )
     solutions: List[conlist(conint(ge=-1, le=3), min_items=1)]
     solutionCounts: Optional[List[conint(ge=0)]]

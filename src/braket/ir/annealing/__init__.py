@@ -11,4 +11,4 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from braket.ir.annealing.problem import Problem, ProblemType  # noqa: F401
+from braket.ir.annealing.problem_v1 import Problem, ProblemType  # noqa: F401

@@ -58,11 +58,11 @@ class DwaveMetadata(BraketSchemaBase):
         >>> DwaveMetadata(activeVariables=[0, 3, 4], timing=timing)
     """
 
-    DWAVE_METADATA_HEADER = BraketSchemaHeader(
+    _DWAVE_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.dwave_metadata", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=DWAVE_METADATA_HEADER, const=DWAVE_METADATA_HEADER
+        default=_DWAVE_METADATA_HEADER, const=_DWAVE_METADATA_HEADER
     )
     activeVariables: conlist(conint(ge=0))
     timing: DwaveTiming
