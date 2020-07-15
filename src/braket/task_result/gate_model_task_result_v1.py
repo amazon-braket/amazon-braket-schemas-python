@@ -55,12 +55,12 @@ class GateModelTaskResult(BraketSchemaBase):
         additionalMetadata (AdditionalMetadata): Additional metadata of the task
     """
 
-    GATE_MODEL_TASK_RESULT_HEADER = BraketSchemaHeader(
+    _GATE_MODEL_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.gate_model_task_result", version="1"
     )
 
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=GATE_MODEL_TASK_RESULT_HEADER, const=GATE_MODEL_TASK_RESULT_HEADER
+        default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
     )
     measurements: Optional[conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1)]
     measurementProbabilities: Optional[

@@ -14,7 +14,7 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.annealing import Problem, ProblemType
+from braket.ir.annealing.problem_v1 import Problem, ProblemType
 
 
 def test_creation():
@@ -27,6 +27,7 @@ def test_creation():
     assert problem.linear == {0: 0.3333, 1: -0.333, 4: -0.333, 5: 0.333}
     assert problem.quadratic == {"0,4": 0.667, "0,5": -1, "1,4": 0.667, "1,5": 0.667}
     assert Problem.parse_raw(problem.json()) == problem
+    assert problem == Problem.parse_raw_schema(problem.json())
 
 
 @pytest.mark.xfail(raises=ValidationError)

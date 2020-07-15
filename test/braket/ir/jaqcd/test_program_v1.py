@@ -14,7 +14,8 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.jaqcd import CNot, Expectation, H, Program
+from braket.ir.jaqcd import CNot, Expectation, H
+from braket.ir.jaqcd.program_v1 import Program
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -41,7 +42,8 @@ def test_partial_non_result():
 
 
 def test_instruction_no_results():
-    Program(instructions=[CNot(control=0, target=1)])
+    program = Program(instructions=[CNot(control=0, target=1)])
+    assert Program.parse_raw(program.json()) == program
 
 
 def test_instruction_with_results():

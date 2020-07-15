@@ -14,7 +14,9 @@
 from enum import Enum
 from typing import Dict
 
-from pydantic import BaseModel, conint
+from pydantic import Field, conint
+
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class ProblemType(str, Enum):
@@ -28,19 +30,23 @@ class ProblemType(str, Enum):
     ISING = "ISING"
 
 
-class Problem(BaseModel):
+class Problem(BraketSchemaBase):
     """ Specifies a quantum annealing problem.
 
     Attributes:
-        - type: The type of problem; can be either "QUBO" or "ISING"
-        - linear: Linear terms of the model.
-        - quadratic: Quadratic terms of the model, keyed on comma-separated
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
+            to set this value. Only default is allowed.
+        type (ProblemType): The type of problem; can be either "QUBO" or "ISING"
+        linear (Dict[int, float]): Linear terms of the model.
+        quadratic (Dict[str, float]): Quadratic terms of the model, keyed on comma-separated
             variables as strings
 
     Examples:
         >>> Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={"0,5": 0.667})
     """
 
+    _PROBLEM_HEADER = BraketSchemaHeader(name="braket.ir.annealing.problem", version="1")
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER, const=_PROBLEM_HEADER)
     type: ProblemType
     linear: Dict[conint(ge=0), float]
     quadratic: Dict[str, float]

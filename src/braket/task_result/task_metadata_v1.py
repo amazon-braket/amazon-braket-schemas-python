@@ -45,10 +45,10 @@ class TaskMetadata(BraketSchemaBase):
 
     """
 
-    TASK_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.task_metadata", version="1")
+    _TASK_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.task_metadata", version="1")
 
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=TASK_METADATA_HEADER, const=TASK_METADATA_HEADER
+        default=_TASK_METADATA_HEADER, const=_TASK_METADATA_HEADER
     )
     id: constr(min_length=1)
     shots: conint(ge=0)

@@ -44,6 +44,10 @@ print(program.json(indent=2))
 
 """
 {
+  "braketSchemaHeader": {
+    "name": "braket.ir.jaqcd.program",
+    "version": "1"
+  },
   "instructions": [
     {
       "target": 0,
@@ -56,7 +60,7 @@ print(program.json(indent=2))
     }
   ],
   "results": null,
-  "basis_rotation_instructions": null
+  "basis_rotation_instructions": null,
 }
 """
 
@@ -69,6 +73,10 @@ print(program.json(indent=2))
 
 """
 {
+  "braketSchemaHeader": {
+    "name": "braket.ir.jaqcd.program",
+    "version": "1"
+  },
   "instructions": [
     {
       "target": 0,
@@ -105,6 +113,10 @@ print(problem.json(indent=2))
 
 """
 {
+  "braketSchemaHeader": {
+    "name": "braket.ir.annealing.problem",
+    "version": "1"
+  },
   "type": "QUBO",
   "linear": {0: 0.3, 4: -0.3},
   "quadratic": {"0,5": 0.667}
@@ -154,7 +166,7 @@ program = Program.parse_raw(jaqcd_string)
 print(program)
 
 """
-instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)] results=[Expectation(observable=['x'], targets=[0], type=<Type.expectation: 'expectation'>)] basis_rotation_instructions=[H(target=0, type=<Type.h: 'h'>)]
+braketSchemaHeader=BraketSchemaHeader(name='braket.ir.jaqcd.program', version='1') instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)] results=[Expectation(observable=['x'], targets=[0], type=<Type.expectation: 'expectation'>)] basis_rotation_instructions=[H(target=0, type=<Type.h: 'h'>)]
 """
 
 annealing_string = """
@@ -169,7 +181,7 @@ problem = Problem.parse_raw(annealing_string)
 print(problem)
 
 """
-type=<ProblemType.QUBO: 'QUBO'>, linear={0: 0.3, 4: -0.3}, quadratic={'0,5': 0.667}
+braketSchemaHeader=BraketSchemaHeader(name='braket.ir.annealing.problem', version='1') type=<ProblemType.QUBO: 'QUBO'>, linear={0: 0.3, 4: -0.3}, quadratic={'0,5': 0.667}
 """
 
 ```

@@ -10,7 +10,7 @@ from test_common import (
     idfn,
 )
 
-from braket.ir.jaqcd.program import Program
+from braket.ir.jaqcd import Program
 from braket.ir.jaqcd.results import (
     Amplitude,
     Expectation,
