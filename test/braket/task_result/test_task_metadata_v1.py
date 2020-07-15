@@ -18,29 +18,31 @@ from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_properties(braket_schema_header):
-    TaskMetadata(braketSchemaHeader=braket_schema_header)
+def test_missing_properties():
+    TaskMetadata()
 
 
-def test_correct_metadata_minimum(braket_schema_header, id, device_id, shots):
-    metadata = TaskMetadata(
-        braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots
-    )
+@pytest.mark.xfail(raises=ValidationError)
+def test_incorrect_header(braket_schema_header, id, device_id, shots):
+    TaskMetadata(braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots)
+
+
+def test_correct_metadata_minimum(id, device_id, shots):
+    metadata = TaskMetadata(id=id, deviceId=device_id, shots=shots)
     assert metadata.id == id
     assert metadata.deviceId == device_id
     assert metadata.shots == shots
     assert TaskMetadata.parse_raw(metadata.json()) == metadata
 
 
-def test_correct_metadata_all(braket_schema_header, id, device_id, shots):
-    device_parameters = {"test": 1} # TODO: replace with device schema
+def test_correct_metadata_all(id, device_id, shots):
+    device_parameters = {"test": 1}  # TODO: replace with device schema
     createdAt = "2020-01-02T03:04:05.006Z"
     endedAt = "2020-01-03T03:04:05.006Z"
     status = "COMPLETED"
     failureReason = "Foo"
 
     metadata = TaskMetadata(
-        braketSchemaHeader=braket_schema_header,
         id=id,
         deviceId=device_id,
         shots=shots,
@@ -59,9 +61,10 @@ def test_correct_metadata_all(braket_schema_header, id, device_id, shots):
     assert metadata.status == status
     assert metadata.failureReason == failureReason
     assert TaskMetadata.parse_raw(metadata.json()) == metadata
+    assert metadata == TaskMetadata.parse_raw_schema(metadata.json())
 
 
 @pytest.mark.parametrize("shots", [([1, 2]), (-1)])
 @pytest.mark.xfail(raises=ValidationError)
-def test_incorrect_shots(braket_schema_header, id, device_id, shots):
-    TaskMetadata(braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots)
+def test_incorrect_shots(id, device_id, shots):
+    TaskMetadata(id=id, deviceId=device_id, shots=shots)

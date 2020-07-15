@@ -13,19 +13,19 @@
 
 from typing import Optional
 
-from pydantic import BaseModel, conint, conlist
+from pydantic import BaseModel, Field, conint, conlist
 
-from braket.schema_common.schema_base import BraketSchemaBase
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class DWaveTiming(BaseModel):
+class DwaveTiming(BaseModel):
     """
     The D-Wave timing metadata result schema.
 
     The times represented are in milliseconds.
 
     Examples:
-        >>> DWaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
+        >>> DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
     """
 
     qpuSamplingTime: Optional[conint(ge=0)]
@@ -43,18 +43,26 @@ class DWaveTiming(BaseModel):
     readoutTimePerRun: Optional[conint(ge=0)]
 
 
-class DWaveMetadata(BraketSchemaBase):
+class DwaveMetadata(BraketSchemaBase):
     """
     The D-Wave metadata result schema.
 
     Attributes:
-        - activeVariables (List[int]): the active variables of the task on D-Wave
-        - timing (DWaveTiming): additional timing metadata of the task on D-Wave
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
+            to set this value. Only default is allowed.
+        activeVariables (List[int]): The active variables of the task on D-Wave
+        timing (DwaveTiming): Additional timing metadata of the task on D-Wave
 
     Examples:
-        >>> timing = DWaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
-        >>> DWaveMetadata(activeVariables=[0, 3, 4], timing=timing)
+        >>> timing = DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
+        >>> DwaveMetadata(activeVariables=[0, 3, 4], timing=timing)
     """
 
+    DWAVE_METADATA_HEADER = BraketSchemaHeader(
+        name="braket.task_result.dwave_metadata", version="1"
+    )
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=DWAVE_METADATA_HEADER, const=DWAVE_METADATA_HEADER
+    )
     activeVariables: conlist(conint(ge=0))
-    timing: DWaveTiming
+    timing: DwaveTiming

@@ -13,10 +13,10 @@
 
 from typing import Dict, List, Optional, Union
 
-from pydantic import BaseModel, confloat, conint, conlist, constr
+from pydantic import BaseModel, Field, confloat, conint, conlist, constr
 
 from braket.ir.jaqcd.results import Expectation, Probability, Sample, StateVector, Variance
-from braket.schema_common.schema_base import BraketSchemaBase
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
@@ -26,8 +26,8 @@ class ResultType(BaseModel):
     Result type of gate model task result.
 
     Attributes:
-         type (Union[Expectation, Sample, StateVector, Variance, Probability]): the requested result
-         value (Union[List, float, Dict]): the value of the requested result
+         type (Union[Expectation, Sample, StateVector, Variance, Probability]): The requested result
+         value (Union[List, float, Dict]): The value of the requested result
     """
 
     type: Union[Expectation, Sample, StateVector, Variance, Probability]
@@ -39,20 +39,29 @@ class GateModelTaskResult(BraketSchemaBase):
     The gate model task result schema
 
     Attributes:
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
+            to set this value. Only default is allowed.
         measurements (List[List[int]]: List of lists, where each list represents a shot
             and each index of the list represents a qubit. Default is None.
-        - measurementProbabilities (Dict[str, float]): A dictionary of probabilistic results.
+        measurementProbabilities (Dict[str, float]): A dictionary of probabilistic results.
             Key is the measurements in a big endian binary string.
             Value is the probability the measurement occurred.
             Default is None.
-        - measuredQubits (List[int]): The indices of the measured qubits.
+        measuredQubits (List[int]): The indices of the measured qubits.
             Indicates which qubits are in `measurements`. Default is None.
-        - resultTypes (List[ResultType]): Requested result types and values of these results.
+        resultTypes (List[ResultType]): Requested result types and values of these results.
 
-        taskMetadata (TaskMetadata): the task metadata
-        additionalMetadata (AdditionalMetadata): additional metadata of the task
+        taskMetadata (TaskMetadata): The task metadata
+        additionalMetadata (AdditionalMetadata): Additional metadata of the task
     """
 
+    GATE_MODEL_TASK_RESULT_HEADER = BraketSchemaHeader(
+        name="braket.task_result.gate_model_task_result", version="1"
+    )
+
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=GATE_MODEL_TASK_RESULT_HEADER, const=GATE_MODEL_TASK_RESULT_HEADER
+    )
     measurements: Optional[conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1)]
     measurementProbabilities: Optional[
         Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]

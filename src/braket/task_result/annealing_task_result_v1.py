@@ -13,10 +13,10 @@
 
 from typing import List, Optional
 
-from pydantic import conint, conlist
+from pydantic import Field, conint, conlist
 
 from braket.ir.annealing import ProblemType
-from braket.schema_common.schema_base import BraketSchemaBase
+from braket.schema_common.schema_base import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
@@ -26,16 +26,24 @@ class AnnealingTaskResult(BraketSchemaBase):
     The annealing task result schema.
 
     Attributes:
-        solutions (List[int]): solutions of task result
-        solutionCounts (List[int]): the number of times the solutions occurred.
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
+            to set this value. Only default is allowed.
+        solutions (List[int]): Solutions of task result
+        solutionCounts (List[int]): The number of times the solutions occurred.
             Default is None
-        values (List[float]): output or energy of the solutions
-        variableCount (int): the number of variables
-        taskMetadata (TaskMetadata): the task metadata
-        additionalMetadata (AdditionalMetadata): additional metadata of the task
+        values (List[float]): Output or energy of the solutions
+        variableCount (int): The number of variables
+        taskMetadata (TaskMetadata): The task metadata
+        additionalMetadata (AdditionalMetadata): Additional metadata of the task
 
     """
 
+    ANNEALING_TASK_RESULT_HEADER = BraketSchemaHeader(
+        name="braket.task_result.annealing_task_result", version="1"
+    )
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=ANNEALING_TASK_RESULT_HEADER, const=ANNEALING_TASK_RESULT_HEADER
+    )
     solutions: List[conlist(conint(ge=-1, le=3), min_items=1)]
     solutionCounts: Optional[List[conint(ge=0)]]
     values: List[float]

@@ -17,7 +17,7 @@ from pydantic import BaseModel
 
 from braket.ir.annealing import Problem
 from braket.ir.jaqcd import Program
-from braket.task_result.dwave_metadata_v1 import DWaveMetadata
+from braket.task_result.dwave_metadata_v1 import DwaveMetadata
 
 
 class AdditionalMetadata(BaseModel):
@@ -25,8 +25,8 @@ class AdditionalMetadata(BaseModel):
     The additional metadata result schema.
 
     Attributes:
-        action (Union[Program, Problem]): the action of the task
-        dWaveMetadata (DWaveMetadata): additional metadata for tasks that ran on D-Wave.
+        action (Union[Program, Problem]): The action of the task
+        dWaveMetadata (DWaveMetadata): Additional metadata for tasks that ran on D-Wave.
             Default is None.
 
     Examples:
@@ -35,4 +35,4 @@ class AdditionalMetadata(BaseModel):
     """
 
     action: Union[Program, Problem]
-    dwaveMetadata: Optional[DWaveMetadata]
+    dwaveMetadata: Optional[DwaveMetadata]

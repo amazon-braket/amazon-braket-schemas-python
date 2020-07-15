@@ -13,9 +13,9 @@
 
 from typing import Any, Dict, Optional
 
-from pydantic import conint, constr
+from pydantic import Field, conint, constr
 
-from braket.schema_common.schema_base import BraketSchemaBase
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class TaskMetadata(BraketSchemaBase):
@@ -23,26 +23,33 @@ class TaskMetadata(BraketSchemaBase):
     The task metadata schema.
 
     Attributes:
-        id (str): the ID of the task. For AWS tasks, this is the task ARN.
-        shots (str): the number of shots for the task
-        deviceId (str): the ID of the device on which the task ran.
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
+            to set this value. Only default is allowed.
+        id (str): The ID of the task. For AWS tasks, this is the task ARN.
+        shots (str): The number of shots for the task
+        deviceId (str): The ID of the device on which the task ran.
             For AWS devices, this is the device ARN.
-        deviceParameters (Dict[str, Any]): the device parameters of the task. Default is None.
+        deviceParameters (Dict[str, Any]): The device parameters of the task. Default is None.
             # TODO: replace with device schema
-        createdAt (str): the timestamp of creation;
+        createdAt (str): The timestamp of creation;
             the format must be in ISO-8601/RFC3339 string format YYYY-MM-DDTHH:mm:ss.sssZ.
             Default is None.
-        endedAt (str): the timestamp of when the task ended;
+        endedAt (str): The timestamp of when the task ended;
             the format must be in ISO-8601/RFC3339 string format YYYY-MM-DDTHH:mm:ss.sssZ.
             Default is None.
-        status (str): the status of the task. Default is None.
-        failureReason (str): the failure reason of the task. Default is None.
+        status (str): The status of the task. Default is None.
+        failureReason (str): The failure reason of the task. Default is None.
 
     Examples:
         >>> TaskMetadata(id="task_id", shots=100, deviceId="device_id")
 
     """
 
+    TASK_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.task_metadata", version="1")
+
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=TASK_METADATA_HEADER, const=TASK_METADATA_HEADER
+    )
     id: constr(min_length=1)
     shots: conint(ge=0)
     deviceId: constr(min_length=1)

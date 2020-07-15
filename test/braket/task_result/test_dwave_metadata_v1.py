@@ -14,30 +14,42 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.task_result.dwave_metadata_v1 import DWaveMetadata, DWaveTiming
+from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_properties(braket_schema_header):
-    DWaveMetadata(braketSchemaHeader=braket_schema_header)
+def test_missing_properties():
+    DwaveMetadata()
 
 
-def test_dwave_metadata_correct(active_variables, dwave_timing, braket_schema_header):
-    metadata = DWaveMetadata(braketSchemaHeader=braket_schema_header, activeVariables=active_variables, timing=dwave_timing)
+def test_dwave_metadata_correct(active_variables, dwave_timing):
+    metadata = DwaveMetadata(activeVariables=active_variables, timing=dwave_timing,)
     assert metadata.activeVariables == active_variables
     assert metadata.timing == dwave_timing
-    assert DWaveMetadata.parse_raw(metadata.json()) == metadata
+    assert DwaveMetadata.parse_raw(metadata.json()) == metadata
+    assert metadata == DwaveMetadata.parse_raw_schema(metadata.json())
 
 
 @pytest.mark.parametrize("active_variables", [(23), ([-1])])
 @pytest.mark.xfail(raises=ValidationError)
-def test_active_variables_incorrect(braket_schema_header, active_variables, dwave_timing):
-    DWaveMetadata(braketSchemaHeader=braket_schema_header, activeVariables=active_variables, timing=dwave_timing)
+def test_active_variables_incorrect(active_variables, dwave_timing):
+    DwaveMetadata(
+        activeVariables=active_variables, timing=dwave_timing,
+    )
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_dwave_header_incorrect(braket_schema_header, active_variables, dwave_timing):
+    DwaveMetadata(
+        braketSchemaHeader=braket_schema_header,
+        activeVariables=active_variables,
+        timing=dwave_timing,
+    )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_dwave_timing_incorrect():
-    DWaveTiming(
+    DwaveTiming(
         qpuSamplingTime=-100,
         qpuAnnealTimePerSample=20,
         qpuReadoutTimePerSample=274,

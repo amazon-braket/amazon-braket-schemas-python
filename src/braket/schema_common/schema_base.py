@@ -10,6 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
+from __future__ import annotations
 
 from importlib import import_module
 
@@ -23,32 +24,51 @@ class BraketSchemaBase(BaseModel):
     BraketSchemaBase which includes the schema header and should be the parent class for all schemas
 
     Attributes:
-        braketSchemaHeader (BraketSchemaHeader): schema header
+        braketSchemaHeader (BraketSchemaHeader): Schema header
     """
 
     braketSchemaHeader: BraketSchemaHeader
 
+    @staticmethod
+    def import_schema_module(schema: BraketSchemaBase):
+        """
+        Imports the module that holds the schema given the schema
 
-def import_schema_module(schema: BraketSchemaBase):
-    """
-    Imports the module that holds the schema given the schema
+        Args:
+            schema (BraketSchemaBase): The schema
 
-    Args:
-        schema (BraketSchemaBase): the schema
+        Returns:
+            Module of the schema
 
-    Returns:
-        module of the schema
+        Raises:
+            ModuleNotFoundError: If the schema module cannot be found according to
+            schema header
 
-    Raises:
-        ModuleNotFoundError: If the schema module cannot be found according to
-        schema header
+        Examples:
+            >> schema = BraketSchemaBase.parse_raw(json_string)
+            >> module = import_schema_module(schema)
+            >> module.AnnealingTaskResult.parse_raw(json_string)
+        """
+        name = schema.braketSchemaHeader.name
+        version = schema.braketSchemaHeader.version
+        module_name = name + "_v" + version
+        return import_module(module_name)
 
-    Examples:
-        >> schema = BraketSchemaBase.parse_raw(json_string)
-        >> module = import_schema_module(schema)
-        >> module.AnnealingTaskResult.parse_raw(json_string)
-    """
-    name = schema.braketSchemaHeader.name
-    version = schema.braketSchemaHeader.version
-    module_name = name + "_v" + version.split(".")[0]
-    return import_module(module_name)
+    @staticmethod
+    def parse_raw_schema(json_str: str) -> BraketSchemaBase:
+        """
+        Return schema object given JSON string
+
+        Args:
+             json_str (str): The JSON string of the schema
+
+        Returns:
+            BraketSchemaBase: The schema object. This can also be an
+            instance of a subclass of BraketSchemaBase.
+        """
+        schema = BraketSchemaBase.parse_raw(json_str)
+        module = BraketSchemaBase.import_schema_module(schema)
+        name = schema.braketSchemaHeader.name
+        class_name = "".join([s.capitalize() for s in name.split(".")[-1].split("_")])
+        schema_class = getattr(module, class_name)
+        return schema_class.parse_raw(json_str)

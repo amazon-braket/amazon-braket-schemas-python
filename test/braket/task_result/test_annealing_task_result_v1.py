@@ -44,12 +44,11 @@ def problem_type():
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_properties(braket_schema_header):
-    AnnealingTaskResult(braketSchemaHeader=braket_schema_header)
+def test_missing_properties():
+    AnnealingTaskResult()
 
 
 def test_correct_result(
-    braket_schema_header,
     task_metadata,
     additional_metadata_annealing,
     values,
@@ -59,7 +58,6 @@ def test_correct_result(
     problem_type,
 ):
     result = AnnealingTaskResult(
-        braketSchemaHeader=braket_schema_header,
         values=values,
         solutions=solutions,
         solutionCounts=solution_counts,
@@ -76,11 +74,11 @@ def test_correct_result(
     assert result.additionalMetadata == additional_metadata_annealing
     assert result.problemType == problem_type
     assert AnnealingTaskResult.parse_raw(result.json()) == result
+    assert result == AnnealingTaskResult.parse_raw_schema(result.json())
 
 
-@pytest.mark.parametrize("solution_counts", [([-1], 2)])
 @pytest.mark.xfail(raises=ValidationError)
-def test_incorrect_solution_counts(
+def test_incorrect_header(
     braket_schema_header,
     task_metadata,
     additional_metadata_annealing,
@@ -92,6 +90,28 @@ def test_incorrect_solution_counts(
 ):
     AnnealingTaskResult(
         braketSchemaHeader=braket_schema_header,
+        values=values,
+        solutions=solutions,
+        solutionCounts=solution_counts,
+        variableCount=variable_count,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_annealing,
+        problemType=problem_type,
+    )
+
+
+@pytest.mark.parametrize("solution_counts", [([-1], 2)])
+@pytest.mark.xfail(raises=ValidationError)
+def test_incorrect_solution_counts(
+    task_metadata,
+    additional_metadata_annealing,
+    values,
+    solutions,
+    solution_counts,
+    variable_count,
+    problem_type,
+):
+    AnnealingTaskResult(
         values=values,
         solutions=solutions,
         solutionCounts=solution_counts,
@@ -105,7 +125,6 @@ def test_incorrect_solution_counts(
 @pytest.mark.parametrize("solutions", [(1), ([[]]), ([[-2]]), ([[500, 299]])])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_solutions(
-    braket_schema_header,
     task_metadata,
     additional_metadata_annealing,
     values,
@@ -115,7 +134,6 @@ def test_incorrect_solutions(
     problem_type,
 ):
     AnnealingTaskResult(
-        braketSchemaHeader=braket_schema_header,
         values=values,
         solutions=solutions,
         solutionCounts=solution_counts,
@@ -129,7 +147,6 @@ def test_incorrect_solutions(
 @pytest.mark.parametrize("values", [(1), ([[]])])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_values(
-    braket_schema_header,
     task_metadata,
     additional_metadata_annealing,
     values,
@@ -139,7 +156,6 @@ def test_incorrect_values(
     problem_type,
 ):
     AnnealingTaskResult(
-        braketSchemaHeader=braket_schema_header,
         values=values,
         solutions=solutions,
         solutionCounts=solution_counts,
@@ -153,7 +169,6 @@ def test_incorrect_values(
 @pytest.mark.parametrize("problem_type", [(-2), ("HELLO")])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_problem_type(
-    braket_schema_header,
     task_metadata,
     additional_metadata_annealing,
     values,
@@ -163,7 +178,6 @@ def test_incorrect_problem_type(
     problem_type,
 ):
     AnnealingTaskResult(
-        braketSchemaHeader=braket_schema_header,
         values=values,
         solutions=solutions,
         solutionCounts=solution_counts,
@@ -177,7 +191,6 @@ def test_incorrect_problem_type(
 @pytest.mark.parametrize("variable_count", [(-2), ([[]])])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_variable_count(
-    braket_schema_header,
     task_metadata,
     additional_metadata_annealing,
     values,
@@ -187,7 +200,6 @@ def test_incorrect_variable_count(
     problem_type,
 ):
     AnnealingTaskResult(
-        braketSchemaHeader=braket_schema_header,
         values=values,
         solutions=solutions,
         solutionCounts=solution_counts,

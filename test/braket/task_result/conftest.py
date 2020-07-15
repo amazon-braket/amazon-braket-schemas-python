@@ -17,9 +17,8 @@ from braket.ir.annealing import Problem, ProblemType
 from braket.ir.jaqcd import CNot, Program
 from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
-from braket.task_result.dwave_metadata_v1 import DWaveMetadata, DWaveTiming
+from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
 from braket.task_result.task_metadata_v1 import TaskMetadata
-
 
 
 @pytest.fixture
@@ -34,7 +33,7 @@ def active_variables():
 
 @pytest.fixture
 def dwave_timing():
-    return DWaveTiming(
+    return DwaveTiming(
         qpuSamplingTime=1575,
         qpuAnnealTimePerSample=20,
         qpuReadoutTimePerSample=274,
@@ -53,7 +52,7 @@ def dwave_timing():
 
 @pytest.fixture
 def dwave_metadata(active_variables, dwave_timing, braket_schema_header):
-    return DWaveMetadata(braketSchemaHeader=braket_schema_header, activeVariables=active_variables, timing=dwave_timing)
+    return DwaveMetadata(activeVariables=active_variables, timing=dwave_timing,)
 
 
 @pytest.fixture
@@ -96,7 +95,5 @@ def shots():
 
 
 @pytest.fixture
-def task_metadata(braket_schema_header, id, device_id, shots):
-    return TaskMetadata(
-        braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots
-    )
+def task_metadata(id, device_id, shots):
+    return TaskMetadata(id=id, deviceId=device_id, shots=shots)
