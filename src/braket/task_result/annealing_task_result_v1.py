@@ -15,7 +15,6 @@ from typing import List, Optional
 
 from pydantic import Field, conint, conlist
 
-from braket.ir.annealing import ProblemType
 from braket.schema_common.schema_base import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
@@ -28,13 +27,13 @@ class AnnealingTaskResult(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
-        solutions (List[int]): Solutions of task result
+        solutions (List[int]): Solutions of task result. Default is `None`.
         solutionCounts (List[int]): The number of times the solutions occurred.
-            Default is None
-        values (List[float]): Output or energy of the solutions
-        variableCount (int): The number of variables
-        taskMetadata (TaskMetadata): The task metadata
-        additionalMetadata (AdditionalMetadata): Additional metadata of the task
+            Default is `None`.
+        values (List[float]): Output or energy of the solutions. Default is `None`.
+        variableCount (int): The number of variables. Default is `None`.
+        taskMetadata (TaskMetadata): The task metadata.
+        additionalMetadata (AdditionalMetadata): Additional metadata of the task.
 
     """
 
@@ -44,10 +43,9 @@ class AnnealingTaskResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_ANNEALING_TASK_RESULT_HEADER, const=_ANNEALING_TASK_RESULT_HEADER
     )
-    solutions: List[conlist(conint(ge=-1, le=3), min_items=1)]
+    solutions: Optional[List[conlist(conint(ge=-1, le=3), min_items=1)]]
     solutionCounts: Optional[List[conint(ge=0)]]
-    values: List[float]
-    variableCount: conint(ge=0)
-    problemType: ProblemType
+    values: Optional[List[float]]
+    variableCount: Optional[conint(ge=0)]
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

@@ -14,7 +14,6 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.annealing import ProblemType
 from braket.task_result.annealing_task_result_v1 import AnnealingTaskResult
 
 
@@ -38,11 +37,6 @@ def variable_count():
     return 5
 
 
-@pytest.fixture
-def problem_type():
-    return ProblemType.QUBO
-
-
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_properties():
     AnnealingTaskResult()
@@ -55,7 +49,6 @@ def test_correct_result(
     solutions,
     solution_counts,
     variable_count,
-    problem_type,
 ):
     result = AnnealingTaskResult(
         values=values,
@@ -64,7 +57,6 @@ def test_correct_result(
         variableCount=variable_count,
         taskMetadata=task_metadata,
         additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
     )
     assert result.values == values
     assert result.solutions == solutions
@@ -72,7 +64,6 @@ def test_correct_result(
     assert result.variableCount == variable_count
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_annealing
-    assert result.problemType == problem_type
     assert AnnealingTaskResult.parse_raw(result.json()) == result
     assert result == AnnealingTaskResult.parse_raw_schema(result.json())
 
@@ -86,7 +77,6 @@ def test_incorrect_header(
     solutions,
     solution_counts,
     variable_count,
-    problem_type,
 ):
     AnnealingTaskResult(
         braketSchemaHeader=braket_schema_header,
@@ -96,7 +86,6 @@ def test_incorrect_header(
         variableCount=variable_count,
         taskMetadata=task_metadata,
         additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
     )
 
 
@@ -109,7 +98,6 @@ def test_incorrect_solution_counts(
     solutions,
     solution_counts,
     variable_count,
-    problem_type,
 ):
     AnnealingTaskResult(
         values=values,
@@ -118,7 +106,6 @@ def test_incorrect_solution_counts(
         variableCount=variable_count,
         taskMetadata=task_metadata,
         additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
     )
 
 
@@ -131,7 +118,6 @@ def test_incorrect_solutions(
     solutions,
     solution_counts,
     variable_count,
-    problem_type,
 ):
     AnnealingTaskResult(
         values=values,
@@ -140,7 +126,6 @@ def test_incorrect_solutions(
         variableCount=variable_count,
         taskMetadata=task_metadata,
         additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
     )
 
 
@@ -153,7 +138,6 @@ def test_incorrect_values(
     solutions,
     solution_counts,
     variable_count,
-    problem_type,
 ):
     AnnealingTaskResult(
         values=values,
@@ -162,29 +146,6 @@ def test_incorrect_values(
         variableCount=variable_count,
         taskMetadata=task_metadata,
         additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
-    )
-
-
-@pytest.mark.parametrize("problem_type", [(-2), ("HELLO")])
-@pytest.mark.xfail(raises=ValidationError)
-def test_incorrect_problem_type(
-    task_metadata,
-    additional_metadata_annealing,
-    values,
-    solutions,
-    solution_counts,
-    variable_count,
-    problem_type,
-):
-    AnnealingTaskResult(
-        values=values,
-        solutions=solutions,
-        solutionCounts=solution_counts,
-        variableCount=variable_count,
-        taskMetadata=task_metadata,
-        additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
     )
 
 
@@ -197,7 +158,6 @@ def test_incorrect_variable_count(
     solutions,
     solution_counts,
     variable_count,
-    problem_type,
 ):
     AnnealingTaskResult(
         values=values,
@@ -206,5 +166,4 @@ def test_incorrect_variable_count(
         variableCount=variable_count,
         taskMetadata=task_metadata,
         additionalMetadata=additional_metadata_annealing,
-        problemType=problem_type,
     )
