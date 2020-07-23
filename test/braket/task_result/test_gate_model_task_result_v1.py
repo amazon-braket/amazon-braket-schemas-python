@@ -15,7 +15,7 @@ import pytest
 from pydantic import ValidationError
 
 from braket.ir.jaqcd.results import Probability
-from braket.task_result.gate_model_task_result_v1 import GateModelTaskResult, ResultType
+from braket.task_result.gate_model_task_result_v1 import GateModelTaskResult, ResultTypeValue
 
 
 @pytest.fixture
@@ -36,8 +36,8 @@ def measurement_probabilities():
 @pytest.fixture
 def result_types():
     return [
-        ResultType(type=Probability(targets=[0]), value=[0.5, 0.5]),
-        ResultType(type=Probability(targets=[1]), value=[0.5, 0.5]),
+        ResultTypeValue(type=Probability(targets=[0]), value=[0.5, 0.5]),
+        ResultTypeValue(type=Probability(targets=[1]), value=[0.5, 0.5]),
     ]
 
 
@@ -158,9 +158,9 @@ def test_incorrect_result_types(
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_result_type_attribute_type():
-    ResultType(type={"type": "unknown"}, value=[0.5, 0.5])
+    ResultTypeValue(type={"type": "unknown"}, value=[0.5, 0.5])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_result_type_attribute_value():
-    ResultType(type={"type": "unknown"}, value=1)
+    ResultTypeValue(type={"type": "unknown"}, value=1)

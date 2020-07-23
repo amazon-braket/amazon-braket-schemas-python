@@ -94,6 +94,8 @@ GateInstructions = Union[
     ZZ,
 ]
 
+Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]
+
 
 class Program(BraketSchemaBase):
     """
@@ -156,7 +158,5 @@ class Program(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     instructions: List[GateInstructions]
-    results: Optional[
-        List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]
-    ]
+    results: Optional[List[Results]]
     basis_rotation_instructions: Optional[List[GateInstructions]]
