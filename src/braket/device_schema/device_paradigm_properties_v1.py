@@ -18,6 +18,18 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class DeviceParadigmProperties(BraketSchemaBase):
 
+    """
+    This class defines the properties of paradigm common across all the devices.
+
+    Examples:
+    {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.device_paradigm_properties",
+            "version": "1",
+        }
+    }
+    """
+
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_paradigm_properties", version="1"
     )

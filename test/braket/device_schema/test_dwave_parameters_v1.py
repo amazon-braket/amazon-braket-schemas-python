@@ -14,23 +14,23 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.d_wave_parameters_v1 import DWaveParameters
+from braket.device_schema.dwave_parameters_v1 import DwaveParameters
 
 
 def test_valid():
     input = (
-        '{"braketSchemaHeader": {"name": "braket.device_schema.d_wave_parameters", '
+        '{"braketSchemaHeader": {"name": "braket.device_schema.dwave_parameters", '
         '"version": "1"}} '
     )
-    result = DWaveParameters.parse_raw_schema(input)
-    assert result.braketSchemaHeader.name == "braket.device_schema.d_wave_parameters"
+    result = DwaveParameters.parse_raw_schema(input)
+    assert result.braketSchemaHeader.name == "braket.device_schema.dwave_parameters"
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__invalid_attribute():
     input = (
-        '{"braketSchemaHeader": {"name": "braket.device_schema.d_wave_parameters", '
+        '{"braketSchemaHeader": {"name": "braket.device_schema.dwave_parameters", '
         '"version": "1"}, "annealingOffsets": 1} '
     )
     # annealingOffsets should be List[int]
-    DWaveParameters.parse_raw_schema(input)
+    DwaveParameters.parse_raw_schema(input)

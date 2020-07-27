@@ -20,10 +20,37 @@ from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmPro
 from braket.schema_common import BraketSchemaHeader
 
 
-class IonQDeviceParadigmProperties(DeviceParadigmProperties):
+class IonqDeviceParadigmProperties(DeviceParadigmProperties):
+
+    """
+    This class defines the properties that are specific to ionq device
+
+    Attributes:
+    connectivity: defines the connectivity if a ionq device. tells the graph and connection type.
+    qubitCount: number of qubits ionq device contains
+    nativeGateSet: list of native gates
+
+    Examples:
+    {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.ionq_device_paradigm_properties",
+            "version": "1",
+        },
+        "qubitCount": 32,
+        "nativeGateSet": ["ccnot", "cy"],
+        "connectivity": {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.device_connectivity",
+                "version": "1",
+            },
+            "fullyConnected": True,
+            "connectivityGraph": {"1": ["2", "3"]},
+        },
+    }
+    """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.ion_q_device_paradigm_properties", version="1"
+        name="braket.device_schema.ionq_device_paradigm_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     connectivity: DeviceConnectivity

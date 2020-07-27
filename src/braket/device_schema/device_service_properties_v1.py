@@ -21,20 +21,32 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class DeviceServiceProperties(BraketSchemaBase):
     """
-    Root object of the JsonAwsQuantumCircuitDescription IR.
-
-
+    This class defines the common service properties for each device.
 
     Attributes:
-        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
-            to set this value. Only default is allowed.
-        instructions (List[GateInstructions]): List of instructions.
-        basis_rotation_instructions (List[GateInstructions]): List of instructions for
-            rotation to desired measurement bases. Default is None.
-        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]):
-            List of requested results. Default is None.
+        executionWindows: List of the executionWindows, it tells us which days the device can
+            execute a task.
+        shots: shots for a given device.
 
     Examples:
+    {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.device_service_properties",
+            "version": "1",
+        },
+        "executionWindows": [
+            {
+                "braketSchemaHeader": {
+                    "name": "braket.device_schema.device_execution_window",
+                    "version": "1",
+                },
+                "executionDay": "Everyday",
+                "windowStartHour": "1966280412345.6789",
+                "windowEndHour": "1966280414345.6789",
+            }
+        ],
+        "shots": 2,
+    }
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

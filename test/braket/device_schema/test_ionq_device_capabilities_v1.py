@@ -17,43 +17,15 @@ import pdb
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.d_wave_device_properties_v1 import DWaveDeviceProperties
+from braket.device_schema.ionq_device_capabilities_v1 import IonqDeviceCapabilities
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.d_wave_device_capabilities",
+            "name": "braket.device_schema.ionq_device_capabilities",
             "version": "1",
-        },
-        "device": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.d_wave_device_properties",
-                "version": "1",
-            },
-            "annealingOffsetStep": 1.45,
-            "annealingOffsetStepPhi0": 1.45,
-            "annealingOffsetRanges": [[1.45, 1.45], [1.45, 1.45]],
-            "annealingDurationRange": [1, 2, 3],
-            "couplers": [[1, 2, 3], [1, 2, 3]],
-            "defaultAnnealingDuration": 1,
-            "defaultProgrammingThermalizationDuration": 1,
-            "defaultReadoutThermalizationDuration": 1,
-            "extendedJRange": [1, 2, 3],
-            "hGainScheduleRange": [1, 2, 3],
-            "hRange": [1, 2, 3],
-            "jRange": [1, 2, 3],
-            "maximumAnnealingSchedulePoints": 1,
-            "maximumHGainSchedulePoints": 1,
-            "perQubitCouplingRange": [1, 2, 3],
-            "programmingThermalizationDurationRange": [1, 2, 3],
-            "qubits": [1, 2, 3],
-            "qubitCount": 1,
-            "quotaConversionRate": 1,
-            "readoutThermalizationDurationRange": [1, 2, 3],
-            "taskRunDurationRange": [1, 2, 3],
-            "topology": {},
         },
         "service": {
             "braketSchemaHeader": {
@@ -76,47 +48,74 @@ def valid_input():
         "action": {
             "braket.ir.jaqcd.program": {
                 "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_action_properties",
+                    "name": "braket.device_schema.jaqcd_device_action_properties",
                     "version": "1",
                 },
                 "actionType": "braket.ir.jaqcd.program",
                 "version": ["1.0", "1.1"],
+                "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
+                "supportedResultTypes": [
+                    {"observable": ["x"], "targets": [1], "type": "expectation"}
+                ],
             }
         },
         "paradigm": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.device_paradigm_properties",
+                "name": "braket.device_schema.ionq_device_paradigm_properties",
                 "version": "1",
-            }
+            },
+            "qubitCount": 11,
+            "nativeGateSet": ["ccnot", "cy"],
+            "connectivity": {
+                "braketSchemaHeader": {
+                    "name": "braket.device_schema.device_connectivity",
+                    "version": "1",
+                },
+                "fullyConnected": True,
+                "connectivityGraph": {"1": ["2", "3"]},
+            },
         },
         "deviceParameters": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.annealing_model_parameters",
+                "name": "braket.device_schema.ionq_device_parameters",
                 "version": "1",
             },
-            "dWaveParameters": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.d_wave_parameters",
-                    "version": "1",
-                }
-            },
+            "qubitCount": 11,
         },
     }
     return input
 
 
 def test_valid(valid_input):
-    result = DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
-    assert result.device.qubitCount == 1
+    result = IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    assert result.braketSchemaHeader.name == "braket.device_schema.ionq_device_capabilities"
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_qubitCount(valid_input):
-    valid_input.pop("device")
-    DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+def test_missing_paradigm(valid_input):
+    valid_input.pop("paradigm")
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_deviceParameters(valid_input):
+    valid_input.pop("deviceParameters")
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_action(valid_input):
+    valid_input.pop("action")
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_service(valid_input):
+    valid_input.pop("service")
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))

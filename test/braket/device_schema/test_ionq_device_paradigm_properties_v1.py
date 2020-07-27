@@ -17,14 +17,14 @@ import pdb
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.ion_q_device_paradigm_properties_v1 import IonQDeviceParadigmProperties
+from braket.device_schema.ionq_device_paradigm_properties_v1 import IonqDeviceParadigmProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.ion_q_device_paradigm_properties",
+            "name": "braket.device_schema.ionq_device_paradigm_properties",
             "version": "1",
         },
         "qubitCount": 32,
@@ -42,23 +42,23 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = IonQDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    result = IonqDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
     assert result.nativeGateSet == ["ccnot", "cy"]
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    IonQDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_qubitCount(valid_input):
     valid_input.pop("qubitCount")
-    IonQDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__invalid_connectivity(valid_input):
     valid_input["connectivity"]["fullyConnected"] = 1
-    IonQDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))

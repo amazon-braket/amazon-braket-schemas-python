@@ -5,6 +5,25 @@ from braket.schema_common import BraketSchemaHeader
 
 
 class RigettiDeviceParameters(GateModelParameters):
+
+    """
+    This defines the schema for parameters that will be provided as part of create quantum task
+    for a rigetti device
+
+    Attributes:
+    qubitCount: the qubit count of the task. It should be greater than 0 and
+    less than 32[rigetti only supports 31 qubits]
+
+    Examples:
+        {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.rigetti_device_parameters",
+                "version": "1"
+            },
+            "qubitCount": 30
+        }
+    """
+
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.rigetti_device_parameters", version="1"
     )

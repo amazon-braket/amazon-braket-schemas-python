@@ -43,9 +43,9 @@ def valid_annealing_model_input():
                 "name": "braket.device_schema.annealing_model_parameters",
                 "version": "1",
             },
-            "dWaveParameters": {
+            "dwaveParameters": {
                 "braketSchemaHeader": {
-                    "name": "braket.device_schema.d_wave_parameters",
+                    "name": "braket.device_schema.dwave_parameters",
                     "version": "1",
                 }
             },

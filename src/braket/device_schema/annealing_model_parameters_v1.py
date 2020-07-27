@@ -14,18 +14,35 @@
 
 from pydantic import Field
 
-from braket.device_schema.d_wave_parameters_v1 import DWaveParameters
+from braket.device_schema.dwave_parameters_v1 import DwaveParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class AnnealingModelParameters(BraketSchemaBase):
     """
-    This is the schema to validate the parameters provided for d-wave annealing model
+    This class defines the parameters provided for d-wave annealing model
 
+    Attributes:
+    dwaveParameters: Parameters used to construct dwave task input
+
+    Examples:
+    {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.annealing_model_parameters",
+            "version": "1",
+        },
+        "dwaveParameters": {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.dwave_parameters",
+                "version": "1"
+            },
+            "annealingOffsets": 1
+        }
+    }
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.annealing_model_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    dWaveParameters: DWaveParameters
+    dwaveParameters: DwaveParameters

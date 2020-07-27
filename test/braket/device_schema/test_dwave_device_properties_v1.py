@@ -17,14 +17,14 @@ import pdb
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.d_wave_device_properties_v1 import DWaveDeviceProperties
+from braket.device_schema.dwave_device_properties_v1 import DwaveDeviceProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.d_wave_device_properties",
+            "name": "braket.device_schema.dwave_device_properties",
             "version": "1",
         },
         "annealingOffsetStep": 1.45,
@@ -54,23 +54,23 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    result = DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
     assert result.qubitCount == 1
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_qubitCount(valid_input):
     valid_input.pop("qubitCount")
-    DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__invalid_qubitcount(valid_input):
     valid_input["qubitCount"] = "string"
-    DWaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))

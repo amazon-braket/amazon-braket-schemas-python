@@ -56,7 +56,7 @@ import pdb
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.ion_q_device_capabilities_v1 import IonQDeviceCapabilities
+from braket.device_schema.ionq_device_capabilities_v1 import IonqDeviceCapabilities
 
 
 @pytest.fixture(scope="module")
@@ -107,9 +107,9 @@ def valid_input():
                     "name": "braket.device_schema.annealing_model_parameters",
                     "version": "1",
                 },
-                "dWaveParameters": {
+                "dwaveParameters": {
                     "braketSchemaHeader": {
-                        "name": "braket.device_schema.d_wave_parameters",
+                        "name": "braket.device_schema.dwave_parameters",
                         "version": "1",
                     }
                 },
@@ -120,35 +120,35 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = IonQDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.device_capabilities"
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    IonQDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_paradigm(valid_input):
     valid_input.pop("paradigm")
-    IonQDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_deviceParameters(valid_input):
     valid_input.pop("deviceParameters")
-    IonQDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")
-    IonQDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_service(valid_input):
     valid_input.pop("service")
-    IonQDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))

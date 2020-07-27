@@ -20,11 +20,33 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class DeviceActionType(str, Enum):
+    """
+        These are the actions supported by braket.
+    """
+
     JAQCD = "braket.ir.jaqcd.program"
     ANNEALING = "braket.ir.annealing.problem"
 
 
 class DeviceActionProperties(BraketSchemaBase):
+    """
+        This class defines the actions that can be performed by a device
+
+        Attributes:
+        version: List of versions for the actions the device supports
+        actionType: Enum for the action type. Type of the action to be performed.
+
+        Examples:
+        {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.device_action_properties",
+                "version": "1",
+            },
+            "actionType": "braket.ir.jaqcd.program",
+            "version": ["1.0", "1.1"],
+        }
+    """
+
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_action_properties", version="1"
     )

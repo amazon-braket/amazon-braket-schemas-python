@@ -14,37 +14,37 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.ion_q_device_parameters_v1 import IonQDeviceParameters
+from braket.device_schema.ionq_device_parameters_v1 import IonqDeviceParameters
 
 
 def test_valid():
     input = (
-        '{"braketSchemaHeader": {"name": "braket.device_schema.ion_q_device_parameters", '
+        '{"braketSchemaHeader": {"name": "braket.device_schema.ionq_device_parameters", '
         '"version": "1"}, "qubitCount": 11} '
     )
-    result = IonQDeviceParameters.parse_raw_schema(input)
+    result = IonqDeviceParameters.parse_raw_schema(input)
     assert result.qubitCount == 11
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader():
     input = {"qubitCount": 1}
-    assert IonQDeviceParameters.parse_raw_schema(input)
+    assert IonqDeviceParameters.parse_raw_schema(input)
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_qubitCount():
     input = (
-        '{"braketSchemaHeader": {"name": "braket.device_schema.ion_q_device_parameters", '
+        '{"braketSchemaHeader": {"name": "braket.device_schema.ionq_device_parameters", '
         '"version": "1"}} '
     )
-    assert IonQDeviceParameters.parse_raw_schema(input)
+    assert IonqDeviceParameters.parse_raw_schema(input)
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_qubitCount():
     input = (
-        '{"braketSchemaHeader": {"name": "braket.device_schema.ion_q_device_parameters", '
+        '{"braketSchemaHeader": {"name": "braket.device_schema.ionq_device_parameters", '
         '"version": "1"}, "qubitCount": -1} '
     )
-    IonQDeviceParameters.parse_raw_schema(input)
+    IonqDeviceParameters.parse_raw_schema(input)

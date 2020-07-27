@@ -20,10 +20,19 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class ExecutionDay(str, Enum):
-    """ The type of annealing problem.
+    """
+    Enums for the execution days.
 
-    QUBO: Quadratic Unconstrained Binary Optimization, with values 1 and 0
-    ISING: Ising model, with values +/-1
+    EVERYDAY: It tells us that the device can execute on all the days
+    WEEKDAYS: It tells us that the device can execute only on the weekdays
+    WEEKENDS: It tells us that the device can execute only on the weekends
+    MONDAY: It tells us that the device can execute only on the monday
+    TUESDAY: It tells us that the device can execute only on the tuesday
+    WEDNESDAY: It tells us that the device can execute only on the wednesday
+    THURSDAY: It tells us that the device can execute only on the thursday
+    FRIDAY: It tells us that the device can execute only on the friday
+    SATURDAY: It tells us that the device can execute only on the saturday
+    SUNDAY: It tells us that the device can execute only on the sunday
     """
 
     EVERYDAY = "Everyday"
@@ -39,6 +48,26 @@ class ExecutionDay(str, Enum):
 
 
 class DeviceExecutionWindow(BraketSchemaBase):
+
+    """
+    This class defines when a device can execute a given task.
+
+    Attributes:
+    executionDay: Days of the execution window
+    windowStartHour: timestamp of the time when the execution window starts
+    windowEndHour: timestamp of the time when the execution window ends
+
+    Examples:
+    {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.device_execution_window",
+            "version": "1",
+        },
+        "executionDay": "Everyday",
+        "windowStartHour": "1966280412345.6789",
+        "windowEndHour": "1966280414345.6789",
+    }
+    """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_execution_window", version="1"

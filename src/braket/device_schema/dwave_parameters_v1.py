@@ -15,12 +15,21 @@ class PostProcessingType(str, Enum):
     HISTOGRAM = "histogram"
 
 
-class DWaveParameters(BraketSchemaBase):
+class DwaveParameters(BraketSchemaBase):
     """
     This is the description of the d-wave parameters
+
+    Examples:
+    {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.dwave_parameters",
+            "version": "1"
+        },
+        "annealingOffsets": 1
+    }
     """
 
-    _PROGRAM_HEADER = BraketSchemaHeader(name="braket.device_schema.d_wave_parameters", version="1")
+    _PROGRAM_HEADER = BraketSchemaHeader(name="braket.device_schema.dwave_parameters", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsets: Optional[List[int]]
     annealingSchedule: Optional[List[List[int]]]
