@@ -18,6 +18,7 @@ from braket.ir.jaqcd import CNot, Program
 from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
+from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
@@ -29,6 +30,32 @@ def braket_schema_header():
 @pytest.fixture
 def active_variables():
     return [2, 3, 4]
+
+
+@pytest.fixture
+def compiled_program():
+    return "DECLARE ro BIT[2]\n"
+
+
+@pytest.fixture
+def native_quil_metadata():
+    return NativeQuilMetadata(
+        finalRewiring=[32, 21],
+        gateDepth=5,
+        gateVolume=6,
+        multiQubitGateDepth=1,
+        programDuration=300.1,
+        programFidelity=0.8989,
+        qpuRuntimeEstimation=191.21,
+        topologicalSwaps=0,
+    )
+
+
+@pytest.fixture
+def rigetti_metadata(compiled_program, native_quil_metadata):
+    return RigettiMetadata(
+        compiledProgram=compiled_program, nativeQuilMetadata=native_quil_metadata
+    )
 
 
 @pytest.fixture
@@ -75,8 +102,8 @@ def program():
 
 
 @pytest.fixture
-def additional_metadata_gate_model(program):
-    return AdditionalMetadata(action=program)
+def additional_metadata_gate_model(program, rigetti_metadata):
+    return AdditionalMetadata(action=program, rigettiMetadata=rigetti_metadata)
 
 
 @pytest.fixture
