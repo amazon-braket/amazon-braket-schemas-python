@@ -19,6 +19,20 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class NativeQuilMetadata(BaseModel):
+    """
+    Schema to hold native quil metadata returned by 
+    Rigetti after compilation.
+
+    Examples:
+        >>> NativeQuilMetadata(finalRewiring=[32,21],
+                              gateDepth=5,
+                              gateVolume=6,
+                              multiQubitGateDepth=1,
+                              programDuration=300.1,
+                              programFidelity=0.8989,
+                              qpuRuntimeEstimation=191.21,
+                              topologicalSwaps=0)
+    """
     finalRewiring: conlist(int)
     gateDepth: conint(ge=0)
     gateVolume: conint(ge=0)
@@ -34,8 +48,7 @@ class RigettiMetadata(BraketSchemaBase):
     The Rigetti metadata result schema.
 
     Attributes:
-        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
-            to set this value. Only default is allowed.
+        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need to set this value. Only default is allowed.
         nativeQuilMetadata (NativeQuilMetadata)
         program (str): The compiled program executed on the QPU
 
@@ -48,7 +61,9 @@ class RigettiMetadata(BraketSchemaBase):
                                               programFidelity=0.8989,
                                               qpuRuntimeEstimation=191.21,
                                               topologicalSwaps=0)
-        >>> RigettiMetadata(program='DECLARE ro BIT[2]\n', nativeQuilMetadata=quil_metadata)
+        >>> RigettiMetadata(program="DECLARE ro BIT[2]", nativeQuilMetadata=quil_metadata)
+
+
     """
 
     _RIGETTI_METADATA_HEADER = BraketSchemaHeader(
