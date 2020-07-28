@@ -29,24 +29,27 @@ class DeviceServiceProperties(BraketSchemaBase):
         shots: shots for a given device.
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.device_service_properties",
-            "version": "1",
-        },
-        "executionWindows": [
-            {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_execution_window",
-                    "version": "1",
-                },
-                "executionDay": "Everyday",
-                "windowStartHour": "1966280412345.6789",
-                "windowEndHour": "1966280414345.6789",
-            }
-        ],
-        "shots": 2,
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.device_service_properties",
+        ...        "version": "1",
+        ...    },
+        ...    "executionWindows": [
+        ...        {
+        ...            "braketSchemaHeader": {
+        ...                "name": "braket.device_schema.device_execution_window",
+        ...                "version": "1",
+        ...            },
+        ...            "executionDay": "Everyday",
+        ...            "windowStartHour": "1966280412345.6789",
+        ...            "windowEndHour": "1966280414345.6789",
+        ...        }
+        ...    ],
+        ...    "shots": 2,
+        ... }
+        >>> DeviceServiceProperties.parse_raw_schema(json.dumps(input_json))
+
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

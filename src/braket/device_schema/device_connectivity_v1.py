@@ -23,19 +23,21 @@ class DeviceConnectivity(BraketSchemaBase):
 
     Attributes:
 
-    fullyConnected: If each qubit is connected to all other qubits then it called fully connected.
-        true if fully connected else it will be false.
+        fullyConnected: If each qubit is connected to all other qubits then it called fully connected.
+            true if fully connected else it will be false.
 
-    connectivityGraph: It defines the for each qubit what are the connected qubits.
-        For a fullyConnected graph it will be empty since all the qubits are connected to each other
+        connectivityGraph: It defines the for each qubit what are the connected qubits.
+            For a fullyConnected graph it will be empty since all the qubits are connected to each other
 
 
     Examples:
-    {
-        "braketSchemaHeader": {"name": "braket.device_schema.device_connectivity", "version": "1",},
-        "fullyConnected": True,
-        "connectivityGraph": {"1": ["2", "3"]},
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {"name": "braket.device_schema.device_connectivity", "version": "1",},
+        ...    "fullyConnected": True,
+        ...    "connectivityGraph": {"1": ["2", "3"]},
+        ... }
+        >>> DeviceConnectivity.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

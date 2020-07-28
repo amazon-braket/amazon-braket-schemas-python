@@ -8,12 +8,14 @@ class GateModelParameters(BraketSchemaBase):
     This defines the parameters common to all the gatemodel devices.
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.gate_model_parameters",
-            "version": "1"
-        }
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.gate_model_parameters",
+        ...        "version": "1"
+        ...    }
+        ... }
+        >>> GateModelParameters.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

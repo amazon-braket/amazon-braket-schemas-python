@@ -33,18 +33,20 @@ class DeviceActionProperties(BraketSchemaBase):
         This class defines the actions that can be performed by a device
 
         Attributes:
-        version: List of versions for the actions the device supports
-        actionType: Enum for the action type. Type of the action to be performed.
+            version: List of versions for the actions the device supports
+            actionType: Enum for the action type. Type of the action to be performed.
 
         Examples:
-        {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_action_properties",
-                "version": "1",
-            },
-            "actionType": "braket.ir.jaqcd.program",
-            "version": ["1.0", "1.1"],
-        }
+            >>> import json
+            >>> input_json = {
+            ...     "braketSchemaHeader": {
+            ...         "name": "braket.device_schema.device_action_properties",
+            ...         "version": "1",
+            ...     },
+            ...     "actionType": "braket.ir.jaqcd.program",
+            ...     "version": ["1.0", "1.1"],
+            ... }
+            >>> DeviceActionProperties.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

@@ -17,28 +17,29 @@ from pydantic import Field
 
 from braket.device_schema.device_action_properties_v1 import DeviceActionType
 from braket.device_schema.device_capabilities_v1 import DeviceCapabilities
-from braket.device_schema.ionq_device_paradigm_properties_v1 import IonqDeviceParadigmProperties
-from braket.device_schema.ionq_device_parameters_v1 import IonqDeviceParameters
 from braket.device_schema.jaqcd_device_action_properties_v1 import JaqcdDeviceActionProperties
+from braket.device_schema.simulator_device_paradigm_properties_v1 import (
+    SimulatorDeviceParadigmProperties,
+)
+from braket.device_schema.simulator_device_parameters_v1 import SimulatorDeviceParameters
 from braket.schema_common import BraketSchemaHeader
 
 
-class IonqDeviceCapabilities(DeviceCapabilities):
-
+class SimulatorDeviceCapabilities(DeviceCapabilities):
     """
-    This defines the capabilities of a ionq device.
+    This defines the capabilities of a simulator device.
 
     Attributes:
-        action: Actions that a ionq device can support
-        paradigm: Paradigm properties of a ionq
-        deviceParameters: parameters the can be provided for ionq device for creating a ionq quantum
-            task
+        action: Actions that a simulator device can support
+        paradigm: Paradigm properties of a simulator
+        deviceParameters: parameters the can be provided for simulator device for creating a simulator
+            quantum task
 
     Examples:
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.ionq_device_capabilities",
+        ...        "name": "braket.device_schema.simulator_device_capabilities",
         ...        "version": "1",
         ...    },
         ...    "service": {
@@ -75,35 +76,27 @@ class IonqDeviceCapabilities(DeviceCapabilities):
         ...    },
         ...    "paradigm": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.ionq_device_paradigm_properties",
+        ...            "name": "braket.device_schema.simulator_device_paradigm_properties",
         ...            "version": "1",
         ...        },
-        ...        "qubitCount": 11,
-        ...        "nativeGateSet": ["ccnot", "cy"],
-        ...        "connectivity": {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.device_connectivity",
-        ...                "version": "1",
-        ...            },
-        ...            "fullyConnected": True,
-        ...            "connectivityGraph": {"1": ["2", "3"]},
-        ...        },
+        ...        "qubitCount": 31
         ...    },
         ...    "deviceParameters": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.ionq_device_parameters",
+        ...            "name": "braket.device_schema.simulator_device_parameters",
         ...            "version": "1",
         ...        },
-        ...        "qubitCount": 11,
+        ...        "qubitCount": 30,
         ...    },
         ... }
-        >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+        >>> SimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.ionq_device_capabilities", version="1"
+        name="braket.device_schema.simulator_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
-    paradigm: IonqDeviceParadigmProperties
-    deviceParameters: IonqDeviceParameters
+    paradigm: SimulatorDeviceParadigmProperties
+    deviceParameters: SimulatorDeviceParameters

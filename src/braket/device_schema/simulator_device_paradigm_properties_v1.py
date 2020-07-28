@@ -13,27 +13,33 @@
 
 from pydantic import Field
 
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
+from braket.schema_common import BraketSchemaHeader
 
 
-class DeviceParadigmProperties(BraketSchemaBase):
+class SimulatorDeviceParadigmProperties(DeviceParadigmProperties):
 
     """
-    This class defines the properties of paradigm common across all the devices.
+    This class defines the properties that are specific to simulator device
+
+    Attributes:
+        qubitCount: number of qubits simulator device contains
 
     Examples:
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.device_paradigm_properties",
+        ...        "name": "braket.device_schema.simulator_device_paradigm_properties",
         ...        "version": "1",
-        ...    }
+        ...    },
+        ...    "qubitCount": 32
         ... }
-        >>> DeviceParadigmProperties.parse_raw_schema(json.dumps(input_json))
+        >>> RigettiDeviceParadigmProperties.parse_raw_schema(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.device_paradigm_properties", version="1"
+        name="braket.device_schema.simulator_device_paradigm_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    qubitCount: int

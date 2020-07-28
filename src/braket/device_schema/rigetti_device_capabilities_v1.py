@@ -30,73 +30,76 @@ class RigettiDeviceCapabilities(DeviceCapabilities):
     This defines the capabilities of a rigetti device.
 
     Attributes:
-    action: Actions that a rigetti device can support
-    paradigm: Paradigm properties of a rigetti
-    deviceParameters: parameters the can be provided for rigetti device for creating a rigetti
-    quantum task
+        action: Actions that a rigetti device can support
+        paradigm: Paradigm properties of a rigetti
+        deviceParameters: parameters the can be provided for rigetti device for creating a rigetti
+            quantum task
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.rigetti_device_capabilities",
-            "version": "1",
-        },
-        "service": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_service_properties",
-                "version": "1",
-            },
-            "executionWindows": [
-                {
-                    "braketSchemaHeader": {
-                        "name": "braket.device_schema.device_execution_window",
-                        "version": "1",
-                    },
-                    "executionDay": "Everyday",
-                    "windowStartHour": "1966280412345.6789",
-                    "windowEndHour": "1966280414345.6789",
-                }
-            ],
-            "shots": 2,
-        },
-        "action": {
-            "braket.ir.jaqcd.program": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.jaqcd_device_action_properties",
-                    "version": "1",
-                },
-                "actionType": "braket.ir.jaqcd.program",
-                "version": ["1.0", "1.1"],
-                "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-                "supportedResultTypes": [
-                    {"observable": ["x"], "targets": [1], "type": "expectation"}
-                ],
-            }
-        },
-        "paradigm": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.rigetti_device_paradigm_properties",
-                "version": "1",
-            },
-            "qubitCount": 32,
-            "nativeGateSet": ["ccnot", "cy"],
-            "connectivity": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_connectivity",
-                    "version": "1",
-                },
-                "fullyConnected": True,
-                "connectivityGraph": {"1": ["2", "3"]},
-            },
-        },
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.rigetti_device_parameters",
-                "version": "1",
-            },
-            "qubitCount": 30,
-        },
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.rigetti_device_capabilities",
+        ...        "version": "1",
+        ...    },
+        ...    "service": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.device_service_properties",
+        ...            "version": "1",
+        ...        },
+        ...        "executionWindows": [
+        ...            {
+        ...                "braketSchemaHeader": {
+        ...                    "name": "braket.device_schema.device_execution_window",
+        ...                    "version": "1",
+        ...                },
+        ...                "executionDay": "Everyday",
+        ...                "windowStartHour": "1966280412345.6789",
+        ...                "windowEndHour": "1966280414345.6789",
+        ...            }
+        ...        ],
+        ...        "shots": 2,
+        ...    },
+        ...    "action": {
+        ...        "braket.ir.jaqcd.program": {
+        ...            "braketSchemaHeader": {
+        ...                "name": "braket.device_schema.jaqcd_device_action_properties",
+        ...                "version": "1",
+        ...            },
+        ...            "actionType": "braket.ir.jaqcd.program",
+        ...            "version": ["1.0", "1.1"],
+        ...            "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
+        ...            "supportedResultTypes": [
+        ...                {"observable": ["x"], "targets": [1], "type": "expectation"}
+        ...            ],
+        ...        }
+        ...    },
+        ...    "paradigm": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.rigetti_device_paradigm_properties",
+        ...            "version": "1",
+        ...        },
+        ...        "qubitCount": 32,
+        ...        "nativeGateSet": ["ccnot", "cy"],
+        ...        "connectivity": {
+        ...            "braketSchemaHeader": {
+        ...                "name": "braket.device_schema.device_connectivity",
+        ...                "version": "1",
+        ...            },
+        ...            "fullyConnected": True,
+        ...            "connectivityGraph": {"1": ["2", "3"]},
+        ...        },
+        ...    },
+        ...    "deviceParameters": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.rigetti_device_parameters",
+        ...            "version": "1",
+        ...        },
+        ...        "qubitCount": 30,
+        ...    },
+        ... }
+        >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

@@ -31,67 +31,69 @@ class DeviceCapabilities(BraketSchemaBase):
         across all the devices
 
         Attributes:
-        service: properties which are common to the braket service
-        action: Map of the action to its properties
-        paradigm: Provides information on what are the common properties for the device paradigm
-        deviceParameters: Device parameters is the schema of input provided to Create quantum task.
+            service: properties which are common to the braket service
+            action: Map of the action to its properties
+            paradigm: Provides information on what are the common properties for the device paradigm
+            deviceParameters: Device parameters is the schema of input provided to Create quantum task.
 
         Examples:
-        {
-            "braketSchemaHeader": {"name": "braket.device_schema.device_capabilities", "version": "1",},
-            "service": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_service_properties",
-                    "version": "1",
-                },
-                "executionWindows": [
-                    {
-                        "braketSchemaHeader": {
-                            "name": "braket.device_schema.device_execution_window",
-                            "version": "1",
-                        },
-                        "executionDay": "Everyday",
-                        "windowStartHour": "1966280412345.6789",
-                        "windowEndHour": "1966280414345.6789",
-                    }
-                ],
-                "shots": 2,
-            },
-            "action": {
-                "braket.ir.jaqcd.program": {
-                    "braketSchemaHeader": {
-                        "name": "braket.device_schema.device_action_properties",
-                        "version": "1",
-                    },
-                    "actionType": "braket.ir.jaqcd.program",
-                    "version": ["1.0", "1.1"],
-                }
-            },
-            "paradigm": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_paradigm_properties",
-                    "version": "1",
-                }
-            },
-            "deviceParameters": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_parameters",
-                    "version": "1",
-                },
-                "deviceParameters": {
-                    "braketSchemaHeader": {
-                        "name": "braket.device_schema.annealing_model_parameters",
-                        "version": "1",
-                    },
-                    "dwaveParameters": {
-                        "braketSchemaHeader": {
-                            "name": "braket.device_schema.dwave_parameters",
-                            "version": "1",
-                        }
-                    },
-                },
-            },
-        }
+            >>> import json
+            >>> input_json = {
+            ...    "braketSchemaHeader": {"name": "braket.device_schema.device_capabilities", "version": "1",},
+            ...    "service": {
+            ...        "braketSchemaHeader": {
+            ...            "name": "braket.device_schema.device_service_properties",
+            ...            "version": "1",
+            ...        },
+            ...        "executionWindows": [
+            ...            {
+            ...                "braketSchemaHeader": {
+            ...                    "name": "braket.device_schema.device_execution_window",
+            ...                    "version": "1",
+            ...                },
+            ...                "executionDay": "Everyday",
+            ...                "windowStartHour": "1966280412345.6789",
+            ...                "windowEndHour": "1966280414345.6789",
+            ...            }
+            ...        ],
+            ...        "shots": 2,
+            ...    },
+            ...    "action": {
+            ...        "braket.ir.jaqcd.program": {
+            ...            "braketSchemaHeader": {
+            ...                "name": "braket.device_schema.device_action_properties",
+            ...                "version": "1",
+            ...            },
+            ...            "actionType": "braket.ir.jaqcd.program",
+            ...            "version": ["1.0", "1.1"],
+            ...        }
+            ...    },
+            ...    "paradigm": {
+            ...        "braketSchemaHeader": {
+            ...            "name": "braket.device_schema.device_paradigm_properties",
+            ...            "version": "1",
+            ...        }
+            ...    },
+            ...    "deviceParameters": {
+            ...        "braketSchemaHeader": {
+            ...            "name": "braket.device_schema.device_parameters",
+            ...            "version": "1",
+            ...        },
+            ...        "deviceParameters": {
+            ...            "braketSchemaHeader": {
+            ...                "name": "braket.device_schema.annealing_model_parameters",
+            ...                "version": "1",
+            ...            },
+            ...            "dwaveParameters": {
+            ...                "braketSchemaHeader": {
+            ...                    "name": "braket.device_schema.dwave_parameters",
+            ...                    "version": "1",
+            ...                }
+            ...            },
+            ...        },
+            ...    },
+            ... }
+            >>> DeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

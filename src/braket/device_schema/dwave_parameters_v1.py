@@ -20,13 +20,16 @@ class DwaveParameters(BraketSchemaBase):
     This is the description of the d-wave parameters
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave_parameters",
-            "version": "1"
-        },
-        "annealingOffsets": 1
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.dwave_parameters",
+        ...        "version": "1"
+        ...    },
+        ...    "annealingOffsets": 1
+        ... }
+        >>> DwaveParameters.parse_raw_schema(json.dumps(input_json))
+
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.device_schema.dwave_parameters", version="1")

@@ -23,22 +23,24 @@ class AnnealingModelParameters(BraketSchemaBase):
     This class defines the parameters provided for d-wave annealing model
 
     Attributes:
-    dwaveParameters: Parameters used to construct dwave task input
+        dwaveParameters: Parameters used to construct dwave task input
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.annealing_model_parameters",
-            "version": "1",
-        },
-        "dwaveParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.dwave_parameters",
-                "version": "1"
-            },
-            "annealingOffsets": 1
-        }
-    }
+        >>> import json
+        >>> input_json = {
+        ...     "braketSchemaHeader": {
+        ...         "name": "braket.device_schema.annealing_model_parameters",
+        ...        "version": "1",
+        ...     },
+        ...     "dwaveParameters": {
+        ...         "braketSchemaHeader": {
+        ...             "name": "braket.device_schema.dwave_parameters",
+        ...             "version": "1"
+        ...         },
+        ...         "annealingOffsets": 1
+        ...     }
+        ... }
+        >>> AnnealingModelParameters.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

@@ -26,27 +26,29 @@ class IonqDeviceParadigmProperties(DeviceParadigmProperties):
     This class defines the properties that are specific to ionq device
 
     Attributes:
-    connectivity: defines the connectivity if a ionq device. tells the graph and connection type.
-    qubitCount: number of qubits ionq device contains
-    nativeGateSet: list of native gates
+        connectivity: defines the connectivity if a ionq device. tells the graph and connection type.
+        qubitCount: number of qubits ionq device contains
+        nativeGateSet: list of native gates
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.ionq_device_paradigm_properties",
-            "version": "1",
-        },
-        "qubitCount": 32,
-        "nativeGateSet": ["ccnot", "cy"],
-        "connectivity": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_connectivity",
-                "version": "1",
-            },
-            "fullyConnected": True,
-            "connectivityGraph": {"1": ["2", "3"]},
-        },
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.ionq_device_paradigm_properties",
+        ...        "version": "1",
+        ...    },
+        ...    "qubitCount": 32,
+        ...    "nativeGateSet": ["ccnot", "cy"],
+        ...    "connectivity": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.device_connectivity",
+        ...            "version": "1",
+        ...        },
+        ...        "fullyConnected": True,
+        ...        "connectivityGraph": {"1": ["2", "3"]},
+        ...    },
+        ... }
+        >>> IonqDeviceParadigmProperties.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

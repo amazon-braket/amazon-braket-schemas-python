@@ -11,17 +11,20 @@ class RigettiDeviceParameters(GateModelParameters):
     for a rigetti device
 
     Attributes:
-    qubitCount: the qubit count of the task. It should be greater than 0 and
-    less than 32[rigetti only supports 31 qubits]
+        qubitCount: the qubit count of the task. It should be greater than 0 and
+            less than 32[rigetti only supports 31 qubits]
 
     Examples:
-        {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.rigetti_device_parameters",
-                "version": "1"
-            },
-            "qubitCount": 30
-        }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.rigetti_device_parameters",
+        ...        "version": "1"
+        ...    },
+        ...    "qubitCount": 30
+        ... }
+        >>> RigettiDeviceParameters.parse_raw_schema(json.dumps(input_json))
+
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

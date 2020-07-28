@@ -14,37 +14,38 @@ class DeviceParameters(BraketSchemaBase):
     for any given device
 
     Attributes:
-    deviceParameters: parameters of a device. It has to be either one of GateModelParameters or
-        AnnealingModelParameters
+        deviceParameters: parameters of a device. It has to be either one of GateModelParameters or
+            AnnealingModelParameters
 
     Examples:
-    GateModelParameters:
-    {
-        "braketSchemaHeader": {"name": "braket.device_schema.device_parameters", "version": "1",},
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_parameters",
-                "version": "1",
-            }
-        },
-    }
+        >>> import json
+        >>> gate_model_input_json = {
+        ...    "braketSchemaHeader": {"name": "braket.device_schema.device_parameters", "version": "1",},
+        ...    "deviceParameters": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.gate_model_parameters",
+        ...            "version": "1",
+        ...        }
+        ...    },
+        ... }
+        >>> DeviceParameters.parse_raw_schema(json.dumps(gate_model_input_json))
+        >>> annealing_model_input_json = {
+        ...    "braketSchemaHeader": {"name": "braket.device_schema.device_parameters", "version": "1",},
+        ...    "deviceParameters": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.annealing_model_parameters",
+        ...            "version": "1",
+        ...        },
+        ...        "dwaveParameters": {
+        ...            "braketSchemaHeader": {
+        ...                "name": "braket.device_schema.dwave_parameters",
+        ...                "version": "1",
+        ...            }
+        ...        },
+        ...    },
+        ... }
+        >>> DeviceParameters.parse_raw_schema(json.dumps(annealing_model_input_json))
 
-    AnnealingModelParameters:
-    {
-        "braketSchemaHeader": {"name": "braket.device_schema.device_parameters", "version": "1",},
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.annealing_model_parameters",
-                "version": "1",
-            },
-            "dwaveParameters": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.dwave_parameters",
-                    "version": "1",
-                }
-            },
-        },
-    }
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.device_schema.device_parameters", version="1")

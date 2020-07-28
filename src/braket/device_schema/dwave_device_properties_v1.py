@@ -17,34 +17,36 @@ class DwaveDeviceProperties(BraketSchemaBase):
         topology: the connections between each qubits
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave_device_properties",
-            "version": "1",
-        },
-        "annealingOffsetStep": 1.45,
-        "annealingOffsetStepPhi0": 1.45,
-        "annealingOffsetRanges": [[1.45, 1.45], [1.45, 1.45]],
-        "annealingDurationRange": [1, 2, 3],
-        "couplers": [[1, 2, 3], [1, 2, 3]],
-        "defaultAnnealingDuration": 1,
-        "defaultProgrammingThermalizationDuration": 1,
-        "defaultReadoutThermalizationDuration": 1,
-        "extendedJRange": [1, 2, 3],
-        "hGainScheduleRange": [1, 2, 3],
-        "hRange": [1, 2, 3],
-        "jRange": [1, 2, 3],
-        "maximumAnnealingSchedulePoints": 1,
-        "maximumHGainSchedulePoints": 1,
-        "perQubitCouplingRange": [1, 2, 3],
-        "programmingThermalizationDurationRange": [1, 2, 3],
-        "qubits": [1, 2, 3],
-        "qubitCount": 1,
-        "quotaConversionRate": 1,
-        "readoutThermalizationDurationRange": [1, 2, 3],
-        "taskRunDurationRange": [1, 2, 3],
-        "topology": {},
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.dwave_device_properties",
+        ...        "version": "1",
+        ...    },
+        ...    "annealingOffsetStep": 1.45,
+        ...    "annealingOffsetStepPhi0": 1.45,
+        ...    "annealingOffsetRanges": [[1.45, 1.45], [1.45, 1.45]],
+        ...    "annealingDurationRange": [1, 2, 3],
+        ...    "couplers": [[1, 2, 3], [1, 2, 3]],
+        ...    "defaultAnnealingDuration": 1,
+        ...    "defaultProgrammingThermalizationDuration": 1,
+        ...    "defaultReadoutThermalizationDuration": 1,
+        ...    "extendedJRange": [1, 2, 3],
+        ...    "hGainScheduleRange": [1, 2, 3],
+        ...    "hRange": [1, 2, 3],
+        ...    "jRange": [1, 2, 3],
+        ...    "maximumAnnealingSchedulePoints": 1,
+        ...    "maximumHGainSchedulePoints": 1,
+        ...    "perQubitCouplingRange": [1, 2, 3],
+        ...    "programmingThermalizationDurationRange": [1, 2, 3],
+        ...    "qubits": [1, 2, 3],
+        ...    "qubitCount": 1,
+        ...    "quotaConversionRate": 1,
+        ...    "readoutThermalizationDurationRange": [1, 2, 3],
+        ...    "taskRunDurationRange": [1, 2, 3],
+        ...    "topology": {},
+        ... }
+        >>> DwaveDeviceProperties.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

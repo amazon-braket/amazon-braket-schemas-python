@@ -14,20 +14,23 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         jaqcd devices
 
     Attributes:
-    supportedOperations: operations supported by the jaqcd action
-    supportedResultTypes: result types that are supported by the jaqcd action.
+        supportedOperations: operations supported by the jaqcd action
+        supportedResultTypes: result types that are supported by the jaqcd action.
 
     Examples:
-    {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.jaqcd_device_action_properties",
-            "version": "1",
-        },
-        "actionType": "braket.ir.jaqcd.program",
-        "version": ["1.0", "1.1"],
-        "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-        "supportedResultTypes": [{"observable": ["x"], "targets": [1], "type": "expectation"}],
-    }
+        >>> import json
+        >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.jaqcd_device_action_properties",
+        ...        "version": "1",
+        ...    },
+        ...    "actionType": "braket.ir.jaqcd.program",
+        ...    "version": ["1.0", "1.1"],
+        ...    "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
+        ...    "supportedResultTypes": [{"observable": ["x"], "targets": [1], "type": "expectation"}],
+        ... }
+        >>> JaqcdDeviceActionProperties.parse_raw_schema(json.dumps(input_json))
+
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
