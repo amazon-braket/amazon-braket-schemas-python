@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 import json
-import pdb
 
 import pytest
 from pydantic import ValidationError
@@ -23,13 +22,7 @@ from braket.device_schema.device_parameters_v1 import DeviceParameters
 @pytest.fixture(scope="module")
 def valid_gate_model_input():
     input = {
-        "braketSchemaHeader": {"name": "braket.device_schema.device_parameters", "version": "1",},
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_parameters",
-                "version": "1",
-            }
-        },
+        "deviceParameters": {"qubitCount": 1},
     }
     return input
 
@@ -37,7 +30,6 @@ def valid_gate_model_input():
 @pytest.fixture(scope="module")
 def valid_annealing_model_input():
     input = {
-        "braketSchemaHeader": {"name": "braket.device_schema.device_parameters", "version": "1",},
         "deviceParameters": {
             "braketSchemaHeader": {
                 "name": "braket.device_schema.annealing_model_parameters",
@@ -55,22 +47,14 @@ def valid_annealing_model_input():
 
 
 def test_valid_gate_model(valid_gate_model_input):
-    result = DeviceParameters.parse_raw_schema(json.dumps(valid_gate_model_input))
-    assert result.braketSchemaHeader.name == "braket.device_schema.device_parameters"
+    assert DeviceParameters.parse_raw(json.dumps(valid_gate_model_input))
 
 
 def test_valid_annealing_model(valid_annealing_model_input):
-    result = DeviceParameters.parse_raw_schema(json.dumps(valid_annealing_model_input))
-    assert result.braketSchemaHeader.name == "braket.device_schema.device_parameters"
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader(valid_gate_model_input):
-    valid_gate_model_input.pop("braketSchemaHeader")
-    DeviceParameters.parse_raw_schema(json.dumps(valid_gate_model_input))
+    assert DeviceParameters.parse_raw(json.dumps(valid_annealing_model_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_both_model(valid_gate_model_input):
-    valid_gate_model_input["deviceParameters"] = []
-    DeviceParameters.parse_raw_schema(json.dumps(valid_gate_model_input))
+    valid_gate_model_input.pop("deviceParameters")
+    DeviceParameters.parse_raw(json.dumps(valid_gate_model_input))

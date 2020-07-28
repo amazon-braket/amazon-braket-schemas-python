@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 import json
-import pdb
 
 import pytest
 from pydantic import ValidationError
@@ -75,13 +74,7 @@ def valid_input():
                 "connectivityGraph": {"1": ["2", "3"]},
             },
         },
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.ionq_device_parameters",
-                "version": "1",
-            },
-            "qubitCount": 11,
-        },
+        "deviceParameters": {"deviceParameters": {"qubitCount": 1}},
     }
     return input
 

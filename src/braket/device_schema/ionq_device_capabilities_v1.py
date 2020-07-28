@@ -18,12 +18,11 @@ from pydantic import Field
 from braket.device_schema.device_action_properties_v1 import DeviceActionType
 from braket.device_schema.device_capabilities_v1 import DeviceCapabilities
 from braket.device_schema.ionq_device_paradigm_properties_v1 import IonqDeviceParadigmProperties
-from braket.device_schema.ionq_device_parameters_v1 import IonqDeviceParameters
 from braket.device_schema.jaqcd_device_action_properties_v1 import JaqcdDeviceActionProperties
-from braket.schema_common import BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class IonqDeviceCapabilities(DeviceCapabilities):
+class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
 
     """
     This defines the capabilities of a ionq device.
@@ -90,11 +89,7 @@ class IonqDeviceCapabilities(DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.ionq_device_parameters",
-        ...            "version": "1",
-        ...        },
-        ...        "qubitCount": 11,
+        ...        "deviceParameters": {"qubitCount": 1}
         ...    },
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
@@ -106,4 +101,3 @@ class IonqDeviceCapabilities(DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: IonqDeviceParadigmProperties
-    deviceParameters: IonqDeviceParameters

@@ -21,11 +21,10 @@ from braket.device_schema.jaqcd_device_action_properties_v1 import JaqcdDeviceAc
 from braket.device_schema.simulator_device_paradigm_properties_v1 import (
     SimulatorDeviceParadigmProperties,
 )
-from braket.device_schema.simulator_device_parameters_v1 import SimulatorDeviceParameters
-from braket.schema_common import BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class SimulatorDeviceCapabilities(DeviceCapabilities):
+class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
     This defines the capabilities of a simulator device.
 
@@ -82,11 +81,7 @@ class SimulatorDeviceCapabilities(DeviceCapabilities):
         ...        "qubitCount": 31
         ...    },
         ...    "deviceParameters": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.simulator_device_parameters",
-        ...            "version": "1",
-        ...        },
-        ...        "qubitCount": 30,
+        ...        "deviceParameters": {"qubitCount": 1}
         ...    },
         ... }
         >>> SimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
@@ -99,4 +94,3 @@ class SimulatorDeviceCapabilities(DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: SimulatorDeviceParadigmProperties
-    deviceParameters: SimulatorDeviceParameters

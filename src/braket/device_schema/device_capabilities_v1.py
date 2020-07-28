@@ -13,7 +13,7 @@
 
 from typing import Dict
 
-from pydantic import Field
+from pydantic import BaseModel, Field
 
 from braket.device_schema.device_action_properties_v1 import (
     DeviceActionProperties,
@@ -22,10 +22,9 @@ from braket.device_schema.device_action_properties_v1 import (
 from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
 from braket.device_schema.device_parameters_v1 import DeviceParameters
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class DeviceCapabilities(BraketSchemaBase):
+class DeviceCapabilities(BaseModel):
     """
         DeviceCapabilities are the properties specific to device, this schema defines what is common
         across all the devices
@@ -39,7 +38,6 @@ class DeviceCapabilities(BraketSchemaBase):
         Examples:
             >>> import json
             >>> input_json = {
-            ...    "braketSchemaHeader": {"name": "braket.device_schema.device_capabilities", "version": "1",},
             ...    "service": {
             ...        "braketSchemaHeader": {
             ...            "name": "braket.device_schema.device_service_properties",
@@ -93,13 +91,9 @@ class DeviceCapabilities(BraketSchemaBase):
             ...        },
             ...    },
             ... }
-            >>> DeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+            >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
     """
 
-    _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.device_capabilities", version="1"
-    )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
     paradigm: DeviceParadigmProperties

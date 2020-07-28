@@ -21,11 +21,10 @@ from braket.device_schema.jaqcd_device_action_properties_v1 import JaqcdDeviceAc
 from braket.device_schema.rigetti_device_paradigm_properties_v1 import (
     RigettiDeviceParadigmProperties,
 )
-from braket.device_schema.rigetti_device_parameters_v1 import RigettiDeviceParameters
-from braket.schema_common import BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class RigettiDeviceCapabilities(DeviceCapabilities):
+class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
     This defines the capabilities of a rigetti device.
 
@@ -91,11 +90,7 @@ class RigettiDeviceCapabilities(DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.rigetti_device_parameters",
-        ...            "version": "1",
-        ...        },
-        ...        "qubitCount": 30,
+        ...        "deviceParameters": {"qubitCount": 1}
         ...    },
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
@@ -108,4 +103,3 @@ class RigettiDeviceCapabilities(DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: RigettiDeviceParadigmProperties
-    deviceParameters: RigettiDeviceParameters

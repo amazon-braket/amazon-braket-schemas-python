@@ -18,15 +18,12 @@ from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
 
 
 def test_valid():
-    input = (
-        '{"braketSchemaHeader": {"name": "braket.device_schema.gate_model_parameters", '
-        '"version": "1"}} '
-    )
-    result = GateModelParameters.parse_raw_schema(input)
-    assert result.braketSchemaHeader.name == "braket.device_schema.gate_model_parameters"
+    input = '{"qubitCount": 1}'
+    result = GateModelParameters.parse_raw(input)
+    assert result.qubitCount == 1
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader():
-    input = {"qubitCount": 1}
-    assert GateModelParameters.parse_raw_schema(input)
+    input = "{} "
+    assert GateModelParameters.parse_raw(input)
