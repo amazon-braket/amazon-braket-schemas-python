@@ -13,7 +13,7 @@ class PostProcessingType(str, Enum):
     HISTOGRAM = "histogram"
 
 
-class DwaveParameters(BaseModel):
+class DwaveDeviceLevelParameters(BaseModel):
     """
     This is the description of the d-wave parameters
 
@@ -22,7 +22,7 @@ class DwaveParameters(BaseModel):
         >>> input_json = {
         ...    "beta": 1
         ... }
-        >>> DwaveParameters.parse_raw(json.dumps(input_json))
+        >>> DwaveDeviceLevelParameters.parse_raw(json.dumps(input_json))
 
     """
 

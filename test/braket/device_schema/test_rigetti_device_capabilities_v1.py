@@ -59,7 +59,13 @@ def valid_input():
             "nativeGateSet": ["ccnot", "cy"],
             "connectivity": {"fullyConnected": True, "connectivityGraph": {"1": ["2", "3"]},},
         },
-        "deviceParameters": {"qubitCount": 1},
+        "deviceParameters": {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.rigetti_device_parameters",
+                "version": "1",
+            },
+            "paradigmParameters": {"qubitCount": 1},
+        },
     }
     return input
 

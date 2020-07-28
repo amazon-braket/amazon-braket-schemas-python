@@ -52,13 +52,7 @@ class DeviceCapabilities(BaseModel):
             ...            "actionType": "braket.ir.jaqcd.program",
             ...            "version": ["1.0", "1.1"],
             ...        }
-            ...    },
-            ...    "deviceParameters": {
-            ...        "annealingModelParameters": {
-            ...            "dwaveParameters": {
-            ...            },
-            ...        },
-            ...    },
+            ...    }
             ... }
             >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
     """

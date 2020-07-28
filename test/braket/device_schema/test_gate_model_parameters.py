@@ -24,6 +24,6 @@ def test_valid():
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader():
+def test__missing_qubitCount():
     input = "{} "
     assert GateModelParameters.parse_raw(input)

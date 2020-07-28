@@ -80,7 +80,7 @@ def valid_input():
                 "version": "1",
             }
         },
-        "deviceParameters": {"dwaveParameters": {}},
+        "deviceParameters": {"deviceLevelParameters": {}},
     }
     return input
 

@@ -17,11 +17,11 @@ from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
-from braket.device_schema.gate_model_parameters import GateModelParameters
 from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.rigetti_device_parameters_v1 import RigettiDeviceParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -79,7 +79,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {
-        ...        "gateModelParameters": {"qubitCount": 1}
+        ...        "gateModelParameters": {"paradigmParameters": {"qubitCount": 1}},
         ...    },
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
@@ -92,4 +92,4 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelQpuParadigmProperties
-    deviceParameters: GateModelParameters
+    deviceParameters: RigettiDeviceParameters
