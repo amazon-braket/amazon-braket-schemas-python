@@ -16,7 +16,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.device_parameters_v1 import DeviceParameters
+from braket.device_schema.device_parameters import DeviceParameters
 
 
 @pytest.fixture(scope="module")

@@ -15,10 +15,10 @@ from typing import Dict
 
 from pydantic import Field
 
-from braket.device_schema.device_action_properties_v1 import DeviceActionType
-from braket.device_schema.device_capabilities_v1 import DeviceCapabilities
+from braket.device_schema.device_action_properties import DeviceActionType
+from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.ionq_device_paradigm_properties_v1 import IonqDeviceParadigmProperties
-from braket.device_schema.jaqcd_device_action_properties_v1 import JaqcdDeviceActionProperties
+from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -47,10 +47,6 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...        "executionWindows": [
         ...            {
-        ...                "braketSchemaHeader": {
-        ...                    "name": "braket.device_schema.device_execution_window",
-        ...                    "version": "1",
-        ...                },
         ...                "executionDay": "Everyday",
         ...                "windowStartHour": "1966280412345.6789",
         ...                "windowEndHour": "1966280414345.6789",
@@ -60,10 +56,6 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.jaqcd_device_action_properties",
-        ...                "version": "1",
-        ...            },
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
         ...            "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
@@ -80,10 +72,6 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "qubitCount": 11,
         ...        "nativeGateSet": ["ccnot", "cy"],
         ...        "connectivity": {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.device_connectivity",
-        ...                "version": "1",
-        ...            },
         ...            "fullyConnected": True,
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },

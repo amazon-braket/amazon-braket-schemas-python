@@ -16,7 +16,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.device_connectivity_v1 import DeviceConnectivity
+from braket.device_schema.device_connectivity import DeviceConnectivity
 
 
 @pytest.fixture(scope="module")
@@ -30,23 +30,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DeviceConnectivity.parse_raw_schema(json.dumps(valid_input))
-    assert result.fullyConnected
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader(valid_input):
-    valid_input.pop("braketSchemaHeader")
-    assert DeviceConnectivity.parse_raw_schema(json.dumps(valid_input))
+    result = DeviceConnectivity.parse_raw(json.dumps(valid_input))
+    assert result.connectivityGraph == {"1": ["2", "3"]}
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_fully_connected(valid_input):
     valid_input.pop("fullyConnected")
-    assert DeviceConnectivity.parse_raw_schema(json.dumps(valid_input))
+    assert DeviceConnectivity.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_graphy(valid_input):
     valid_input.pop("connectivityGraph")
-    DeviceConnectivity.parse_raw_schema(json.dumps(valid_input))
+    DeviceConnectivity.parse_raw(json.dumps(valid_input))

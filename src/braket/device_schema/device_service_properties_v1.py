@@ -15,7 +15,7 @@ from typing import List
 
 from pydantic import Field
 
-from braket.device_schema.device_execution_window_v1 import DeviceExecutionWindow
+from braket.device_schema.device_execution_window import DeviceExecutionWindow
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -37,10 +37,6 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...    },
         ...    "executionWindows": [
         ...        {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.device_execution_window",
-        ...                "version": "1",
-        ...            },
         ...            "executionDay": "Everyday",
         ...            "windowStartHour": "1966280412345.6789",
         ...            "windowEndHour": "1966280414345.6789",

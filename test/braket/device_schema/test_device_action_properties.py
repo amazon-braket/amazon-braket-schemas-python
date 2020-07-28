@@ -16,42 +16,30 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.jaqcd_device_action_properties_v1 import JaqcdDeviceActionProperties
+from braket.device_schema.device_action_properties import DeviceActionProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.jaqcd_device_action_properties",
-            "version": "1",
-        },
         "actionType": "braket.ir.jaqcd.program",
         "version": ["1.0", "1.1"],
-        "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-        "supportedResultTypes": [{"observable": ["x"], "targets": [1], "type": "expectation"}],
     }
     return input
 
 
 def test_valid(valid_input):
-    result = JaqcdDeviceActionProperties.parse_raw_schema(json.dumps(valid_input))
+    result = DeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.actionType == "braket.ir.jaqcd.program"
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_schema_header(valid_input):
-    valid_input.pop("braketSchemaHeader")
-    JaqcdDeviceActionProperties.parse_raw_schema(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_action_type(valid_input):
+def test__missing_actionType(valid_input):
     valid_input.pop("actionType")
-    JaqcdDeviceActionProperties.parse_raw_schema(json.dumps(valid_input))
+    DeviceActionProperties.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_invalid_supported_operations(valid_input):
-    valid_input.pop("supportedOperations")
-    JaqcdDeviceActionProperties.parse_raw_schema(json.dumps(valid_input))
+def test__missing_version(valid_input):
+    valid_input.pop("version")
+    DeviceActionProperties.parse_raw(json.dumps(valid_input))

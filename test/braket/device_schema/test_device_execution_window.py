@@ -16,16 +16,12 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.device_execution_window_v1 import DeviceExecutionWindow, ExecutionDay
+from braket.device_schema.device_execution_window import DeviceExecutionWindow, ExecutionDay
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.device_execution_window",
-            "version": "1",
-        },
         "executionDay": "Everyday",
         "windowStartHour": "1966280412345.6789",
         "windowEndHour": "1966280414345.6789",
@@ -34,23 +30,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DeviceExecutionWindow.parse_raw_schema(json.dumps(valid_input))
+    result = DeviceExecutionWindow.parse_raw(json.dumps(valid_input))
     assert result.executionDay == ExecutionDay("Everyday")
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader(valid_input):
-    valid_input.pop("braketSchemaHeader")
-    assert DeviceExecutionWindow.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_executionDay(valid_input):
     valid_input.pop("executionDay")
-    assert DeviceExecutionWindow.parse_raw_schema(json.dumps(valid_input))
+    assert DeviceExecutionWindow.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__invalid_executionDay(valid_input):
     valid_input["executionDay"] = "today"
-    DeviceExecutionWindow.parse_raw_schema(json.dumps(valid_input))
+    DeviceExecutionWindow.parse_raw(json.dumps(valid_input))

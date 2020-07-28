@@ -33,10 +33,6 @@ def valid_input():
             },
             "executionWindows": [
                 {
-                    "braketSchemaHeader": {
-                        "name": "braket.device_schema.device_execution_window",
-                        "version": "1",
-                    },
                     "executionDay": "Everyday",
                     "windowStartHour": "1966280412345.6789",
                     "windowEndHour": "1966280414345.6789",
@@ -46,10 +42,6 @@ def valid_input():
         },
         "action": {
             "braket.ir.jaqcd.program": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.jaqcd_device_action_properties",
-                    "version": "1",
-                },
                 "actionType": "braket.ir.jaqcd.program",
                 "version": ["1.0", "1.1"],
                 "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],

@@ -13,14 +13,11 @@
 
 from typing import Dict
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
-from braket.device_schema.device_action_properties_v1 import (
-    DeviceActionProperties,
-    DeviceActionType,
-)
+from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
 from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
-from braket.device_schema.device_parameters_v1 import DeviceParameters
+from braket.device_schema.device_parameters import DeviceParameters
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
 
@@ -45,10 +42,6 @@ class DeviceCapabilities(BaseModel):
             ...        },
             ...        "executionWindows": [
             ...            {
-            ...                "braketSchemaHeader": {
-            ...                    "name": "braket.device_schema.device_execution_window",
-            ...                    "version": "1",
-            ...                },
             ...                "executionDay": "Everyday",
             ...                "windowStartHour": "1966280412345.6789",
             ...                "windowEndHour": "1966280414345.6789",
@@ -58,10 +51,6 @@ class DeviceCapabilities(BaseModel):
             ...    },
             ...    "action": {
             ...        "braket.ir.jaqcd.program": {
-            ...            "braketSchemaHeader": {
-            ...                "name": "braket.device_schema.device_action_properties",
-            ...                "version": "1",
-            ...            },
             ...            "actionType": "braket.ir.jaqcd.program",
             ...            "version": ["1.0", "1.1"],
             ...        }

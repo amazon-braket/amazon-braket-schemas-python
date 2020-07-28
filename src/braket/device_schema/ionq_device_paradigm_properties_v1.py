@@ -15,7 +15,7 @@ from typing import List
 
 from pydantic import Field
 
-from braket.device_schema.device_connectivity_v1 import DeviceConnectivity
+from braket.device_schema.device_connectivity import DeviceConnectivity
 from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
 from braket.schema_common import BraketSchemaHeader
 
@@ -40,10 +40,6 @@ class IonqDeviceParadigmProperties(DeviceParadigmProperties):
         ...    "qubitCount": 32,
         ...    "nativeGateSet": ["ccnot", "cy"],
         ...    "connectivity": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.device_connectivity",
-        ...            "version": "1",
-        ...        },
         ...        "fullyConnected": True,
         ...        "connectivityGraph": {"1": ["2", "3"]},
         ...    },

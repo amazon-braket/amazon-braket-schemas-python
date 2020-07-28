@@ -3,7 +3,7 @@ from typing import Union
 from pydantic import BaseModel
 
 from braket.device_schema.annealing_model_parameters_v1 import AnnealingModelParameters
-from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
+from braket.device_schema.gate_model_parameters import GateModelParameters
 
 
 class DeviceParameters(BaseModel):

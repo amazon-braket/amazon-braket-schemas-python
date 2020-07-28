@@ -14,7 +14,7 @@
 from pydantic import Field
 
 from braket.device_schema.annealing_model_parameters_v1 import AnnealingModelParameters
-from braket.device_schema.device_capabilities_v1 import DeviceCapabilities
+from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.dwave_device_properties_v1 import DwaveDeviceProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -70,10 +70,6 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...        },
         ...        "executionWindows": [
         ...            {
-        ...                "braketSchemaHeader": {
-        ...                    "name": "braket.device_schema.device_execution_window",
-        ...                    "version": "1",
-        ...                },
         ...                "executionDay": "Everyday",
         ...                "windowStartHour": "1966280412345.6789",
         ...                "windowEndHour": "1966280414345.6789",
@@ -83,10 +79,6 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.device_action_properties",
-        ...                "version": "1",
-        ...            },
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
         ...        }

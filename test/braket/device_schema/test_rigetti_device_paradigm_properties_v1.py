@@ -30,14 +30,7 @@ def valid_input():
         },
         "qubitCount": 32,
         "nativeGateSet": ["ccnot", "cy"],
-        "connectivity": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_connectivity",
-                "version": "1",
-            },
-            "fullyConnected": True,
-            "connectivityGraph": {"1": ["2", "3"]},
-        },
+        "connectivity": {"fullyConnected": True, "connectivityGraph": {"1": ["2", "3"]},},
     }
     return input
 

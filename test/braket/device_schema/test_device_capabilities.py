@@ -16,7 +16,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.device_capabilities_v1 import DeviceCapabilities
+from braket.device_schema.device_capabilities import DeviceCapabilities
 
 
 @pytest.fixture(scope="module")
@@ -29,10 +29,6 @@ def valid_input():
             },
             "executionWindows": [
                 {
-                    "braketSchemaHeader": {
-                        "name": "braket.device_schema.device_execution_window",
-                        "version": "1",
-                    },
                     "executionDay": "Everyday",
                     "windowStartHour": "1966280412345.6789",
                     "windowEndHour": "1966280414345.6789",
@@ -42,10 +38,6 @@ def valid_input():
         },
         "action": {
             "braket.ir.jaqcd.program": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_action_properties",
-                    "version": "1",
-                },
                 "actionType": "braket.ir.jaqcd.program",
                 "version": ["1.0", "1.1"],
             }

@@ -14,9 +14,7 @@
 from enum import Enum
 from typing import List
 
-from pydantic import Field
-
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from pydantic import BaseModel
 
 
 class DeviceActionType(str, Enum):
@@ -28,7 +26,7 @@ class DeviceActionType(str, Enum):
     ANNEALING = "braket.ir.annealing.problem"
 
 
-class DeviceActionProperties(BraketSchemaBase):
+class DeviceActionProperties(BaseModel):
     """
         This class defines the actions that can be performed by a device
 
@@ -40,18 +38,11 @@ class DeviceActionProperties(BraketSchemaBase):
             >>> import json
             >>> input_json = {
             ...     "braketSchemaHeader": {
-            ...         "name": "braket.device_schema.device_action_properties",
-            ...         "version": "1",
-            ...     },
             ...     "actionType": "braket.ir.jaqcd.program",
             ...     "version": ["1.0", "1.1"],
             ... }
-            >>> DeviceActionProperties.parse_raw_schema(json.dumps(input_json))
+            >>> DeviceActionProperties.parse_raw(json.dumps(input_json))
     """
 
-    _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.device_action_properties", version="1"
-    )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     version: List[str]
     actionType: DeviceActionType

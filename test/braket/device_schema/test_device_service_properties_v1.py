@@ -28,10 +28,6 @@ def valid_input():
         },
         "executionWindows": [
             {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.device_execution_window",
-                    "version": "1",
-                },
                 "executionDay": "Everyday",
                 "windowStartHour": "1966280412345.6789",
                 "windowEndHour": "1966280414345.6789",

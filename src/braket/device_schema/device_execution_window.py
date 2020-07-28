@@ -14,9 +14,7 @@
 from datetime import datetime
 from enum import Enum
 
-from pydantic import Field
-
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from pydantic import BaseModel
 
 
 class ExecutionDay(str, Enum):
@@ -48,7 +46,7 @@ class ExecutionDay(str, Enum):
     SUNDAY = "Sunday"
 
 
-class DeviceExecutionWindow(BraketSchemaBase):
+class DeviceExecutionWindow(BaseModel):
 
     """
     This class defines when a device can execute a given task.
@@ -61,22 +59,14 @@ class DeviceExecutionWindow(BraketSchemaBase):
     Examples:
         >>> import json
         >>> input_json = {
-        ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.device_execution_window",
-        ...        "version": "1",
-        ...    },
         ...    "executionDay": "Everyday",
         ...    "windowStartHour": "1966280412345.6789",
         ...    "windowEndHour": "1966280414345.6789",
         ... }
-        >>> DeviceExecutionWindow.parse_raw_schema(json.dumps(input_json))
+        >>> DeviceExecutionWindow.parse_raw(json.dumps(input_json))
 
     """
 
-    _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.device_execution_window", version="1"
-    )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     executionDay: ExecutionDay
     windowStartHour: datetime
     windowEndHour: datetime

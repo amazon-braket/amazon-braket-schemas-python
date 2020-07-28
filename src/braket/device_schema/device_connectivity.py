@@ -11,12 +11,10 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import Field
-
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from pydantic import BaseModel
 
 
-class DeviceConnectivity(BraketSchemaBase):
+class DeviceConnectivity(BaseModel):
 
     """
     This schema defines the common properties that need to be existent if a connection is defined.
@@ -33,16 +31,11 @@ class DeviceConnectivity(BraketSchemaBase):
     Examples:
         >>> import json
         >>> input_json = {
-        ...    "braketSchemaHeader": {"name": "braket.device_schema.device_connectivity", "version": "1",},
         ...    "fullyConnected": True,
         ...    "connectivityGraph": {"1": ["2", "3"]},
         ... }
-        >>> DeviceConnectivity.parse_raw_schema(json.dumps(input_json))
+        >>> DeviceConnectivity.parse_raw(json.dumps(input_json))
     """
 
-    _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.device_connectivity", version="1"
-    )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    fullyConnected = bool
-    connectivityGraph = dict
+    fullyConnected: bool
+    connectivityGraph: dict
