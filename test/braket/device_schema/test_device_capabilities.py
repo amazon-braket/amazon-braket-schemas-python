@@ -42,42 +42,13 @@ def valid_input():
                 "version": ["1.0", "1.1"],
             }
         },
-        "paradigm": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_paradigm_properties",
-                "version": "1",
-            }
-        },
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_parameters",
-                "version": "1",
-            },
-            "deviceParameters": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.annealing_model_parameters",
-                    "version": "1",
-                },
-                "dwaveParameters": {
-                    "braketSchemaHeader": {
-                        "name": "braket.device_schema.dwave_parameters",
-                        "version": "1",
-                    }
-                },
-            },
-        },
+        "deviceParameters": {"annealingModelParameters": {"dwaveParameters": {},},},
     }
     return input
 
 
 def test_valid(valid_input):
     assert DeviceCapabilities.parse_raw(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_paradigm(valid_input):
-    valid_input.pop("paradigm")
-    DeviceCapabilities.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)

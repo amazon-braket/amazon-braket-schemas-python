@@ -80,18 +80,7 @@ def valid_input():
                 "version": "1",
             }
         },
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.annealing_model_parameters",
-                "version": "1",
-            },
-            "dwaveParameters": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.dwave_parameters",
-                    "version": "1",
-                }
-            },
-        },
+        "deviceParameters": {"annealingModelParameters": {"dwaveParameters": {},},},
     }
     return input
 

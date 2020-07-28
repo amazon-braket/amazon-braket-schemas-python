@@ -13,8 +13,8 @@
 
 from pydantic import Field
 
-from braket.device_schema.annealing_model_parameters_v1 import AnnealingModelParameters
 from braket.device_schema.device_capabilities import DeviceCapabilities
+from braket.device_schema.device_parameters import DeviceParameters
 from braket.device_schema.dwave_device_properties_v1 import DwaveDeviceProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -83,22 +83,10 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...            "version": ["1.0", "1.1"],
         ...        }
         ...    },
-        ...    "paradigm": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.device_paradigm_properties",
-        ...            "version": "1",
-        ...        }
-        ...    },
         ...    "deviceParameters": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.annealing_model_parameters",
-        ...            "version": "1",
-        ...        },
-        ...        "dwaveParameters": {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.dwave_parameters",
-        ...                "version": "1",
-        ...            }
+        ...        "annealingModelParameters": {
+        ...            "dwaveParameters": {
+        ...            },
         ...        },
         ...    },
         ... }
@@ -110,4 +98,4 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     device: DwaveDeviceProperties
-    deviceParameters: AnnealingModelParameters
+    deviceParameters: DeviceParameters

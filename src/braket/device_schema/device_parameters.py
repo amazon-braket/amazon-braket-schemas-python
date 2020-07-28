@@ -1,8 +1,8 @@
-from typing import Union
+from typing import Optional, Union
 
 from pydantic import BaseModel
 
-from braket.device_schema.annealing_model_parameters_v1 import AnnealingModelParameters
+from braket.device_schema.annealing_model_parameters import AnnealingModelParameters
 from braket.device_schema.gate_model_parameters import GateModelParameters
 
 
@@ -19,22 +19,13 @@ class DeviceParameters(BaseModel):
     Examples:
         >>> import json
         >>> gate_model_input_json = {
-        ...    "deviceParameters": {
-        ...        "deviceParameters": {"qubitCount": 1}
-        ...    }
+        ...     "gateModelParameters": {"qubitCount": 1}
         ... }
         >>> DeviceParameters.parse_raw(json.dumps(gate_model_input_json))
         >>> annealing_model_input_json = {
-        ...    "deviceParameters": {
-        ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.annealing_model_parameters",
-        ...            "version": "1",
-        ...        },
+        ...    "annealingModelParameters": {
         ...        "dwaveParameters": {
-        ...            "braketSchemaHeader": {
-        ...                "name": "braket.device_schema.dwave_parameters",
-        ...                "version": "1",
-        ...            }
+        ...             "beta": 1
         ...        },
         ...    },
         ... }
@@ -42,4 +33,5 @@ class DeviceParameters(BaseModel):
 
     """
 
-    deviceParameters: Union[GateModelParameters, AnnealingModelParameters]
+    annealingModelParameters: Optional[AnnealingModelParameters]
+    gateModelParameters: Optional[GateModelParameters]

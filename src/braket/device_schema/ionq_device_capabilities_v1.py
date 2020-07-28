@@ -77,7 +77,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {
-        ...        "deviceParameters": {"qubitCount": 1}
+        ...        "gateModelParameters": {"qubitCount": 1}
         ...    },
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))

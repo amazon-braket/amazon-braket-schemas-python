@@ -13,11 +13,10 @@
 
 from pydantic import Field
 
-from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
-from braket.schema_common import BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class SimulatorDeviceParadigmProperties(DeviceParadigmProperties):
+class SimulatorDeviceParadigmProperties(BraketSchemaBase):
 
     """
     This class defines the properties that are specific to simulator device
@@ -34,7 +33,7 @@ class SimulatorDeviceParadigmProperties(DeviceParadigmProperties):
         ...    },
         ...    "qubitCount": 32
         ... }
-        >>> RigettiDeviceParadigmProperties.parse_raw_schema(json.dumps(input_json))
+        >>> SimulatorDeviceParadigmProperties.parse_raw_schema(json.dumps(input_json))
 
     """
 

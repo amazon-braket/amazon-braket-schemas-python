@@ -78,7 +78,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {
-        ...        "deviceParameters": {"qubitCount": 1}
+        ...        "gateModelParameters": {"qubitCount": 1}
         ...    },
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))

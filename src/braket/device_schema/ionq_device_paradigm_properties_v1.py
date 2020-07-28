@@ -16,11 +16,10 @@ from typing import List
 from pydantic import Field
 
 from braket.device_schema.device_connectivity import DeviceConnectivity
-from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
-from braket.schema_common import BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class IonqDeviceParadigmProperties(DeviceParadigmProperties):
+class IonqDeviceParadigmProperties(BraketSchemaBase):
 
     """
     This class defines the properties that are specific to ionq device

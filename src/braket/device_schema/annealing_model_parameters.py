@@ -12,13 +12,12 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic import Field
+from pydantic import BaseModel
 
-from braket.device_schema.dwave_parameters_v1 import DwaveParameters
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.device_schema.dwave_parameters import DwaveParameters
 
 
-class AnnealingModelParameters(BraketSchemaBase):
+class AnnealingModelParameters(BaseModel):
     """
     This class defines the parameters provided for d-wave annealing model
 
@@ -28,23 +27,11 @@ class AnnealingModelParameters(BraketSchemaBase):
     Examples:
         >>> import json
         >>> input_json = {
-        ...     "braketSchemaHeader": {
-        ...         "name": "braket.device_schema.annealing_model_parameters",
-        ...        "version": "1",
-        ...     },
         ...     "dwaveParameters": {
-        ...         "braketSchemaHeader": {
-        ...             "name": "braket.device_schema.dwave_parameters",
-        ...             "version": "1"
-        ...         },
-        ...         "annealingOffsets": 1
+        ...         "beta": 1
         ...     }
         ... }
-        >>> AnnealingModelParameters.parse_raw_schema(json.dumps(input_json))
+        >>> AnnealingModelParameters.parse_raw(json.dumps(input_json))
     """
 
-    _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.annealing_model_parameters", version="1"
-    )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     dwaveParameters: DwaveParameters

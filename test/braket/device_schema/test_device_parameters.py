@@ -14,7 +14,6 @@
 import json
 
 import pytest
-from pydantic import ValidationError
 
 from braket.device_schema.device_parameters import DeviceParameters
 
@@ -22,7 +21,7 @@ from braket.device_schema.device_parameters import DeviceParameters
 @pytest.fixture(scope="module")
 def valid_gate_model_input():
     input = {
-        "deviceParameters": {"qubitCount": 1},
+        "gateModelParameters": {"qubitCount": 1},
     }
     return input
 
@@ -30,18 +29,7 @@ def valid_gate_model_input():
 @pytest.fixture(scope="module")
 def valid_annealing_model_input():
     input = {
-        "deviceParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.annealing_model_parameters",
-                "version": "1",
-            },
-            "dwaveParameters": {
-                "braketSchemaHeader": {
-                    "name": "braket.device_schema.dwave_parameters",
-                    "version": "1",
-                }
-            },
-        },
+        "annealingModelParameters": {"dwaveParameters": {},},
     }
     return input
 
@@ -52,9 +40,3 @@ def test_valid_gate_model(valid_gate_model_input):
 
 def test_valid_annealing_model(valid_annealing_model_input):
     assert DeviceParameters.parse_raw(json.dumps(valid_annealing_model_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_both_model(valid_gate_model_input):
-    valid_gate_model_input.pop("deviceParameters")
-    DeviceParameters.parse_raw(json.dumps(valid_gate_model_input))

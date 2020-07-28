@@ -73,7 +73,7 @@ class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "qubitCount": 31
         ...    },
         ...    "deviceParameters": {
-        ...        "deviceParameters": {"qubitCount": 1}
+        ...        "gateModelParameters": {"qubitCount": 1}
         ...    },
         ... }
         >>> SimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))

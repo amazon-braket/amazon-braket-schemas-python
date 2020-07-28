@@ -16,7 +16,6 @@ from typing import Dict
 from pydantic import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
-from braket.device_schema.device_paradigm_properties_v1 import DeviceParadigmProperties
 from braket.device_schema.device_parameters import DeviceParameters
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
@@ -55,27 +54,9 @@ class DeviceCapabilities(BaseModel):
             ...            "version": ["1.0", "1.1"],
             ...        }
             ...    },
-            ...    "paradigm": {
-            ...        "braketSchemaHeader": {
-            ...            "name": "braket.device_schema.device_paradigm_properties",
-            ...            "version": "1",
-            ...        }
-            ...    },
             ...    "deviceParameters": {
-            ...        "braketSchemaHeader": {
-            ...            "name": "braket.device_schema.device_parameters",
-            ...            "version": "1",
-            ...        },
-            ...        "deviceParameters": {
-            ...            "braketSchemaHeader": {
-            ...                "name": "braket.device_schema.annealing_model_parameters",
-            ...                "version": "1",
-            ...            },
+            ...        "annealingModelParameters": {
             ...            "dwaveParameters": {
-            ...                "braketSchemaHeader": {
-            ...                    "name": "braket.device_schema.dwave_parameters",
-            ...                    "version": "1",
-            ...                }
             ...            },
             ...        },
             ...    },
@@ -85,5 +66,4 @@ class DeviceCapabilities(BaseModel):
 
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
-    paradigm: DeviceParadigmProperties
     deviceParameters: DeviceParameters

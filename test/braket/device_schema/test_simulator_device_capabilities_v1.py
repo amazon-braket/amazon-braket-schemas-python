@@ -57,7 +57,7 @@ def valid_input():
             },
             "qubitCount": 32,
         },
-        "deviceParameters": {"deviceParameters": {"qubitCount": 1}},
+        "deviceParameters": {"gateModelParameters": {"qubitCount": 1}},
     }
     return input
 
