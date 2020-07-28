@@ -33,14 +33,14 @@ def valid_input():
                 "windowEndHour": "1966280414345.6789",
             }
         ],
-        "shots": 2,
+        "shotsRange": [1, 10],
     }
     return input
 
 
 def test_valid(valid_input):
     result = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
-    assert result.shots == 2
+    assert result.shotsRange == (1, 10)
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -57,5 +57,5 @@ def test__missing_executionWindows(valid_input):
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_shots(valid_input):
-    valid_input.pop("shots")
+    valid_input.pop("shotsRange")
     DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))

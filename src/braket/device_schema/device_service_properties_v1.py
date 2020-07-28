@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List
+from typing import List, Tuple
 
 from pydantic import Field
 
@@ -26,7 +26,7 @@ class DeviceServiceProperties(BraketSchemaBase):
     Attributes:
         executionWindows: List of the executionWindows, it tells us which days the device can
             execute a task.
-        shots: shots for a given device.
+        shotsRange: range of the shots for a given device.
 
     Examples:
         >>> import json
@@ -42,7 +42,7 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...            "windowEndHour": "1966280414345.6789",
         ...        }
         ...    ],
-        ...    "shots": 2,
+        ...    "shotsRange": [1,10],
         ... }
         >>> DeviceServiceProperties.parse_raw_schema(json.dumps(input_json))
 
@@ -53,4 +53,4 @@ class DeviceServiceProperties(BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     executionWindows: List[DeviceExecutionWindow]
-    shots: int
+    shotsRange: Tuple[int, int]

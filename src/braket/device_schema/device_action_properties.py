@@ -37,7 +37,6 @@ class DeviceActionProperties(BaseModel):
         Examples:
             >>> import json
             >>> input_json = {
-            ...     "braketSchemaHeader": {
             ...     "actionType": "braket.ir.jaqcd.program",
             ...     "version": ["1.0", "1.1"],
             ... }

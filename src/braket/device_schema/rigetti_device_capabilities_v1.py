@@ -17,10 +17,11 @@ from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
-from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
-from braket.device_schema.rigetti_device_paradigm_properties_v1 import (
-    RigettiDeviceParadigmProperties,
+from braket.device_schema.gate_model_parameters import GateModelParameters
+from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
+    GateModelQpuParadigmProperties,
 )
+from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -53,7 +54,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...                "windowEndHour": "1966280414345.6789",
         ...            }
         ...        ],
-        ...        "shots": 2,
+        ...        "shotsRange": [1, 10],
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
@@ -67,7 +68,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    },
         ...    "paradigm": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.rigetti_device_paradigm_properties",
+        ...            "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
         ...            "version": "1",
         ...        },
         ...        "qubitCount": 32,
@@ -90,4 +91,5 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
-    paradigm: RigettiDeviceParadigmProperties
+    paradigm: GateModelQpuParadigmProperties
+    deviceParameters: GateModelParameters

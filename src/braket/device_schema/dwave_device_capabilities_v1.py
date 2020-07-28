@@ -13,8 +13,8 @@
 
 from pydantic import Field
 
+from braket.device_schema.annealing_model_parameters import AnnealingModelParameters
 from braket.device_schema.device_capabilities import DeviceCapabilities
-from braket.device_schema.device_parameters import DeviceParameters
 from braket.device_schema.dwave_device_properties_v1 import DwaveDeviceProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -75,7 +75,7 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...                "windowEndHour": "1966280414345.6789",
         ...            }
         ...        ],
-        ...        "shots": 2,
+        ...        "shotsRange": [1, 10],
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
@@ -98,4 +98,4 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     device: DwaveDeviceProperties
-    deviceParameters: DeviceParameters
+    deviceParameters: AnnealingModelParameters

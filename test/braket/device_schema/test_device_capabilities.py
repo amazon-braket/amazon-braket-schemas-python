@@ -34,7 +34,7 @@ def valid_input():
                     "windowEndHour": "1966280414345.6789",
                 }
             ],
-            "shots": 2,
+            "shotsRange": [1, 10],
         },
         "action": {
             "braket.ir.jaqcd.program": {
@@ -49,12 +49,6 @@ def valid_input():
 
 def test_valid(valid_input):
     assert DeviceCapabilities.parse_raw(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_deviceParameters(valid_input):
-    valid_input.pop("deviceParameters")
-    DeviceCapabilities.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)

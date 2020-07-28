@@ -38,7 +38,7 @@ def valid_input():
                     "windowEndHour": "1966280414345.6789",
                 }
             ],
-            "shots": 2,
+            "shotsRange": [1, 10],
         },
         "action": {
             "braket.ir.jaqcd.program": {
@@ -52,14 +52,14 @@ def valid_input():
         },
         "paradigm": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.ionq_device_paradigm_properties",
+                "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
                 "version": "1",
             },
             "qubitCount": 11,
             "nativeGateSet": ["ccnot", "cy"],
             "connectivity": {"fullyConnected": True, "connectivityGraph": {"1": ["2", "3"]},},
         },
-        "deviceParameters": {"gateModelParameters": {"qubitCount": 1}},
+        "deviceParameters": {"qubitCount": 1},
     }
     return input
 

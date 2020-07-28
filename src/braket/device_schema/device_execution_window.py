@@ -53,8 +53,8 @@ class DeviceExecutionWindow(BaseModel):
 
     Attributes:
         executionDay: Days of the execution window
-        windowStartHour: timestamp of the time when the execution window starts
-        windowEndHour: timestamp of the time when the execution window ends
+        windowStartHour: UTC timestamp of the time when the execution window starts
+        windowEndHour: UTC timestamp of the time when the execution window ends
 
     Examples:
         >>> import json

@@ -17,14 +17,15 @@ from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
-from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
-from braket.device_schema.simulator_device_paradigm_properties_v1 import (
-    SimulatorDeviceParadigmProperties,
+from braket.device_schema.gate_model_parameters import GateModelParameters
+from braket.device_schema.gate_model_simulator_paradigm_properties_v1 import (
+    GateModelSimulatorParadigmProperties,
 )
+from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
+class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
     This defines the capabilities of a simulator device.
 
@@ -38,7 +39,7 @@ class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.simulator_device_capabilities",
+        ...        "name": "braket.device_schema.gate_model_simulator_device_capabilities",
         ...        "version": "1",
         ...    },
         ...    "service": {
@@ -53,7 +54,7 @@ class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...                "windowEndHour": "1966280414345.6789",
         ...            }
         ...        ],
-        ...        "shots": 2,
+        ...        "shotsRange": [1, 10],
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
@@ -67,7 +68,7 @@ class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    },
         ...    "paradigm": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.simulator_device_paradigm_properties",
+        ...            "name": "braket.device_schema.gate_model_simulator_paradigm_properties",
         ...            "version": "1",
         ...        },
         ...        "qubitCount": 31
@@ -81,8 +82,9 @@ class SimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.simulator_device_capabilities", version="1"
+        name="braket.device_schema.gate_model_simulator_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
-    paradigm: SimulatorDeviceParadigmProperties
+    paradigm: GateModelSimulatorParadigmProperties
+    deviceParameters: GateModelParameters

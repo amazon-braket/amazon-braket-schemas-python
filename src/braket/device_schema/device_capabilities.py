@@ -16,7 +16,6 @@ from typing import Dict
 from pydantic import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
-from braket.device_schema.device_parameters import DeviceParameters
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
 
@@ -46,7 +45,7 @@ class DeviceCapabilities(BaseModel):
             ...                "windowEndHour": "1966280414345.6789",
             ...            }
             ...        ],
-            ...        "shots": 2,
+            ...        "shotsRange": [1, 10],
             ...    },
             ...    "action": {
             ...        "braket.ir.jaqcd.program": {
@@ -66,4 +65,3 @@ class DeviceCapabilities(BaseModel):
 
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
-    deviceParameters: DeviceParameters

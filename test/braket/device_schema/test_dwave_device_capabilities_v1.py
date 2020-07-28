@@ -66,7 +66,7 @@ def valid_input():
                     "windowEndHour": "1966280414345.6789",
                 }
             ],
-            "shots": 2,
+            "shotsRange": [1, 10],
         },
         "action": {
             "braket.ir.jaqcd.program": {
@@ -80,7 +80,7 @@ def valid_input():
                 "version": "1",
             }
         },
-        "deviceParameters": {"annealingModelParameters": {"dwaveParameters": {},},},
+        "deviceParameters": {"dwaveParameters": {}},
     }
     return input
 

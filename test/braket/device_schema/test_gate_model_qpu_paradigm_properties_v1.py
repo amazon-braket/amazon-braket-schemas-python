@@ -16,8 +16,8 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.simulator_device_paradigm_properties_v1 import (
-    SimulatorDeviceParadigmProperties,
+from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
+    GateModelQpuParadigmProperties,
 )
 
 
@@ -25,29 +25,34 @@ from braket.device_schema.simulator_device_paradigm_properties_v1 import (
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.simulator_device_paradigm_properties",
+            "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
             "version": "1",
         },
         "qubitCount": 32,
+        "nativeGateSet": ["ccnot", "cy"],
+        "connectivity": {"fullyConnected": True, "connectivityGraph": {"1": ["2", "3"]},},
     }
     return input
 
 
 def test_valid(valid_input):
-    result = SimulatorDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
-    assert (
-        result.braketSchemaHeader.name
-        == "braket.device_schema.simulator_device_paradigm_properties"
-    )
+    result = GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    assert result.nativeGateSet == ["ccnot", "cy"]
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    SimulatorDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_qubitCount(valid_input):
     valid_input.pop("qubitCount")
-    SimulatorDeviceParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test__invalid_connectivity(valid_input):
+    valid_input["connectivity"]["fullyConnected"] = 1
+    GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
