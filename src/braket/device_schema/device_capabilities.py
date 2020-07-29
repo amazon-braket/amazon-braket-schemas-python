@@ -52,10 +52,12 @@ class DeviceCapabilities(BaseModel):
             ...            "actionType": "braket.ir.jaqcd.program",
             ...            "version": ["1.0", "1.1"],
             ...        }
-            ...    }
+            ...    },
+            ...    "deviceParameters": {}
             ... }
             >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
     """
 
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
+    deviceParameters: dict
