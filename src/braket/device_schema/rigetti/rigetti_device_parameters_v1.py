@@ -20,7 +20,7 @@ class RigettiDeviceParameters(BraketSchemaBase):
         ...        "version": "1",
         ...    },"qubitCount": 1},
         ... }
-        >>> RigettiDeviceParameters.parse_raw(json.dumps(input_json))
+        >>> RigettiDeviceParameters.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

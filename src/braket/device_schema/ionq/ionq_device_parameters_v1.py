@@ -20,7 +20,7 @@ class IonqDeviceParameters(BraketSchemaBase):
         ...        "version": "1",
         ...    },"qubitCount": 1},
         ... }
-        >>> IonqDeviceParameters.parse_raw(json.dumps(input_json))
+        >>> IonqDeviceParameters.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(

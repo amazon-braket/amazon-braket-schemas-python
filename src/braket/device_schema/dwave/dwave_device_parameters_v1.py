@@ -23,7 +23,7 @@ class DwaveDeviceParameters(BraketSchemaBase):
         ...             "version": "1",
         ...     },}
         ... }
-        >>> DwaveDeviceParameters.parse_raw(json.dumps(input_json))
+        >>> DwaveDeviceParameters.parse_raw_schema(json.dumps(input_json))
 
     """
 

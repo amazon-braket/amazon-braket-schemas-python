@@ -16,7 +16,7 @@ class GateModelParameters(BraketSchemaBase):
         ...    },
         ...    "qubitCount": 1
         ... }
-        >>> GateModelParameters.parse_raw(json.dumps(input_json))
+        >>> GateModelParameters.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
