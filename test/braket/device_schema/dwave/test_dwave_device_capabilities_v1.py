@@ -16,19 +16,19 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.dwave_device_properties_v1 import DwaveDeviceProperties
+from braket.device_schema.dwave.dwave_device_properties_v1 import DwaveDeviceProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave_device_capabilities",
+            "name": "braket.device_schema.dwave.dwave_device_capabilities",
             "version": "1",
         },
         "device": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.dwave_device_properties",
+                "name": "braket.device_schema.dwave.dwave_device_properties",
                 "version": "1",
             },
             "annealingOffsetStep": 1.45,
@@ -80,7 +80,18 @@ def valid_input():
                 "version": "1",
             }
         },
-        "deviceParameters": {"deviceLevelParameters": {}},
+        "deviceParameters": {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.dwave.dwave_device_parameters",
+                "version": "1",
+            },
+            "deviceLevelParameters": {
+                "braketSchemaHeader": {
+                    "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+                    "version": "1",
+                }
+            },
+        },
     }
     return input
 

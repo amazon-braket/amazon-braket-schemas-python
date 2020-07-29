@@ -16,38 +16,35 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.gate_model_simulator_paradigm_properties_v1 import (
-    GateModelSimulatorParadigmProperties,
-)
+from braket.device_schema.rigetti.rigetti_device_parameters_v1 import RigettiDeviceParameters
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.gate_model_simulator_paradigm_properties",
+            "name": "braket.device_schema.rigetti.rigetti_device_parameters",
             "version": "1",
         },
-        "qubitCount": 32,
+        "paradigmParameters": {"qubitCount": 1},
     }
     return input
 
 
 def test_valid(valid_input):
-    result = GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    result = RigettiDeviceParameters.parse_raw_schema(json.dumps(valid_input))
     assert (
-        result.braketSchemaHeader.name
-        == "braket.device_schema.gate_model_simulator_paradigm_properties"
+        result.braketSchemaHeader.name == "braket.device_schema.rigetti.rigetti_device_parameters"
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceParameters.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_qubitCount(valid_input):
-    valid_input.pop("qubitCount")
-    GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+def test__missing_paradigmProperties(valid_input):
+    valid_input.pop("paradigmParameters")
+    RigettiDeviceParameters.parse_raw_schema(json.dumps(valid_input))

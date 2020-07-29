@@ -16,16 +16,14 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.gate_model_simulator_device_parameters_v1 import (
-    GateModelSimulatorDeviceParameters,
-)
+from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.gate_model_simulator_device_parameters",
+            "name": "braket.device_schema.ionq.ionq_device_parameters",
             "version": "1",
         },
         "paradigmParameters": {"qubitCount": 1},
@@ -34,20 +32,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = GateModelSimulatorDeviceParameters.parse_raw_schema(json.dumps(valid_input))
-    assert (
-        result.braketSchemaHeader.name
-        == "braket.device_schema.gate_model_simulator_device_parameters"
-    )
+    result = IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_parameters"
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    GateModelSimulatorDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_paradigmProperties(valid_input):
     valid_input.pop("paradigmParameters")
-    GateModelSimulatorDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))

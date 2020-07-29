@@ -20,7 +20,7 @@ class DwaveDeviceProperties(BraketSchemaBase):
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.dwave_device_properties",
+        ...        "name": "braket.device_schema.dwave.dwave_device_properties",
         ...        "version": "1",
         ...    },
         ...    "annealingOffsetStep": 1.45,
@@ -50,7 +50,7 @@ class DwaveDeviceProperties(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.dwave_device_properties", version="1"
+        name="braket.device_schema.dwave.dwave_device_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsetStep: float

@@ -16,16 +16,14 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.gate_model_simulator_device_capabilities_v1 import (
-    GateModelSimulatorDeviceCapabilities,
-)
+from braket.device_schema.rigetti.rigetti_device_capabilities_v1 import RigettiDeviceCapabilities
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.gate_model_simulator_device_capabilities",
+            "name": "braket.device_schema.rigetti.rigetti_device_capabilities",
             "version": "1",
         },
         "service": {
@@ -54,14 +52,16 @@ def valid_input():
         },
         "paradigm": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_simulator_paradigm_properties",
+                "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
                 "version": "1",
             },
             "qubitCount": 32,
+            "nativeGateSet": ["ccnot", "cy"],
+            "connectivity": {"fullyConnected": True, "connectivityGraph": {"1": ["2", "3"]},},
         },
         "deviceParameters": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_simulator_device_parameters",
+                "name": "braket.device_schema.rigetti.rigetti_device_parameters",
                 "version": "1",
             },
             "paradigmParameters": {"qubitCount": 1},
@@ -71,38 +71,37 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
     assert (
-        result.braketSchemaHeader.name
-        == "braket.device_schema.gate_model_simulator_device_capabilities"
+        result.braketSchemaHeader.name == "braket.device_schema.rigetti.rigetti_device_capabilities"
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_paradigm(valid_input):
     valid_input.pop("paradigm")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_deviceParameters(valid_input):
     valid_input.pop("deviceParameters")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_service(valid_input):
     valid_input.pop("service")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))

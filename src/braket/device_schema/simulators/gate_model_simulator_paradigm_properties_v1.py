@@ -28,7 +28,7 @@ class GateModelSimulatorParadigmProperties(BraketSchemaBase):
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.gate_model_simulator_paradigm_properties",
+        ...        "name": "braket.device_schema.simulators.gate_model_simulator_paradigm_properties",
         ...        "version": "1",
         ...    },
         ...    "qubitCount": 32
@@ -38,7 +38,7 @@ class GateModelSimulatorParadigmProperties(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.gate_model_simulator_paradigm_properties", version="1"
+        name="braket.device_schema.simulators.gate_model_simulator_paradigm_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     qubitCount: int

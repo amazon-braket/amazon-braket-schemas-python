@@ -16,14 +16,14 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.dwave_device_properties_v1 import DwaveDeviceProperties
+from braket.device_schema.dwave.dwave_device_properties_v1 import DwaveDeviceProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave_device_properties",
+            "name": "braket.device_schema.dwave.dwave_device_properties",
             "version": "1",
         },
         "annealingOffsetStep": 1.45,

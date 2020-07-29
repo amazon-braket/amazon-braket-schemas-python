@@ -17,31 +17,29 @@ from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
-from braket.device_schema.gate_model_simulator_device_parameters_v1 import (
-    GateModelSimulatorDeviceParameters,
-)
-from braket.device_schema.gate_model_simulator_paradigm_properties_v1 import (
-    GateModelSimulatorParadigmProperties,
+from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
+    GateModelQpuParadigmProperties,
 )
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.rigetti.rigetti_device_parameters_v1 import RigettiDeviceParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
+class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
-    This defines the capabilities of a simulator device.
+    This defines the capabilities of a rigetti device.
 
     Attributes:
-        action: Actions that a simulator device can support
-        paradigm: Paradigm properties of a simulator
-        deviceParameters: parameters the can be provided for simulator device for creating a simulator
+        action: Actions that a rigetti device can support
+        paradigm: Paradigm properties of a rigetti
+        deviceParameters: parameters the can be provided for rigetti device for creating a rigetti
             quantum task
 
     Examples:
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.gate_model_simulator_device_capabilities",
+        ...        "name": "braket.device_schema.rigetti.rigetti_device_capabilities",
         ...        "version": "1",
         ...    },
         ...    "service": {
@@ -70,23 +68,32 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...    },
         ...    "paradigm": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.gate_model_simulator_paradigm_properties",
+        ...            "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
         ...            "version": "1",
         ...        },
-        ...        "qubitCount": 31
+        ...        "qubitCount": 32,
+        ...        "nativeGateSet": ["ccnot", "cy"],
+        ...        "connectivity": {
+        ...            "fullyConnected": True,
+        ...            "connectivityGraph": {"1": ["2", "3"]},
+        ...        },
         ...    },
         ...    "deviceParameters": {
+        ...         "braketSchemaHeader": {
+        ...             "name": "braket.device_schema.rigetti.rigetti_device_parameters",
+        ...             "version": "1",
+        ...         },
         ...        "gateModelParameters": {"paradigmParameters": {"qubitCount": 1}},
         ...    },
         ... }
-        >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+        >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.gate_model_simulator_device_capabilities", version="1"
+        name="braket.device_schema.rigetti.rigetti_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
-    paradigm: GateModelSimulatorParadigmProperties
-    deviceParameters: GateModelSimulatorDeviceParameters
+    paradigm: GateModelQpuParadigmProperties
+    deviceParameters: RigettiDeviceParameters

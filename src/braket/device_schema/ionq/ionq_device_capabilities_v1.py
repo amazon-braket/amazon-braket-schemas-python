@@ -20,7 +20,7 @@ from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
-from braket.device_schema.ionq_device_parameters_v1 import IonqDeviceParameters
+from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -40,7 +40,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.ionq_device_capabilities",
+        ...        "name": "braket.device_schema.ionq.ionq_device_capabilities",
         ...        "version": "1",
         ...    },
         ...    "service": {
@@ -79,13 +79,17 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {"paradigmParameters": {"qubitCount": 1}},
+        ...    "deviceParameters": {"braketSchemaHeader": {
+        ...        "name": "braket.device_schema.ionq.ionq_device_parameters",
+        ...        "version": "1",
+        ...    },
+        ...     "paradigmParameters": {"qubitCount": 1}},
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.ionq_device_capabilities", version="1"
+        name="braket.device_schema.ionq.ionq_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]

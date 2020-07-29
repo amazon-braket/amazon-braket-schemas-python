@@ -3,6 +3,8 @@ from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+
 
 class PostProcessingType(str, Enum):
     """
@@ -13,19 +15,27 @@ class PostProcessingType(str, Enum):
     HISTOGRAM = "histogram"
 
 
-class DwaveDeviceLevelParameters(BaseModel):
+class DwaveDeviceLevelParameters(BraketSchemaBase):
     """
     This is the description of the d-wave parameters
 
     Examples:
         >>> import json
         >>> input_json = {
+        ...    "braketSchemaHeader": {
+        ...        "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+        ...        "version": "1",
+        ...    },
         ...    "beta": 1
         ... }
-        >>> DwaveDeviceLevelParameters.parse_raw(json.dumps(input_json))
+        >>> DwaveDeviceLevelParameters.parse_raw_schema(json.dumps(input_json))
 
     """
 
+    _PROGRAM_HEADER = BraketSchemaHeader(
+        name="braket.device_schema.dwave.dwave_device_level_parameters", version="1"
+    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsets: Optional[List[int]]
     annealingSchedule: Optional[List[List[int]]]
     annealingDuration: Optional[int] = Field(gt=1)

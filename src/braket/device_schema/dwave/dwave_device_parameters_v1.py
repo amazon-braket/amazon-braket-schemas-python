@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from braket.device_schema.dwave_device_level_parameters import DwaveDeviceLevelParameters
+from braket.device_schema.dwave.dwave_device_level_parameters_v1 import DwaveDeviceLevelParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -15,16 +15,20 @@ class DwaveDeviceParameters(BraketSchemaBase):
         >>> import json
         >>> input_json = {
         ...     "braketSchemaHeader": {
-        ...         "name": "braket.device_schema.dwave_device_properties",
+        ...         "name": "braket.device_schema.dwave.dwave_device_parameters",
         ...         "version": "1",},
-        ...     "deviceLevelParameters": {}
+        ...     "deviceLevelParameters": {
+        ...         "braketSchemaHeader": {
+        ...             "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+        ...             "version": "1",
+        ...     },}
         ... }
         >>> DwaveDeviceParameters.parse_raw(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.dwave_device_parameters", version="1"
+        name="braket.device_schema.dwave.dwave_device_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     deviceLevelParameters: DwaveDeviceLevelParameters

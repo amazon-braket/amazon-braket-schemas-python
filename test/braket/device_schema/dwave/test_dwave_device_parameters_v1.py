@@ -16,16 +16,21 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.dwave_device_parameters_v1 import DwaveDeviceParameters
+from braket.device_schema.dwave.dwave_device_parameters_v1 import DwaveDeviceParameters
 
 
 def test_valid():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave_device_parameters",
+            "name": "braket.device_schema.dwave.dwave_device_parameters",
             "version": "1",
         },
-        "deviceLevelParameters": {},
+        "deviceLevelParameters": {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+                "version": "1",
+            }
+        },
     }
     assert DwaveDeviceParameters.parse_raw_schema(json.dumps(input))
 
