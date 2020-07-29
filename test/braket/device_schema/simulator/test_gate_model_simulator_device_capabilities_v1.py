@@ -64,7 +64,13 @@ def valid_input():
                 "name": "braket.device_schema.simulators.gate_model_simulator_device_parameters",
                 "version": "1",
             },
-            "paradigmParameters": {"qubitCount": 1},
+            "paradigmParameters": {
+                "braketSchemaHeader": {
+                    "name": "braket.device_schema.gate_model_parameters",
+                    "version": "1",
+                },
+                "qubitCount": 1,
+            },
         },
     }
     return input

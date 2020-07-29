@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from braket.device_schema.gate_model_parameters import GateModelParameters
+from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -15,7 +15,10 @@ class GateModelSimulatorDeviceParameters(BraketSchemaBase):
         ...        "name": "braket.device_schema.simulators.gate_model_simulator_device_parameters",
         ...        "version": "1",
         ...    },
-        ...    "paradigmParameters": {"qubitCount": 1},
+        ...    "paradigmParameters": {"braketSchemaHeader": {
+        ...        "name": "braket.device_schema.gate_model_parameters",
+        ...        "version": "1",
+        ...    },"qubitCount": 1},
         ... }
         >>> GateModelSimulatorDeviceParameters.parse_raw(json.dumps(input_json))
     """

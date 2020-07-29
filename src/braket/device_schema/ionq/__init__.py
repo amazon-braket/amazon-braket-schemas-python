@@ -9,21 +9,9 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License
 
-import pytest
-from pydantic import ValidationError
-
-from braket.device_schema.gate_model_parameters import GateModelParameters
-
-
-def test_valid():
-    input = '{"qubitCount": 1}'
-    result = GateModelParameters.parse_raw(input)
-    assert result.qubitCount == 1
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_qubitCount():
-    input = "{} "
-    assert GateModelParameters.parse_raw(input)
+from braket.device_schema.ionq.ionq_device_capabilities_v1 import (  # noqa: F401
+    IonqDeviceCapabilities,
+)
+from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters  # noqa: F401
