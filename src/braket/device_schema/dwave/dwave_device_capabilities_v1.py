@@ -15,18 +15,17 @@ from pydantic import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.dwave.dwave_device_parameters_v1 import DwaveDeviceParameters
-from braket.device_schema.dwave.dwave_device_properties_v1 import DwaveDeviceProperties
+from braket.device_schema.dwave.dwave_provider_properties_v1 import DwaveProviderProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
 
     """
-    These are the capabilities specific to dwave device
+    These are the capabilities specific to D-Wave device
 
     Attributes:
-        device: Properties specific to dwave device
-        deviceParameters: parameters that can be provided as part of the create quantum task for dwave.
+        provider: Properties specific to D-Wave provider
 
     Examples:
         >>> import json
@@ -35,9 +34,9 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...        "name": "braket.device_schema.dwave.dwave_device_capabilities",
         ...        "version": "1",
         ...    },
-        ...    "device": {
+        ...    "provider": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.dwave.dwave_device_properties",
+        ...            "name": "braket.device_schema.dwave.dwave_provider_properties",
         ...            "version": "1",
         ...        },
         ...        "annealingOffsetStep": 1.45,
@@ -92,4 +91,4 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    device: DwaveDeviceProperties
+    provider: DwaveProviderProperties

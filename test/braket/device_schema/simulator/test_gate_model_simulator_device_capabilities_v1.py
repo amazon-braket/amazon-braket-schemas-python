@@ -46,10 +46,8 @@ def valid_input():
             "braket.ir.jaqcd.program": {
                 "actionType": "braket.ir.jaqcd.program",
                 "version": ["1.0", "1.1"],
-                "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-                "supportedResultTypes": [
-                    {"observable": ["x"], "targets": [1], "type": "expectation"}
-                ],
+                "supportedOperations": ["x", "y"],
+                "supportedResultTypes": ["expectation"],
             }
         },
         "paradigm": {

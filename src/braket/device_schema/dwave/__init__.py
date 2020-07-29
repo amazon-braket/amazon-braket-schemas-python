@@ -14,13 +14,13 @@
 from braket.device_schema.dwave.dwave_device_capabilities_v1 import (  # noqa: F401
     DwaveDeviceCapabilities,
 )
-from braket.device_schema.dwave.dwave_device_level_parameters_v1 import (  # noqa: F401
-    DwaveDeviceLevelParameters,
-    PostProcessingType,
-)
 from braket.device_schema.dwave.dwave_device_parameters_v1 import (  # noqa: F401
     DwaveDeviceParameters,
 )
-from braket.device_schema.dwave.dwave_device_properties_v1 import (  # noqa: F401
-    DwaveDeviceProperties,
+from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (  # noqa: F401
+    DwaveProviderLevelParameters,
+    PostProcessingType,
+)
+from braket.device_schema.dwave.dwave_provider_properties_v1 import (  # noqa: F401
+    DwaveProviderProperties,
 )

@@ -24,8 +24,8 @@ def valid_input():
     input = {
         "actionType": "braket.ir.jaqcd.program",
         "version": ["1.0", "1.1"],
-        "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-        "supportedResultTypes": [{"observable": ["x"], "targets": [1], "type": "expectation"}],
+        "supportedOperations": ["x", "y"],
+        "supportedResultTypes": ["expectation"],
     }
     return input
 

@@ -32,8 +32,6 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     Attributes:
         action: Actions that a rigetti device can support
         paradigm: Paradigm properties of a rigetti
-        deviceParameters: parameters the can be provided for rigetti device for creating a rigetti
-            quantum task
 
     Examples:
         >>> import json
@@ -60,10 +58,8 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "braket.ir.jaqcd.program": {
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
-        ...            "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-        ...            "supportedResultTypes": [
-        ...                {"observable": ["x"], "targets": [1], "type": "expectation"}
-        ...            ],
+        ...            "supportedOperations": ["x", "y"],
+        ...            "supportedResultTypes": ["expectation"],
         ...        }
         ...    },
         ...    "paradigm": {
@@ -74,7 +70,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "qubitCount": 32,
         ...        "nativeGateSet": ["ccnot", "cy"],
         ...        "connectivity": {
-        ...            "fullyConnected": True,
+        ...            "fullyConnected": False,
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },

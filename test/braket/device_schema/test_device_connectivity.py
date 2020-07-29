@@ -23,7 +23,7 @@ from braket.device_schema.device_connectivity import DeviceConnectivity
 def valid_input():
     input = {
         "braketSchemaHeader": {"name": "braket.device_schema.device_connectivity", "version": "1",},
-        "fullyConnected": True,
+        "fullyConnected": False,
         "connectivityGraph": {"1": ["2", "3"]},
     }
     return input

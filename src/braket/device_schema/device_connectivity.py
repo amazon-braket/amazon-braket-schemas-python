@@ -31,7 +31,7 @@ class DeviceConnectivity(BaseModel):
     Examples:
         >>> import json
         >>> input_json = {
-        ...    "fullyConnected": True,
+        ...    "fullyConnected": False,
         ...    "connectivityGraph": {"1": ["2", "3"]},
         ... }
         >>> DeviceConnectivity.parse_raw(json.dumps(input_json))

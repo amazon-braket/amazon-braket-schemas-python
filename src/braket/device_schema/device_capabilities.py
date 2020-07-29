@@ -27,7 +27,6 @@ class DeviceCapabilities(BaseModel):
         Attributes:
             service: properties which are common to the braket service
             action: Map of the action to its properties
-            paradigm: Provides information on what are the common properties for the device paradigm
             deviceParameters: It is the json schema of the deviceParameters for each device. for
                 example the deviceParameter for IonqDeviceCapabilities will be
                 IonqDeviceParameters.json_schema()

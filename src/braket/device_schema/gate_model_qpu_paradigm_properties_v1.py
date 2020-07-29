@@ -39,7 +39,7 @@ class GateModelQpuParadigmProperties(BraketSchemaBase):
         ...    "qubitCount": 32,
         ...    "nativeGateSet": ["ccnot", "cy"],
         ...    "connectivity": {
-        ...        "fullyConnected": True,
+        ...        "fullyConnected": False,
         ...        "connectivityGraph": {"1": ["2", "3"]},
         ...    },
         ... }

@@ -16,25 +16,27 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.dwave.dwave_device_level_parameters_v1 import DwaveDeviceLevelParameters
+from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
+    DwaveProviderLevelParameters,
+)
 
 
 def test_valid():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+            "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
             "version": "1",
         }
     }
-    assert DwaveDeviceLevelParameters.parse_raw_schema(json.dumps(input))
+    assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_attribute():
     input = (
         '{"braketSchemaHeader": {"name": '
-        '"braket.device_schema.dwave.dwave_device_level_parameters","version": "1",'
+        '"braket.device_schema.dwave.dwave_provider_level_parameters","version": "1",'
         '}"annealingOffsets": 1} '
     )
     # annealingOffsets should be List[int]
-    DwaveDeviceLevelParameters.parse_raw_schema(input)
+    DwaveProviderLevelParameters.parse_raw_schema(input)

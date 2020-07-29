@@ -25,9 +25,9 @@ def test_valid():
             "name": "braket.device_schema.dwave.dwave_device_parameters",
             "version": "1",
         },
-        "deviceLevelParameters": {
+        "providerLevelParameters": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+                "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
                 "version": "1",
             }
         },
@@ -37,5 +37,5 @@ def test_valid():
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_header():
-    input = '{"deviceLevelParameters": {"annealingOffsets": [1]}}'
+    input = '{"providerLevelParameters": {"annealingOffsets": [1]}}'
     DwaveDeviceParameters.parse_raw_schema(input)

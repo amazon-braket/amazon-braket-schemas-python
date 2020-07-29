@@ -16,7 +16,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.dwave.dwave_device_properties_v1 import DwaveDeviceProperties
+from braket.device_schema.dwave.dwave_provider_properties_v1 import DwaveProviderProperties
 
 
 @pytest.fixture(scope="module")
@@ -26,9 +26,9 @@ def valid_input():
             "name": "braket.device_schema.dwave.dwave_device_capabilities",
             "version": "1",
         },
-        "device": {
+        "provider": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.dwave.dwave_device_properties",
+                "name": "braket.device_schema.dwave.dwave_provider_properties",
                 "version": "1",
             },
             "annealingOffsetStep": 1.45,
@@ -85,9 +85,9 @@ def valid_input():
                 "name": "braket.device_schema.dwave.dwave_device_parameters",
                 "version": "1",
             },
-            "deviceLevelParameters": {
+            "providerLevelParameters": {
                 "braketSchemaHeader": {
-                    "name": "braket.device_schema.dwave.dwave_device_level_parameters",
+                    "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
                     "version": "1",
                 }
             },
@@ -97,17 +97,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
-    assert result.device.qubitCount == 1
+    result = DwaveProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    assert result.provider.qubitCount == 1
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    DwaveProviderProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_qubitCount(valid_input):
-    valid_input.pop("device")
-    DwaveDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+    valid_input.pop("provider")
+    DwaveProviderProperties.parse_raw_schema(json.dumps(valid_input))

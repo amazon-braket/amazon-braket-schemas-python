@@ -1,3 +1,16 @@
+# Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"). You
+# may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+#     http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file. This file is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+# ANY KIND, either express or implied. See the License for the specific
+# language governing permissions and limitations under the License.
+
 from typing import List
 
 from pydantic import Field
@@ -5,22 +18,22 @@ from pydantic import Field
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class DwaveDeviceProperties(BraketSchemaBase):
+class DwaveProviderProperties(BraketSchemaBase):
 
     """
 
-    This defines the properties specific to dwave device
+    This defines the properties specific to D-Wave device
 
     Attributes:
-        qubits: the list of the qubits available in dwave
-        qubitCount: number of qubits available in dwave
+        qubits: the list of the qubits available in D-Wave
+        qubitCount: number of qubits available in D-Wave
         topology: the connections between each qubits
 
     Examples:
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.dwave.dwave_device_properties",
+        ...        "name": "braket.device_schema.dwave.dwave_provider_properties",
         ...        "version": "1",
         ...    },
         ...    "annealingOffsetStep": 1.45,
@@ -46,11 +59,11 @@ class DwaveDeviceProperties(BraketSchemaBase):
         ...    "taskRunDurationRange": [1, 2, 3],
         ...    "topology": {},
         ... }
-        >>> DwaveDeviceProperties.parse_raw_schema(json.dumps(input_json))
+        >>> DwaveProviderProperties.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.dwave.dwave_device_properties", version="1"
+        name="braket.device_schema.dwave.dwave_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsetStep: float

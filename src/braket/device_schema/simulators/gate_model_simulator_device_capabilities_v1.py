@@ -34,8 +34,6 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     Attributes:
         action: Actions that a simulator device can support
         paradigm: Paradigm properties of a simulator
-        deviceParameters: parameters the can be provided for simulator device for creating a simulator
-            quantum task
 
     Examples:
         >>> import json
@@ -62,10 +60,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        "braket.ir.jaqcd.program": {
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
-        ...            "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-        ...            "supportedResultTypes": [
-        ...                {"observable": ["x"], "targets": [1], "type": "expectation"}
-        ...            ],
+        ...            "supportedOperations": ["x", "y"],
+        ...            "supportedResultTypes": ["expectation"],
         ...        }
         ...    },
         ...    "paradigm": {

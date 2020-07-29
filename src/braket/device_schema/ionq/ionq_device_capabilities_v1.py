@@ -28,13 +28,11 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
 
     """
-    This defines the capabilities of a ionq device.
+    This defines the capabilities of a Ion-Q device.
 
     Attributes:
-        action: Actions that a ionq device can support
-        paradigm: Paradigm properties of a ionq
-        deviceParameters: parameters the can be provided for ionq device for creating a ionq quantum
-            task
+        action: Actions that a Ion-Q device can support
+        paradigm: Paradigm properties of a Ion-Q
 
     Examples:
         >>> import json
@@ -61,10 +59,8 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "braket.ir.jaqcd.program": {
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
-        ...            "supportedOperations": [{"control": 0, "target": 1, "type": "cnot"}],
-        ...            "supportedResultTypes": [
-        ...                {"observable": ["x"], "targets": [1], "type": "expectation"}
-        ...            ],
+        ...            "supportedOperations": ["x", "y"],
+        ...            "supportedResultTypes": ["expectation"],
         ...        }
         ...    },
         ...    "paradigm": {
@@ -75,7 +71,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "qubitCount": 11,
         ...        "nativeGateSet": ["ccnot", "cy"],
         ...        "connectivity": {
-        ...            "fullyConnected": True,
+        ...            "fullyConnected": False,
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
