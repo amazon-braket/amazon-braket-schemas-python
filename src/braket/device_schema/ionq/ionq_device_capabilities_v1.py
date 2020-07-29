@@ -79,11 +79,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {"braketSchemaHeader": {
-        ...        "name": "braket.device_schema.ionq.ionq_device_parameters",
-        ...        "version": "1",
-        ...    },
-        ...     "paradigmParameters": {"qubitCount": 1}},
+        ...    "deviceParameters": {IonqDeviceParameters.schema_json()},
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
@@ -94,4 +90,3 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelQpuParadigmProperties
-    deviceParameters: IonqDeviceParameters

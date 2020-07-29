@@ -75,9 +75,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        },
         ...        "qubitCount": 31
         ...    },
-        ...    "deviceParameters": {
-        ...        "gateModelParameters": {"paradigmParameters": {"qubitCount": 1}},
-        ...    },
+        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()}
         ... }
         >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
@@ -89,4 +87,3 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelSimulatorParadigmProperties
-    deviceParameters: GateModelSimulatorDeviceParameters

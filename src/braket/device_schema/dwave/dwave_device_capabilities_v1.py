@@ -83,15 +83,7 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...            "version": ["1.0", "1.1"],
         ...        }
         ...    },
-        ...    "deviceParameters": {
-        ...        "deviceLevelParameters": {
-        ...             "braketSchemaHeader": {
-        ...                 "name": "braket.device_schema.dwave.dwave_device_level_parameters",
-        ...                 "version": "1",
-        ...             },
-        ...            "annealingOffsets": [1]
-        ...        },
-        ...    },
+        ...    "deviceParameters": {DwaveDeviceParameters.schema_json()},
         ... }
         >>> DwaveDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
@@ -101,4 +93,3 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     device: DwaveDeviceProperties
-    deviceParameters: DwaveDeviceParameters

@@ -78,13 +78,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {
-        ...         "braketSchemaHeader": {
-        ...             "name": "braket.device_schema.rigetti.rigetti_device_parameters",
-        ...             "version": "1",
-        ...         },
-        ...        "gateModelParameters": {"paradigmParameters": {"qubitCount": 1}},
-        ...    },
+        ...    "deviceParameters": {RigettiDeviceParameters.schema_json()},
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
@@ -96,4 +90,3 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelQpuParadigmProperties
-    deviceParameters: RigettiDeviceParameters

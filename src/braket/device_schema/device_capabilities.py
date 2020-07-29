@@ -28,7 +28,9 @@ class DeviceCapabilities(BaseModel):
             service: properties which are common to the braket service
             action: Map of the action to its properties
             paradigm: Provides information on what are the common properties for the device paradigm
-            deviceParameters: Device parameters is the schema of input provided to Create quantum task.
+            deviceParameters: It is the json schema of the deviceParameters for each device. for
+                example the deviceParameter for IonqDeviceCapabilities will be
+                IonqDeviceParameters.json_schema()
 
         Examples:
             >>> import json
@@ -53,7 +55,7 @@ class DeviceCapabilities(BaseModel):
             ...            "version": ["1.0", "1.1"],
             ...        }
             ...    },
-            ...    "deviceParameters": {}
+            ...    "deviceParameters": {#Schema of specific device parameter instance}
             ... }
             >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
     """

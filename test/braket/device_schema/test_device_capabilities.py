@@ -42,7 +42,7 @@ def valid_input():
                 "version": ["1.0", "1.1"],
             }
         },
-        "deviceParameters": {"annealingModelParameters": {"dwaveParameters": {},},},
+        "deviceParameters": {},
     }
     return input
 
