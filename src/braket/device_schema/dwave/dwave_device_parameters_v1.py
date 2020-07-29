@@ -21,7 +21,10 @@ class DwaveDeviceParameters(BraketSchemaBase):
         ...         "braketSchemaHeader": {
         ...             "name": "braket.device_schema.dwave.dwave_device_level_parameters",
         ...             "version": "1",
-        ...     },}
+        ...         },
+        ...         "annealingOffsets": [1],
+        ...         "beta": 1,
+        ...     }
         ... }
         >>> DwaveDeviceParameters.parse_raw_schema(json.dumps(input_json))
 

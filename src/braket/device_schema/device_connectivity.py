@@ -24,7 +24,7 @@ class DeviceConnectivity(BaseModel):
         fullyConnected: If each qubit is connected to all other qubits then it called fully connected.
             true if fully connected else it will be false.
 
-        connectivityGraph: It defines the for each qubit what are the connected qubits.
+        connectivityGraph: It defines for each qubit what are the connected qubits.
             For a fullyConnected graph it will be empty since all the qubits are connected to each other
 
 
