@@ -33,5 +33,4 @@ def test_valid():
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_header():
     input = '{"deviceLevelParameters": {"annealingOffsets": [1]}}'
-    # annealingOffsets should be List[int]
     DwaveDeviceParameters.parse_raw_schema(input)
