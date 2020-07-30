@@ -34,7 +34,7 @@ class ResultType(BaseModel):
         >>> input_json = {
         ...     "name": "resultType1",
         ...     "observables": ["observable1"],
-        ...     "minShots": 2,
+        ...     "minShots": 0,
         ...     "maxShots": 4,
         ... }
         >>> ResultType.parse_raw(json.dumps(input_json))
@@ -65,7 +65,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         ...    "supportedResultTypes": [{
         ...         "name": "resultType1",
         ...         "observables": ["observable1"],
-        ...         "minShots": 2,
+        ...         "minShots": 0,
         ...         "maxShots": 4,
         ...     }],
         ... }
