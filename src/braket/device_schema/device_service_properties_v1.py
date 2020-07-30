@@ -25,7 +25,7 @@ class DeviceCost(BaseModel):
     This class provides the details on the cost of a device.
 
     Attributes:
-        price: Price of the device in terms of US $
+        price: Price of the device in terms of US dollars
         unit: unit for charging the price, eg: minute, hour, task [price per task]
 
     Examples:
@@ -43,12 +43,12 @@ class DeviceCost(BaseModel):
 
 class DeviceDocumentation(BaseModel):
     """
-    This class provides the device metadata like image, summary of it and external documentation.
+    This class provides the device documentations like image, summary of it and external documentation.
 
     Attributes:
         imageUrl: url for the image of the device
         summary: brief description on the device
-        externalDocumentationLink: link to provide any useful information to the users.
+        externalDocumentationUrl: link to provide any useful information to the users.
 
     Examples:
         >>> import json

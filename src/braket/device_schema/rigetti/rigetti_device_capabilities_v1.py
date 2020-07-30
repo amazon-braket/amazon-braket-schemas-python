@@ -72,7 +72,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "supportedResultTypes": [{
         ...                 "name": "resultType1",
         ...                 "observables": ["observable1"],
-        ...                 "minShots": 2,
+        ...                 "minShots": 0,
         ...                 "maxShots": 4,
         ...             }],
         ...        }
