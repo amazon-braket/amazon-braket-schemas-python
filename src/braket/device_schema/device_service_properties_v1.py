@@ -41,7 +41,7 @@ class DeviceCost(BaseModel):
     unit: str
 
 
-class DeviceMetadata(BaseModel):
+class DeviceDocumentation(BaseModel):
     """
     This class provides the device metadata like image, summary of it and external documentation.
 
@@ -53,16 +53,16 @@ class DeviceMetadata(BaseModel):
     Examples:
         >>> import json
         >>> input_json = {
-        ...     "image": "image_url",
+        ...     "imageUrl": "image_url",
         ...     "summary": "Summary on the device",
-        ...     "externalDocumentation": "exter doc link",
+        ...     "externalDocumentationUrl": "exter doc link",
         ... }
-        >>> DeviceMetadata.parse_raw(json.dumps(input_json))
+        >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
     """
 
     imageUrl: Optional[str]
     summary: Optional[str]
-    externalDocumentationLink: Optional[str]
+    externalDocumentationUrl: Optional[str]
 
 
 class DeviceServiceProperties(BraketSchemaBase):
@@ -93,10 +93,10 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...        "price": 0.25,
         ...        "unit": "minute"
         ...    },
-        ...    "deviceMetadata": {
-        ...        "image": "image_url",
+        ...    "deviceDocumentation": {
+        ...        "imageUrl": "image_url",
         ...        "summary": "Summary on the device",
-        ...        "externalDocumentation": "exter doc link",
+        ...        "externalDocumentationUrl": "exter doc link",
         ...    },
         ...    "deviceLocation": "us-east-1"
         ... }
@@ -111,5 +111,5 @@ class DeviceServiceProperties(BraketSchemaBase):
     executionWindows: List[DeviceExecutionWindow]
     shotsRange: Tuple[int, int]
     deviceCost: Optional[DeviceCost]
-    deviceMetadata: Optional[DeviceMetadata]
-    deviceLocation: str
+    deviceDocumentation: Optional[DeviceDocumentation]
+    deviceLocation: Optional[str]

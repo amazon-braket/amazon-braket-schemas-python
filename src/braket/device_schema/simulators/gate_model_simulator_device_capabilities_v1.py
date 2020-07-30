@@ -59,10 +59,10 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...             "price": 0.25,
         ...             "unit": "minute"
         ...         },
-        ...         "deviceMetadata": {
-        ...             "image": "image_url",
+        ...         "deviceDocumentation": {
+        ...             "imageUrl": "image_url",
         ...             "summary": "Summary on the device",
-        ...             "externalDocumentation": "exter doc link",
+        ...             "externalDocumentationUrl": "exter doc link",
         ...         },
         ...         "deviceLocation": "us-east-1"
         ...    },
@@ -87,14 +87,6 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        "qubitCount": 31
         ...    },
         ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()},
-        ...    "device" : {
-        ...         "supportedRegions": ["IAD"],
-        ...         "deviceCost": [10, "task"],
-        ...         "deviceMetadata": "metadata of the device",
-        ...         "deviceLocation": "IAD",
-        ...         "summary": "details of the device",
-        ...         "externalDocumentation": "details to external doc",
-        ...     }
         ... }
         >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
