@@ -33,6 +33,7 @@ class NativeQuilMetadata(BaseModel):
                               qpuRuntimeEstimation=191.21,
                               topologicalSwaps=0)
     """
+
     finalRewiring: conlist(int)
     gateDepth: conint(ge=0)
     gateVolume: conint(ge=0)

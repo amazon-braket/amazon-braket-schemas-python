@@ -55,13 +55,28 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...            }
         ...        ],
         ...        "shotsRange": [1, 10],
+        ...        "deviceCost": {
+        ...             "price": 0.25,
+        ...             "unit": "minute"
+        ...         },
+        ...         "deviceDocumentation": {
+        ...             "imageUrl": "image_url",
+        ...             "summary": "Summary on the device",
+        ...             "externalDocumentationUrl": "exter doc link",
+        ...         },
+        ...         "deviceLocation": "us-east-1"
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
         ...            "supportedOperations": ["x", "y"],
-        ...            "supportedResultTypes": ["expectation"],
+        ...            "supportedResultTypes":[{
+        ...                 "name": "resultType1",
+        ...                 "observables": ["observable1"],
+        ...                 "minShots": 0,
+        ...                 "maxShots": 4,
+        ...             }],
         ...        }
         ...    },
         ...    "paradigm": {
@@ -71,7 +86,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        },
         ...        "qubitCount": 31
         ...    },
-        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()}
+        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()},
         ... }
         >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 

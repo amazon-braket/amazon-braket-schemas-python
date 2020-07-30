@@ -47,6 +47,16 @@ class DeviceCapabilities(BaseModel):
             ...            }
             ...        ],
             ...        "shotsRange": [1, 10],
+            ...        "deviceCost": {
+            ...             "price": 0.25,
+            ...             "unit": "minute"
+            ...         },
+            ...         "deviceDocumentation": {
+            ...             "imageUrl": "image_url",
+            ...             "summary": "Summary on the device",
+            ...             "externalDocumentationUrl": "exter doc link",
+            ...         },
+            ...         "deviceLocation": "us-east-1"
             ...    },
             ...    "action": {
             ...        "braket.ir.jaqcd.program": {
@@ -54,7 +64,7 @@ class DeviceCapabilities(BaseModel):
             ...            "version": ["1.0", "1.1"],
             ...        }
             ...    },
-            ...    "deviceParameters": {#Schema of specific device parameter instance}
+            ...    "deviceParameters": {#Schema of specific device parameter instance},
             ... }
             >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
     """
