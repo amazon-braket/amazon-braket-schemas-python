@@ -83,6 +83,14 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...        }
         ...    },
         ...    "deviceParameters": {DwaveDeviceParameters.schema_json()},
+        ...    "device" : {
+        ...         "supportedRegions": ["IAD"],
+        ...         "deviceCost": [10, "task"],
+        ...         "deviceMetadata": "metadata of the device",
+        ...         "deviceLocation": "IAD",
+        ...         "summary": "details of the device",
+        ...         "externalDocumentation": "details to external doc",
+        ...     }
         ... }
         >>> DwaveDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """

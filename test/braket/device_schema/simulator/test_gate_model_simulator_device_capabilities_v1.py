@@ -47,7 +47,14 @@ def valid_input():
                 "actionType": "braket.ir.jaqcd.program",
                 "version": ["1.0", "1.1"],
                 "supportedOperations": ["x", "y"],
-                "supportedResultTypes": ["expectation"],
+                "supportedResultTypes": [
+                    {
+                        "name": "resultType1",
+                        "observables": ["observable1"],
+                        "minShots": 2,
+                        "maxShots": 4,
+                    }
+                ],
             }
         },
         "paradigm": {
@@ -63,6 +70,14 @@ def valid_input():
                 "version": "1",
             },
             "paradigmParameters": {},
+        },
+        "device": {
+            "supportedRegions": ["IAD"],
+            "deviceCost": [10, "task"],
+            "deviceMetadata": "metadata of the device",
+            "deviceLocation": "IAD",
+            "summary": "details of the device",
+            "externalDocumentation": "details to external doc",
         },
     }
     return input

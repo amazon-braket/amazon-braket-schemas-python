@@ -13,7 +13,29 @@
 
 from typing import List, Optional
 
+from pydantic import BaseModel
+
 from braket.device_schema.device_action_properties import DeviceActionProperties
+
+
+class ResultType(BaseModel):
+    """
+
+    Attributes:
+
+        name: name of the result type
+        observables: supported result types for this result type.
+        minShots: min shots for the results
+        maxShots: max shots for the results
+
+    Examples:
+
+    """
+
+    name: str
+    observables: Optional[List[str]]
+    minShots: Optional[int]
+    maxShots: Optional[int]
 
 
 class JaqcdDeviceActionProperties(DeviceActionProperties):
@@ -32,11 +54,16 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         ...    "actionType": "braket.ir.jaqcd.program",
         ...    "version": ["1.0", "1.1"],
         ...    "supportedOperations": ["x", "y"],
-        ...    "supportedResultTypes": ["expectation"],
+        ...    "supportedResultTypes": [{
+        ...         "name": "resultType1",
+        ...         "observables": ["observable1"],
+        ...         "minShots": 2,
+        ...         "maxShots": 4,
+        ...     }],
         ... }
         >>> JaqcdDeviceActionProperties.parse_raw(json.dumps(input_json))
 
     """
 
     supportedOperations: List[str]
-    supportedResultTypes: Optional[List[str]]
+    supportedResultTypes: Optional[List[ResultType]]

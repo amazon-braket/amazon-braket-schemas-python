@@ -16,34 +16,34 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.device_level_properties import DeviceLevelProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
-        "actionType": "braket.ir.jaqcd.program",
-        "version": ["1.0", "1.1"],
-        "supportedOperations": ["x", "y"],
-        "supportedResultTypes": [
-            {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4,}
-        ],
+        "supportedRegions": ["IAD"],
+        "deviceCost": [10, "task"],
+        "deviceMetadata": "metadata of the device",
+        "deviceLocation": "IAD",
+        "summary": "details of the device",
+        "externalDocumentation": "details to external doc",
     }
     return input
 
 
 def test_valid(valid_input):
-    result = JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))
-    assert result.actionType == "braket.ir.jaqcd.program"
+    result = DeviceLevelProperties.parse_raw(json.dumps(valid_input))
+    assert result.supportedRegions == ["IAD"]
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_missing_action_type(valid_input):
-    valid_input.pop("actionType")
-    JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))
+def test__missing_deviceCost(valid_input):
+    valid_input.pop("deviceCost")
+    assert DeviceLevelProperties.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_invalid_supported_operations(valid_input):
-    valid_input.pop("supportedOperations")
-    JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))
+def test_invalid_deviceMetadata(valid_input):
+    valid_input["deviceMetadata"] = 1
+    DeviceLevelProperties.parse_raw(json.dumps(valid_input))

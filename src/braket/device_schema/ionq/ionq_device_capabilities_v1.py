@@ -60,7 +60,12 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "actionType": "braket.ir.jaqcd.program",
         ...            "version": ["1.0", "1.1"],
         ...            "supportedOperations": ["x", "y"],
-        ...            "supportedResultTypes": ["expectation"],
+        ...            "supportedResultTypes": [{
+        ...                 "name": "resultType1",
+        ...                 "observables": ["observable1"],
+        ...                 "minShots": 2,
+        ...                 "maxShots": 4,
+        ...             }],
         ...        }
         ...    },
         ...    "paradigm": {
@@ -76,6 +81,14 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {IonqDeviceParameters.schema_json()},
+        ...    "device" : {
+        ...         "supportedRegions": ["IAD"],
+        ...         "deviceCost": [10, "task"],
+        ...         "deviceMetadata": "metadata of the device",
+        ...         "deviceLocation": "IAD",
+        ...         "summary": "details of the device",
+        ...         "externalDocumentation": "details to external doc",
+        ...     }
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """

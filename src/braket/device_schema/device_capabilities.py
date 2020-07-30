@@ -16,6 +16,7 @@ from typing import Dict
 from pydantic import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
+from braket.device_schema.device_level_properties import DeviceLevelProperties
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
 
@@ -54,7 +55,15 @@ class DeviceCapabilities(BaseModel):
             ...            "version": ["1.0", "1.1"],
             ...        }
             ...    },
-            ...    "deviceParameters": {#Schema of specific device parameter instance}
+            ...    "deviceParameters": {#Schema of specific device parameter instance},
+            ...    "device" : {
+            ...         "supportedRegions": ["IAD"],
+            ...         "deviceCost": [10, "task"],
+            ...         "deviceMetadata": "metadata of the device",
+            ...         "deviceLocation": "IAD",
+            ...         "summary": "details of the device",
+            ...         "externalDocumentation": "details to external doc",
+            ...     }
             ... }
             >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
     """
@@ -62,3 +71,4 @@ class DeviceCapabilities(BaseModel):
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
     deviceParameters: dict
+    device: DeviceLevelProperties
