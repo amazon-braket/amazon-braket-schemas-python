@@ -20,6 +20,7 @@ from braket.device_schema.device_action_properties import DeviceActionProperties
 
 class ResultType(BaseModel):
     """
+    This class provides the result type for a quantum task to return.
 
     Attributes:
 
@@ -29,7 +30,14 @@ class ResultType(BaseModel):
         maxShots: max shots for the results
 
     Examples:
-
+        >>> import json
+        >>> input_json = {
+        ...     "name": "resultType1",
+        ...     "observables": ["observable1"],
+        ...     "minShots": 2,
+        ...     "maxShots": 4,
+        ... }
+        >>> ResultType.parse_raw(json.dumps(input_json))
     """
 
     name: str
