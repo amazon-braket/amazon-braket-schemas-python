@@ -16,7 +16,6 @@ from typing import Dict
 from pydantic import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
-from braket.device_schema.device_level_properties import DeviceLevelProperties
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
 
@@ -48,6 +47,16 @@ class DeviceCapabilities(BaseModel):
             ...            }
             ...        ],
             ...        "shotsRange": [1, 10],
+            ...        "deviceCost": {
+            ...             "price": 0.25,
+            ...             "unit": "minute"
+            ...         },
+            ...         "deviceMetadata": {
+            ...             "image": "image_url",
+            ...             "summary": "Summary on the device",
+            ...             "externalDocumentation": "exter doc link",
+            ...         },
+            ...         "deviceLocation": "us-east-1"
             ...    },
             ...    "action": {
             ...        "braket.ir.jaqcd.program": {
@@ -71,4 +80,3 @@ class DeviceCapabilities(BaseModel):
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
     deviceParameters: dict
-    device: DeviceLevelProperties

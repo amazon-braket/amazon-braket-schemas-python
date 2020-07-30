@@ -41,6 +41,13 @@ def valid_input():
                 }
             ],
             "shotsRange": [1, 10],
+            "deviceCost": {"price": 0.25, "unit": "minute"},
+            "deviceMetadata": {
+                "image": "image_url",
+                "summary": "Summary on the device",
+                "externalDocumentation": "exter doc link",
+            },
+            "deviceLocation": "us-east-1",
         },
         "action": {
             "braket.ir.jaqcd.program": {

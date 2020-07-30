@@ -75,6 +75,16 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...            }
         ...        ],
         ...        "shotsRange": [1, 10],
+        ...        "deviceCost": {
+        ...             "price": 0.25,
+        ...             "unit": "minute"
+        ...         },
+        ...         "deviceMetadata": {
+        ...             "image": "image_url",
+        ...             "summary": "Summary on the device",
+        ...             "externalDocumentation": "exter doc link",
+        ...         },
+        ...         "deviceLocation": "us-east-1"
         ...    },
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
@@ -83,14 +93,6 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...        }
         ...    },
         ...    "deviceParameters": {DwaveDeviceParameters.schema_json()},
-        ...    "device" : {
-        ...         "supportedRegions": ["IAD"],
-        ...         "deviceCost": [10, "task"],
-        ...         "deviceMetadata": "metadata of the device",
-        ...         "deviceLocation": "IAD",
-        ...         "summary": "details of the device",
-        ...         "externalDocumentation": "details to external doc",
-        ...     }
         ... }
         >>> DwaveDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """

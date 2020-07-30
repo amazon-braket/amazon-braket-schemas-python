@@ -67,6 +67,13 @@ def valid_input():
                 }
             ],
             "shotsRange": [1, 10],
+            "deviceCost": {"price": 0.25, "unit": "minute"},
+            "deviceMetadata": {
+                "image": "image_url",
+                "summary": "Summary on the device",
+                "externalDocumentation": "exter doc link",
+            },
+            "deviceLocation": "us-east-1",
         },
         "action": {
             "braket.ir.jaqcd.program": {
@@ -91,14 +98,6 @@ def valid_input():
                     "version": "1",
                 }
             },
-        },
-        "device": {
-            "supportedRegions": ["IAD"],
-            "deviceCost": [10, "task"],
-            "deviceMetadata": "metadata of the device",
-            "deviceLocation": "IAD",
-            "summary": "details of the device",
-            "externalDocumentation": "details to external doc",
         },
     }
     return input
