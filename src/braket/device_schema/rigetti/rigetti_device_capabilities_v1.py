@@ -75,6 +75,14 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {RigettiDeviceParameters.schema_json()},
+        ...    "device" : {
+        ...         "supportedRegions": ["IAD"],
+        ...         "deviceCost": [10, "task"],
+        ...         "deviceMetadata": "metadata of the device",
+        ...         "deviceLocation": "IAD",
+        ...         "summary": "details of the device",
+        ...         "externalDocumentation": "details to external doc",
+        ...     }
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 

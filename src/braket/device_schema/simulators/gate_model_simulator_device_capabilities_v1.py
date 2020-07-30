@@ -71,7 +71,15 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        },
         ...        "qubitCount": 31
         ...    },
-        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()}
+        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()},
+        ...    "device" : {
+        ...         "supportedRegions": ["IAD"],
+        ...         "deviceCost": [10, "task"],
+        ...         "deviceMetadata": "metadata of the device",
+        ...         "deviceLocation": "IAD",
+        ...         "summary": "details of the device",
+        ...         "externalDocumentation": "details to external doc",
+        ...     }
         ... }
         >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 

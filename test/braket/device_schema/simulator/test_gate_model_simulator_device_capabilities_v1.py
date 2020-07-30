@@ -64,6 +64,14 @@ def valid_input():
             },
             "paradigmParameters": {},
         },
+        "device": {
+            "supportedRegions": ["IAD"],
+            "deviceCost": [10, "task"],
+            "deviceMetadata": "metadata of the device",
+            "deviceLocation": "IAD",
+            "summary": "details of the device",
+            "externalDocumentation": "details to external doc",
+        },
     }
     return input
 
