@@ -18,9 +18,6 @@ from pydantic import Field
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
-from braket.device_schema.simulators.gate_model_simulator_device_parameters_v1 import (
-    GateModelSimulatorDeviceParameters,
-)
 from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (
     GateModelSimulatorParadigmProperties,
 )
@@ -39,7 +36,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.simulators.gate_model_simulator_device_capabilities",
+        ...        "name":
+        ...             "braket.device_schema.simulators.gate_model_simulator_device_capabilities",
         ...        "version": "1",
         ...    },
         ...    "service": {
@@ -81,7 +79,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...    },
         ...    "paradigm": {
         ...        "braketSchemaHeader": {
-        ...            "name": "braket.device_schema.simulators.gate_model_simulator_paradigm_properties",
+        ...            "name":
+        ...             "braket.device_schema.simulators.gate_model_simulator_paradigm_properties",
         ...            "version": "1",
         ...        },
         ...        "qubitCount": 31

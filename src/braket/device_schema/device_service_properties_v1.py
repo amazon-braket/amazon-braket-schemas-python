@@ -43,7 +43,8 @@ class DeviceCost(BaseModel):
 
 class DeviceDocumentation(BaseModel):
     """
-    This class provides the device documentations like image, summary of it and external documentation.
+    This class provides the device documentations like image,
+    summary of it and external documentation.
 
     Attributes:
         imageUrl: url for the image of the device

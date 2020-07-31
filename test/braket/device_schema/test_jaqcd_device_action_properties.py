@@ -26,7 +26,7 @@ def valid_input():
         "version": ["1.0", "1.1"],
         "supportedOperations": ["x", "y"],
         "supportedResultTypes": [
-            {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4,}
+            {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
         ],
     }
     return input
