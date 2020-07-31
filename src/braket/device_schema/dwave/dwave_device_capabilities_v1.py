@@ -14,7 +14,6 @@
 from pydantic import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
-from braket.device_schema.dwave.dwave_device_parameters_v1 import DwaveDeviceParameters
 from braket.device_schema.dwave.dwave_provider_properties_v1 import DwaveProviderProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

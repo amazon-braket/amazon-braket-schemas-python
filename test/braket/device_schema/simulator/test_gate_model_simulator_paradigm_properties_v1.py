@@ -34,11 +34,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
-    assert (
-        result.braketSchemaHeader.name
-        == "braket.device_schema.simulators.gate_model_simulator_paradigm_properties"
-    )
+    assert GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)

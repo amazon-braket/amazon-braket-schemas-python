@@ -20,7 +20,6 @@ from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
-from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

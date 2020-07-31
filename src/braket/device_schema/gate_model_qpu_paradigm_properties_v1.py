@@ -25,7 +25,8 @@ class GateModelQpuParadigmProperties(BraketSchemaBase):
     This class defines the properties that are specific to ionq device
 
     Attributes:
-        connectivity: defines the connectivity if a ionq device. tells the graph and connection type.
+        connectivity: defines the connectivity if a ionq device.
+            tells the graph and connection type.
         qubitCount: number of qubits ionq device contains
         nativeGateSet: list of native gates
 

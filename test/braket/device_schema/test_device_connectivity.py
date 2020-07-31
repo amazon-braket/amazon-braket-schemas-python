@@ -22,7 +22,7 @@ from braket.device_schema.device_connectivity import DeviceConnectivity
 @pytest.fixture(scope="module")
 def valid_input():
     input = {
-        "braketSchemaHeader": {"name": "braket.device_schema.device_connectivity", "version": "1",},
+        "braketSchemaHeader": {"name": "braket.device_schema.device_connectivity", "version": "1"},
         "fullyConnected": False,
         "connectivityGraph": {"1": ["2", "3"]},
     }

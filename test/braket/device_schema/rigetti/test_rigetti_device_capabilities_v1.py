@@ -69,7 +69,7 @@ def valid_input():
             },
             "qubitCount": 32,
             "nativeGateSet": ["ccnot", "cy"],
-            "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]},},
+            "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
         },
         "deviceParameters": {},
     }

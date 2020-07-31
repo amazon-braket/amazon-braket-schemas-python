@@ -21,7 +21,6 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
-from braket.device_schema.rigetti.rigetti_device_parameters_v1 import RigettiDeviceParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 

@@ -11,12 +11,13 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from braket.device_schema.simulators.gate_model_simulator_device_capabilities_v1 import (  # noqa: F401
+
+from braket.device_schema.simulators.gate_model_simulator_device_capabilities_v1 import (  # noqa: F401, E501
     GateModelSimulatorDeviceCapabilities,
 )
-from braket.device_schema.simulators.gate_model_simulator_device_parameters_v1 import (  # noqa: F401
+from braket.device_schema.simulators.gate_model_simulator_device_parameters_v1 import (  # noqa: F401, E501
     GateModelSimulatorDeviceParameters,
 )
-from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (  # noqa: F401
+from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (  # noqa: F401, E501
     GateModelSimulatorParadigmProperties,
 )

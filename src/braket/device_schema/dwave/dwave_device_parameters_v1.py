@@ -25,7 +25,7 @@ class DwaveDeviceParameters(BraketSchemaBase):
 
     Attributes:
         providerLevelParameters: Parameters that are specific to D-Wave device.
-    
+
     Examples:
         >>> import json
         >>> input_json = {
