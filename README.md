@@ -1,6 +1,9 @@
 **DO NOT SHARE OR TALK ABOUT THE CONTENTS OF THIS LIBRARY per the Amazon Beta NDA you signed.**
 
-Amazon Braket Python IR is an open source library that contains all the intermediate representations (IR) for Amazon Braket quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the Amazon Braket SDK and Amazon Braket API for quantum programs.
+Amazon Braket Python Schemas is an open source library that contains the schemas for Braket, including:
+* intermediate representations (IR) for Amazon Braket quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the Amazon Braket SDK and Amazon Braket API for quantum programs.
+* schemas for the S3 results of each quantum task
+* schemas for the device capabilities of each device
 
 ## Installation
 
@@ -9,19 +12,19 @@ Amazon Braket Python IR is an open source library that contains all the intermed
 
 ### Steps
  ```bash
- git clone https://github.com/aws/braket-python-ir.git  --branch stable/latest
- pip install -e braket-python-ir
+ git clone https://github.com/aws/amazon-braket-schemas-python.git
+ pip install -e amazon-braket-schemas-python
  ```
 
  To install test dependencies for running tests locally run:
  ```bash
- pip install -e "braket-python-ir[test]"
+ pip install -e "amazon-braket-schemas-python[test]"
  ```
 
-You can check your currently installed version of `braket-python-ir` with `pip show`:
+You can check your currently installed version of `amazon-braket-schemas-python` with `pip show`:
 
 ```bash
-pip show braket-python-ir
+pip show amazon-braket-schemas-python
 ```
 
 or alternatively from within Python:
@@ -199,7 +202,7 @@ Then open `BRAKET_IR_ROOT/build/documentation/html/index.html` in a browser to v
 
 Make sure to install test dependencies first:
 ```bash
-pip install -e "braket-python-ir[test]"
+pip install -e "amazon-braket-schemas-python[test]"
 ```
 
 To run the unit tests:

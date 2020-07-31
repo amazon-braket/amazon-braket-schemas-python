@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = braket-ir
+SPHINXPROJ    = amazon-braket-schemas
 SOURCEDIR     = .
 BUILDDIR      = ../build/documentation
 

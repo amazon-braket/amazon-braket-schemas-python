@@ -20,7 +20,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class NativeQuilMetadata(BaseModel):
     """
-    Schema to hold native quil metadata returned by 
+    Schema to hold native quil metadata returned by
     Rigetti after compilation.
 
     Examples:
@@ -49,7 +49,8 @@ class RigettiMetadata(BraketSchemaBase):
     The Rigetti metadata result schema.
 
     Attributes:
-        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need to set this value. Only default is allowed.
+        braketSchemaHeader (BraketSchemaHeader): Schema header.
+            Users do not need to set this value. Only default is allowed.
         nativeQuilMetadata (NativeQuilMetadata)
         program (str): The compiled program executed on the QPU
 
