@@ -56,7 +56,8 @@ class DeviceCapabilities(BaseModel):
             ...             "summary": "Summary on the device",
             ...             "externalDocumentationUrl": "exter doc link",
             ...         },
-            ...         "deviceLocation": "us-east-1"
+            ...         "deviceLocation": "us-east-1",
+            ...         "updatedAt": "2020-06-16T19:28:02.869136"
             ...    },
             ...    "action": {
             ...        "braket.ir.jaqcd.program": {
