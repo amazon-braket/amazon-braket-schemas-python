@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from datetime import datetime
+from datetime import time
 from enum import Enum
 
 from pydantic import BaseModel
@@ -53,20 +53,20 @@ class DeviceExecutionWindow(BaseModel):
 
     Attributes:
         executionDay: Days of the execution window
-        windowStartHour: UTC timestamp of the time when the execution window starts
-        windowEndHour: UTC timestamp of the time when the execution window ends
+        windowStartHour: UTC 24-hour format of the time when the execution window starts
+        windowEndHour: UTC 24-hour format of the time when the execution window ends
 
     Examples:
         >>> import json
         >>> input_json = {
         ...    "executionDay": "Everyday",
-        ...    "windowStartHour": "1966280412345.6789",
-        ...    "windowEndHour": "1966280414345.6789",
+        ...    "windowStartHour": "09:00",
+        ...    "windowEndHour": "19:00",
         ... }
         >>> DeviceExecutionWindow.parse_raw(json.dumps(input_json))
 
     """
 
     executionDay: ExecutionDay
-    windowStartHour: datetime
-    windowEndHour: datetime
+    windowStartHour: time
+    windowEndHour: time

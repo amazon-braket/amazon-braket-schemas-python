@@ -69,8 +69,8 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...        "executionWindows": [
         ...            {
         ...                "executionDay": "Everyday",
-        ...                "windowStartHour": "1966280412345.6789",
-        ...                "windowEndHour": "1966280414345.6789",
+        ...                "windowStartHour": "09:00",
+        ...                "windowEndHour": "19:00",
         ...            }
         ...        ],
         ...        "shotsRange": [1, 10],
