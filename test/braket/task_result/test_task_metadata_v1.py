@@ -36,7 +36,19 @@ def test_correct_metadata_minimum(id, device_id, shots):
 
 
 def test_correct_metadata_all(id, device_id, shots):
-    device_parameters = {"test": 1}  # TODO: replace with device schema
+    device_parameters = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.rigetti.rigetti_device_parameters",
+            "version": "1",
+        },
+        "paradigmParameters": {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.gate_model_parameters",
+                "version": "1",
+            },
+            "qubitCount": 1,
+        },
+    }
     createdAt = "2020-01-02T03:04:05.006Z"
     endedAt = "2020-01-03T03:04:05.006Z"
     status = "COMPLETED"

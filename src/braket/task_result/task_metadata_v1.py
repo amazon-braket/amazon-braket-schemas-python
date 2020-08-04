@@ -11,10 +11,14 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Any, Dict, Optional
+from typing import Optional, Union
 
 from pydantic import Field, conint, constr
 
+from braket.device_schema.dwave import DwaveDeviceParameters
+from braket.device_schema.ionq import IonqDeviceParameters
+from braket.device_schema.rigetti import RigettiDeviceParameters
+from braket.device_schema.simulators import GateModelSimulatorDeviceParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -29,8 +33,9 @@ class TaskMetadata(BraketSchemaBase):
         shots (str): The number of shots for the task
         deviceId (str): The ID of the device on which the task ran.
             For AWS devices, this is the device ARN.
-        deviceParameters (Dict[str, Any]): The device parameters of the task. Default is None.
-            # TODO: replace with device schema
+        deviceParameters any of (DwaveDeviceParameters, RigettiDeviceParameters,
+            IonqDeviceParameters, GateModelSimulatorDeviceParameters).
+            The device parameters of the task. Default is None.
         createdAt (str): The timestamp of creation;
             the format must be in ISO-8601/RFC3339 string format YYYY-MM-DDTHH:mm:ss.sssZ.
             Default is None.
@@ -53,7 +58,14 @@ class TaskMetadata(BraketSchemaBase):
     id: constr(min_length=1)
     shots: conint(ge=0)
     deviceId: constr(min_length=1)
-    deviceParameters: Optional[Dict[str, Any]]  # TODO: replace with device schema
+    deviceParameters: Optional[
+        Union[
+            DwaveDeviceParameters,
+            RigettiDeviceParameters,
+            IonqDeviceParameters,
+            GateModelSimulatorDeviceParameters,
+        ]
+    ]
     createdAt: Optional[constr(min_length=1, max_length=24)]
     endedAt: Optional[constr(min_length=1, max_length=24)]
     status: Optional[constr(min_length=1, max_length=20)]
