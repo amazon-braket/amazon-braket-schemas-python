@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import Field
+from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -39,4 +39,4 @@ class GateModelParameters(BraketSchemaBase):
         name="braket.device_schema.gate_model_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    qubitCount: int = Field(gt=0)
+    qubitCount: conint(ge=0)
