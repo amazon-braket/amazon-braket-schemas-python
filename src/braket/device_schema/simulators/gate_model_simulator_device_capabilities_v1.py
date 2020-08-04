@@ -29,8 +29,9 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     This defines the capabilities of a simulator device.
 
     Attributes:
-        action: Actions that a simulator device can support
-        paradigm: Paradigm properties of a simulator
+        action (Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
+            gate model simulator device can support
+        paradigm (GateModelSimulatorParadigmProperties): Paradigm properties of a simulator
 
     Examples:
         >>> import json
@@ -60,7 +61,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...         "deviceDocumentation": {
         ...             "imageUrl": "image_url",
         ...             "summary": "Summary on the device",
-        ...             "externalDocumentationUrl": "exter doc link",
+        ...             "externalDocumentationUrl": "external doc link",
         ...         },
         ...         "deviceLocation": "us-east-1",
         ...         "updatedAt": "2020-06-16T19:28:02.869136",

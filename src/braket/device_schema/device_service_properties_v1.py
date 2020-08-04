@@ -26,8 +26,8 @@ class DeviceCost(BaseModel):
     This class provides the details on the cost of a device.
 
     Attributes:
-        price: Price of the device in terms of US dollars
-        unit: unit for charging the price, eg: minute, hour, task [price per task]
+        price (float): Price of the device in terms of US dollars
+        unit (str): unit for charging the price, eg: minute, hour, task [price per task]
 
     Examples:
         >>> import json
@@ -48,9 +48,9 @@ class DeviceDocumentation(BaseModel):
     summary of it and external documentation.
 
     Attributes:
-        imageUrl: url for the image of the device
-        summary: brief description on the device
-        externalDocumentationUrl: link to provide any useful information to the users.
+        imageUrl (Optional[str]): URL for the image of the device
+        summary (Optional[str]): brief description on the device
+        externalDocumentationUrl (Optional[str]): external documentation URL
 
     Examples:
         >>> import json
@@ -72,13 +72,14 @@ class DeviceServiceProperties(BraketSchemaBase):
     This class defines the common service properties for each device.
 
     Attributes:
-        executionWindows: List of the executionWindows, it tells us which days the device can
-            execute a task.
-        shotsRange: range of the shots for a given device.
-        deviceCost: cost of the device to run the quantum circuits
-        deviceDocumentation: provides device specific details like image, summary etc.
-        deviceLocation: location fo the device
-        updatedAt: time when the device properties are last updated.
+        executionWindows (List[DeviceExecutionWindow]): List of the executionWindows,
+            it tells us which days the device can execute a task.
+        shotsRange (Tuple[int, int]): range of the shots for a given device.
+        deviceCost (Optional[DeviceCost]): cost of the device to run the quantum circuits
+        deviceDocumentation (Optional[DeviceDocumentation]): provides device specific
+            details like image, summary etc.
+        deviceLocation (Optional[str]): location fo the device
+        updatedAt (Optional[datetime]): time when the device properties are last updated.
 
     Examples:
         >>> import json
@@ -120,4 +121,4 @@ class DeviceServiceProperties(BraketSchemaBase):
     deviceCost: Optional[DeviceCost]
     deviceDocumentation: Optional[DeviceDocumentation]
     deviceLocation: Optional[str]
-    updatedAt: datetime
+    updatedAt: Optional[datetime]
