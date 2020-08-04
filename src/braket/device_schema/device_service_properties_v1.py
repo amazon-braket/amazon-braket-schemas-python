@@ -11,6 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+from datetime import datetime
 from typing import List, Optional, Tuple
 
 from pydantic import BaseModel, Field
@@ -74,6 +75,10 @@ class DeviceServiceProperties(BraketSchemaBase):
         executionWindows: List of the executionWindows, it tells us which days the device can
             execute a task.
         shotsRange: range of the shots for a given device.
+        deviceCost: cost of the device to run the quantum circuits
+        deviceDocumentation: provides device specific details like image, summary etc.
+        deviceLocation: location fo the device
+        updatedAt: time when the device properties are last updated.
 
     Examples:
         >>> import json
@@ -85,8 +90,8 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...    "executionWindows": [
         ...        {
         ...            "executionDay": "Everyday",
-        ...            "windowStartHour": "1966280412345.6789",
-        ...            "windowEndHour": "1966280414345.6789",
+        ...            "windowStartHour": "09:00",
+        ...            "windowEndHour": "09:55",
         ...        }
         ...    ],
         ...    "shotsRange": [1,10],
@@ -99,7 +104,8 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...        "summary": "Summary on the device",
         ...        "externalDocumentationUrl": "exter doc link",
         ...    },
-        ...    "deviceLocation": "us-east-1"
+        ...    "deviceLocation": "us-east-1",
+        ...    "updatedAt": "2020-06-16T19:28:02.869136"
         ... }
         >>> DeviceServiceProperties.parse_raw_schema(json.dumps(input_json))
 
@@ -114,3 +120,4 @@ class DeviceServiceProperties(BraketSchemaBase):
     deviceCost: Optional[DeviceCost]
     deviceDocumentation: Optional[DeviceDocumentation]
     deviceLocation: Optional[str]
+    updatedAt: datetime

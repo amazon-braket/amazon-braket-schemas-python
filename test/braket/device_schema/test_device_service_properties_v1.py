@@ -27,11 +27,7 @@ def valid_input():
             "version": "1",
         },
         "executionWindows": [
-            {
-                "executionDay": "Everyday",
-                "windowStartHour": "1966280412345.6789",
-                "windowEndHour": "1966280414345.6789",
-            }
+            {"executionDay": "Everyday", "windowStartHour": "11:00", "windowEndHour": "12:00"}
         ],
         "shotsRange": [1, 10],
         "deviceCost": {"price": 0.25, "unit": "minute"},
@@ -41,6 +37,7 @@ def valid_input():
             "externalDocumentationUrl": "exter doc link",
         },
         "deviceLocation": "us-east-1",
+        "updatedAt": "2020-06-16T19:28:02.869136",
     }
     return input
 

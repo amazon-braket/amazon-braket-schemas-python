@@ -23,8 +23,8 @@ from braket.device_schema.device_execution_window import DeviceExecutionWindow, 
 def valid_input():
     input = {
         "executionDay": "Everyday",
-        "windowStartHour": "1966280412345.6789",
-        "windowEndHour": "1966280414345.6789",
+        "windowStartHour": "11:00",
+        "windowEndHour": "12:00",
     }
     return input
 
