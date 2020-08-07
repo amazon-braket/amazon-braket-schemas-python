@@ -19,6 +19,7 @@ from braket.ir.annealing import Problem
 from braket.ir.jaqcd import Program
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata
 from braket.task_result.rigetti_metadata_v1 import RigettiMetadata
+from braket.task_result.simulator_metadata_v1 import SimulatorMetadata
 
 
 class AdditionalMetadata(BaseModel):
@@ -38,3 +39,4 @@ class AdditionalMetadata(BaseModel):
     action: Union[Program, Problem]
     dwaveMetadata: Optional[DwaveMetadata]
     rigettiMetadata: Optional[RigettiMetadata]
+    simulatorMetadata: Optional[SimulatorMetadata]
