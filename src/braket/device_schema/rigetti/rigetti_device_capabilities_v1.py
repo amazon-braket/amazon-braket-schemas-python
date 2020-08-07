@@ -67,7 +67,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    "action": {
         ...        "braket.ir.jaqcd.program": {
         ...            "actionType": "braket.ir.jaqcd.program",
-        ...            "version": ["1.0", "1.1"],
+        ...            "version": ["1"],
         ...            "supportedOperations": ["x", "y"],
         ...            "supportedResultTypes": [{
         ...                 "name": "resultType1",

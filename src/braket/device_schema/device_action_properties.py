@@ -38,7 +38,7 @@ class DeviceActionProperties(BaseModel):
             >>> import json
             >>> input_json = {
             ...     "actionType": "braket.ir.jaqcd.program",
-            ...     "version": ["1.0", "1.1"],
+            ...     "version": ["1"],
             ... }
             >>> DeviceActionProperties.parse_raw(json.dumps(input_json))
     """
