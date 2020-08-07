@@ -23,7 +23,7 @@ from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActio
 def valid_input():
     input = {
         "actionType": "braket.ir.jaqcd.program",
-        "version": ["1.0", "1.1"],
+        "version": ["1"],
         "supportedOperations": ["x", "y"],
         "supportedResultTypes": [
             {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}

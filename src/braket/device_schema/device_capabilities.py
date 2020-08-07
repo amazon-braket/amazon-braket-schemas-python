@@ -62,7 +62,7 @@ class DeviceCapabilities(BaseModel):
             ...    "action": {
             ...        "braket.ir.jaqcd.program": {
             ...            "actionType": "braket.ir.jaqcd.program",
-            ...            "version": ["1.0", "1.1"],
+            ...            "version": ["1"],
             ...        }
             ...    },
             ...    "deviceParameters": {#Schema of specific device parameter instance},

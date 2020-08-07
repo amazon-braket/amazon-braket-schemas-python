@@ -41,10 +41,7 @@ def valid_input():
             "updatedAt": "2020-06-16T19:28:02.869136",
         },
         "action": {
-            "braket.ir.jaqcd.program": {
-                "actionType": "braket.ir.jaqcd.program",
-                "version": ["1.0", "1.1"],
-            }
+            "braket.ir.jaqcd.program": {"actionType": "braket.ir.jaqcd.program", "version": ["1"]}
         },
         "deviceParameters": {},
     }

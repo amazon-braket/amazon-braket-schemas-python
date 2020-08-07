@@ -23,7 +23,7 @@ from braket.device_schema.device_action_properties import DeviceActionProperties
 def valid_input():
     input = {
         "actionType": "braket.ir.jaqcd.program",
-        "version": ["1.0", "1.1"],
+        "version": ["1"],
     }
     return input
 

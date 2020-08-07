@@ -89,7 +89,7 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...    "action": {
         ...        "braket.ir.annealing.problem": {
         ...            "actionType": "braket.ir.annealing.problem",
-        ...            "version": ["1.0", "1.1"],
+        ...            "version": ["1"],
         ...        }
         ...    },
         ...    "deviceParameters": {DwaveDeviceParameters.schema_json()},

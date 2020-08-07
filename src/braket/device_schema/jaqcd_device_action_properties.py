@@ -60,7 +60,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         >>> import json
         >>> input_json = {
         ...    "actionType": "braket.ir.jaqcd.program",
-        ...    "version": ["1.0", "1.1"],
+        ...    "version": ["1"],
         ...    "supportedOperations": ["x", "y"],
         ...    "supportedResultTypes": [{
         ...         "name": "resultType1",
