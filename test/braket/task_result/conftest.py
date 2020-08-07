@@ -124,3 +124,8 @@ def shots():
 @pytest.fixture
 def task_metadata(id, device_id, shots):
     return TaskMetadata(id=id, deviceId=device_id, shots=shots)
+
+
+@pytest.fixture
+def execution_duration():
+    return 100
