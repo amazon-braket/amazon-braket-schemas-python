@@ -16,7 +16,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
-from braket.device_schema.dwave.dwave_provider_properties_v1 import DwaveProviderProperties
+from braket.device_schema.dwave import DwaveDeviceCapabilities
 
 
 @pytest.fixture(scope="module")
@@ -73,8 +73,8 @@ def valid_input():
             "updatedAt": "2020-06-16T19:28:02.869136",
         },
         "action": {
-            "braket.ir.jaqcd.program": {
-                "actionType": "braket.ir.jaqcd.program",
+            "braket.ir.annealing.problem": {
+                "actionType": "braket.ir.annealing.problem",
                 "version": ["1.0", "1.1"],
             }
         },
@@ -101,17 +101,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DwaveProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    result = DwaveDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
     assert result.provider.qubitCount == 1
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    DwaveProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_qubitCount(valid_input):
     valid_input.pop("provider")
-    DwaveProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
