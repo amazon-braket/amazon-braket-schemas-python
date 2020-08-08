@@ -23,7 +23,7 @@ setup(
     python_requires=">= 3.7",
     packages=find_namespace_packages(where="src", exclude=("test",)),
     package_dir={"": "src"},
-    install_requires=["pydantic"],
+    install_requires=["pydantic", "typing-extensions"],
     extras_require={
         "test": [
             "black",
