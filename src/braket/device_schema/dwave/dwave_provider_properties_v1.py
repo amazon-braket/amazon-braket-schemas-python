@@ -44,17 +44,17 @@ class DwaveProviderProperties(BraketSchemaBase):
         ...    "defaultAnnealingDuration": 1,
         ...    "defaultProgrammingThermalizationDuration": 1,
         ...    "defaultReadoutThermalizationDuration": 1,
-        ...    "extendedJRange": [1, 2, 3],
-        ...    "hGainScheduleRange": [1, 2, 3],
-        ...    "hRange": [1, 2, 3],
-        ...    "jRange": [1, 2, 3],
+        ...    "extendedJRange": [1.1, 2.45, 3.45],
+        ...    "hGainScheduleRange": [1.11, 2.56, 3.67],
+        ...    "hRange": [1.4, 2.6, 3.66],
+        ...    "jRange": [1.67, 2.666, 3.666],
         ...    "maximumAnnealingSchedulePoints": 1,
         ...    "maximumHGainSchedulePoints": 1,
-        ...    "perQubitCouplingRange": [1, 2, 3],
+        ...    "perQubitCouplingRange": [1.777, 2.567, 3.1201],
         ...    "programmingThermalizationDurationRange": [1, 2, 3],
         ...    "qubits": [1, 2, 3],
         ...    "qubitCount": 1,
-        ...    "quotaConversionRate": 1,
+        ...    "quotaConversionRate": 1.341234,
         ...    "readoutThermalizationDurationRange": [1, 2, 3],
         ...    "taskRunDurationRange": [1, 2, 3],
         ...    "topology": {},
@@ -74,17 +74,17 @@ class DwaveProviderProperties(BraketSchemaBase):
     defaultAnnealingDuration: int
     defaultProgrammingThermalizationDuration: int
     defaultReadoutThermalizationDuration: int
-    extendedJRange: List[int]
-    hGainScheduleRange: List[int]
-    hRange: List[int]
-    jRange: List[int]
+    extendedJRange: List[float]
+    hGainScheduleRange: List[float]
+    hRange: List[float]
+    jRange: List[float]
     maximumAnnealingSchedulePoints: int
     maximumHGainSchedulePoints: int
-    perQubitCouplingRange: List[int]
+    perQubitCouplingRange: List[float]
     programmingThermalizationDurationRange: List[int]
     qubits: List[int]
     qubitCount: int
-    quotaConversionRate: int
+    quotaConversionRate: float
     readoutThermalizationDurationRange: List[int]
     taskRunDurationRange: List[int]
     topology: dict
