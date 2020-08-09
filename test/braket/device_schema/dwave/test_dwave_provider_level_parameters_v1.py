@@ -26,17 +26,20 @@ def test_valid():
         "braketSchemaHeader": {
             "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
             "version": "1",
-        }
+        },
+        "postprocessingType": "raw",
     }
     assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_attribute():
-    input = (
-        '{"braketSchemaHeader": {"name": '
-        '"braket.device_schema.dwave.dwave_provider_level_parameters","version": "1",'
-        '}"annealingOffsets": 1} '
-    )
+    input = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
+            "version": "1",
+        },
+        "annealingOffsets": 1,
+    }
     # annealingOffsets should be List[int]
-    DwaveProviderLevelParameters.parse_raw_schema(input)
+    DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))

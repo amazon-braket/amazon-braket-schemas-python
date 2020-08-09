@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict
+from typing import Dict, Optional
 
 from pydantic import BaseModel
 
@@ -73,3 +73,4 @@ class DeviceCapabilities(BaseModel):
     service: DeviceServiceProperties
     action: Dict[DeviceActionType, DeviceActionProperties]
     deviceParameters: dict
+    provider: Optional[dict]
