@@ -30,7 +30,7 @@ class PostProcessingType(str, Enum):
 
 class ResultFormat(str, Enum):
     """
-    The type of processing for D-Wave.
+    The type of results format for D-Wave.
     """
 
     RAW = "raw"

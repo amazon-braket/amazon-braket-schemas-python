@@ -29,12 +29,32 @@ class IonqProviderProperties(BraketSchemaBase):
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.ionq.ionq_provider_parameters",
+        ...        "name": "braket.device_schema.ionq.ionq_provider_properties",
         ...        "version": "1",
         ...    },
-        ...    "target": "ionq.qpu"
-        ... }
-        >>> IonqDeviceParameters.parse_raw_schema(json.dumps(input_json))
+        ...    "target": "",
+        ...    "fidelity": {
+        ...        "1q": {
+        ...          "mean": 0.99717
+        ...        },
+        ...        "2q": {
+        ...          "mean": 0.9696
+        ...        },
+        ...        "spam": {
+        ...          "mean": 0.9961
+        ...        }
+        ...      },
+        ...      "timing": {
+        ...        "t1": 10000000000,
+        ...        "t2": 500000,
+        ...        "1q": 1.1e-05,
+        ...        "2q": 0.00021,
+        ...        "readout": 0.000175,
+        ...        "reset": 3.5e-05
+        ...      },
+        ...
+        ...}
+        >>> IonqProviderProperties.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
