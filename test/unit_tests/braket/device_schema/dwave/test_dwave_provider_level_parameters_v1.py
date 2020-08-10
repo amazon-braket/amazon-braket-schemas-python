@@ -27,7 +27,7 @@ def test_valid():
             "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
             "version": "1",
         },
-        "PostProcessingType": "sampling",
+        "postprocessingType": "sampling",
         "resultFormat": "raw",
     }
     assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
