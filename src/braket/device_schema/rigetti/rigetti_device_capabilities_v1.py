@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional
+from typing import Dict
 
 from pydantic import Field
 
@@ -21,7 +21,6 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
-from braket.device_schema.rigetti.rigetti_provider_properties_v1 import RigettiProviderProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -32,7 +31,6 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     Attributes:
         action: Actions that a rigetti device can support
         paradigm: Paradigm properties of a rigetti
-        provider: Definitions that are specific to device provider
 
     Examples:
         >>> import json
@@ -103,4 +101,3 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[RigettiProviderProperties]
