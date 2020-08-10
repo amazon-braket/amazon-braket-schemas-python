@@ -1,5 +1,3 @@
-**DO NOT SHARE OR TALK ABOUT THE CONTENTS OF THIS LIBRARY per the Amazon Beta NDA you signed.**
-
 Amazon Braket Python Schemas is an open source library that contains the schemas for Braket, including:
 * intermediate representations (IR) for Amazon Braket quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the Amazon Braket SDK and Amazon Braket API for quantum programs.
 * schemas for the S3 results of each quantum task
@@ -191,12 +189,19 @@ braketSchemaHeader=BraketSchemaHeader(name='braket.ir.annealing.problem', versio
 
 ## Documentation
 
-First `cd` into the `doc` directory and run:
-```bash
-make html
+First, install tox:
+
+```shell
+pip install tox
 ```
 
-Then open `BRAKET_IR_ROOT/build/documentation/html/index.html` in a browser to view the docs.
+To build the Sphinx docs, run the following command in the root repo directory:
+
+```shell
+tox -e docs
+```
+
+You can then find the generated HTML files in `build/documentation/html`.
 
 ## Testing
 
@@ -205,14 +210,14 @@ Make sure to install test dependencies first:
 pip install -e "amazon-braket-schemas-python[test]"
 ```
 
-To run the unit tests:
+To run the unit tests, linters, and doc generation:
 ```bash
 tox
 ```
 
-To run an individual test:
+To select tests based on a keyword:
 ```bash
-tox -- -k 'your_test'
+tox -e py37 -- -k 'your_test'
 ```
 
 ## License
