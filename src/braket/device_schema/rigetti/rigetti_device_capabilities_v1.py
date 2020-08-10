@@ -32,6 +32,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     Attributes:
         action: Actions that a rigetti device can support
         paradigm: Paradigm properties of a rigetti
+        provider: Definitions that are specific to device provider
 
     Examples:
         >>> import json

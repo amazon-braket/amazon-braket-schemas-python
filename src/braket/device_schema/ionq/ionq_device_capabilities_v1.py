@@ -33,6 +33,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     Attributes:
         action: Actions that a Ion-Q device can support
         paradigm: Paradigm properties of a Ion-Q
+        provider: Definitions that are specific to device provider
 
     Examples:
         >>> import json

@@ -18,7 +18,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class IonqProviderProperties(BraketSchemaBase):
     """
-    This defines the parameters common to all the Ion-Q devices.
+    This defines the properties common to the Ion-Q provider.
 
     Attributes:
         target: target for the ionq device

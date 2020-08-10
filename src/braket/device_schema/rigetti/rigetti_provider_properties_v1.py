@@ -18,7 +18,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class RigettiProviderProperties(BraketSchemaBase):
     """
-    This defines the parameters common to all the Ion-Q devices.
+    This defines the properties common to all the rigetti provider.
 
     Attributes:
         specs: Explains the details of fidelities
