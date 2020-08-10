@@ -20,6 +20,7 @@ from braket.device_schema.dwave.dwave_device_parameters_v1 import (  # noqa: F40
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (  # noqa: F401
     DwaveProviderLevelParameters,
     PostProcessingType,
+    ResultFormat,
 )
 from braket.device_schema.dwave.dwave_provider_properties_v1 import (  # noqa: F401
     DwaveProviderProperties,

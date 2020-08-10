@@ -26,7 +26,9 @@ def test_valid():
         "braketSchemaHeader": {
             "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
             "version": "1",
-        }
+        },
+        "postprocessingType": "sampling",
+        "resultFormat": "raw",
     }
     assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
 

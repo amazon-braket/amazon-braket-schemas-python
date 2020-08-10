@@ -24,6 +24,15 @@ class PostProcessingType(str, Enum):
     The type of processing for D-Wave.
     """
 
+    SAMPLING = "sampling"
+    OPTIMIZATION = "optimization"
+
+
+class ResultFormat(str, Enum):
+    """
+    The type of results format for D-Wave.
+    """
+
     RAW = "raw"
     HISTOGRAM = "histogram"
 
@@ -64,5 +73,5 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     readoutThermalizationDuration: Optional[int]
     reduceIntersampleCorrelation: Optional[bool]
     reinitializeState: Optional[bool]
-    resultFormat: Optional[str]
+    resultFormat: Optional[ResultFormat]
     spinReversalTransformCount: Optional[int] = Field(gt=0)
