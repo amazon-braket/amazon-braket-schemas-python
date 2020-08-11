@@ -15,3 +15,6 @@ from braket.device_schema.ionq.ionq_device_capabilities_v1 import (  # noqa: F40
     IonqDeviceCapabilities,
 )
 from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters  # noqa: F401
+from braket.device_schema.ionq.ionq_provider_properties_v1 import (  # noqa: F401, E501
+    IonqProviderProperties,
+)
