@@ -20,7 +20,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class RigettiProviderProperties(BraketSchemaBase):
     """
-    This defines the parameters common to all the rigetti devices.
+    This defines the parameters common to all rigetti devices.
 
     Attributes:
         specs: Basic specifications for the device, such as gate fidelities and coherence times.

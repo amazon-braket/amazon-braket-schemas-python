@@ -20,11 +20,11 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class IonqProviderProperties(BraketSchemaBase):
     """
-    This defines the parameters common to all the Ion-Q devices.
+    This defines the properties common to all the IonQ devices.
 
     Attributes:
         fidelity: Average fidelity, the measured success to perform operations of the given type.
-        timing: the timing characteristics of the device. 1q, 2q, readout,
+        timing: The timing characteristics of the device. 1q, 2q, readout,
             and reset are the operation times. t1 and t2 are decoherence times
 
     Examples:

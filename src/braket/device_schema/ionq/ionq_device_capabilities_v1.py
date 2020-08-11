@@ -28,10 +28,10 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
 
     """
-    This defines the capabilities of a IonQ device.
+    This defines the capabilities of an IonQ device.
 
     Attributes:
-        action: Actions that a IonQ device can support
+        action: Actions that an IonQ device can support
         paradigm: Paradigm properties
         provider: IonQ provider specific properties
 
