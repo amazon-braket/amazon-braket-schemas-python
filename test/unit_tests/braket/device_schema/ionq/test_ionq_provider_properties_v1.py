@@ -26,7 +26,6 @@ def valid_input():
             "name": "braket.device_schema.ionq.ionq_provider_properties",
             "version": "1",
         },
-        "target": "ionq.qpu",
         "fidelity": {"1q": {"mean": 0.99717}, "2q": {"mean": 0.9696}, "spam": {"mean": 0.9961}},
         "timing": {
             "t1": 10000000000,

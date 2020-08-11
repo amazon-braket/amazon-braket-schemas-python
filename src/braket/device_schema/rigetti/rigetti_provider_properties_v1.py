@@ -20,12 +20,12 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class RigettiProviderProperties(BraketSchemaBase):
     """
-    This defines the parameters common to all the Ion-Q devices.
+    This defines the parameters common to all the rigetti devices.
 
     Attributes:
         specs: Basic specifications for the device, such as gate fidelities and coherence times.
-        More details at
-        https://pyquil-docs.rigetti.com/en/stable/apidocs/autogen/pyquil.device.Specs.html
+            More details at
+            https://pyquil-docs.rigetti.com/en/stable/apidocs/autogen/pyquil.device.Specs.html
 
     Examples:
         >>> import json

@@ -21,13 +21,11 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class IonqProviderProperties(BraketSchemaBase):
     """
     This defines the parameters common to all the Ion-Q devices.
+
     Attributes:
-        target: QPU Description, the current calibration data is relevant for this device
-        fidelity: Average fidelity, , the measured success to preform operations of the given type
-            (1q gates, 2q gates, whatever spam is)
+        fidelity: Average fidelity, the measured success to perform operations of the given type.
         timing: the timing characteristics of the device. 1q, 2q, readout,
             and reset are the operation times. t1 and t2 are decoherence times
-            (though I can't ever remember what they mean
 
     Examples:
         >>> import json
@@ -36,7 +34,6 @@ class IonqProviderProperties(BraketSchemaBase):
         ...        "name": "braket.device_schema.ionq.ionq_provider_properties",
         ...        "version": "1",
         ...    },
-        ...    "target": "",
         ...    "fidelity": {
         ...        "1q": {
         ...          "mean": 0.99717
@@ -64,6 +61,5 @@ class IonqProviderProperties(BraketSchemaBase):
         name="braket.device_schema.ionq.ionq_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    target: str
     fidelity: Dict[str, Dict[str, float]]
     timing: Dict[str, float]
