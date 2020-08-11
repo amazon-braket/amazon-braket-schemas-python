@@ -23,9 +23,10 @@ class IonqProviderProperties(BraketSchemaBase):
     This defines the properties common to all the IonQ devices.
 
     Attributes:
-        fidelity: Average fidelity, the measured success to perform operations of the given type.
-        timing: The timing characteristics of the device. 1q, 2q, readout,
-            and reset are the operation times. t1 and t2 are decoherence times
+        fidelity(Dict[str, Dict[str, float]]): Average fidelity, the measured success
+            to perform operations of the given type.
+        timing(Dict[str, float]): The timing characteristics of the device. 1Q, 2Q, readout,
+            and reset are the operation times. T1 and T2 are decoherence times
 
     Examples:
         >>> import json

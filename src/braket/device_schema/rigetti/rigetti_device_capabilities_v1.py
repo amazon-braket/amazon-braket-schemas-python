@@ -30,9 +30,10 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of a rigetti device.
 
     Attributes:
-        action: Actions that a rigetti device can support
-        paradigm: Paradigm properties of a rigetti
-        provider: Rigetti provider specific properties
+        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
+            rigetti device can support
+        paradigm(GateModelQpuParadigmProperties): Paradigm properties of a rigetti
+        provider(Optional[RigettiProviderProperties]): Rigetti provider specific properties
 
     Examples:
         >>> import json

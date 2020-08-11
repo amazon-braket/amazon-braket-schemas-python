@@ -23,8 +23,8 @@ class RigettiProviderProperties(BraketSchemaBase):
     This defines the parameters common to all rigetti devices.
 
     Attributes:
-        specs: Basic specifications for the device, such as gate fidelities and coherence times.
-            More details at
+        specs (Dict[str, Dict[str, Dict[str, float]]]): Basic specifications for the device,
+            such as gate fidelities and coherence times. More details at
             https://pyquil-docs.rigetti.com/en/stable/apidocs/autogen/pyquil.device.Specs.html
 
     Examples:

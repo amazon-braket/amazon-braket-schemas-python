@@ -31,9 +31,10 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of an IonQ device.
 
     Attributes:
-        action: Actions that an IonQ device can support
-        paradigm: Paradigm properties
-        provider: IonQ provider specific properties
+        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that an IonQ device
+            can support
+        paradigm(GateModelQpuParadigmProperties): Paradigm properties
+        provider(Optional[IonqProviderProperties]): IonQ provider specific properties
 
     Examples:
         >>> import json
