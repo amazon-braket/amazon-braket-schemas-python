@@ -17,3 +17,6 @@ from braket.device_schema.rigetti.rigetti_device_capabilities_v1 import (  # noq
 from braket.device_schema.rigetti.rigetti_device_parameters_v1 import (  # noqa: F401
     RigettiDeviceParameters,
 )
+from braket.device_schema.rigetti.rigetti_provider_properties_v1 import (  # noqa: F401
+    RigettiProviderProperties,
+)

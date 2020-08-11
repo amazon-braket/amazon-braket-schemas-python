@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict
+from typing import Dict, Optional
 
 from pydantic import Field
 
@@ -20,6 +20,7 @@ from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
+from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -27,11 +28,13 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
 
     """
-    This defines the capabilities of a Ion-Q device.
+    This defines the capabilities of an IonQ device.
 
     Attributes:
-        action: Actions that a Ion-Q device can support
-        paradigm: Paradigm properties of a Ion-Q
+        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that an IonQ device
+            can support
+        paradigm(GateModelQpuParadigmProperties): Paradigm properties
+        provider(Optional[IonqProviderProperties]): IonQ provider specific properties
 
     Examples:
         >>> import json
@@ -101,3 +104,4 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelQpuParadigmProperties
+    provider: Optional[IonqProviderProperties]
