@@ -11,27 +11,31 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 - Python 3.7+
 
 ### Steps
- ```bash
- git clone https://github.com/aws/amazon-braket-schemas-python.git
- pip install -e amazon-braket-schemas-python
- ```
 
- To install test dependencies for running tests locally run:
- ```bash
- pip install -e "amazon-braket-schemas-python[test]"
- ```
-
-You can check your currently installed version of `amazon-braket-schemas-python` with `pip show`:
+You can install from source by cloning this repository and running a pip install command in the root directory of the repository:
 
 ```bash
-pip show amazon-braket-schemas-python
+git clone https://github.com/aws/amazon-braket-schemas-python.git
+cd amazon-braket-schemas-python
+pip install .
+```
+
+To install test dependencies for running tests locally run:
+```bash
+pip install -e "amazon-braket-schemas-python[test]"
+```
+
+You can check your currently installed version of `amazon-braket-schemas` with `pip show`:
+
+```bash
+pip show amazon-braket-schemas
 ```
 
 or alternatively from within Python:
 
 ```
->>> from braket import ir
->>> ir.__version__
+>>> import braket._schemas as braket_schemas
+>>> braket_schemas.__version__
 ```
 
 ## Usage
