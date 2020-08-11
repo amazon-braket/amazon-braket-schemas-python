@@ -35,10 +35,10 @@ class IonqProviderProperties(BraketSchemaBase):
         ...        "version": "1",
         ...    },
         ...    "fidelity": {
-        ...        "1q": {
+        ...        "1Q": {
         ...          "mean": 0.99717
         ...        },
-        ...        "2q": {
+        ...        "2Q": {
         ...          "mean": 0.9696
         ...        },
         ...        "spam": {
@@ -46,10 +46,10 @@ class IonqProviderProperties(BraketSchemaBase):
         ...        }
         ...      },
         ...      "timing": {
-        ...        "t1": 10000000000,
-        ...        "t2": 500000,
-        ...        "1q": 1.1e-05,
-        ...        "2q": 0.00021,
+        ...        "T1": 10000000000,
+        ...        "T2": 500000,
+        ...        "1Q": 1.1e-05,
+        ...        "2Q": 0.00021,
         ...        "readout": 0.000175,
         ...        "reset": 3.5e-05
         ...      },
