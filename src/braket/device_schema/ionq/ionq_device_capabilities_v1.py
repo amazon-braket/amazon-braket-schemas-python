@@ -28,12 +28,12 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
 
     """
-    This defines the capabilities of a Ion-Q device.
+    This defines the capabilities of a IonQ device.
 
     Attributes:
-        action: Actions that a Ion-Q device can support
-        paradigm: Paradigm properties of a Ion-Q
-        provider: ionq provider specific properties
+        action: Actions that a IonQ device can support
+        paradigm: Paradigm properties
+        provider: IonQ provider specific properties
 
     Examples:
         >>> import json
