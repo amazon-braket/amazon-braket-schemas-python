@@ -20,11 +20,6 @@ cd amazon-braket-schemas-python
 pip install .
 ```
 
-To install test dependencies for running tests locally run:
-```shell
-pip install -e "amazon-braket-schemas-python[test]"
-```
-
 You can check your currently installed version of `amazon-braket-schemas` with `pip show`:
 
 ```shell
