@@ -14,20 +14,20 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 
 You can install from source by cloning this repository and running a pip install command in the root directory of the repository:
 
-```bash
+```shell
 git clone https://github.com/aws/amazon-braket-schemas-python.git
 cd amazon-braket-schemas-python
 pip install .
 ```
 
 To install test dependencies for running tests locally run:
-```bash
+```shell
 pip install -e "amazon-braket-schemas-python[test]"
 ```
 
 You can check your currently installed version of `amazon-braket-schemas` with `pip show`:
 
-```bash
+```shell
 pip show amazon-braket-schemas
 ```
 
@@ -212,17 +212,17 @@ You can then find the generated HTML files in `build/documentation/html`.
 ## Testing
 
 Make sure to install test dependencies first:
-```bash
+```shell
 pip install -e "amazon-braket-schemas-python[test]"
 ```
 
 To run the unit tests, linters, and doc generation:
-```bash
+```shell
 tox
 ```
 
 To select tests based on a keyword:
-```bash
+```shell
 tox -e py37 -- -k 'your_test'
 ```
 
