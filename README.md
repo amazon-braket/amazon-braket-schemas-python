@@ -1,4 +1,4 @@
-**DO NOT SHARE OR TALK ABOUT THE CONTENTS OF THIS LIBRARY per the Amazon Beta NDA you signed.**
+## Amazon Braket Python Schemas
 
 Amazon Braket Python Schemas is an open source library that contains the schemas for Braket, including:
 * intermediate representations (IR) for Amazon Braket quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the Amazon Braket SDK and Amazon Braket API for quantum programs.
@@ -11,27 +11,26 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 - Python 3.7+
 
 ### Steps
- ```bash
- git clone https://github.com/aws/amazon-braket-schemas-python.git
- pip install -e amazon-braket-schemas-python
- ```
 
- To install test dependencies for running tests locally run:
- ```bash
- pip install -e "amazon-braket-schemas-python[test]"
- ```
+You can install from source by cloning this repository and running a pip install command in the root directory of the repository:
 
-You can check your currently installed version of `amazon-braket-schemas-python` with `pip show`:
+```shell
+git clone https://github.com/aws/amazon-braket-schemas-python.git
+cd amazon-braket-schemas-python
+pip install .
+```
 
-```bash
-pip show amazon-braket-schemas-python
+You can check your currently installed version of `amazon-braket-schemas` with `pip show`:
+
+```shell
+pip show amazon-braket-schemas
 ```
 
 or alternatively from within Python:
 
 ```
->>> from braket import ir
->>> ir.__version__
+>>> import braket._schemas as braket_schemas
+>>> braket_schemas.__version__
 ```
 
 ## Usage
@@ -191,28 +190,35 @@ braketSchemaHeader=BraketSchemaHeader(name='braket.ir.annealing.problem', versio
 
 ## Documentation
 
-First `cd` into the `doc` directory and run:
-```bash
-make html
+First, install tox:
+
+```shell
+pip install tox
 ```
 
-Then open `BRAKET_IR_ROOT/build/documentation/html/index.html` in a browser to view the docs.
+To build the Sphinx docs, run the following command in the root repo directory:
+
+```shell
+tox -e docs
+```
+
+You can then find the generated HTML files in `build/documentation/html`.
 
 ## Testing
 
 Make sure to install test dependencies first:
-```bash
+```shell
 pip install -e "amazon-braket-schemas-python[test]"
 ```
 
-To run the unit tests:
-```bash
+To run the unit tests, linters, and doc generation:
+```shell
 tox
 ```
 
-To run an individual test:
-```bash
-tox -- -k 'your_test'
+To select tests based on a keyword:
+```shell
+tox -e py37 -- -k 'your_test'
 ```
 
 ## License
