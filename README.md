@@ -12,11 +12,8 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 
 ### Steps
 
-The preferred way to get Amazon Braket Python Schemas is by installing the [Amazon Braket Python SDK](https://github.com/aws/amazon-braket-sdk-python), which will pull in the schemas:
-
-```shell
-pip install amazon-braket-sdk
-```
+The preferred way to get Amazon Braket Python Schemas is by installing the [Amazon Braket Python SDK](https://github.com/aws/amazon-braket-sdk-python), which will pull in the schemas.
+Follow the instructions in the [README](https://github.com/aws/amazon-braket-sdk-python/blob/main/README.md) for setup.
 
 However, if you only want to use the schemas, it can be installed on its own as follows:
 
