@@ -199,7 +199,9 @@ braketSchemaHeader=BraketSchemaHeader(name='braket.ir.annealing.problem', versio
 
 ## Documentation
 
-First, install tox:
+Detailed documentation, including the API reference, can be found on [Read the Docs](https://amazon-braket-schemas-python.readthedocs.io/en/latest/).
+
+You can also generate the docs from source. First, install tox:
 
 ```shell
 pip install tox
