@@ -40,6 +40,7 @@ setup(
             "pytest-xdist",
             "sphinx < 3.0.0",
             "sphinx-rtd-theme",
+            "sphinxcontrib-apidoc",
             "tox",
         ]
     },
