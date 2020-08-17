@@ -129,6 +129,21 @@ class Angle(BaseModel):
     angle: confloat(gt=float("-inf"), lt=float("inf"))
 
 
+class Probability(BaseModel):
+    """
+    Probability for noise channel (floating point).
+
+    Attributes:
+        prob (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> Probability(prob=0.9)
+    """
+
+    prob: confloat(ge=float("0.0"), le=float("1.0"))
+
+
 class TwoDimensionalMatrix(BaseModel):
     """
     Two dimensional non-empty matrix.
@@ -146,6 +161,35 @@ class TwoDimensionalMatrix(BaseModel):
     matrix: conlist(
         conlist(
             conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+            min_items=1,
+        ),
+        min_items=1,
+    )
+
+
+class TwoDimensionalMatrixList(BaseModel):
+    """
+    List of Two dimensional non-empty matrices.
+
+    Attributes:
+        matrix (List[List[List[List[float]]]]): Two dimensional matrix with complex entries.
+            Each complex number is represented using a List[float] of size 2, with
+            element[0] being the real part and element[1] imaginary.
+            inf, -inf, and NaN are not allowable inputs for the element.
+
+    Examples:
+        >>> TwoDimensionalMatrixList(matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
+                                               [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
+                                              ]
+                                    )
+    """
+
+    matrices: conlist(
+        conlist(
+            conlist(
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+                min_items=1,
+            ),
             min_items=1,
         ),
         min_items=1,
