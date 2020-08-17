@@ -44,6 +44,11 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     X,
     Y,
     Z,
+    Bit_Flip,
+    Phase_Flip,
+    Depolarizing,
+    Amplitude_Damping,
+    Kraus
 )
 from braket.ir.jaqcd.program_v1 import Program  # noqa: F401
 from braket.ir.jaqcd.results import (  # noqa: F401
@@ -52,5 +57,6 @@ from braket.ir.jaqcd.results import (  # noqa: F401
     Probability,
     Sample,
     StateVector,
+    DensityMatrix,
     Variance,
 )
