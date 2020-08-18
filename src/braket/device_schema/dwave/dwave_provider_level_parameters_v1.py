@@ -42,7 +42,7 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     This is the description of the D-Wave parameters
 
     Attributes:
-        annealingOffsets (Optional[List[int]]): Provides offsets to annealing paths, per qubit.
+        annealingOffsets (Optional[List[float]]): Provides offsets to annealing paths, per qubit.
         annealingSchedule (Optional[List[List[float]]]): Introduces variations to the global anneal
             schedule.
         annealingDuration (Optional[int] = Field(gt=1)): Sets the duration (in microseconds) of
@@ -95,7 +95,7 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_provider_level_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: Optional[List[int]]
+    annealingOffsets: Optional[List[float]]
     annealingSchedule: Optional[List[List[float]]]
     annealingDuration: Optional[int] = Field(gt=1)
     autoScale: Optional[bool]

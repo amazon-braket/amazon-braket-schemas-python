@@ -27,7 +27,7 @@ def test_valid():
             "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
             "version": "1",
         },
-        "annealingOffsets": [3, 6],
+        "annealingOffsets": [3.67, 6.123],
         "annealingSchedule": [[13.37, 10.08], [3.14, 1.618]],
         "annealingDuration": 500,
         "autoScale": True,
