@@ -41,6 +41,43 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     """
     This is the description of the D-Wave parameters
 
+    Attributes:
+        annealingOffsets (Optional[List[int]]): Provides offsets to annealing paths, per qubit.
+        annealingSchedule (Optional[List[List[float]]]): Introduces variations to the global anneal
+            schedule.
+        annealingDuration (Optional[int] = Field(gt=1)): Sets the duration (in microseconds) of
+            quantum annealing time, per read.
+        autoScale (Optional[bool]): Indicates whether h and J values are rescaled.
+        beta (Optional[float]): Provides a value for the Boltzmann distribution parameter.
+            Used when sampling postprocessing is enabled on D-Wave 2000Q and earlier systems.
+        chains (Optional[List[List[int]]]): Defines which qubits represent the same logical
+            variable. Used only when postprocessing is enabled on D-Wave 2000Q and earlier systems.
+            Ensures that all qubits in the same chain have the same value within each sample.
+        compensateFluxDrift (Optional[bool]): Boolean flag indicating whether the D-Wave system
+            compensates for flux drift.
+        fluxBiases (Optional[List[float]]): List of flux-bias offset values with which to calibrate
+            a chain. Often required when using the extended J range to create a strongly coupled
+            chain for certain embeddings.
+        initialState (Optional[List[int]]): When using the reverse annealing feature,
+            you must supply the initial state to which the system is set.
+        maxResults (Optional[int] = Field(gt=1)): Specifies the maximum number of
+            answers returned from the solver.
+        postprocessingType (Optional[PostProcessingType]): Defines what type of postprocessing the
+            system runs online on raw solutions.
+        programmingThermalizationDuration (Optional[int]): Gives the time (in microseconds) to wait
+            after programming the QPU for it to cool back to base temperature (i.e.,
+            post-programming thermalization time).
+        readoutThermalizationDuration (Optional[int]): Gives the time (in microseconds) to wait
+            after each state is read from the QPU for it to cool back to base temperature
+            (i.e., post-readout thermalization time).
+        reduceIntersampleCorrelation (Optional[bool]): Reduces sample-to-sample correlations caused
+            by the spin-bath polarization effect by adding a delay between reads.
+        reinitializeState (Optional[bool]): When using the reverse annealing feature,
+            you must supply the initial state to which the system is set.
+        resultFormat (Optional[ResultFormat]): Type of the result format returned by the QPU.
+        spinReversalTransformCount (Optional[int] = Field(gt=0)): Specifies the number of
+            spin-reversal transforms to perform.
+
     Examples:
         >>> import json
         >>> input_json = {
