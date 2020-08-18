@@ -59,13 +59,13 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsets: Optional[List[int]]
-    annealingSchedule: Optional[List[List[int]]]
+    annealingSchedule: Optional[List[List[float]]]
     annealingDuration: Optional[int] = Field(gt=1)
     autoScale: Optional[bool]
-    beta: Optional[int]
+    beta: Optional[float]
     chains: Optional[List[List[int]]]
     compensateFluxDrift: Optional[bool]
-    fluxBiases: Optional[List[int]]
+    fluxBiases: Optional[List[float]]
     initialState: Optional[List[int]]
     maxResults: Optional[int] = Field(gt=1)
     postprocessingType: Optional[PostProcessingType]
