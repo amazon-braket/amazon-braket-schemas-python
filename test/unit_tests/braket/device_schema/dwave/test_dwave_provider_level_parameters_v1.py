@@ -27,8 +27,23 @@ def test_valid():
             "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
             "version": "1",
         },
+        "annealingOffsets": [3, 6],
+        "annealingSchedule": [[13.37, 10.08], [3.14, 1.618]],
+        "annealingDuration": 500,
+        "autoScale": True,
+        "beta": 123.456,
+        "chains": [[0, 1, 5], [6]],
+        "compensateFluxDrift": False,
+        "fluxBiases": [1.1, 2.2, 3.3, 4.4],
+        "initialState": [1, 3, 0, 1],
+        "maxResults": 20,
         "postprocessingType": "SAMPLING",
+        "programmingThermalizationDuration": 625,
+        "readoutThermalizationDuration": 256,
+        "reduceIntersampleCorrelation": False,
+        "reinitializeState": True,
         "resultFormat": "RAW",
+        "spinReversalTransformCount": 100,
     }
     assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
 
