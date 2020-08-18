@@ -14,6 +14,15 @@
 import json
 
 import pytest
+from pydantic import ValidationError
+from test_common import (
+    create_class_instance,
+    create_switcher,
+    create_valid_class_instance,
+    create_valid_json,
+    idfn,
+)
+
 from braket.ir.jaqcd import (
     CY,
     CZ,
@@ -21,6 +30,8 @@ from braket.ir.jaqcd import (
     XY,
     YY,
     ZZ,
+    Amplitude_Damping,
+    Bit_Flip,
     CCNot,
     CNot,
     CPhaseShift,
@@ -28,9 +39,12 @@ from braket.ir.jaqcd import (
     CPhaseShift01,
     CPhaseShift10,
     CSwap,
+    Depolarizing,
     H,
     I,
     ISwap,
+    Kraus,
+    Phase_Flip,
     PhaseShift,
     Program,
     PSwap,
@@ -48,30 +62,17 @@ from braket.ir.jaqcd import (
     X,
     Y,
     Z,
-    Bit_Flip,
-    Phase_Flip,
-    Depolarizing,
-    Amplitude_Damping,
-    Kraus,
 )
 from braket.ir.jaqcd.shared_models import (
     Angle,
-    Probability,
     DoubleControl,
     DoubleTarget,
     MultiTarget,
+    Probability,
     SingleControl,
     SingleTarget,
     TwoDimensionalMatrix,
     TwoDimensionalMatrixList,
-)
-from pydantic import ValidationError
-from test_common import (
-    create_class_instance,
-    create_switcher,
-    create_valid_class_instance,
-    create_valid_json,
-    idfn,
 )
 
 testdata = [

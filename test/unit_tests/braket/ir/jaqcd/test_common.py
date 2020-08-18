@@ -49,9 +49,9 @@ def two_dimensional_matrix_valid_input():
 
 
 def two_dimensional_matrix_list_valid_input():
-    return {"matrices": [[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
-                         [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
-            ]}
+    return {
+        "matrices": [[[[1, 0], [0, 0]], [[0, 0], [1, 0]]], [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]]
+    }
 
 
 def observable_valid_input():

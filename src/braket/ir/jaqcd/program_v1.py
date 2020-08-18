@@ -22,6 +22,8 @@ from braket.ir.jaqcd.instructions import (
     XY,
     YY,
     ZZ,
+    Amplitude_Damping,
+    Bit_Flip,
     CCNot,
     CNot,
     CPhaseShift,
@@ -29,9 +31,12 @@ from braket.ir.jaqcd.instructions import (
     CPhaseShift01,
     CPhaseShift10,
     CSwap,
+    Depolarizing,
     H,
     I,
     ISwap,
+    Kraus,
+    Phase_Flip,
     PhaseShift,
     PSwap,
     Rx,
@@ -48,19 +53,14 @@ from braket.ir.jaqcd.instructions import (
     X,
     Y,
     Z,
-    Bit_Flip,
-    Phase_Flip,
-    Depolarizing,
-    Amplitude_Damping,
-    Kraus,
 )
 from braket.ir.jaqcd.results import (
     Amplitude,
+    DensityMatrix,
     Expectation,
     Probability,
     Sample,
     StateVector,
-    DensityMatrix,
     Variance,
 )
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -101,11 +101,7 @@ GateInstructions = Union[
 ]
 
 NoiseInstructions = Union[
-    Bit_Flip,
-    Phase_Flip,
-    Depolarizing,
-    Amplitude_Damping,
-    Kraus,
+    Bit_Flip, Phase_Flip, Depolarizing, Amplitude_Damping, Kraus,
 ]
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]

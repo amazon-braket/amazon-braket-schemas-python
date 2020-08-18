@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from braket.ir.jaqcd.shared_models import TwoDimensionalMatrixList
 from pydantic import ValidationError
+
+from braket.ir.jaqcd.shared_models import TwoDimensionalMatrixList
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -43,23 +44,19 @@ def test_empty_list():
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_single_matrix():
-    TwoDimensionalMatrixList(matrices= [[[1, 0], [0, 0]], [[0, 0], [1, 0]],
-                                        [[0, 0], [1, 0]], [[1, 0], [0, 0]]
-                            ]
+    TwoDimensionalMatrixList(
+        matrices=[[[1, 0], [0, 0]], [[0, 0], [1, 0]], [[0, 0], [1, 0]], [[1, 0], [0, 0]]]
     )
 
 
 def test_list_gte_zero():
-    matrices = [[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
-                [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
-    ]
+    matrices = [[[[1, 0], [0, 0]], [[0, 0], [1, 0]]], [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]]
     obj = TwoDimensionalMatrixList(matrices=matrices)
     assert obj.matrices == matrices
 
 
 def test_list_extra_params():
-    TwoDimensionalMatrixList(matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
-                                       [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
-                            ],
-                             foo="bar"
+    TwoDimensionalMatrixList(
+        matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]], [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]],
+        foo="bar",
     )

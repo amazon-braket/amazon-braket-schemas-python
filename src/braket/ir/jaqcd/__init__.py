@@ -18,6 +18,8 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     XY,
     YY,
     ZZ,
+    Amplitude_Damping,
+    Bit_Flip,
     CCNot,
     CNot,
     CPhaseShift,
@@ -25,9 +27,12 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     CPhaseShift01,
     CPhaseShift10,
     CSwap,
+    Depolarizing,
     H,
     I,
     ISwap,
+    Kraus,
+    Phase_Flip,
     PhaseShift,
     PSwap,
     Rx,
@@ -44,19 +49,14 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     X,
     Y,
     Z,
-    Bit_Flip,
-    Phase_Flip,
-    Depolarizing,
-    Amplitude_Damping,
-    Kraus
 )
 from braket.ir.jaqcd.program_v1 import Program  # noqa: F401
 from braket.ir.jaqcd.results import (  # noqa: F401
     Amplitude,
+    DensityMatrix,
     Expectation,
     Probability,
     Sample,
     StateVector,
-    DensityMatrix,
     Variance,
 )
