@@ -18,8 +18,8 @@ from braket.ir.jaqcd.shared_models import (
     DoubleControl,
     DoubleTarget,
     MultiTarget,
-    Probability,
     SingleControl,
+    SingleProbability,
     SingleTarget,
     TwoDimensionalMatrix,
     TwoDimensionalMatrixList,
@@ -700,7 +700,7 @@ class Unitary(TwoDimensionalMatrix, MultiTarget):
     type = Type.unitary
 
 
-class BitFlip(SingleTarget, Probability):
+class BitFlip(SingleTarget, SingleProbability):
     """
     Bit Flip noise channel.
 
@@ -719,7 +719,7 @@ class BitFlip(SingleTarget, Probability):
     type = Type.bit_flip
 
 
-class PhaseFlip(SingleTarget, Probability):
+class PhaseFlip(SingleTarget, SingleProbability):
     """
     Phase Flip noise channel.
 
@@ -738,7 +738,7 @@ class PhaseFlip(SingleTarget, Probability):
     type = Type.phase_flip
 
 
-class Depolarizing(SingleTarget, Probability):
+class Depolarizing(SingleTarget, SingleProbability):
     """
     Depolarizing noise channel.
 
@@ -757,7 +757,7 @@ class Depolarizing(SingleTarget, Probability):
     type = Type.depolarizing
 
 
-class AmplitudeDamping(SingleTarget, Probability):
+class AmplitudeDamping(SingleTarget, SingleProbability):
     """
     Amplitude Damping noise channel.
 

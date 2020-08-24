@@ -84,7 +84,7 @@ def create_switcher(type):
         "DoubleTarget": two_target_valid_input,
         "MultiTarget": multi_target_valid_input,
         "Angle": angle_valid_input,
-        "Probability": probability_valid_input,
+        "SingleProbability": probability_valid_input,
         "SingleControl": single_control_valid_input,
         "DoubleControl": two_control_valid_input,
         "MultiControl": multi_control_valid_input,

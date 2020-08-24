@@ -129,16 +129,16 @@ class Angle(BaseModel):
     angle: confloat(gt=float("-inf"), lt=float("inf"))
 
 
-class Probability(BaseModel):
+class SingleProbability(BaseModel):
     """
-    Probability for noise channel (floating point).
+    A single probability parameter for noise channel (floating point).
 
     Attributes:
         probability (float): The probability for noise channel.
             NaN is not an allowable input.
 
     Examples:
-        >>> Probability(probability=0.9)
+        >>> SingleProbability(probability=0.9)
     """
 
     probability: confloat(ge=float("0.0"), le=float("1.0"))
