@@ -117,7 +117,7 @@ class Program(BraketSchemaBase):
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
         instructions (List[Union[GateInstructions, NoiseInstructions]]): List of instructions.
-        basis_rotation_instructions (List[Union[GateInstructions, NoiseInstructions]]): List of
+        basis_rotation_instructions (List[GateInstructions]): List of
             instructions for rotation to desired measurement bases. Default is None.
         results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]):
             List of requested results. Default is None.
@@ -176,4 +176,4 @@ class Program(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     instructions: List[Union[GateInstructions, NoiseInstructions]]
     results: Optional[List[Results]]
-    basis_rotation_instructions: Optional[List[Union[GateInstructions, NoiseInstructions]]]
+    basis_rotation_instructions: Optional[List[GateInstructions]]
