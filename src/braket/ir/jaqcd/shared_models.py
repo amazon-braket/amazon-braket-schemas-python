@@ -134,14 +134,14 @@ class Probability(BaseModel):
     Probability for noise channel (floating point).
 
     Attributes:
-        prob (float): The probability for noise channel.
+        probability (float): The probability for noise channel.
             NaN is not an allowable input.
 
     Examples:
-        >>> Probability(prob=0.9)
+        >>> Probability(probability=0.9)
     """
 
-    prob: confloat(ge=float("0.0"), le=float("1.0"))
+    probability: confloat(ge=float("0.0"), le=float("1.0"))
 
 
 class TwoDimensionalMatrix(BaseModel):

@@ -29,7 +29,7 @@ def angle_valid_input():
 
 
 def probability_valid_input():
-    return {"prob": 0.321}
+    return {"probability": 0.321}
 
 
 def single_control_valid_input():
