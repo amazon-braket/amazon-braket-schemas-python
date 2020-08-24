@@ -22,8 +22,8 @@ from braket.ir.jaqcd.instructions import (
     XY,
     YY,
     ZZ,
-    Amplitude_Damping,
-    Bit_Flip,
+    AmplitudeDamping,
+    BitFlip,
     CCNot,
     CNot,
     CPhaseShift,
@@ -36,7 +36,7 @@ from braket.ir.jaqcd.instructions import (
     I,
     ISwap,
     Kraus,
-    Phase_Flip,
+    PhaseFlip,
     PhaseShift,
     PSwap,
     Rx,
@@ -101,7 +101,7 @@ GateInstructions = Union[
 ]
 
 NoiseInstructions = Union[
-    Bit_Flip, Phase_Flip, Depolarizing, Amplitude_Damping, Kraus,
+    BitFlip, PhaseFlip, Depolarizing, AmplitudeDamping, Kraus,
 ]
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
@@ -165,10 +165,10 @@ class Program(BraketSchemaBase):
         ZZ
 
         The type `NoiseInstructions` includes the following instructions:
-        Bit_Flip,
-        Phase_Flip,
+        BitFlip,
+        PhaseFlip,
         Depolarizing,
-        Amplitude_Damping,
+        AmplitudeDamping,
         Kraus,
     """
 

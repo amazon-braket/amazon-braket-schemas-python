@@ -700,7 +700,7 @@ class Unitary(TwoDimensionalMatrix, MultiTarget):
     type = Type.unitary
 
 
-class Bit_Flip(SingleTarget, Probability):
+class BitFlip(SingleTarget, Probability):
     """
     Bit Flip noise channel.
 
@@ -719,7 +719,7 @@ class Bit_Flip(SingleTarget, Probability):
     type = Type.bit_flip
 
 
-class Phase_Flip(SingleTarget, Probability):
+class PhaseFlip(SingleTarget, Probability):
     """
     Phase Flip noise channel.
 
@@ -757,7 +757,7 @@ class Depolarizing(SingleTarget, Probability):
     type = Type.depolarizing
 
 
-class Amplitude_Damping(SingleTarget, Probability):
+class AmplitudeDamping(SingleTarget, Probability):
     """
     Amplitude Damping noise channel.
 
@@ -767,7 +767,7 @@ class Amplitude_Damping(SingleTarget, Probability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> Amplitude_Damping(target=1)
+        >>> AmplitudeDamping(target=1)
     """
 
     class Type(str, Enum):
