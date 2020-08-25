@@ -38,7 +38,7 @@ class NativeQuilMetadata(BaseModel):
     gateDepth: conint(ge=0)
     gateVolume: conint(ge=0)
     multiQubitGateDepth: conint(ge=0)
-    programDuration: confloat(gt=0)
+    programDuration: confloat(ge=0)
     programFidelity: confloat(gt=0)
     qpuRuntimeEstimation: confloat(gt=0)
     topologicalSwaps: conint(ge=0)
