@@ -786,7 +786,7 @@ class Kraus(TwoDimensionalMatrixList, MultiTarget):
         targets (List[int]): The target qubits. This is a list with ints and all ints >= 0.
         matrices (List[List[List[List[float]]]]): A list of matrices specifying
             the quantum channel. A complex number is represented as a list of 2
-            elemtents. So each matrix has type List[List[List[float]]].
+            real numbers. So each matrix has type List[List[List[float]]].
 
     Examples:
         >>> matrix1 = [[[1/sqrt(2), 0],[0, 0]],[[0, 0],[1/sqrt(2), 0]]]

@@ -146,10 +146,10 @@ class SingleProbability(BaseModel):
 
 class TwoDimensionalMatrix(BaseModel):
     """
-    Two dimensional non-empty matrix.
+    Two-dimensional non-empty matrix.
 
     Attributes:
-        matrix (List[List[List[float]]]): Two dimensional matrix with complex entries.
+        matrix (List[List[List[float]]]): Two-dimensional matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -169,10 +169,10 @@ class TwoDimensionalMatrix(BaseModel):
 
 class TwoDimensionalMatrixList(BaseModel):
     """
-    List of Two dimensional non-empty matrices.
+    List of two-dimensional non-empty matrices.
 
     Attributes:
-        matrix (List[List[List[List[float]]]]): Two dimensional matrix with complex entries.
+        matrix (List[List[List[List[float]]]]): Two-dimensional matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -204,7 +204,7 @@ class Observable(BaseModel):
     Attributes:
         observable (List[Union[str, List[List[List[float]]]]): A list with at least
             one item and items are strings matching the observable regex
-            or a two dimensional hermitian matrix with complex entries.
+            or a two-dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
