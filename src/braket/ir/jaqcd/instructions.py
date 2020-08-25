@@ -776,6 +776,25 @@ class AmplitudeDamping(SingleTarget, SingleProbability):
     type = Type.amplitude_damping
 
 
+class PhaseDamping(SingleTarget, SingleProbability):
+    """
+    Phase Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "phase_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> PhaseDamping(target=1)
+    """
+
+    class Type(str, Enum):
+        phase_damping = "phase_damping"
+
+    type = Type.phase_damping
+
+
 class Kraus(TwoDimensionalMatrixList, MultiTarget):
     """
     Arbitrary quantum channel defined by the input matrices.

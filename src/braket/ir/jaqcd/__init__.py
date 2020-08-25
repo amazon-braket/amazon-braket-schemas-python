@@ -32,6 +32,7 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     I,
     ISwap,
     Kraus,
+    PhaseDamping,
     PhaseFlip,
     PhaseShift,
     PSwap,

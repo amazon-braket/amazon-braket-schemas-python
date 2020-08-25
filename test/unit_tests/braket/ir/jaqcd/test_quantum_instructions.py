@@ -44,6 +44,7 @@ from braket.ir.jaqcd import (
     I,
     ISwap,
     Kraus,
+    PhaseDamping,
     PhaseFlip,
     PhaseShift,
     Program,
@@ -112,6 +113,7 @@ testdata = [
     (PhaseFlip, [SingleTarget, SingleProbability], "phase_flip"),
     (Depolarizing, [SingleTarget, SingleProbability], "depolarizing"),
     (AmplitudeDamping, [SingleTarget, SingleProbability], "amplitude_damping"),
+    (PhaseDamping, [SingleTarget, SingleProbability], "phase_damping"),
     (Kraus, [TwoDimensionalMatrixList, MultiTarget], "kraus"),
 ]
 
