@@ -19,7 +19,7 @@ from pydantic import BaseModel
 
 class DeviceActionType(str, Enum):
     """
-        These are the actions supported by braket.
+    These are the actions supported by braket.
     """
 
     JAQCD = "braket.ir.jaqcd.program"
@@ -28,19 +28,19 @@ class DeviceActionType(str, Enum):
 
 class DeviceActionProperties(BaseModel):
     """
-        This class defines the actions that can be performed by a device
+    This class defines the actions that can be performed by a device
 
-        Attributes:
-            version: List of versions for the actions the device supports
-            actionType: Enum for the action type. Type of the action to be performed.
+    Attributes:
+        version: List of versions for the actions the device supports
+        actionType: Enum for the action type. Type of the action to be performed.
 
-        Examples:
-            >>> import json
-            >>> input_json = {
-            ...     "actionType": "braket.ir.jaqcd.program",
-            ...     "version": ["1"],
-            ... }
-            >>> DeviceActionProperties.parse_raw(json.dumps(input_json))
+    Examples:
+        >>> import json
+        >>> input_json = {
+        ...     "actionType": "braket.ir.jaqcd.program",
+        ...     "version": ["1"],
+        ... }
+        >>> DeviceActionProperties.parse_raw(json.dumps(input_json))
     """
 
     version: List[str]
