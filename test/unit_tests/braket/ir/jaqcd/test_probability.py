@@ -48,7 +48,7 @@ def test_negative_float():
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_great_than_one_float():
+def test_greater_than_one_float():
     SingleProbability(probability=float(2.1))
 
 
