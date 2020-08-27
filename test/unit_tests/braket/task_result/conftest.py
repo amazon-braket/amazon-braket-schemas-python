@@ -79,7 +79,10 @@ def dwave_timing():
 
 @pytest.fixture
 def dwave_metadata(active_variables, dwave_timing, braket_schema_header):
-    return DwaveMetadata(activeVariables=active_variables, timing=dwave_timing,)
+    return DwaveMetadata(
+        activeVariables=active_variables,
+        timing=dwave_timing,
+    )
 
 
 @pytest.fixture

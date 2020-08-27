@@ -102,7 +102,12 @@ GateInstructions = Union[
 ]
 
 NoiseInstructions = Union[
-    BitFlip, PhaseFlip, Depolarizing, AmplitudeDamping, PhaseDamping, Kraus,
+    BitFlip,
+    PhaseFlip,
+    Depolarizing,
+    AmplitudeDamping,
+    PhaseDamping,
+    Kraus,
 ]
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]

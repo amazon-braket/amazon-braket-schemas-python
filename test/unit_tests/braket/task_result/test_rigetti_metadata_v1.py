@@ -36,7 +36,8 @@ def test_rigetti_metadata_correct(compiled_program, native_quil_metadata):
 @pytest.mark.xfail(raises=ValidationError)
 def test_compiled_program_incorrect(compiled_program, native_quil_metadata):
     RigettiMetadata(
-        compiledProgram=compiled_program, nativeQuilMetadata=native_quil_metadata,
+        compiledProgram=compiled_program,
+        nativeQuilMetadata=native_quil_metadata,
     )
 
 

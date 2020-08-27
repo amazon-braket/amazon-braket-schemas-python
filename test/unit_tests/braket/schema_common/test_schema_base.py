@@ -35,7 +35,11 @@ def test_header_name_incorrect():
 
 
 def test_import_schema_module():
-    schema = TaskMetadata(id="test_id", deviceId="device_id", shots=1000,)
+    schema = TaskMetadata(
+        id="test_id",
+        deviceId="device_id",
+        shots=1000,
+    )
     module = BraketSchemaBase.import_schema_module(schema)
     assert schema == module.TaskMetadata.parse_raw(schema.json())
 
@@ -51,6 +55,10 @@ def test_import_schema_module_error():
 
 
 def test_parse_raw_schema():
-    schema = TaskMetadata(id="test_id", deviceId="device_id", shots=1000,)
+    schema = TaskMetadata(
+        id="test_id",
+        deviceId="device_id",
+        shots=1000,
+    )
     assert schema == BraketSchemaBase.parse_raw_schema(schema.json())
     assert isinstance(schema, TaskMetadata)
