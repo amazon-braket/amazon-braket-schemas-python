@@ -27,12 +27,12 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
-    This defines the capabilities of a rigetti device.
+    This defines the capabilities of a Rigetti device.
 
     Attributes:
         action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
-            rigetti device can support
-        paradigm(GateModelQpuParadigmProperties): Paradigm properties of a rigetti
+            Rigetti device can support
+        paradigm(GateModelQpuParadigmProperties): Paradigm properties of a Rigetti
         provider(Optional[RigettiProviderProperties]): Rigetti provider specific properties
 
     Examples:

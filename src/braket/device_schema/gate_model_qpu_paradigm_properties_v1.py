@@ -22,12 +22,12 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class GateModelQpuParadigmProperties(BraketSchemaBase):
 
     """
-    This class defines the properties that are specific to ionq device
+    This class defines the properties that are specific to gate model devices
 
     Attributes:
-        connectivity: defines the connectivity if a ionq device.
+        connectivity: defines the connectivity if a gate model device.
             tells the graph and connection type.
-        qubitCount: number of qubits ionq device contains
+        qubitCount: number of qubits the gate model device contains
         nativeGateSet: list of native gates
 
     Examples:

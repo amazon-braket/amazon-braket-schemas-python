@@ -20,7 +20,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class RigettiProviderProperties(BraketSchemaBase):
     """
-    This defines the parameters common to all rigetti devices.
+    This defines the parameters common to all Rigetti devices.
 
     Attributes:
         specs (Dict[str, Dict[str, Dict[str, float]]]): Basic specifications for the device,

@@ -18,7 +18,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class GateModelParameters(BraketSchemaBase):
     """
-    This defines the parameters common to all the gatemodel devices.
+    This defines the parameters common to all the gate model devices.
 
     Attributes:
         qubitCount: number of qubits for a device

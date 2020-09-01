@@ -72,7 +72,7 @@ class DeviceServiceProperties(BraketSchemaBase):
     This class defines the common service properties for each device.
 
     Attributes:
-        executionWindows (List[DeviceExecutionWindow]): List of the executionWindows,
+        executionWindows (List[DeviceExecutionWindow]): List of the execution windows,
             it tells us which days the device can execute a task.
         shotsRange (Tuple[int, int]): range of the shots for a given device.
         deviceCost (Optional[DeviceCost]): cost of the device to run the quantum circuits

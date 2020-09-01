@@ -19,7 +19,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class RigettiDeviceParameters(BraketSchemaBase):
     """
-    This defines the parameters common to all the gatemodel devices.
+    This defines the parameters common to all the Rigetti devices.
 
     Attributes:
         paradigmParameters: Parameters that are common to gatemodel paradigm
