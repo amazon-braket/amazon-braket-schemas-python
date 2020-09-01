@@ -64,7 +64,10 @@ def test_incorrect_header(
 
 
 def test_correct_result_measurements(
-    task_metadata, additional_metadata_gate_model, measured_qubits, measurements,
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+    measurements,
 ):
     result = GateModelTaskResult(
         measurements=measurements,
@@ -81,7 +84,10 @@ def test_correct_result_measurements(
 
 
 def test_correct_result_measurement_probabilities(
-    task_metadata, additional_metadata_gate_model, measured_qubits, measurement_probabilities,
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+    measurement_probabilities,
 ):
     result = GateModelTaskResult(
         measurementProbabilities=measurement_probabilities,
@@ -94,7 +100,10 @@ def test_correct_result_measurement_probabilities(
 
 
 def test_correct_result_types(
-    task_metadata, additional_metadata_gate_model, measured_qubits, result_types,
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+    result_types,
 ):
     result = GateModelTaskResult(
         resultTypes=result_types,
@@ -120,7 +129,10 @@ def test_incorrect_measured_qubits(measured_qubits, task_metadata, additional_me
 @pytest.mark.parametrize("measurements", [([]), ([[]]), ([[-1]]), ([[2]])])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_measurements(
-    measurements, measured_qubits, task_metadata, additional_metadata_gate_model,
+    measurements,
+    measured_qubits,
+    task_metadata,
+    additional_metadata_gate_model,
 ):
     GateModelTaskResult(
         measurements=measurements,
@@ -133,7 +145,10 @@ def test_incorrect_measurements(
 @pytest.mark.parametrize("measurement_probabilities", [({"hello": 0.5}), ({"01": 2})])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_measurement_probabilities(
-    measurement_probabilities, measured_qubits, task_metadata, additional_metadata_gate_model,
+    measurement_probabilities,
+    measured_qubits,
+    task_metadata,
+    additional_metadata_gate_model,
 ):
     GateModelTaskResult(
         measurementProbabilities=measurement_probabilities,
@@ -146,7 +161,10 @@ def test_incorrect_measurement_probabilities(
 @pytest.mark.parametrize("result_types", [([1, 2, 3]), (3)])
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_result_types(
-    task_metadata, additional_metadata_gate_model, measured_qubits, result_types,
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+    result_types,
 ):
     GateModelTaskResult(
         resultTypes=result_types,

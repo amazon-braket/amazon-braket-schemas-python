@@ -20,7 +20,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class ProblemType(str, Enum):
-    """ The type of annealing problem.
+    """The type of annealing problem.
 
     QUBO: Quadratic Unconstrained Binary Optimization, with values 1 and 0
     ISING: Ising model, with values +/-1
@@ -31,7 +31,7 @@ class ProblemType(str, Enum):
 
 
 class Problem(BraketSchemaBase):
-    """ Specifies a quantum annealing problem.
+    """Specifies a quantum annealing problem.
 
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
