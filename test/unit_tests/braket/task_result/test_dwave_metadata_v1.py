@@ -23,7 +23,10 @@ def test_missing_properties():
 
 
 def test_dwave_metadata_correct(active_variables, dwave_timing):
-    metadata = DwaveMetadata(activeVariables=active_variables, timing=dwave_timing,)
+    metadata = DwaveMetadata(
+        activeVariables=active_variables,
+        timing=dwave_timing,
+    )
     assert metadata.activeVariables == active_variables
     assert metadata.timing == dwave_timing
     assert DwaveMetadata.parse_raw(metadata.json()) == metadata
@@ -34,7 +37,8 @@ def test_dwave_metadata_correct(active_variables, dwave_timing):
 @pytest.mark.xfail(raises=ValidationError)
 def test_active_variables_incorrect(active_variables, dwave_timing):
     DwaveMetadata(
-        activeVariables=active_variables, timing=dwave_timing,
+        activeVariables=active_variables,
+        timing=dwave_timing,
     )
 
 

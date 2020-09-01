@@ -62,7 +62,9 @@ def test_partial_non_rotation_basis_instruction():
 
 
 def test_no_rotation_basis_instruction():
-    Program(instructions=[CNot(control=0, target=1)],)
+    Program(
+        instructions=[CNot(control=0, target=1)],
+    )
 
 
 def test_rotation_basis_instruction():
