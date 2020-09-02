@@ -19,7 +19,7 @@ from pydantic import BaseModel
 
 class DeviceActionType(str, Enum):
     """
-    These are the actions supported by braket.
+    These are the actions supported by Braket.
     """
 
     JAQCD = "braket.ir.jaqcd.program"
