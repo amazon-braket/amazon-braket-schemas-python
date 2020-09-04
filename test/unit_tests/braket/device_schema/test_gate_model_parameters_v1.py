@@ -35,3 +35,16 @@ def test_valid():
 def test__missing_header():
     input = "{} "
     assert GateModelParameters.parse_raw_schema(input)
+
+
+def test_string_for_int_value():
+    input = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.gate_model_parameters",
+            "version": "1",
+        },
+        "qubitCount": "1",
+    }
+    with pytest.raises(ValidationError) as e:
+        GateModelParameters.parse_raw_schema(json.dumps(input))
+    assert "value is not a valid integer" in str(e.value)
