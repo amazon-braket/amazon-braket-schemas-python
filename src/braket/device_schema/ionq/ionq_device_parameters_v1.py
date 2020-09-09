@@ -19,7 +19,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class IonqDeviceParameters(BraketSchemaBase):
     """
-    This defines the parameters common to all the Ion-Q devices.
+    This defines the parameters common to all the IonQ devices.
 
     Attributes:
         paradigmParameters: Parameters that are common to gatemodel paradigm

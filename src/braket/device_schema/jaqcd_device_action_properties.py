@@ -50,11 +50,11 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
 
     """
     This defines the schema for properties for the actions that can be supported by the
-        jaqcd devices
+        JAQCD devices
 
     Attributes:
-        supportedOperations: operations supported by the jaqcd action
-        supportedResultTypes: result types that are supported by the jaqcd action.
+        supportedOperations: operations supported by the JAQCD action
+        supportedResultTypes: result types that are supported by the JAQCD action.
 
     Examples:
         >>> import json
