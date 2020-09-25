@@ -121,4 +121,5 @@ class DeviceServiceProperties(BraketSchemaBase):
     deviceCost: Optional[DeviceCost]
     deviceDocumentation: Optional[DeviceDocumentation]
     deviceLocation: Optional[str]
+    deviceFullName: Optional[str]
     updatedAt: Optional[datetime]
