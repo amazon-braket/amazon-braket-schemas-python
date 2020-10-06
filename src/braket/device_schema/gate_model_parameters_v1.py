@@ -22,7 +22,7 @@ class GateModelParameters(BraketSchemaBase):
 
     Attributes:
         qubitCount: Number of qubits used by the circuit.
-        noQubitRewiring: Whether or not to run the circuit with the exact qubits chosen,
+        disableQubitRewiring: Whether or not to run the circuit with the exact qubits chosen,
             without any rewiring downstream.
             If ``True``, no qubit rewiring is allowed; if ``False``, qubit rewiring is allowed.
 
@@ -34,7 +34,7 @@ class GateModelParameters(BraketSchemaBase):
         ...        "version": "1",
         ...    },
         ...    "qubitCount": 1,
-        ...    "noQubitRewiring": True
+        ...    "disableQubitRewiring": True
         ... }
         >>> GateModelParameters.parse_raw_schema(json.dumps(input_json))
     """
@@ -44,4 +44,4 @@ class GateModelParameters(BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     qubitCount: conint(strict=True, ge=0)
-    noQubitRewiring: bool = False
+    disableQubitRewiring: bool = False

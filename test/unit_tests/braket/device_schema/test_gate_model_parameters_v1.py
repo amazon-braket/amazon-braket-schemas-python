@@ -26,11 +26,11 @@ def test_valid():
             "version": "1",
         },
         "qubitCount": 1,
-        "noQubitRewiring": True,
+        "disableQubitRewiring": True,
     }
     result = GateModelParameters.parse_raw_schema(json.dumps(input))
     assert result.qubitCount == 1
-    assert result.noQubitRewiring
+    assert result.disableQubitRewiring
 
 
 def test_no_qubit_rewiring_unspecified():
@@ -42,7 +42,7 @@ def test_no_qubit_rewiring_unspecified():
         "qubitCount": 1,
     }
     result = GateModelParameters.parse_raw_schema(json.dumps(input))
-    assert not result.noQubitRewiring
+    assert not result.disableQubitRewiring
 
 
 @pytest.mark.xfail(raises=ValidationError)

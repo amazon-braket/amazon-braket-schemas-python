@@ -28,7 +28,7 @@ def valid_input():
         "supportedResultTypes": [
             {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
         ],
-        "noQubitRewiringSupported": True,
+        "disabledQubitRewiringSupported": True,
     }
     return input
 
@@ -40,7 +40,7 @@ def test_valid(valid_input):
     assert result.supportedResultTypes == [
         {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
     ]
-    assert result.noQubitRewiringSupported
+    assert result.disabledQubitRewiringSupported
 
 
 def test_no_qubit_rewiring_unsupported():
@@ -58,11 +58,11 @@ def test_no_qubit_rewiring_unsupported():
                         "maxShots": 4,
                     }
                 ],
-                "noQubitRewiringSupported": False,
+                "disabledQubitRewiringSupported": False,
             }
         )
     )
-    assert result.noQubitRewiringSupported is False
+    assert result.disabledQubitRewiringSupported is False
 
 
 def test_no_qubit_rewiring_unspecified():
@@ -83,7 +83,7 @@ def test_no_qubit_rewiring_unspecified():
             }
         )
     )
-    assert result.noQubitRewiringSupported is None
+    assert result.disabledQubitRewiringSupported is None
 
 
 @pytest.mark.xfail(raises=ValidationError)
