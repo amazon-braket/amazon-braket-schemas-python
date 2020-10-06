@@ -49,8 +49,7 @@ class ResultType(BaseModel):
 class JaqcdDeviceActionProperties(DeviceActionProperties):
 
     """
-    This defines the schema for properties for the actions that can be supported by the
-        JAQCD devices
+    This defines the schema for properties for the actions that can be supported by JAQCD devices
 
     Attributes:
         supportedOperations: operations supported by the JAQCD action
