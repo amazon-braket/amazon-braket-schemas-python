@@ -70,6 +70,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         ...         "minShots": 0,
         ...         "maxShots": 4,
         ...     }],
+        ...    "explicitQubits": True
         ... }
         >>> JaqcdDeviceActionProperties.parse_raw(json.dumps(input_json))
 
