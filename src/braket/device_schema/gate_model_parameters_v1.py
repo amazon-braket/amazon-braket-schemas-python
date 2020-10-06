@@ -33,7 +33,7 @@ class GateModelParameters(BraketSchemaBase):
         ...        "version": "1",
         ...    },
         ...    "qubitCount": 1,
-        ...    "explcitQubits": True
+        ...    "explicitQubits": True
         ... }
         >>> GateModelParameters.parse_raw_schema(json.dumps(input_json))
     """
