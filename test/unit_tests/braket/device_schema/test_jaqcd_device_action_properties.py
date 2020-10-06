@@ -28,7 +28,7 @@ def valid_input():
         "supportedResultTypes": [
             {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
         ],
-        "explicitQubits": True,
+        "noQubitRewiringSupported": True,
     }
     return input
 
@@ -40,10 +40,32 @@ def test_valid(valid_input):
     assert result.supportedResultTypes == [
         {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
     ]
-    assert result.explicitQubits
+    assert result.noQubitRewiringSupported
 
 
-def test_explicit_qubits_unsupported():
+def test_no_qubit_rewiring_unsupported():
+    result = JaqcdDeviceActionProperties.parse_raw(
+        json.dumps(
+            {
+                "actionType": "braket.ir.jaqcd.program",
+                "version": ["1"],
+                "supportedOperations": ["x", "y"],
+                "supportedResultTypes": [
+                    {
+                        "name": "resultType1",
+                        "observables": ["observable1"],
+                        "minShots": 2,
+                        "maxShots": 4,
+                    }
+                ],
+                "noQubitRewiringSupported": False,
+            }
+        )
+    )
+    assert result.noQubitRewiringSupported is False
+
+
+def test_no_qubit_rewiring_unspecified():
     result = JaqcdDeviceActionProperties.parse_raw(
         json.dumps(
             {
@@ -61,7 +83,7 @@ def test_explicit_qubits_unsupported():
             }
         )
     )
-    assert not result.explicitQubits
+    assert result.noQubitRewiringSupported is None
 
 
 @pytest.mark.xfail(raises=ValidationError)
