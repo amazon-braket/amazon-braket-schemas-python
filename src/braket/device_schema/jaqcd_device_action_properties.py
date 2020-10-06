@@ -55,6 +55,8 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
     Attributes:
         supportedOperations: operations supported by the JAQCD action
         supportedResultTypes: result types that are supported by the JAQCD action.
+        explicitQubits: whether or not to the device supports the ability to run circuits
+            with the exact qubits specified, without any rewiring downstream
 
     Examples:
         >>> import json
@@ -75,3 +77,4 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
 
     supportedOperations: List[str]
     supportedResultTypes: Optional[List[ResultType]]
+    explicitQubits: bool = False
