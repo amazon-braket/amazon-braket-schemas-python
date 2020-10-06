@@ -18,12 +18,13 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class GateModelParameters(BraketSchemaBase):
     """
-    This defines the parameters common to all the gate model devices.
+    Defines parameters common to all the gate model devices.
 
     Attributes:
-        qubitCount: number of qubits for a device
-        noQubitRewiring: whether or not to run the circuit with the exact qubits chosen,
-            without any rewiring downstream
+        qubitCount: Number of qubits used by the circuit.
+        noQubitRewiring: Whether or not to run the circuit with the exact qubits chosen,
+            without any rewiring downstream.
+            If ``True``, no qubit rewiring is allowed; if ``False``, qubit rewiring is allowed.
 
     Examples:
         >>> import json

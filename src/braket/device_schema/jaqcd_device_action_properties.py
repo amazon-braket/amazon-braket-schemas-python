@@ -20,14 +20,14 @@ from braket.device_schema.device_action_properties import DeviceActionProperties
 
 class ResultType(BaseModel):
     """
-    This class provides the result type for a quantum task to return.
+    Provides the result type for a quantum task to return.
 
     Attributes:
 
-        name: name of the result type
-        observables: supported result types for this result type.
-        minShots: min shots for the results
-        maxShots: max shots for the results
+        name: Name of the result type.
+        observables: Supported result types for this result type.
+        minShots: Minimum number of shots for the results.
+        maxShots: Maximum number of shots for the results.
 
     Examples:
         >>> import json
@@ -49,13 +49,14 @@ class ResultType(BaseModel):
 class JaqcdDeviceActionProperties(DeviceActionProperties):
 
     """
-    This defines the schema for properties for the actions that can be supported by JAQCD devices
+    Defines the schema for properties for the actions that can be supported by JAQCD devices.
 
     Attributes:
-        supportedOperations: operations supported by the JAQCD action
-        supportedResultTypes: result types that are supported by the JAQCD action.
-        noQubitRewiringSupported: whether or not the device supports the ability to run circuits
-            with the exact qubits chosen, without any rewiring downstream
+        supportedOperations: Operations supported by the JAQCD action.
+        supportedResultTypes: Result types that are supported by the JAQCD action.
+        noQubitRewiringSupported: Whether or not the device supports the ability to run circuits
+            with the exact qubits chosen, without any rewiring downstream.
+
 
     Examples:
         >>> import json
