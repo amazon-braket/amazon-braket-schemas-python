@@ -22,6 +22,8 @@ class GateModelParameters(BraketSchemaBase):
 
     Attributes:
         qubitCount: number of qubits for a device
+        explicitQubits: whether or not to run the circuit with the exact qubits specified,
+            without any rewiring downstream
 
     Examples:
         >>> import json
@@ -30,7 +32,8 @@ class GateModelParameters(BraketSchemaBase):
         ...        "name": "braket.device_schema.gate_model_parameters",
         ...        "version": "1",
         ...    },
-        ...    "qubitCount": 1
+        ...    "qubitCount": 1,
+        ...    "explcitQubits": True
         ... }
         >>> GateModelParameters.parse_raw_schema(json.dumps(input_json))
     """
@@ -40,3 +43,4 @@ class GateModelParameters(BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     qubitCount: conint(strict=True, ge=0)
+    explicitQubits: bool = False

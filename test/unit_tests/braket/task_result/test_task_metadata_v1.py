@@ -47,6 +47,7 @@ def test_correct_metadata_all(id, device_id, shots):
                 "version": "1",
             },
             "qubitCount": 1,
+            "explicitQubits": True,
         },
     }
     createdAt = "2020-01-02T03:04:05.006Z"
