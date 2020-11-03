@@ -168,7 +168,8 @@ class Program(BraketSchemaBase):
     @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
     def validate_instructions(cls, value, field):
         """
-        Pydantic uses the validation subsystem to create objects. We use this custom validator for 2 reasons:
+        Pydantic uses the validation subsystem to create objects. We use this custom validator for
+        2 reasons:
         1. Implement O(1) deserialization
         2. Validate that the input instructions are supported
         """
