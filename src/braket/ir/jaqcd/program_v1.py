@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List, Optional, Union
+from typing import Any, List, Optional, Union
 
-from pydantic import Field
+from pydantic import BaseModel, Field, validator
 
 from braket.ir.jaqcd.instructions import (
     CY,
@@ -59,40 +59,44 @@ from braket.ir.jaqcd.results import (
 )
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
-GateInstructions = Union[
-    CCNot,
-    CNot,
-    CPhaseShift,
-    CPhaseShift00,
-    CPhaseShift01,
-    CPhaseShift10,
-    CSwap,
-    CY,
-    CZ,
-    H,
-    I,
-    ISwap,
-    PhaseShift,
-    PSwap,
-    Rx,
-    Ry,
-    Rz,
-    S,
-    Swap,
-    Si,
-    T,
-    Ti,
-    Unitary,
-    V,
-    Vi,
-    X,
-    XX,
-    XY,
-    Y,
-    YY,
-    Z,
-    ZZ,
-]
+"""
+We need a constant lookup for our pydantic validator. Using a plain Union[] will result
+in an O(n) lookup for arbitrary payloads, having a negative impact on model parsing times.
+"""
+_valid_gates = {
+    CCNot.Type.ccnot: CCNot,
+    CNot.Type.cnot: CNot,
+    CPhaseShift.Type.cphaseshift: CPhaseShift,
+    CPhaseShift00.Type.cphaseshift00: CPhaseShift00,
+    CPhaseShift01.Type.cphaseshift01: CPhaseShift01,
+    CPhaseShift10.Type.cphaseshift10: CPhaseShift10,
+    CSwap.Type.cswap: CSwap,
+    CY.Type.cy: CY,
+    CZ.Type.cz: CZ,
+    H.Type.h: H,
+    I.Type.i: I,
+    ISwap.Type.iswap: ISwap,
+    PhaseShift.Type.phaseshift: PhaseShift,
+    PSwap.Type.pswap: PSwap,
+    Rx.Type.rx: Rx,
+    Ry.Type.ry: Ry,
+    Rz.Type.rz: Rz,
+    S.Type.s: S,
+    Swap.Type.swap: Swap,
+    Si.Type.si: Si,
+    T.Type.t: T,
+    Ti.Type.ti: Ti,
+    Unitary.Type.unitary: Unitary,
+    V.Type.v: V,
+    Vi.Type.vi: Vi,
+    X.Type.x: X,
+    XX.Type.xx: XX,
+    XY.Type.xy: XY,
+    Y.Type.y: Y,
+    YY.Type.yy: YY,
+    Z.Type.z: Z,
+    ZZ.Type.zz: ZZ,
+}
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]
 
@@ -106,8 +110,8 @@ class Program(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
-        instructions (List[GateInstructions]): List of instructions.
-        basis_rotation_instructions (List[GateInstructions]): List of instructions for
+        instructions (List[Any]): List of instructions.
+        basis_rotation_instructions (List[Any]): List of instructions for
             rotation to desired measurement bases. Default is None.
         results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]):
             List of requested results. Default is None.
@@ -120,7 +124,7 @@ class Program(BraketSchemaBase):
 
 
     Note:
-        The type `GateInstructions` includes the following instructions:
+        The following instructions are supported:
         CCNot,
         CNot,
         CPhaseShift,
@@ -157,6 +161,23 @@ class Program(BraketSchemaBase):
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    instructions: List[GateInstructions]
+    instructions: List[Any]
     results: Optional[List[Results]]
-    basis_rotation_instructions: Optional[List[GateInstructions]]
+    basis_rotation_instructions: Optional[List[Any]]
+
+    @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
+    def validate_instructions(cls, value, field):
+        """
+        Pydantic uses the validation subsystem to create objects. We use this custom validator for
+        2 reasons:
+        1. Implement O(1) deserialization
+        2. Validate that the input instructions are supported
+        """
+        if isinstance(value, BaseModel):
+            if value.type not in _valid_gates:
+                raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            return value
+
+        if value is None or "type" not in value or value["type"] not in _valid_gates:
+            raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+        return _valid_gates[value["type"]](**value)
