@@ -13,7 +13,7 @@
 
 from typing import Any, List, Optional, Union
 
-from pydantic import Field, validator
+from pydantic import BaseModel, Field, validator
 
 from braket.ir.jaqcd.instructions import (
     CY,
@@ -173,6 +173,11 @@ class Program(BraketSchemaBase):
         1. Implement O(1) deserialization
         2. Validate that the input instructions are supported
         """
+        if isinstance(value, BaseModel):
+            if value.type not in _valid_gates:
+                raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            return value
+
         if value is None or "type" not in value or value["type"] not in _valid_gates:
             raise ValueError(f"Invalid gate specified: {value} for field: {field}")
         return _valid_gates[value["type"]](**value)
