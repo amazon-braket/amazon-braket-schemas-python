@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.3 (2020-11-03)
+
+### Bug Fixes and Other Changes
+
+ * Feature/lower latency
+
 ## v1.0.2.post2 (2020-10-30)
 
 ### Testing and Release Infrastructure
