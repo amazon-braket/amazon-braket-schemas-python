@@ -54,7 +54,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
     Attributes:
         supportedOperations: Operations supported by the JAQCD action.
         supportedResultTypes: Result types that are supported by the JAQCD action.
-        disabledQubitRewiringSupported: Whether or not the device supports the ability to run
+        disabledQubitRewiringSupported: Whether the device supports the ability to run
             circuits with the exact qubits chosen, without any rewiring downstream.
 
 

@@ -60,8 +60,8 @@ from braket.ir.jaqcd.results import (
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 """
-We need a constant lookup for our pydantic validator. Using a plain Union[] will result
-in an O(n) lookup for arbitrary payloads, having a negative impact on model parsing times.
+The pydantic validator requires a constant lookup function. A plain Union[] results
+in an O(n) lookup cost for arbitrary payloads, which has a negative impact on model parsing times.
 """
 _valid_gates = {
     CCNot.Type.ccnot: CCNot,
@@ -104,8 +104,6 @@ Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, Varian
 class Program(BraketSchemaBase):
     """
     Root object of the JsonAwsQuantumCircuitDescription IR.
-
-
 
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
@@ -168,8 +166,8 @@ class Program(BraketSchemaBase):
     @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
     def validate_instructions(cls, value, field):
         """
-        Pydantic uses the validation subsystem to create objects. We use this custom validator for
-        2 reasons:
+        Pydantic uses the validation subsystem to create objects. This custom validator has
+        2 purposes:
         1. Implement O(1) deserialization
         2. Validate that the input instructions are supported
         """

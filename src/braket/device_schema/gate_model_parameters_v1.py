@@ -22,7 +22,7 @@ class GateModelParameters(BraketSchemaBase):
 
     Attributes:
         qubitCount: Number of qubits used by the circuit.
-        disableQubitRewiring: Whether or not to run the circuit with the exact qubits chosen,
+        disableQubitRewiring: Whether to run the circuit with the exact qubits chosen,
             without any rewiring downstream.
             If ``True``, no qubit rewiring is allowed; if ``False``, qubit rewiring is allowed.
 
