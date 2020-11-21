@@ -28,6 +28,7 @@ def valid_input():
         "supportedResultTypes": [
             {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
         ],
+        "disabledQubitRewiringSupported": True,
     }
     return input
 
@@ -35,6 +36,54 @@ def valid_input():
 def test_valid(valid_input):
     result = JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.actionType == "braket.ir.jaqcd.program"
+    assert result.supportedOperations == ["x", "y"]
+    assert result.supportedResultTypes == [
+        {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
+    ]
+    assert result.disabledQubitRewiringSupported
+
+
+def test_no_qubit_rewiring_unsupported():
+    result = JaqcdDeviceActionProperties.parse_raw(
+        json.dumps(
+            {
+                "actionType": "braket.ir.jaqcd.program",
+                "version": ["1"],
+                "supportedOperations": ["x", "y"],
+                "supportedResultTypes": [
+                    {
+                        "name": "resultType1",
+                        "observables": ["observable1"],
+                        "minShots": 2,
+                        "maxShots": 4,
+                    }
+                ],
+                "disabledQubitRewiringSupported": False,
+            }
+        )
+    )
+    assert result.disabledQubitRewiringSupported is False
+
+
+def test_no_qubit_rewiring_unspecified():
+    result = JaqcdDeviceActionProperties.parse_raw(
+        json.dumps(
+            {
+                "actionType": "braket.ir.jaqcd.program",
+                "version": ["1"],
+                "supportedOperations": ["x", "y"],
+                "supportedResultTypes": [
+                    {
+                        "name": "resultType1",
+                        "observables": ["observable1"],
+                        "minShots": 2,
+                        "maxShots": 4,
+                    }
+                ],
+            }
+        )
+    )
+    assert result.disabledQubitRewiringSupported is None
 
 
 @pytest.mark.xfail(raises=ValidationError)

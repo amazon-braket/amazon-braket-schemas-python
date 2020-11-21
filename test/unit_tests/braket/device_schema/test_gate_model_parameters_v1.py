@@ -26,9 +26,23 @@ def test_valid():
             "version": "1",
         },
         "qubitCount": 1,
+        "disableQubitRewiring": True,
     }
     result = GateModelParameters.parse_raw_schema(json.dumps(input))
     assert result.qubitCount == 1
+    assert result.disableQubitRewiring
+
+
+def test_no_qubit_rewiring_unspecified():
+    input = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.gate_model_parameters",
+            "version": "1",
+        },
+        "qubitCount": 1,
+    }
+    result = GateModelParameters.parse_raw_schema(json.dumps(input))
+    assert not result.disableQubitRewiring
 
 
 @pytest.mark.xfail(raises=ValidationError)
