@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.0 (2020-11-23)
+
+### Features
+
+ * Add explicit qubit allocation
+
 ## v1.0.3 (2020-11-03)
 
 ### Bug Fixes and Other Changes
