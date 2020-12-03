@@ -223,19 +223,28 @@ You can then find the generated HTML files in `build/documentation/html`.
 ## Testing
 
 Make sure to install test dependencies first:
+
 ```shell
 pip install -e "amazon-braket-schemas-python[test]"
 ```
 
-To run the unit tests, linters, and doc generation:
-```shell
+To run the unit tests:
+```bash
+tox -e unit-tests
+```
+
+You can also pass in various pytest arguments to run selected tests:
+
+```bash
+tox -e unit-tests -- your-arguments
+```
+
+To run linters and doc generators and unit tests:
+```bash
 tox
 ```
 
-To select tests based on a keyword:
-```shell
-tox -e py37 -- -k 'your_test'
-```
+For more information, please see [pytest usage](https://docs.pytest.org/en/stable/usage.html).
 
 ## License
 
