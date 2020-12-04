@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.0.post0 (2020-12-04)
+
+### Testing and Release Infrastructure
+
+ * Make tox commands consistent with other repos
+
 ## v1.1.0 (2020-11-23)
 
 ### Features
