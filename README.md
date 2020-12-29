@@ -2,8 +2,9 @@
 
 [![Latest Version](https://img.shields.io/pypi/v/amazon-braket-schemas.svg)](https://pypi.python.org/pypi/amazon-braket-schemas)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/amazon-braket-schemas.svg)](https://pypi.python.org/pypi/amazon-braket-schemas)
-[![Code Style: Black](https://img.shields.io/badge/code_style-black-000000.svg)](https://github.com/psf/black)
+[![Build Status](https://img.shields.io/github/workflow/status/aws/amazon-braket-schemas-python/Python%20package/main?logo=github)](https://github.com/aws/amazon-braket-schemas-python/actions?query=workflow%3A%22Python+package%22)
 [![Documentation Status](https://readthedocs.org/projects/amazon-braket-schemas-python/badge/?version=latest)](https://amazon-braket-schemas-python.readthedocs.io/en/latest/?badge=latest)
+[![Code Style: Black](https://img.shields.io/badge/code_style-black-000000.svg)](https://github.com/psf/black)
 
 Amazon Braket Python Schemas is an open source library that contains the schemas for Braket, including:
 * intermediate representations (IR) for Amazon Braket quantum tasks and offers serialization and deserialization of those IR payloads. Think of the IR as the contract between the Amazon Braket SDK and Amazon Braket API for quantum programs.
