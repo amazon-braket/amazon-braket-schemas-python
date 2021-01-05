@@ -38,5 +38,3 @@ jobs:
         tox -e unit-tests
     - name: Upload coverage report to Codecov
       uses: codecov/codecov-action@v1
-      with:
-        file: build/coverage/coverage.xml
