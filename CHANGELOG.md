@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.0.post2 (2021-01-06)
+
+### Testing and Release Infrastructure
+
+ * Add CodeCov badge
+ * Upload coverage report to Codecov
+
 ## v1.1.0.post1 (2020-12-30)
 
 ### Testing and Release Infrastructure
