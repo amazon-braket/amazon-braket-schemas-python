@@ -22,6 +22,8 @@ from braket.ir.jaqcd.instructions import (
     XY,
     YY,
     ZZ,
+    AmplitudeDamping,
+    BitFlip,
     CCNot,
     CNot,
     CPhaseShift,
@@ -29,9 +31,13 @@ from braket.ir.jaqcd.instructions import (
     CPhaseShift01,
     CPhaseShift10,
     CSwap,
+    Depolarizing,
     H,
     I,
     ISwap,
+    Kraus,
+    PhaseDamping,
+    PhaseFlip,
     PhaseShift,
     PSwap,
     Rx,
@@ -51,6 +57,7 @@ from braket.ir.jaqcd.instructions import (
 )
 from braket.ir.jaqcd.results import (
     Amplitude,
+    DensityMatrix,
     Expectation,
     Probability,
     Sample,
@@ -98,7 +105,15 @@ _valid_gates = {
     ZZ.Type.zz: ZZ,
 }
 
-Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]
+_valid_noisy_gates = {
+    BitFlip.Type.bitflip: BitFlip,
+    PhaseFlip.Type.phaseFlip: PhaseFlip,
+    Depolarizing.Type.depolarizing: Depolarizing,
+    AmplitudeDamping.Type.amplitudeDamping: AmplitudeDamping,
+    PhaseDamping.Type.phaseDamping: PhaseDamping,
+    Kraus.Type.kraus: Kraus,
+
+Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
 
 
 class Program(BraketSchemaBase):
@@ -111,7 +126,7 @@ class Program(BraketSchemaBase):
         instructions (List[Any]): List of instructions.
         basis_rotation_instructions (List[Any]): List of instructions for
             rotation to desired measurement bases. Default is None.
-        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, Variance]]):
+        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]]):
             List of requested results. Default is None.
 
     Examples:
@@ -123,6 +138,8 @@ class Program(BraketSchemaBase):
 
     Note:
         The following instructions are supported:
+        AmplitudeDamping,
+        BitFlip,
         CCNot,
         CNot,
         CPhaseShift,
@@ -132,9 +149,13 @@ class Program(BraketSchemaBase):
         CSwap,
         CY,
         CZ,
+        Depolarizing,
         H,
         I,
         ISwap,
+        Kraus,
+        PhaseDamping
+        PhaseFlip,
         PhaseShift,
         PSwap,
         Rx,
@@ -172,10 +193,14 @@ class Program(BraketSchemaBase):
         2. Validate that the input instructions are supported
         """
         if isinstance(value, BaseModel):
-            if value.type not in _valid_gates:
+            if value.type not in _valid_gates and not in _valid_noisy_gates:
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             return value
 
         if value is None or "type" not in value or value["type"] not in _valid_gates:
-            raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            if value["type"] not in _valid_noisy_gates:
+                raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            else
+                return _valid_noisy_gates[value["type"]](**value)
+
         return _valid_gates[value["type"]](**value)

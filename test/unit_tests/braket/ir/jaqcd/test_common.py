@@ -28,6 +28,10 @@ def angle_valid_input():
     return {"angle": 0.123}
 
 
+def probability_valid_input():
+    return {"probability": 0.321}
+
+
 def single_control_valid_input():
     return {"control": 0}
 
@@ -42,6 +46,12 @@ def multi_control_valid_input():
 
 def two_dimensional_matrix_valid_input():
     return {"matrix": [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]}
+
+
+def two_dimensional_matrix_list_valid_input():
+    return {
+        "matrices": [[[[1, 0], [0, 0]], [[0, 0], [1, 0]]], [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]]
+    }
 
 
 def observable_valid_input():
@@ -74,10 +84,12 @@ def create_switcher(type):
         "DoubleTarget": two_target_valid_input,
         "MultiTarget": multi_target_valid_input,
         "Angle": angle_valid_input,
+        "SingleProbability": probability_valid_input,
         "SingleControl": single_control_valid_input,
         "DoubleControl": two_control_valid_input,
         "MultiControl": multi_control_valid_input,
         "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
+        "TwoDimensionalMatrixList": two_dimensional_matrix_list_valid_input,
         "Observable": observable_valid_input,
         "MultiState": multi_state_valid_input,
         "OptionalMultiTarget": multi_target_valid_input,

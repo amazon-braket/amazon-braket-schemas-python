@@ -129,12 +129,27 @@ class Angle(BaseModel):
     angle: confloat(gt=float("-inf"), lt=float("inf"))
 
 
-class TwoDimensionalMatrix(BaseModel):
+class SingleProbability(BaseModel):
     """
-    Two dimensional non-empty matrix.
+    A single probability parameter for noise channel (floating point).
 
     Attributes:
-        matrix (List[List[List[float]]]): Two dimensional matrix with complex entries.
+        probability (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> SingleProbability(probability=0.9)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("1.0"))
+
+
+class TwoDimensionalMatrix(BaseModel):
+    """
+    Two-dimensional non-empty matrix.
+
+    Attributes:
+        matrix (List[List[List[float]]]): Two-dimensional matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -152,6 +167,35 @@ class TwoDimensionalMatrix(BaseModel):
     )
 
 
+class TwoDimensionalMatrixList(BaseModel):
+    """
+    List of two-dimensional non-empty matrices.
+
+    Attributes:
+        matrix (List[List[List[List[float]]]]): Two-dimensional matrix with complex entries.
+            Each complex number is represented using a List[float] of size 2, with
+            element[0] being the real part and element[1] imaginary.
+            inf, -inf, and NaN are not allowable inputs for the element.
+
+    Examples:
+        >>> TwoDimensionalMatrixList(matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
+                                               [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
+                                              ]
+                                    )
+    """
+
+    matrices: conlist(
+        conlist(
+            conlist(
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+                min_items=1,
+            ),
+            min_items=1,
+        ),
+        min_items=1,
+    )
+
+
 class Observable(BaseModel):
     """
     An observable. If given list is more than one element, this is the tensor product
@@ -160,7 +204,7 @@ class Observable(BaseModel):
     Attributes:
         observable (List[Union[str, List[List[List[float]]]]): A list with at least
             one item and items are strings matching the observable regex
-            or a two dimensional hermitian matrix with complex entries.
+            or a two-dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.

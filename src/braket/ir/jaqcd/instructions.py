@@ -19,8 +19,10 @@ from braket.ir.jaqcd.shared_models import (
     DoubleTarget,
     MultiTarget,
     SingleControl,
+    SingleProbability,
     SingleTarget,
     TwoDimensionalMatrix,
+    TwoDimensionalMatrixList,
 )
 
 """
@@ -696,3 +698,123 @@ class Unitary(TwoDimensionalMatrix, MultiTarget):
         unitary = "unitary"
 
     type = Type.unitary
+
+
+class BitFlip(SingleTarget, SingleProbability):
+    """
+    Bit Flip noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "bit_flip". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> Bit_Flip(target=1)
+    """
+
+    class Type(str, Enum):
+        bit_flip = "bit_flip"
+
+    type = Type.bit_flip
+
+
+class PhaseFlip(SingleTarget, SingleProbability):
+    """
+    Phase Flip noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "phase_flip". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> Phase_Flip(target=1)
+    """
+
+    class Type(str, Enum):
+        phase_flip = "phase_flip"
+
+    type = Type.phase_flip
+
+
+class Depolarizing(SingleTarget, SingleProbability):
+    """
+    Depolarizing noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "depolarizing". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> Depolarizing(target=1)
+    """
+
+    class Type(str, Enum):
+        depolarizing = "depolarizing"
+
+    type = Type.depolarizing
+
+
+class AmplitudeDamping(SingleTarget, SingleProbability):
+    """
+    Amplitude Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "amplitude_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> AmplitudeDamping(target=1)
+    """
+
+    class Type(str, Enum):
+        amplitude_damping = "amplitude_damping"
+
+    type = Type.amplitude_damping
+
+
+class PhaseDamping(SingleTarget, SingleProbability):
+    """
+    Phase Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "phase_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> PhaseDamping(target=1)
+    """
+
+    class Type(str, Enum):
+        phase_damping = "phase_damping"
+
+    type = Type.phase_damping
+
+
+class Kraus(TwoDimensionalMatrixList, MultiTarget):
+    """
+    Arbitrary quantum channel defined by the input matrices.
+
+    Attributes:
+        type (str): The instruction type. default = "kraus". (type) is optional.
+            This should be unique among all instruction types.
+        targets (List[int]): The target qubits. This is a list with ints and all ints >= 0.
+        matrices (List[List[List[List[float]]]]): A list of matrices specifying
+            the quantum channel. A complex number is represented as a list of 2
+            real numbers. So each matrix has type List[List[List[float]]].
+
+    Examples:
+        >>> matrix1 = [[[1/sqrt(2), 0],[0, 0]],[[0, 0],[1/sqrt(2), 0]]]
+        >>> matrix2 = [[[0, 0],[1/sqrt(2), 0]],[[1/sqrt(2), 0],[0, 0]]]
+        >>> matrices = [matrix1, matrix2]
+        >>> Kraus(targets=[0], matrices=matrices)
+    """
+
+    class Type(str, Enum):
+        kraus = "kraus"
+
+    type = Type.kraus

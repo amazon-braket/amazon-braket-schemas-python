@@ -30,6 +30,8 @@ from braket.ir.jaqcd import (
     XY,
     YY,
     ZZ,
+    AmplitudeDamping,
+    BitFlip,
     CCNot,
     CNot,
     CPhaseShift,
@@ -37,9 +39,13 @@ from braket.ir.jaqcd import (
     CPhaseShift01,
     CPhaseShift10,
     CSwap,
+    Depolarizing,
     H,
     I,
     ISwap,
+    Kraus,
+    PhaseDamping,
+    PhaseFlip,
     PhaseShift,
     Program,
     PSwap,
@@ -64,8 +70,10 @@ from braket.ir.jaqcd.shared_models import (
     DoubleTarget,
     MultiTarget,
     SingleControl,
+    SingleProbability,
     SingleTarget,
     TwoDimensionalMatrix,
+    TwoDimensionalMatrixList,
 )
 
 testdata = [
@@ -101,6 +109,12 @@ testdata = [
     (ZZ, [DoubleTarget, Angle], "zz"),
     (XY, [DoubleTarget, Angle], "xy"),
     (Unitary, [TwoDimensionalMatrix, MultiTarget], "unitary"),
+    (BitFlip, [SingleTarget, SingleProbability], "bit_flip"),
+    (PhaseFlip, [SingleTarget, SingleProbability], "phase_flip"),
+    (Depolarizing, [SingleTarget, SingleProbability], "depolarizing"),
+    (AmplitudeDamping, [SingleTarget, SingleProbability], "amplitude_damping"),
+    (PhaseDamping, [SingleTarget, SingleProbability], "phase_damping"),
+    (Kraus, [TwoDimensionalMatrixList, MultiTarget], "kraus"),
 ]
 
 

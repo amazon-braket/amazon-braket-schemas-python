@@ -120,6 +120,24 @@ class StateVector(BaseModel):
     type = Type.statevector
 
 
+class DensityMatrix(BaseModel):
+    """
+    The density matrix as requested result.
+
+    Attributes:
+        type (str): The result type. default = "densitymatrix". (type) is optional.
+            This should be unique among all result types.
+
+    Examples:
+        >>> DensityMatrix()
+    """
+
+    class Type(str, Enum):
+        densitymatrix = "densitymatrix"
+
+    type = Type.densitymatrix
+
+
 class Amplitude(MultiState):
     """
     Amplitudes of specified states as requested result.
