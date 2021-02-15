@@ -106,12 +106,13 @@ _valid_gates = {
 }
 
 _valid_noisy_gates = {
-    BitFlip.Type.bitflip: BitFlip,
-    PhaseFlip.Type.phaseFlip: PhaseFlip,
+    BitFlip.Type.bit_flip: BitFlip,
+    PhaseFlip.Type.phase_flip: PhaseFlip,
     Depolarizing.Type.depolarizing: Depolarizing,
-    AmplitudeDamping.Type.amplitudeDamping: AmplitudeDamping,
-    PhaseDamping.Type.phaseDamping: PhaseDamping,
+    AmplitudeDamping.Type.amplitude_damping: AmplitudeDamping,
+    PhaseDamping.Type.phase_damping: PhaseDamping,
     Kraus.Type.kraus: Kraus,
+}
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
 
@@ -193,14 +194,14 @@ class Program(BraketSchemaBase):
         2. Validate that the input instructions are supported
         """
         if isinstance(value, BaseModel):
-            if value.type not in _valid_gates and not in _valid_noisy_gates:
+            if value.type not in (_valid_gates and _valid_noisy_gates):
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             return value
 
         if value is None or "type" not in value or value["type"] not in _valid_gates:
             if value["type"] not in _valid_noisy_gates:
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
-            else
+            else:
                 return _valid_noisy_gates[value["type"]](**value)
 
         return _valid_gates[value["type"]](**value)
