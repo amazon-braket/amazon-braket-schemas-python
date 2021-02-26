@@ -127,7 +127,8 @@ class Program(BraketSchemaBase):
         instructions (List[Any]): List of instructions.
         basis_rotation_instructions (List[Any]): List of instructions for
             rotation to desired measurement bases. Default is None.
-        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]]):
+        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector,
+        DensityMatrix, Variance]]):
             List of requested results. Default is None.
 
     Examples:
@@ -194,7 +195,7 @@ class Program(BraketSchemaBase):
         2. Validate that the input instructions are supported
         """
         if isinstance(value, BaseModel):
-            if value.type not in (_valid_gates and _valid_noisy_gates):
+            if (value.type not in _valid_gates) and (value.type not in _valid_noisy_gates):
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             return value
 
