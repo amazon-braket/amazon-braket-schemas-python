@@ -199,10 +199,16 @@ class Program(BraketSchemaBase):
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             return value
 
-        if value is None or "type" not in value or value["type"] not in _valid_gates:
-            if value["type"] not in _valid_noisy_gates:
+        if value["type"] in _valid_gates:
+            if value is None or "type" not in value:
+                raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            else:
+                return _valid_gates[value["type"]](**value)
+
+        elif value["type"] in _valid_noisy_gates:
+            if value is None or "type" not in value:
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             else:
                 return _valid_noisy_gates[value["type"]](**value)
-
-        return _valid_gates[value["type"]](**value)
+        else:
+            raise ValueError(f"Invalid gate specified: {value} for field: {field}")
