@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.0.post3 (2021-03-01)
+
+### Documentation Changes
+
+ * fix time unit for D-Wave metadata from milliseconds to microseconds
+
 ## v1.1.0.post2 (2021-01-06)
 
 ### Testing and Release Infrastructure
