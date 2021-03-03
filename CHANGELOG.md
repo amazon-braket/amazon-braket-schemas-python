@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.0.post4 (2021-03-03)
+
+### Testing and Release Infrastructure
+
+ * Make python-package consistent with other repos
+
 ## v1.1.0.post3 (2021-03-01)
 
 ### Documentation Changes
