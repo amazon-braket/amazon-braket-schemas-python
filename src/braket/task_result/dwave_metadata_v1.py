@@ -22,7 +22,7 @@ class DwaveTiming(BaseModel):
     """
     The D-Wave timing metadata result schema.
 
-    The times represented are in milliseconds.
+    The times represented are in microseconds.
 
     Examples:
         >>> DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
