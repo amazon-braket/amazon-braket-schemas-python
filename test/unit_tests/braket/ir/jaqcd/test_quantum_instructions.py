@@ -40,6 +40,8 @@ from braket.ir.jaqcd import (
     CPhaseShift10,
     CSwap,
     Depolarizing,
+    GeneralizedAmplitudeDamping,
+    GeneralPauli,
     H,
     I,
     ISwap,
@@ -57,6 +59,8 @@ from braket.ir.jaqcd import (
     Swap,
     T,
     Ti,
+    TwoQubitDephasing,
+    TwoQubitDepolarizing,
     Unitary,
     V,
     Vi,
@@ -66,12 +70,14 @@ from braket.ir.jaqcd import (
 )
 from braket.ir.jaqcd.shared_models import (
     Angle,
+    DampingProbability,
     DoubleControl,
     DoubleTarget,
     MultiTarget,
     SingleControl,
     SingleProbability,
     SingleTarget,
+    TripleProbability,
     TwoDimensionalMatrix,
     TwoDimensionalMatrixList,
 )
@@ -112,8 +118,17 @@ testdata = [
     (BitFlip, [SingleTarget, SingleProbability], "bit_flip"),
     (PhaseFlip, [SingleTarget, SingleProbability], "phase_flip"),
     (Depolarizing, [SingleTarget, SingleProbability], "depolarizing"),
-    (AmplitudeDamping, [SingleTarget, SingleProbability], "amplitude_damping"),
-    (PhaseDamping, [SingleTarget, SingleProbability], "phase_damping"),
+    (TwoQubitDepolarizing, [DoubleTarget, SingleProbability], "two_qubit_depolarizing"),
+    (TwoQubitDephasing, [DoubleTarget, SingleProbability], "two_qubit_dephasing"),
+    (Depolarizing, [SingleTarget, SingleProbability], "depolarizing"),
+    (AmplitudeDamping, [SingleTarget, DampingProbability], "amplitude_damping"),
+    (
+        GeneralizedAmplitudeDamping,
+        [SingleTarget, SingleProbability, DampingProbability],
+        "generalized_amplitude_damping",
+    ),
+    (GeneralPauli, [SingleTarget, TripleProbability], "general_pauli"),
+    (PhaseDamping, [SingleTarget, DampingProbability], "phase_damping"),
     (Kraus, [TwoDimensionalMatrixList, MultiTarget], "kraus"),
 ]
 

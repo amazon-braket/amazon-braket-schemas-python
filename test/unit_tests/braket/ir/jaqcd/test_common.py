@@ -28,8 +28,16 @@ def angle_valid_input():
     return {"angle": 0.123}
 
 
-def probability_valid_input():
+def single_probability_valid_input():
     return {"probability": 0.321}
+
+
+def damping_probability_valid_input():
+    return {"gamma": 0.321}
+
+
+def triple_probability_valid_input():
+    return {"probX": 0.321, "probY": 0.312, "probZ": 0.132}
 
 
 def single_control_valid_input():
@@ -84,7 +92,9 @@ def create_switcher(type):
         "DoubleTarget": two_target_valid_input,
         "MultiTarget": multi_target_valid_input,
         "Angle": angle_valid_input,
-        "SingleProbability": probability_valid_input,
+        "SingleProbability": single_probability_valid_input,
+        "DampingProbability": damping_probability_valid_input,
+        "TripleProbability": triple_probability_valid_input,
         "SingleControl": single_control_valid_input,
         "DoubleControl": two_control_valid_input,
         "MultiControl": multi_control_valid_input,
