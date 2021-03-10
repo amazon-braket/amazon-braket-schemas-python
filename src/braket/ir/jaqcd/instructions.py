@@ -20,6 +20,8 @@ from braket.ir.jaqcd.shared_models import (
     MultiTarget,
     SingleControl,
     SingleProbability,
+    DampingProbability,
+    TripleProbability,
     SingleTarget,
     TwoDimensionalMatrix,
     TwoDimensionalMatrixList,
@@ -710,7 +712,7 @@ class BitFlip(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> Bit_Flip(target=1)
+        >>> Bit_Flip(target=1, probability=0.1)
     """
 
     class Type(str, Enum):
@@ -729,13 +731,32 @@ class PhaseFlip(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> Phase_Flip(target=1)
+        >>> Phase_Flip(target=1, probability=0.1)
     """
 
     class Type(str, Enum):
         phase_flip = "phase_flip"
 
     type = Type.phase_flip
+
+
+class GeneralPauli(SingleTarget, TripleProbability):
+    """
+    Genearal Pauli noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "general_pauli". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> GeneralPauli(target=1, probX=0.1, probY=0.2, probZ=0.3)
+    """
+
+    class Type(str, Enum):
+        general_pauli = "general_pauli"
+
+    type = Type.general_pauli
 
 
 class Depolarizing(SingleTarget, SingleProbability):
@@ -748,7 +769,7 @@ class Depolarizing(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> Depolarizing(target=1)
+        >>> Depolarizing(target=1, probability=0.1)
     """
 
     class Type(str, Enum):
@@ -757,7 +778,45 @@ class Depolarizing(SingleTarget, SingleProbability):
     type = Type.depolarizing
 
 
-class AmplitudeDamping(SingleTarget, SingleProbability):
+class TwoQubitDepolarizing(DoubleTarget, SingleProbability):
+    """
+    Two-Qubit Depolarizing noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "two_qubit_depolarizing".
+            (type) is optional. This should be unique among all instruction types.
+        target (int): The target qubits. This is an int >= 0.
+
+    Examples:
+        >>> TwoQubitDepolarizing(target1=0, target2=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        two_qubit_depolarizing = "two_qubit_depolarizing"
+
+    type = Type.two_qubit_depolarizing
+
+
+class TwoQubitDephasing(DoubleTarget, SingleProbability):
+    """
+    Two-Qubit Dephasing noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "two_qubit_dephasing".
+            (type) is optional. This should be unique among all instruction types.
+        target (int): The target qubits. This is an int >= 0.
+
+    Examples:
+        >>> TwoQubitDephasing(target1=0, target2=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        two_qubit_dephasing = "two_qubit_dephasing"
+
+    type = Type.two_qubit_dephasing
+
+
+class AmplitudeDamping(SingleTarget, DampingProbability):
     """
     Amplitude Damping noise channel.
 
@@ -767,7 +826,7 @@ class AmplitudeDamping(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> AmplitudeDamping(target=1)
+        >>> AmplitudeDamping(target=1, gamma=0.1)
     """
 
     class Type(str, Enum):
@@ -776,7 +835,26 @@ class AmplitudeDamping(SingleTarget, SingleProbability):
     type = Type.amplitude_damping
 
 
-class PhaseDamping(SingleTarget, SingleProbability):
+class GeneralizedAmplitudeDamping(SingleTarget, SingleProbability, DampingProbability):
+    """
+    Generalized Amplitude Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "generalized_amplitude_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> GeneralizedAmplitudeDamping(target=1, probability=0.9, gamma=0.1)
+    """
+
+    class Type(str, Enum):
+        generalized_amplitude_damping = "generalized_amplitude_damping"
+
+    type = Type.generalized_amplitude_damping
+
+
+class PhaseDamping(SingleTarget, DampingProbability):
     """
     Phase Damping noise channel.
 
@@ -786,7 +864,7 @@ class PhaseDamping(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> PhaseDamping(target=1)
+        >>> PhaseDamping(target=1, gamma=0.1)
     """
 
     class Type(str, Enum):

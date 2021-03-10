@@ -131,7 +131,7 @@ class Angle(BaseModel):
 
 class SingleProbability(BaseModel):
     """
-    A single probability parameter for noise channel (floating point).
+    A single probability parameter for a general noise channel.
 
     Attributes:
         probability (float): The probability for noise channel.
@@ -142,6 +142,37 @@ class SingleProbability(BaseModel):
     """
 
     probability: confloat(ge=float("0.0"), le=float("1.0"))
+
+
+class DampingProbability(BaseModel):
+    """
+    The parameter for the amplitude/phase damping channel
+
+    Attributes:
+        gamma (float): The probability of damping
+
+    Examples:
+        >>> DampingProbability(gamma=0.1)
+    """
+
+    gamma: confloat(ge=float("0.0"), le=float("1.0"))
+
+
+class TripleProbability(BaseModel):
+    """
+    A triple-probability parameter set for the general Pauli noise channel.
+
+    Attributes:
+        probX (float), probY (float), probZ (float): The coefficients of the
+        general Pauli channel
+
+    Examples:
+        >>> TripleProbability(probX=0.1, probY=0.2, probZ=0.3)
+    """
+
+    probX: confloat(ge=float("0.0"), le=float("1.0"))
+    probY: confloat(ge=float("0.0"), le=float("1.0"))
+    probZ: confloat(ge=float("0.0"), le=float("1.0"))
 
 
 class TwoDimensionalMatrix(BaseModel):
