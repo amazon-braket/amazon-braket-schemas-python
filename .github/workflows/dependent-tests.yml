@@ -15,10 +15,10 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.7, 3.8, 3.9]
         dependent:
-          -amazon-braket-default-simulator-python
-          -amazon-braket-sdk-python
-          -amazon-braket-ocean-plugin-python
-          -amazon-braket-pennylane-plugin-python
+          - amazon-braket-default-simulator-python
+          - amazon-braket-sdk-python
+          - amazon-braket-ocean-plugin-python
+          - amazon-braket-pennylane-plugin-python
 
     steps:
     - uses: actions/checkout@v2
@@ -29,8 +29,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        pip install --upgrade git+https://github.com/aws/amazon-braket-schemas-python@main
-        pip install --upgrade git+https://github.com/aws/amazon-braket-default-simulator-python@main
         pip install -e .
         cd ..
         git clone https://github.com/aws/${{ matrix.dependent }}.git
