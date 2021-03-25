@@ -52,7 +52,13 @@ class BraketSchemaBase(BaseModel):
         name = schema.braketSchemaHeader.name
         version = schema.braketSchemaHeader.version
         module_name = name + "_v" + version
-        return import_module(module_name)
+        try:
+            return import_module(module_name)
+        except ModuleNotFoundError:
+            raise ModuleNotFoundError(
+                f"Amazon Braket could not find the module, f{module_name}. "
+                "To continue, upgrade your installation of amazon-braket-schemas."
+            )
 
     @staticmethod
     def parse_raw_schema(json_str: str) -> BraketSchemaBase:
