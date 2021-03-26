@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.1 (2021-03-26)
+
+### Bug Fixes and Other Changes
+
+ * add device level parameters and device-specific parameters
+
 ## v1.1.0.post6 (2021-03-19)
 
 ### Testing and Release Infrastructure
