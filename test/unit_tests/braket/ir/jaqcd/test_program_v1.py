@@ -29,6 +29,11 @@ def test_non_instruction():
 
 
 @pytest.mark.xfail(raises=ValidationError)
+def test_wrong_instruction():
+    Program(instructions=[{"type": "foo", "target": 0}])
+
+
+@pytest.mark.xfail(raises=ValidationError)
 def test_partial_non_instruction():
     Program(instructions=[CNot(control=0, target=1), "foo"])
 
