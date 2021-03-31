@@ -109,7 +109,7 @@ _valid_gates = {
     ZZ.Type.zz: ZZ,
 }
 
-_valid_noisy_gates = {
+_valid_noise_channels = {
     BitFlip.Type.bit_flip: BitFlip,
     PhaseFlip.Type.phase_flip: PhaseFlip,
     Depolarizing.Type.depolarizing: Depolarizing,
@@ -207,7 +207,7 @@ class Program(BraketSchemaBase):
         2. Validate that the input instructions are supported
         """
         if isinstance(value, BaseModel):
-            if (value.type not in _valid_gates) and (value.type not in _valid_noisy_gates):
+            if (value.type not in _valid_gates) and (value.type not in _valid_noise_channels):
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             return value
 
@@ -217,10 +217,10 @@ class Program(BraketSchemaBase):
             else:
                 return _valid_gates[value["type"]](**value)
 
-        elif value["type"] in _valid_noisy_gates:
+        elif value["type"] in _valid_noise_channels:
             if value is None or "type" not in value:
                 raise ValueError(f"Invalid gate specified: {value} for field: {field}")
             else:
-                return _valid_noisy_gates[value["type"]](**value)
+                return _valid_noise_channels[value["type"]](**value)
         else:
             raise ValueError(f"Invalid gate specified: {value} for field: {field}")
