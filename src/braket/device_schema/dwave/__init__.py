@@ -15,6 +15,8 @@ from braket.device_schema.dwave.dwave_device_capabilities_v1 import (  # noqa: F
     DwaveDeviceCapabilities,
 )
 from braket.device_schema.dwave.dwave_device_parameters_v1 import (  # noqa: F401
+    Dwave2000QDeviceParameters,
+    DwaveAdvantageDeviceParameters,
     DwaveDeviceParameters,
 )
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (  # noqa: F401

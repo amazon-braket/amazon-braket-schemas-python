@@ -10,9 +10,14 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
+from typing import Optional, Union
 
 from pydantic import Field
 
+from braket.device_schema.dwave.dwave_device_level_parameters_v1 import (
+    Dwave2000QDeviceLevelParameters,
+    DwaveAdvantageDeviceLevelParameters,
+)
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     DwaveProviderLevelParameters,
 )
@@ -22,10 +27,9 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class DwaveDeviceParameters(BraketSchemaBase):
     """
     This is the description of the D-Wave parameters
-
     Attributes:
-        providerLevelParameters: Parameters that are specific to D-Wave device.
-
+        providerLevelParameters: Parameters that are specific to D-Wave devices.
+        deviceLevelParameters: Parameters that are specific to this D-Wave device.
     Examples:
         >>> import json
         >>> input_json = {
@@ -42,11 +46,43 @@ class DwaveDeviceParameters(BraketSchemaBase):
         ...     }
         ... }
         >>> DwaveDeviceParameters.parse_raw_schema(json.dumps(input_json))
-
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_device_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    providerLevelParameters: DwaveProviderLevelParameters
+    providerLevelParameters: Optional[DwaveProviderLevelParameters]
+    deviceLevelParameters: Optional[
+        Union[DwaveAdvantageDeviceLevelParameters, Dwave2000QDeviceLevelParameters]
+    ]
+
+
+class DwaveAdvantageDeviceParameters(BraketSchemaBase):
+    """
+    This is the description of the D-Wave parameters
+
+    Attributes:
+        providerLevelParameters: Parameters that are specific to D-Wave device.
+    """
+
+    _PROGRAM_HEADER = BraketSchemaHeader(
+        name="braket.device_schema.dwave.dwave_advantage_device_parameters", version="1"
+    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    deviceLevelParameters: DwaveAdvantageDeviceLevelParameters
+
+
+class Dwave2000QDeviceParameters(BraketSchemaBase):
+    """
+    This is the description of the D-Wave parameters
+
+    Attributes:
+        providerLevelParameters: Parameters that are specific to D-Wave device.
+    """
+
+    _PROGRAM_HEADER = BraketSchemaHeader(
+        name="braket.device_schema.dwave.dwave_2000Q_device_parameters", version="1"
+    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    deviceLevelParameters: Dwave2000QDeviceLevelParameters
