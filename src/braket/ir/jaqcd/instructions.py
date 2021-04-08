@@ -15,14 +15,14 @@ from enum import Enum
 
 from braket.ir.jaqcd.shared_models import (
     Angle,
+    DampingProbability,
     DoubleControl,
     DoubleTarget,
     MultiTarget,
     SingleControl,
     SingleProbability,
-    DampingProbability,
-    TripleProbability,
     SingleTarget,
+    TripleProbability,
     TwoDimensionalMatrix,
     TwoDimensionalMatrixList,
 )
