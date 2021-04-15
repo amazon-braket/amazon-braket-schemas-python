@@ -11,7 +11,7 @@ class Dwave2000QDeviceParameters(BraketSchemaBase):
     This is the description of the D-Wave parameters
 
     Attributes:
-        providerLevelParameters: Parameters that are specific to D-Wave device.
+        deviceLevelParameters: Parameters that are specific to this D-Wave device.
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
