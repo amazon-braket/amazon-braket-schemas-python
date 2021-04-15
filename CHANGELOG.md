@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.2 (2021-04-15)
+
+### Bug Fixes and Other Changes
+
+ * error message typo
+
 ## v1.1.1 (2021-03-26)
 
 ### Bug Fixes and Other Changes
