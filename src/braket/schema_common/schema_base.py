@@ -56,7 +56,7 @@ class BraketSchemaBase(BaseModel):
             return import_module(module_name)
         except ModuleNotFoundError:
             raise ModuleNotFoundError(
-                f"Amazon Braket could not find the module, f{module_name}. "
+                f"Amazon Braket could not find the module, {module_name}. "
                 "To continue, upgrade your installation of amazon-braket-schemas."
             )
 
