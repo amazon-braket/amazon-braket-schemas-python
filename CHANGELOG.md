@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.3 (2021-04-16)
+
+### Bug Fixes and Other Changes
+
+ * move device-specific schemas into their own files
+
 ## v1.1.2 (2021-04-15)
 
 ### Bug Fixes and Other Changes
