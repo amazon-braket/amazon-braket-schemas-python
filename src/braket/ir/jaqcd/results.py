@@ -120,13 +120,14 @@ class StateVector(BaseModel):
     type = Type.statevector
 
 
-class DensityMatrix(BaseModel):
+class DensityMatrix(OptionalMultiTarget):
     """
     The density matrix as requested result.
 
     Attributes:
         type (str): The result type. default = "densitymatrix". (type) is optional.
             This should be unique among all result types.
+        targets (Optional[List[int]]): The target qubits to trace over. This is a list of int >= 0.
 
     Examples:
         >>> DensityMatrix()

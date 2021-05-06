@@ -28,7 +28,7 @@ testdata = [
     (Sample, [OptionalMultiTarget, Observable], "sample"),
     (Probability, [OptionalMultiTarget], "probability"),
     (StateVector, [], "statevector"),
-    (DensityMatrix, [], "densitymatrix"),
+    (DensityMatrix, [OptionalMultiTarget], "densitymatrix"),
     (Variance, [OptionalMultiTarget, Observable], "variance"),
 ]
 
