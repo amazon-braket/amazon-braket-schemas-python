@@ -207,6 +207,7 @@ class TwoDimensionalMatrixList(BaseModel):
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
+            The number of matrices is limited to 16 and the size of each matrix is limited to 4*4.
 
     Examples:
         >>> TwoDimensionalMatrixList(matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
@@ -220,10 +221,13 @@ class TwoDimensionalMatrixList(BaseModel):
             conlist(
                 conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
                 min_items=1,
+                max_items=4,
             ),
             min_items=1,
+            max_items=4,
         ),
         min_items=1,
+        max_items=16,
     )
 
 
