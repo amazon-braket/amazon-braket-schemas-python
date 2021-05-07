@@ -226,7 +226,7 @@ class TripleProbability(BaseModel):
         """
         p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
         if p1 + p2 + p3 > 1:
-            raise ValueError("Total probability cannot exceed 1.")
+            raise ValueError("Sum of probabilities cannot exceed 1.")
         return values
 
 
