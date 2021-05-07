@@ -204,11 +204,11 @@ class DampingSingleProbability(BaseModel):
 
 class TripleProbability(BaseModel):
     """
-    A triple-probability parameter set for the general Pauli noise channel.
+    A triple-probability parameter set for the Pauli noise channel.
 
     Attributes:
         probX (float), probY (float), probZ (float): The coefficients of the
-        general Pauli channel
+        Pauli channel
 
     Examples:
         >>> TripleProbability(probX=0.1, probY=0.2, probZ=0.3)

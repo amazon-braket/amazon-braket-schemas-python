@@ -743,23 +743,23 @@ class PhaseFlip(SingleTarget, SingleProbability):
     type = Type.phase_flip
 
 
-class GeneralPauli(SingleTarget, TripleProbability):
+class PauliChannel(SingleTarget, TripleProbability):
     """
     Genearal Pauli noise channel.
 
     Attributes:
-        type (str): The instruction type. default = "general_pauli". (type) is
+        type (str): The instruction type. default = "pauli_channel". (type) is
             optional. This should be unique among all instruction types.
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> GeneralPauli(target=1, probX=0.1, probY=0.2, probZ=0.3)
+        >>> PauliChannel(target=1, probX=0.1, probY=0.2, probZ=0.3)
     """
 
     class Type(str, Enum):
-        general_pauli = "general_pauli"
+        pauli_channel = "pauli_channel"
 
-    type = Type.general_pauli
+    type = Type.pauli_channel
 
 
 class Depolarizing(SingleTarget, SingleProbability_34):
