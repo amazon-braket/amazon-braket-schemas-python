@@ -16,11 +16,14 @@ from enum import Enum
 from braket.ir.jaqcd.shared_models import (
     Angle,
     DampingProbability,
+    DampingSingleProbability,
     DoubleControl,
     DoubleTarget,
     MultiTarget,
     SingleControl,
     SingleProbability,
+    SingleProbability_34,
+    SingleProbability_1516,
     SingleTarget,
     TripleProbability,
     TwoDimensionalMatrix,
@@ -759,7 +762,7 @@ class GeneralPauli(SingleTarget, TripleProbability):
     type = Type.general_pauli
 
 
-class Depolarizing(SingleTarget, SingleProbability):
+class Depolarizing(SingleTarget, SingleProbability_34):
     """
     Depolarizing noise channel.
 
@@ -778,7 +781,7 @@ class Depolarizing(SingleTarget, SingleProbability):
     type = Type.depolarizing
 
 
-class TwoQubitDepolarizing(DoubleTarget, SingleProbability):
+class TwoQubitDepolarizing(DoubleTarget, SingleProbability_1516):
     """
     Two-Qubit Depolarizing noise channel.
 
@@ -797,7 +800,7 @@ class TwoQubitDepolarizing(DoubleTarget, SingleProbability):
     type = Type.two_qubit_depolarizing
 
 
-class TwoQubitDephasing(DoubleTarget, SingleProbability):
+class TwoQubitDephasing(DoubleTarget, SingleProbability_34):
     """
     Two-Qubit Dephasing noise channel.
 
@@ -835,7 +838,7 @@ class AmplitudeDamping(SingleTarget, DampingProbability):
     type = Type.amplitude_damping
 
 
-class GeneralizedAmplitudeDamping(SingleTarget, SingleProbability, DampingProbability):
+class GeneralizedAmplitudeDamping(SingleTarget, DampingSingleProbability, DampingProbability):
     """
     Generalized Amplitude Damping noise channel.
 

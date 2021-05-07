@@ -52,6 +52,21 @@ def test_greater_than_one_float():
     TripleProbability(probX=float(2.1), probY=0, probZ=0)
 
 
+@pytest.mark.xfail(raises=ValueError)
+def test_too_large_px():
+    TripleProbability(probX=float(0.6), probY=0, probZ=0)
+
+
+@pytest.mark.xfail(raises=ValueError)
+def test_too_large_py():
+    TripleProbability(probX=0, probY=float(0.6), probZ=0)
+
+
+@pytest.mark.xfail(raises=ValueError)
+def test_too_large_pz():
+    TripleProbability(probX=0, probY=0, probZ=float(0.6))
+
+
 def test_float():
     probX = 0.15
     probY = 0.2

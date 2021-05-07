@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic import BaseModel, confloat, conint, conlist, constr
+from pydantic import BaseModel, confloat, conint, conlist, constr, root_validator
 
 
 class SingleTarget(BaseModel):
@@ -131,17 +131,47 @@ class Angle(BaseModel):
 
 class SingleProbability(BaseModel):
     """
-    A single probability parameter for a general noise channel.
+    A single probability parameter for bit/phase flip noise channel.
 
     Attributes:
         probability (float): The probability for noise channel.
             NaN is not an allowable input.
 
     Examples:
-        >>> SingleProbability(probability=0.9)
+        >>> SingleProbability(probability=0.1)
     """
 
-    probability: confloat(ge=float("0.0"), le=float("1.0"))
+    probability: confloat(ge=float("0.0"), le=float("0.5"))
+
+
+class SingleProbability_34(BaseModel):
+    """
+    A single probability parameter for depolarizing/two-qubit-dephasing noise channel.
+
+    Attributes:
+        probability (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> SingleProbability_34(probability=0.5)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("0.75"))
+
+
+class SingleProbability_1516(BaseModel):
+    """
+    A single probability parameter for two-qubit-depolarizing noise channel.
+
+    Attributes:
+        probability (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> SingleProbability_1516(probability=0.1)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("0.9375"))
 
 
 class DampingProbability(BaseModel):
@@ -156,6 +186,20 @@ class DampingProbability(BaseModel):
     """
 
     gamma: confloat(ge=float("0.0"), le=float("1.0"))
+
+
+class DampingSingleProbability(BaseModel):
+    """
+    The parameter for the generalized amplitude damping channel
+
+    Attributes:
+        gamma (float): The probability of damping
+
+    Examples:
+        >>> DampingSingleProbability(probability=0.1)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("1.0"))
 
 
 class TripleProbability(BaseModel):
@@ -173,6 +217,23 @@ class TripleProbability(BaseModel):
     probX: confloat(ge=float("0.0"), le=float("1.0"))
     probY: confloat(ge=float("0.0"), le=float("1.0"))
     probZ: confloat(ge=float("0.0"), le=float("1.0"))
+
+    @root_validator
+    def validate_probabilities(cls, values):
+        """
+        Pydantic uses the validation subsystem to create objects. This custom validator has
+        the purpose to ensure any of p in {probX, probY or probZ} satisfy
+        p <= (1 - probX - probY - probZ).
+        """
+        p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
+        p = 1 - p1 - p2 - p3
+        if p1 > p:
+            raise ValueError(f"Probability: {p1} too large for this channel.")
+        if p2 > p:
+            raise ValueError(f"Probability: {p2} too large for this channel.")
+        if p3 > p:
+            raise ValueError(f"Probability: {p3} too large for this channel.")
+        return values
 
 
 class TwoDimensionalMatrix(BaseModel):
