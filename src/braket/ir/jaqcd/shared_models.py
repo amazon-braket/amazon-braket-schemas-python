@@ -226,13 +226,8 @@ class TripleProbability(BaseModel):
         p <= (1 - probX - probY - probZ).
         """
         p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
-        p = 1 - p1 - p2 - p3
-        if p1 > p:
-            raise ValueError(f"Probability: {p1} too large for this channel.")
-        if p2 > p:
-            raise ValueError(f"Probability: {p2} too large for this channel.")
-        if p3 > p:
-            raise ValueError(f"Probability: {p3} too large for this channel.")
+        if p1 + p2 + p3 > 1:
+            raise ValueError("Total probability cannot exceed 1.")
         return values
 
 
