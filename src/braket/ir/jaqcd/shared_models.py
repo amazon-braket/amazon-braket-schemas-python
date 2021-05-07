@@ -222,8 +222,7 @@ class TripleProbability(BaseModel):
     def validate_probabilities(cls, values):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has
-        the purpose to ensure any of p in {probX, probY or probZ} satisfy
-        p <= (1 - probX - probY - probZ).
+        the purpose to ensure probX + probY + probZ <= 1.
         """
         p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
         if p1 + p2 + p3 > 1:
