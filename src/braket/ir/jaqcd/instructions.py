@@ -838,7 +838,7 @@ class AmplitudeDamping(SingleTarget, DampingProbability):
     type = Type.amplitude_damping
 
 
-class GeneralizedAmplitudeDamping(SingleTarget, DampingSingleProbability, DampingProbability):
+class GeneralizedAmplitudeDamping(SingleTarget, DampingProbability, DampingSingleProbability):
     """
     Generalized Amplitude Damping noise channel.
 
@@ -848,7 +848,7 @@ class GeneralizedAmplitudeDamping(SingleTarget, DampingSingleProbability, Dampin
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> GeneralizedAmplitudeDamping(target=1, probability=0.9, gamma=0.1)
+        >>> GeneralizedAmplitudeDamping(target=1, gamma=0.1, probability=0.9)
     """
 
     class Type(str, Enum):
