@@ -17,7 +17,10 @@ import pytest
 from jsonschema import validate
 from pydantic import ValidationError
 
-from braket.device_schema.dwave import DwaveAdvantageDeviceParameters, DwaveAdvantageDeviceLevelParameters
+from braket.device_schema.dwave import (
+    DwaveAdvantageDeviceLevelParameters,
+    DwaveAdvantageDeviceParameters,
+)
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     DwaveProviderLevelParameters,
 )
@@ -73,9 +76,9 @@ def test_invalid_attribute_name():
     # annealingOffsets should be List[int]
     device_level_params = DwaveAdvantageDeviceLevelParameters.parse_raw_schema(json.dumps(input))
     try:
-        device_level_params.beta
-        raise Exception('beta should not be parsed into the model')
-    except:
+        assert device_level_params.beta
+        raise Exception("beta should not be parsed into the model")
+    except AttributeError:
         pass
     device_parameters = {
         "braketSchemaHeader": {
