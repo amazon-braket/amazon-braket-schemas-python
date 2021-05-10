@@ -30,7 +30,7 @@ def test_valid():
         "annealingOffsets": [3.67, 6.123],
         "annealingSchedule": [[13.37, 10.08], [3.14, 1.618]],
         "annealingDuration": 500,
-        "autoScale": True,
+        "autoScale": None,
         "beta": 123.456,
         "chains": [[0, 1, 5], [6]],
         "compensateFluxDrift": False,
