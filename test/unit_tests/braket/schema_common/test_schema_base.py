@@ -62,3 +62,14 @@ def test_parse_raw_schema():
     )
     assert schema == BraketSchemaBase.parse_raw_schema(schema.json())
     assert isinstance(schema, TaskMetadata)
+
+
+def test_get_schema_class():
+    schema = TaskMetadata(
+        id="test_id",
+        deviceId="device_id",
+        shots=1000,
+    )
+    module = BraketSchemaBase.import_schema_module(schema)
+    name = schema.braketSchemaHeader.name
+    assert TaskMetadata == BraketSchemaBase.get_schema_class(module, name)
