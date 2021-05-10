@@ -12,6 +12,7 @@
 # language governing permissions and limitations under the License
 from __future__ import annotations
 
+import re
 from importlib import import_module
 
 from pydantic import BaseModel
@@ -56,7 +57,7 @@ class BraketSchemaBase(BaseModel):
             return import_module(module_name)
         except ModuleNotFoundError:
             raise ModuleNotFoundError(
-                f"Amazon Braket could not find the module, f{module_name}. "
+                f"Amazon Braket could not find the module, {module_name}. "
                 "To continue, upgrade your installation of amazon-braket-schemas."
             )
 
@@ -75,6 +76,10 @@ class BraketSchemaBase(BaseModel):
         schema = BraketSchemaBase.parse_raw(json_str)
         module = BraketSchemaBase.import_schema_module(schema)
         name = schema.braketSchemaHeader.name
-        class_name = "".join([s.capitalize() for s in name.split(".")[-1].split("_")])
+
+        def capitalize_first_alpha(string):
+            return re.sub("([a-z])", lambda x: x.groups()[0].upper(), string, 1)
+
+        class_name = "".join([capitalize_first_alpha(s) for s in name.split(".")[-1].split("_")])
         schema_class = getattr(module, class_name)
         return schema_class.parse_raw(json_str)

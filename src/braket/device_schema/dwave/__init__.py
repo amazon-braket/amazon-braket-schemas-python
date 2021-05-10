@@ -11,12 +11,22 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
+from braket.device_schema.dwave.dwave_2000Q_device_level_parameters_v1 import (  # noqa: F401
+    Dwave2000QDeviceLevelParameters,
+)
+from braket.device_schema.dwave.dwave_2000Q_device_parameters_v1 import (  # noqa: F401
+    Dwave2000QDeviceParameters,
+)
+from braket.device_schema.dwave.dwave_advantage_device_level_parameters_v1 import (  # noqa: F401
+    DwaveAdvantageDeviceLevelParameters,
+)
+from braket.device_schema.dwave.dwave_advantage_device_parameters_v1 import (  # noqa: F401
+    DwaveAdvantageDeviceParameters,
+)
 from braket.device_schema.dwave.dwave_device_capabilities_v1 import (  # noqa: F401
     DwaveDeviceCapabilities,
 )
 from braket.device_schema.dwave.dwave_device_parameters_v1 import (  # noqa: F401
-    Dwave2000QDeviceParameters,
-    DwaveAdvantageDeviceParameters,
     DwaveDeviceParameters,
 )
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (  # noqa: F401
