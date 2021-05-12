@@ -70,3 +70,14 @@ class DwaveAdvantageDeviceLevelParameters(BraketSchemaBase):
     reinitializeState: Optional[bool]
     resultFormat: Optional[ResultFormat]
     spinReversalTransformCount: Optional[int] = Field(gt=0)
+
+    class Config:
+        @staticmethod
+        def schema_extra(schema, model):
+            for prop, value in schema.get("properties", {}).items():
+                if prop != "braketSchemaHeader":
+                    try:
+                        was = value["type"]
+                        value["type"] = [was, "null"]
+                    except KeyError:
+                        pass

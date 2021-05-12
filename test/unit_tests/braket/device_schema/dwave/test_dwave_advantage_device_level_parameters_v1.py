@@ -14,8 +14,13 @@
 import json
 
 import pytest
+from jsonschema import validate
 from pydantic import ValidationError
 
+from braket.device_schema.dwave import (
+    DwaveAdvantageDeviceLevelParameters,
+    DwaveAdvantageDeviceParameters,
+)
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     DwaveProviderLevelParameters,
 )
@@ -24,20 +29,17 @@ from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
 def test_valid():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
+            "name": "braket.device_schema.dwave.dwave_advantage_device_level_parameters",
             "version": "1",
         },
         "annealingOffsets": [3.67, 6.123],
         "annealingSchedule": [[13.37, 10.08], [3.14, 1.618]],
         "annealingDuration": 500,
         "autoScale": None,
-        "beta": 123.456,
-        "chains": [[0, 1, 5], [6]],
         "compensateFluxDrift": False,
         "fluxBiases": [1.1, 2.2, 3.3, 4.4],
         "initialState": [1, 3, 0, 1],
         "maxResults": 20,
-        "postprocessingType": "SAMPLING",
         "programmingThermalizationDuration": 625,
         "readoutThermalizationDuration": 256,
         "reduceIntersampleCorrelation": False,
@@ -52,10 +54,37 @@ def test_valid():
 def test_invalid_attribute():
     input = {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
+            "name": "braket.device_schema.dwave.dwave_advantage_device_level_parameters",
             "version": "1",
         },
         "annealingOffsets": 1,
     }
     # annealingOffsets should be List[int]
     DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+
+
+# to demonstrate that validation ignore unkown fields
+def test_invalid_attribute_name():
+    input = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.dwave.dwave_advantage_device_level_parameters",
+            "version": "1",
+        },
+        "fakeParameter": "fakeValue",
+        "beta": 123.456,
+    }
+    # annealingOffsets should be List[int]
+    device_level_params = DwaveAdvantageDeviceLevelParameters.parse_raw_schema(json.dumps(input))
+    try:
+        assert device_level_params.beta
+        raise Exception("beta should not be parsed into the model")
+    except AttributeError:
+        pass
+    device_parameters = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.dwave.dwave_advantage_device_parameters",
+            "version": "1",
+        },
+        "deviceLevelParameters": input,
+    }
+    validate(device_parameters, DwaveAdvantageDeviceParameters.schema())
