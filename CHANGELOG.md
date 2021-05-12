@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.4 (2021-05-11)
+
+### Bug Fixes and Other Changes
+
+ * allow null values to be passed in for optional parameters
+
 ## v1.1.3 (2021-04-16)
 
 ### Bug Fixes and Other Changes
