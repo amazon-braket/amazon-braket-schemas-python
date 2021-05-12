@@ -715,7 +715,7 @@ class BitFlip(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> Bit_Flip(target=1, probability=0.1)
+        >>> BitFlip(target=1, probability=0.1)
     """
 
     class Type(str, Enum):
@@ -734,7 +734,7 @@ class PhaseFlip(SingleTarget, SingleProbability):
         target (int): The target qubit. This is an int >= 0.
 
     Examples:
-        >>> Phase_Flip(target=1, probability=0.1)
+        >>> PhaseFlip(target=1, probability=0.1)
     """
 
     class Type(str, Enum):
