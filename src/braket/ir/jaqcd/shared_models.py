@@ -132,6 +132,7 @@ class Angle(BaseModel):
 class SingleProbability(BaseModel):
     """
     A single probability parameter for bit/phase flip noise channel.
+    The probability range is [0,0.5] to make the channel meaningful.
 
     Attributes:
         probability (float): The probability for noise channel.
@@ -147,6 +148,7 @@ class SingleProbability(BaseModel):
 class SingleProbability_34(BaseModel):
     """
     A single probability parameter for depolarizing/two-qubit-dephasing noise channel.
+    The probability range is [0,3/4], as the channel is fully mixing at p = 3/4.
 
     Attributes:
         probability (float): The probability for noise channel.
@@ -162,6 +164,7 @@ class SingleProbability_34(BaseModel):
 class SingleProbability_1516(BaseModel):
     """
     A single probability parameter for two-qubit-depolarizing noise channel.
+    The probability range is [0,15/16], as the channel is fully mixing at p = 15/16.
 
     Attributes:
         probability (float): The probability for noise channel.
