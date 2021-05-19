@@ -32,6 +32,7 @@ setup(
             "black",
             "flake8",
             "isort",
+            "jsonschema",
             "pre-commit",
             "pylint",
             "pytest",
