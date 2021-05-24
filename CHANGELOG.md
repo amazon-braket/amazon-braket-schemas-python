@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.2.0 (2021-05-24)
+
+### Features
+
+ * Noise operators
+
+### Bug Fixes and Other Changes
+
+ * Revert "fix: change documentation for deviceLevelParameters (#86)"
+ * change documentation for deviceLevelParameters
+
+### Testing and Release Infrastructure
+
+ * tox for GitHub checks
+
 ## v1.1.4 (2021-05-11)
 
 ### Bug Fixes and Other Changes
