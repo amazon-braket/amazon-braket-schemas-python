@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic import BaseModel, confloat, conint, conlist, constr
+from pydantic import BaseModel, confloat, conint, conlist, constr, root_validator
 
 
 class SingleTarget(BaseModel):
@@ -129,12 +129,116 @@ class Angle(BaseModel):
     angle: confloat(gt=float("-inf"), lt=float("inf"))
 
 
-class TwoDimensionalMatrix(BaseModel):
+class SingleProbability(BaseModel):
     """
-    Two dimensional non-empty matrix.
+    A single probability parameter for bit/phase flip noise channel.
+    The probability range is [0,0.5] to make the channel meaningful.
 
     Attributes:
-        matrix (List[List[List[float]]]): Two dimensional matrix with complex entries.
+        probability (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> SingleProbability(probability=0.1)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("0.5"))
+
+
+class SingleProbability_34(BaseModel):
+    """
+    A single probability parameter for depolarizing/two-qubit-dephasing noise channel.
+    The probability range is [0,3/4], as the channel is fully mixing at p = 3/4.
+
+    Attributes:
+        probability (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> SingleProbability_34(probability=0.5)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("0.75"))
+
+
+class SingleProbability_1516(BaseModel):
+    """
+    A single probability parameter for two-qubit-depolarizing noise channel.
+    The probability range is [0,15/16], as the channel is fully mixing at p = 15/16.
+
+    Attributes:
+        probability (float): The probability for noise channel.
+            NaN is not an allowable input.
+
+    Examples:
+        >>> SingleProbability_1516(probability=0.1)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("0.9375"))
+
+
+class DampingProbability(BaseModel):
+    """
+    The parameter for the amplitude/phase damping channel
+
+    Attributes:
+        gamma (float): The probability of damping
+
+    Examples:
+        >>> DampingProbability(gamma=0.1)
+    """
+
+    gamma: confloat(ge=float("0.0"), le=float("1.0"))
+
+
+class DampingSingleProbability(BaseModel):
+    """
+    The parameter for the generalized amplitude damping channel
+
+    Attributes:
+        gamma (float): The probability of damping
+
+    Examples:
+        >>> DampingSingleProbability(probability=0.1)
+    """
+
+    probability: confloat(ge=float("0.0"), le=float("1.0"))
+
+
+class TripleProbability(BaseModel):
+    """
+    A triple-probability parameter set for the Pauli noise channel.
+
+    Attributes:
+        probX (float), probY (float), probZ (float): The coefficients of the
+        Pauli channel
+
+    Examples:
+        >>> TripleProbability(probX=0.1, probY=0.2, probZ=0.3)
+    """
+
+    probX: confloat(ge=float("0.0"), le=float("1.0"))
+    probY: confloat(ge=float("0.0"), le=float("1.0"))
+    probZ: confloat(ge=float("0.0"), le=float("1.0"))
+
+    @root_validator
+    def validate_probabilities(cls, values):
+        """
+        Pydantic uses the validation subsystem to create objects. This custom validator has
+        the purpose to ensure probX + probY + probZ <= 1.
+        """
+        p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
+        if p1 + p2 + p3 > 1:
+            raise ValueError("Sum of probabilities cannot exceed 1.")
+        return values
+
+
+class TwoDimensionalMatrix(BaseModel):
+    """
+    Two-dimensional non-empty matrix.
+
+    Attributes:
+        matrix (List[List[List[float]]]): Two-dimensional matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
@@ -152,6 +256,39 @@ class TwoDimensionalMatrix(BaseModel):
     )
 
 
+class TwoDimensionalMatrixList(BaseModel):
+    """
+    List of two-dimensional non-empty matrices.
+
+    Attributes:
+        matrix (List[List[List[List[float]]]]): Two-dimensional matrix with complex entries.
+            Each complex number is represented using a List[float] of size 2, with
+            element[0] being the real part and element[1] imaginary.
+            inf, -inf, and NaN are not allowable inputs for the element.
+            The number of matrices is limited to 16 and the size of each matrix is limited to 4*4.
+
+    Examples:
+        >>> TwoDimensionalMatrixList(matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
+                                               [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
+                                              ]
+                                    )
+    """
+
+    matrices: conlist(
+        conlist(
+            conlist(
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+                min_items=1,
+                max_items=4,
+            ),
+            min_items=1,
+            max_items=4,
+        ),
+        min_items=1,
+        max_items=16,
+    )
+
+
 class Observable(BaseModel):
     """
     An observable. If given list is more than one element, this is the tensor product
@@ -160,7 +297,7 @@ class Observable(BaseModel):
     Attributes:
         observable (List[Union[str, List[List[List[float]]]]): A list with at least
             one item and items are strings matching the observable regex
-            or a two dimensional hermitian matrix with complex entries.
+            or a two-dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.

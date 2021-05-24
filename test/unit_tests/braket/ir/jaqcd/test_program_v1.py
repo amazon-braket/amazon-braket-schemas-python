@@ -14,7 +14,7 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.jaqcd import CNot, Expectation, H
+from braket.ir.jaqcd import BitFlip, CNot, Expectation, H
 from braket.ir.jaqcd.program_v1 import Program
 
 
@@ -26,6 +26,11 @@ def test_missing_instructions_property():
 @pytest.mark.xfail(raises=ValidationError)
 def test_non_instruction():
     Program(instructions=["foo"])
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_wrong_instruction():
+    Program(instructions=[{"type": "foo", "target": 0}])
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -43,6 +48,11 @@ def test_partial_non_result():
 
 def test_instruction_no_results():
     program = Program(instructions=[CNot(control=0, target=1)])
+    assert Program.parse_raw(program.json()) == program
+
+
+def test_instruction_no_noise_results():
+    program = Program(instructions=[BitFlip(target=0, probability=0.1)])
     assert Program.parse_raw(program.json()) == program
 
 

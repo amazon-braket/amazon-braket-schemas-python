@@ -28,6 +28,30 @@ def angle_valid_input():
     return {"angle": 0.123}
 
 
+def single_probability_valid_input():
+    return {"probability": 0.321}
+
+
+def single_probability_34_valid_input():
+    return {"probability": 0.321}
+
+
+def single_probability_1516_valid_input():
+    return {"probability": 0.321}
+
+
+def damping_probability_valid_input():
+    return {"gamma": 0.321}
+
+
+def damping_single_probability_valid_input():
+    return {"probability": 0.321}
+
+
+def triple_probability_valid_input():
+    return {"probX": 0.121, "probY": 0.112, "probZ": 0.132}
+
+
 def single_control_valid_input():
     return {"control": 0}
 
@@ -42,6 +66,12 @@ def multi_control_valid_input():
 
 def two_dimensional_matrix_valid_input():
     return {"matrix": [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]}
+
+
+def two_dimensional_matrix_list_valid_input():
+    return {
+        "matrices": [[[[1, 0], [0, 0]], [[0, 0], [1, 0]]], [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]]
+    }
 
 
 def observable_valid_input():
@@ -74,10 +104,17 @@ def create_switcher(type):
         "DoubleTarget": two_target_valid_input,
         "MultiTarget": multi_target_valid_input,
         "Angle": angle_valid_input,
+        "SingleProbability": single_probability_valid_input,
+        "SingleProbability_34": single_probability_34_valid_input,
+        "SingleProbability_1516": single_probability_1516_valid_input,
+        "DampingProbability": damping_probability_valid_input,
+        "DampingSingleProbability": damping_single_probability_valid_input,
+        "TripleProbability": triple_probability_valid_input,
         "SingleControl": single_control_valid_input,
         "DoubleControl": two_control_valid_input,
         "MultiControl": multi_control_valid_input,
         "TwoDimensionalMatrix": two_dimensional_matrix_valid_input,
+        "TwoDimensionalMatrixList": two_dimensional_matrix_list_valid_input,
         "Observable": observable_valid_input,
         "MultiState": multi_state_valid_input,
         "OptionalMultiTarget": multi_target_valid_input,

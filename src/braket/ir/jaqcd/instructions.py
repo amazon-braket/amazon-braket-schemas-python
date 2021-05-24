@@ -15,12 +15,19 @@ from enum import Enum
 
 from braket.ir.jaqcd.shared_models import (
     Angle,
+    DampingProbability,
+    DampingSingleProbability,
     DoubleControl,
     DoubleTarget,
     MultiTarget,
     SingleControl,
+    SingleProbability,
+    SingleProbability_34,
+    SingleProbability_1516,
     SingleTarget,
+    TripleProbability,
     TwoDimensionalMatrix,
+    TwoDimensionalMatrixList,
 )
 
 """
@@ -696,3 +703,199 @@ class Unitary(TwoDimensionalMatrix, MultiTarget):
         unitary = "unitary"
 
     type = Type.unitary
+
+
+class BitFlip(SingleTarget, SingleProbability):
+    """
+    Bit Flip noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "bit_flip". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> BitFlip(target=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        bit_flip = "bit_flip"
+
+    type = Type.bit_flip
+
+
+class PhaseFlip(SingleTarget, SingleProbability):
+    """
+    Phase Flip noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "phase_flip". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> PhaseFlip(target=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        phase_flip = "phase_flip"
+
+    type = Type.phase_flip
+
+
+class PauliChannel(SingleTarget, TripleProbability):
+    """
+    Genearal Pauli noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "pauli_channel". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> PauliChannel(target=1, probX=0.1, probY=0.2, probZ=0.3)
+    """
+
+    class Type(str, Enum):
+        pauli_channel = "pauli_channel"
+
+    type = Type.pauli_channel
+
+
+class Depolarizing(SingleTarget, SingleProbability_34):
+    """
+    Depolarizing noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "depolarizing". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> Depolarizing(target=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        depolarizing = "depolarizing"
+
+    type = Type.depolarizing
+
+
+class TwoQubitDepolarizing(DoubleTarget, SingleProbability_1516):
+    """
+    Two-Qubit Depolarizing noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "two_qubit_depolarizing".
+            (type) is optional. This should be unique among all instruction types.
+        target (int): The target qubits. This is an int >= 0.
+
+    Examples:
+        >>> TwoQubitDepolarizing(target1=0, target2=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        two_qubit_depolarizing = "two_qubit_depolarizing"
+
+    type = Type.two_qubit_depolarizing
+
+
+class TwoQubitDephasing(DoubleTarget, SingleProbability_34):
+    """
+    Two-Qubit Dephasing noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "two_qubit_dephasing".
+            (type) is optional. This should be unique among all instruction types.
+        target (int): The target qubits. This is an int >= 0.
+
+    Examples:
+        >>> TwoQubitDephasing(target1=0, target2=1, probability=0.1)
+    """
+
+    class Type(str, Enum):
+        two_qubit_dephasing = "two_qubit_dephasing"
+
+    type = Type.two_qubit_dephasing
+
+
+class AmplitudeDamping(SingleTarget, DampingProbability):
+    """
+    Amplitude Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "amplitude_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> AmplitudeDamping(target=1, gamma=0.1)
+    """
+
+    class Type(str, Enum):
+        amplitude_damping = "amplitude_damping"
+
+    type = Type.amplitude_damping
+
+
+class GeneralizedAmplitudeDamping(SingleTarget, DampingProbability, DampingSingleProbability):
+    """
+    Generalized Amplitude Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "generalized_amplitude_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> GeneralizedAmplitudeDamping(target=1, gamma=0.1, probability=0.9)
+    """
+
+    class Type(str, Enum):
+        generalized_amplitude_damping = "generalized_amplitude_damping"
+
+    type = Type.generalized_amplitude_damping
+
+
+class PhaseDamping(SingleTarget, DampingProbability):
+    """
+    Phase Damping noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "phase_damping". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> PhaseDamping(target=1, gamma=0.1)
+    """
+
+    class Type(str, Enum):
+        phase_damping = "phase_damping"
+
+    type = Type.phase_damping
+
+
+class Kraus(TwoDimensionalMatrixList, MultiTarget):
+    """
+    Arbitrary quantum channel defined by the input matrices.
+
+    Attributes:
+        type (str): The instruction type. default = "kraus". (type) is optional.
+            This should be unique among all instruction types.
+        targets (List[int]): The target qubits. This is a list with ints and all ints >= 0.
+        matrices (List[List[List[List[float]]]]): A list of matrices specifying
+            the quantum channel. A complex number is represented as a list of 2
+            real numbers. So each matrix has type List[List[List[float]]].
+
+    Examples:
+        >>> matrix1 = [[[1/sqrt(2), 0],[0, 0]],[[0, 0],[1/sqrt(2), 0]]]
+        >>> matrix2 = [[[0, 0],[1/sqrt(2), 0]],[[1/sqrt(2), 0],[0, 0]]]
+        >>> matrices = [matrix1, matrix2]
+        >>> Kraus(targets=[0], matrices=matrices)
+    """
+
+    class Type(str, Enum):
+        kraus = "kraus"
+
+    type = Type.kraus
