@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.1 (2021-05-26)
+
+### Bug Fixes and Other Changes
+
+ * Add schema helper methods, modify device level tests, and fix some docs
+
 ## v1.2.0 (2021-05-24)
 
 ### Features
