@@ -10,6 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
+from importlib import import_module
 
 from pydantic import BaseModel, constr
 
@@ -28,3 +29,30 @@ class BraketSchemaHeader(BaseModel):
 
     name: constr(min_length=1)
     version: constr(min_length=1, max_length=50)
+
+    def get_module_name(self):
+        return self.name + "_v" + self.version
+
+    def get_package_name(self):
+        return ".".join(self.name.split(".")[:-1])
+
+    def import_schema_module(self):
+        """
+        Imports the module that holds the schema given by the header
+
+        Returns:
+            Module of the corresponding schema
+
+        Raises:
+            ModuleNotFoundError: If the schema module cannot be found according to
+            schema header
+        """
+        module_name = self.get_module_name()
+        package_name = self.get_package_name()
+        try:
+            return import_module(module_name, package=package_name)
+        except ModuleNotFoundError:
+            raise ModuleNotFoundError(
+                f"Amazon Braket could not find the module, {module_name}. "
+                "To continue, upgrade your installation of amazon-braket-schemas."
+            )

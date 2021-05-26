@@ -62,3 +62,63 @@ def test_parse_raw_schema():
     )
     assert schema == BraketSchemaBase.parse_raw_schema(schema.json())
     assert isinstance(schema, TaskMetadata)
+
+
+def test_get_schema_class():
+    schema = TaskMetadata(
+        id="test_id",
+        deviceId="device_id",
+        shots=1000,
+    )
+    module = BraketSchemaBase.import_schema_module(schema)
+    name = schema.braketSchemaHeader.name
+    assert TaskMetadata == BraketSchemaBase.get_schema_class(module, name)
+
+
+@pytest.mark.xfail(raises=AttributeError)
+def test_get_schema_class_invalid_name():
+    schema = TaskMetadata(
+        id="test_id",
+        deviceId="device_id",
+        shots=1000,
+    )
+    module = BraketSchemaBase.import_schema_module(schema)
+    name = schema.braketSchemaHeader.name + ".0"
+    assert TaskMetadata == BraketSchemaBase.get_schema_class(module, name)
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "braket.device_schema.dwave.dwave_2000Q_device_level_parameters",
+        "braket.device_schema.dwave.dwave_2000Q_device_parameters",
+        "braket.device_schema.dwave.dwave_advantage_device_level_parameters",
+        "braket.device_schema.dwave.dwave_advantage_device_parameters",
+        "braket.device_schema.dwave.dwave_device_capabilities",
+        "braket.device_schema.dwave.dwave_device_parameters",
+        "braket.device_schema.dwave.dwave_provider_level_parameters",
+        "braket.device_schema.dwave.dwave_provider_properties",
+        "braket.device_schema.ionq.ionq_device_capabilities",
+        "braket.device_schema.ionq.ionq_device_parameters",
+        "braket.device_schema.ionq.ionq_provider_properties",
+        "braket.device_schema.rigetti.rigetti_device_capabilities",
+        "braket.device_schema.rigetti.rigetti_device_parameters",
+        "braket.device_schema.rigetti.rigetti_provider_properties",
+        "braket.device_schema.simulators.gate_model_simulator_device_capabilities",
+        "braket.device_schema.simulators.gate_model_simulator_device_parameters",
+        "braket.device_schema.simulators.gate_model_simulator_paradigm_properties",
+        "braket.device_schema.device_service_properties",
+        "braket.device_schema.gate_model_parameters",
+        "braket.device_schema.gate_model_qpu_paradigm_properties",
+        "braket.ir.annealing.problem",
+        "braket.ir.jaqcd.program",
+        "braket.task_result.annealing_task_result",
+        "braket.task_result.dwave_metadata",
+        "braket.task_result.gate_model_task_result",
+        "braket.task_result.rigetti_metadata",
+        "braket.task_result.simulator_metadata",
+        "braket.task_result.task_metadata",
+    ],
+)
+def test_no_header_typos(name):
+    BraketSchemaHeader(name=name, version=1).import_schema_module()

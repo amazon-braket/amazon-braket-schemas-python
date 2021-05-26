@@ -13,7 +13,6 @@
 from __future__ import annotations
 
 import re
-from importlib import import_module
 
 from pydantic import BaseModel
 
@@ -50,16 +49,7 @@ class BraketSchemaBase(BaseModel):
             >> module = import_schema_module(schema)
             >> module.AnnealingTaskResult.parse_raw(json_string)
         """
-        name = schema.braketSchemaHeader.name
-        version = schema.braketSchemaHeader.version
-        module_name = name + "_v" + version
-        try:
-            return import_module(module_name)
-        except ModuleNotFoundError:
-            raise ModuleNotFoundError(
-                f"Amazon Braket could not find the module, {module_name}. "
-                "To continue, upgrade your installation of amazon-braket-schemas."
-            )
+        return schema.braketSchemaHeader.import_schema_module()
 
     @staticmethod
     def parse_raw_schema(json_str: str) -> BraketSchemaBase:
@@ -76,10 +66,13 @@ class BraketSchemaBase(BaseModel):
         schema = BraketSchemaBase.parse_raw(json_str)
         module = BraketSchemaBase.import_schema_module(schema)
         name = schema.braketSchemaHeader.name
+        schema_class = BraketSchemaBase.get_schema_class(module, name)
+        return schema_class.parse_raw(json_str)
 
+    @staticmethod
+    def get_schema_class(module, name):
         def capitalize_first_alpha(string):
             return re.sub("([a-z])", lambda x: x.groups()[0].upper(), string, 1)
 
         class_name = "".join([capitalize_first_alpha(s) for s in name.split(".")[-1].split("_")])
-        schema_class = getattr(module, class_name)
-        return schema_class.parse_raw(json_str)
+        return getattr(module, class_name)

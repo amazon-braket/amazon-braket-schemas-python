@@ -53,7 +53,7 @@ def test_validation():
                 "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
                 "version": "1",
             },
-            "autoScale": None,
+            "autoScale": False,
         },
     }
     assert DwaveDeviceParameters.parse_raw_schema(json.dumps(input))
