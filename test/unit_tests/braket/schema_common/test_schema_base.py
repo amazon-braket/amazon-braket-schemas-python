@@ -73,3 +73,15 @@ def test_get_schema_class():
     module = BraketSchemaBase.import_schema_module(schema)
     name = schema.braketSchemaHeader.name
     assert TaskMetadata == BraketSchemaBase.get_schema_class(module, name)
+
+
+@pytest.mark.xfail(raises=AttributeError)
+def test_get_schema_class_invalid_name():
+    schema = TaskMetadata(
+        id="test_id",
+        deviceId="device_id",
+        shots=1000,
+    )
+    module = BraketSchemaBase.import_schema_module(schema)
+    name = schema.braketSchemaHeader.name + ".0"
+    assert TaskMetadata == BraketSchemaBase.get_schema_class(module, name)
