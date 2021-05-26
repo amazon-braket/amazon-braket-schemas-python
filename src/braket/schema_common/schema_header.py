@@ -33,6 +33,9 @@ class BraketSchemaHeader(BaseModel):
     def get_module_name(self):
         return self.name + "_v" + self.version
 
+    def get_package_name(self):
+        return ".".join(self.name.split(".")[:-1])
+
     def import_schema_module(self):
         """
         Imports the module that holds the schema given by the header
@@ -45,8 +48,9 @@ class BraketSchemaHeader(BaseModel):
             schema header
         """
         module_name = self.get_module_name()
+        package_name = self.get_package_name()
         try:
-            return import_module(module_name)
+            return import_module(module_name, package=package_name)
         except ModuleNotFoundError:
             raise ModuleNotFoundError(
                 f"Amazon Braket could not find the module, {module_name}. "
