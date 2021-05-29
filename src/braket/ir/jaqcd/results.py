@@ -120,6 +120,24 @@ class StateVector(BaseModel):
     type = Type.statevector
 
 
+class UnitaryMatrix(BaseModel):
+    """
+    The circuit unitary matrix as requested result.
+
+    Attributes:
+        type (str): The result type. default = "unitarymatrix". (type) is optional.
+            This should be unique among all result types.
+
+    Examples:
+        >>> UnitaryMatrix()
+    """
+
+    class Type(str, Enum):
+        unitarymatrix = "unitarymatrix"
+
+    type = Type.unitarymatrix
+
+
 class DensityMatrix(OptionalMultiTarget):
     """
     The density matrix as requested result.

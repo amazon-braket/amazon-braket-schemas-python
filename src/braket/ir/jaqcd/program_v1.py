@@ -66,6 +66,7 @@ from braket.ir.jaqcd.results import (
     Probability,
     Sample,
     StateVector,
+    UnitaryMatrix,
     Variance,
 )
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -122,7 +123,9 @@ _valid_noise_channels = {
     Kraus.Type.kraus: Kraus,
 }
 
-Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
+Results = Union[
+    Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, UnitaryMatrix, Variance
+]
 
 
 class Program(BraketSchemaBase):
@@ -136,7 +139,7 @@ class Program(BraketSchemaBase):
         basis_rotation_instructions (List[Any]): List of instructions for
             rotation to desired measurement bases. Default is None.
         results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector,
-        DensityMatrix, Variance]]):
+        DensityMatrix, UnitaryMatrix, Variance]]):
             List of requested results. Default is None.
 
     Examples:

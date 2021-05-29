@@ -18,6 +18,7 @@ from braket.ir.jaqcd.results import (
     Probability,
     Sample,
     StateVector,
+    UnitaryMatrix,
     Variance,
 )
 from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
@@ -28,6 +29,7 @@ testdata = [
     (Sample, [OptionalMultiTarget, Observable], "sample"),
     (Probability, [OptionalMultiTarget], "probability"),
     (StateVector, [], "statevector"),
+    (UnitaryMatrix, [], "unitarymatrix"),
     (DensityMatrix, [OptionalMultiTarget], "densitymatrix"),
     (Variance, [OptionalMultiTarget, Observable], "variance"),
 ]

@@ -63,5 +63,6 @@ from braket.ir.jaqcd.results import (  # noqa: F401
     Probability,
     Sample,
     StateVector,
+    UnitaryMatrix,
     Variance,
 )
