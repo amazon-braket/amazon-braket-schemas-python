@@ -21,7 +21,15 @@ from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
 )
 
 
-def test_valid():
+@pytest.mark.parametrize(
+    "annealing_duration",
+    (1, 500, pytest.param(0, marks=pytest.mark.xfail(reason="positive int constraint"))),
+)
+@pytest.mark.parametrize(
+    "max_results",
+    (1, 500, pytest.param(0, marks=pytest.mark.xfail(reason="positive int constraint"))),
+)
+def test_valid(annealing_duration, max_results):
     input = {
         "braketSchemaHeader": {
             "name": "braket.device_schema.dwave.dwave_provider_level_parameters",
@@ -29,14 +37,14 @@ def test_valid():
         },
         "annealingOffsets": [3.67, 6.123],
         "annealingSchedule": [[13.37, 10.08], [3.14, 1.618]],
-        "annealingDuration": 1,
+        "annealingDuration": annealing_duration,
         "autoScale": None,
         "beta": 123.456,
         "chains": [[0, 1, 5], [6]],
         "compensateFluxDrift": False,
         "fluxBiases": [1.1, 2.2, 3.3, 4.4],
         "initialState": [1, 3, 0, 1],
-        "maxResults": 1,
+        "maxResults": max_results,
         "postprocessingType": "SAMPLING",
         "programmingThermalizationDuration": 625,
         "readoutThermalizationDuration": 256,
