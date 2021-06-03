@@ -29,7 +29,7 @@ from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
 )
 @pytest.mark.parametrize(
     "max_results",
-    (1, 500, pytest.param(0, marks=pytest.mark.xfail(reason="positive int constraint"))),
+    (1, 20, pytest.param(0, marks=pytest.mark.xfail(reason="positive int constraint"))),
 )
 def test_valid(annealing_duration, max_results):
     input = {
