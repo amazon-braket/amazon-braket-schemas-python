@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.2 (2021-06-04)
+
+### Bug Fixes and Other Changes
+
+ * fix d-wave schema constraints
+
 ## v1.2.1 (2021-05-26)
 
 ### Bug Fixes and Other Changes
