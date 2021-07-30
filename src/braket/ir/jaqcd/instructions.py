@@ -1,4 +1,4 @@
-# Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright 2019-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -15,6 +15,7 @@ from enum import Enum
 
 from braket.ir.jaqcd.shared_models import (
     Angle,
+    CompilerDirective,
     DampingProbability,
     DampingSingleProbability,
     DoubleControl,
@@ -899,3 +900,47 @@ class Kraus(TwoDimensionalMatrixList, MultiTarget):
         kraus = "kraus"
 
     type = Type.kraus
+
+
+class StartVerbatimBlock(CompilerDirective):
+    """
+    StartVerbatimBLock is a compiler instruction to start the code block which
+    will preserve the instruction within StartPreserveBlock and EndVerbatimBlock
+    from being modified in any way by the compiler.
+
+    Attributes:
+        type (str): The instruction type. default = "start_verbatim_block". (type) is optional.
+            This should be unique among all instruction types.
+
+    Examples:
+        >>> StartVerbatimBlock()
+    """
+
+    class Type(str, Enum):
+        start_verbatim_block = "start_verbatim_block"
+
+    type = Type.start_verbatim_block
+
+    directive: str = "StartVerbatimBlock"
+
+
+class EndVerbatimBlock(CompilerDirective):
+    """
+    EndVerbatimBlock is a compiler instruction to mark the end of the code block
+    which will preserve the instruction within StartPreserveBlock and EndVerbatimBlock
+    from being  modified in any way by the compiler.
+
+    Attributes:
+        type (str): The instruction type. default = "end_verbatim_block". (type) is optional.
+            This should be unique among all instruction types.
+
+    Examples:
+        >>> EndVerbatimBlock()
+    """
+
+    class Type(str, Enum):
+        end_verbatim_block = "end_verbatim_block"
+
+    type = Type.end_verbatim_block
+
+    directive: str = "EndVerbatimBlock"
