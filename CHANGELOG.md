@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.0 (2021-08-05)
+
+### Features
+
+ * support for StartPreserveBlock and EndPreserveBlock instructions.
+
 ## v1.2.2 (2021-06-04)
 
 ### Bug Fixes and Other Changes
