@@ -14,7 +14,7 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.jaqcd import BitFlip, CNot, EndVerbatimBlock, Expectation, H, StartVerbatimBlock
+from braket.ir.jaqcd import BitFlip, CNot, EndVerbatimBox, Expectation, H, StartVerbatimBox
 from braket.ir.jaqcd.program_v1 import Program
 
 
@@ -81,13 +81,13 @@ def test_rotation_basis_instruction():
     Program(instructions=[CNot(control=0, target=1)], basis_rotation_instructions=[H(target=1)])
 
 
-def test_start_verbatim_block_instruction():
-    Program(instructions=[StartVerbatimBlock()])
+def test_start_verbatim_box_instruction():
+    Program(instructions=[StartVerbatimBox()])
 
 
-def test_end_verbatim_block_instruction():
-    Program(instructions=[EndVerbatimBlock()])
+def test_end_verbatim_box_instruction():
+    Program(instructions=[EndVerbatimBox()])
 
 
 def test_type_validation_for_compiler_directive():
-    Program(instructions=[{"type": "end_verbatim_block"}])
+    Program(instructions=[{"type": "end_verbatim_box"}])

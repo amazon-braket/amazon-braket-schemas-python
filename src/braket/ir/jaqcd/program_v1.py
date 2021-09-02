@@ -32,7 +32,7 @@ from braket.ir.jaqcd.instructions import (
     CPhaseShift10,
     CSwap,
     Depolarizing,
-    EndVerbatimBlock,
+    EndVerbatimBox,
     GeneralizedAmplitudeDamping,
     H,
     I,
@@ -48,7 +48,7 @@ from braket.ir.jaqcd.instructions import (
     Rz,
     S,
     Si,
-    StartVerbatimBlock,
+    StartVerbatimBox,
     Swap,
     T,
     Ti,
@@ -125,8 +125,8 @@ _valid_noise_channels = {
 }
 
 _valid_compiler_directives = {
-    StartVerbatimBlock.Type.start_verbatim_block: StartVerbatimBlock,
-    EndVerbatimBlock.Type.end_verbatim_block: EndVerbatimBlock,
+    StartVerbatimBox.Type.start_verbatim_box: StartVerbatimBox,
+    EndVerbatimBox.Type.end_verbatim_box: EndVerbatimBox,
 }
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
