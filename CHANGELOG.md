@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.4.0 (2021-09-02)
+
+### Features
+
+ * StartVerbatimBox and EndVerbatimBox
+
+### Bug Fixes and Other Changes
+
+ * Update copyright headers
+
 ## v1.3.0 (2021-08-05)
 
 ### Features
