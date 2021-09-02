@@ -902,45 +902,45 @@ class Kraus(TwoDimensionalMatrixList, MultiTarget):
     type = Type.kraus
 
 
-class StartVerbatimBlock(CompilerDirective):
+class StartVerbatimBox(CompilerDirective):
     """
-    StartVerbatimBLock is a compiler instruction to start the code block which
-    will preserve the instruction within StartPreserveBlock and EndVerbatimBlock
+    StartVerbatimBox is a compiler instruction to start a portion of code that
+    will preserve the instruction within StartVerbatimBox and EndVerbatimBox
     from being modified in any way by the compiler.
 
     Attributes:
-        type (str): The instruction type. default = "start_verbatim_block". (type) is optional.
+        type (str): The instruction type. default = "start_verbatim_box". (type) is optional.
             This should be unique among all instruction types.
 
     Examples:
-        >>> StartVerbatimBlock()
+        >>> StartVerbatimBox()
     """
 
     class Type(str, Enum):
-        start_verbatim_block = "start_verbatim_block"
+        start_verbatim_box = "start_verbatim_box"
 
-    type = Type.start_verbatim_block
+    type = Type.start_verbatim_box
 
-    directive: str = "StartVerbatimBlock"
+    directive: str = "StartVerbatimBox"
 
 
-class EndVerbatimBlock(CompilerDirective):
+class EndVerbatimBox(CompilerDirective):
     """
-    EndVerbatimBlock is a compiler instruction to mark the end of the code block
-    which will preserve the instruction within StartPreserveBlock and EndVerbatimBlock
+    EndVerbatimBox is a compiler instruction to mark the end of a portion of code
+    that preserves the instruction within StartVerbatimBox and EndVerbatimBox
     from being  modified in any way by the compiler.
 
     Attributes:
-        type (str): The instruction type. default = "end_verbatim_block". (type) is optional.
+        type (str): The instruction type. default = "end_verbatim_box". (type) is optional.
             This should be unique among all instruction types.
 
     Examples:
-        >>> EndVerbatimBlock()
+        >>> EndVerbatimBox()
     """
 
     class Type(str, Enum):
-        end_verbatim_block = "end_verbatim_block"
+        end_verbatim_box = "end_verbatim_box"
 
-    type = Type.end_verbatim_block
+    type = Type.end_verbatim_box
 
-    directive: str = "EndVerbatimBlock"
+    directive: str = "EndVerbatimBox"
