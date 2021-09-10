@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.0.post0 (2021-09-10)
+
+### Documentation Changes
+
+ * Fix jaqcd typo in README.md
+
 ## v1.4.0 (2021-09-02)
 
 ### Features
