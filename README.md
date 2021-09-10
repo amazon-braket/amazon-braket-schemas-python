@@ -50,7 +50,7 @@ or alternatively from within Python:
 ```
 
 ## Usage
-There are currently two types of IR, including jacqd (JsonAwsQuantumCircuitDescription) and annealing. See below for their usage.
+There are currently two types of IR, including jaqcd (JsonAwsQuantumCircuitDescription) and annealing. See below for their usage.
 
 **Serializing python structures**
 ```python
