@@ -1,4 +1,4 @@
-# Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -14,7 +14,7 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.jaqcd import BitFlip, CNot, Expectation, H
+from braket.ir.jaqcd import BitFlip, CNot, EndVerbatimBox, Expectation, H, StartVerbatimBox
 from braket.ir.jaqcd.program_v1 import Program
 
 
@@ -79,3 +79,15 @@ def test_no_rotation_basis_instruction():
 
 def test_rotation_basis_instruction():
     Program(instructions=[CNot(control=0, target=1)], basis_rotation_instructions=[H(target=1)])
+
+
+def test_start_verbatim_box_instruction():
+    Program(instructions=[StartVerbatimBox()])
+
+
+def test_end_verbatim_box_instruction():
+    Program(instructions=[EndVerbatimBox()])
+
+
+def test_type_validation_for_compiler_directive():
+    Program(instructions=[{"type": "end_verbatim_box"}])

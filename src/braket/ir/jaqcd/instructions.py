@@ -1,4 +1,4 @@
-# Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -15,6 +15,7 @@ from enum import Enum
 
 from braket.ir.jaqcd.shared_models import (
     Angle,
+    CompilerDirective,
     DampingProbability,
     DampingSingleProbability,
     DoubleControl,
@@ -899,3 +900,47 @@ class Kraus(TwoDimensionalMatrixList, MultiTarget):
         kraus = "kraus"
 
     type = Type.kraus
+
+
+class StartVerbatimBox(CompilerDirective):
+    """
+    StartVerbatimBox is a compiler instruction to start a portion of code that
+    will preserve the instruction within StartVerbatimBox and EndVerbatimBox
+    from being modified in any way by the compiler.
+
+    Attributes:
+        type (str): The instruction type. default = "start_verbatim_box". (type) is optional.
+            This should be unique among all instruction types.
+
+    Examples:
+        >>> StartVerbatimBox()
+    """
+
+    class Type(str, Enum):
+        start_verbatim_box = "start_verbatim_box"
+
+    type = Type.start_verbatim_box
+
+    directive: str = "StartVerbatimBox"
+
+
+class EndVerbatimBox(CompilerDirective):
+    """
+    EndVerbatimBox is a compiler instruction to mark the end of a portion of code
+    that preserves the instruction within StartVerbatimBox and EndVerbatimBox
+    from being  modified in any way by the compiler.
+
+    Attributes:
+        type (str): The instruction type. default = "end_verbatim_box". (type) is optional.
+            This should be unique among all instruction types.
+
+    Examples:
+        >>> EndVerbatimBox()
+    """
+
+    class Type(str, Enum):
+        end_verbatim_box = "end_verbatim_box"
+
+    type = Type.end_verbatim_box
+
+    directive: str = "EndVerbatimBox"

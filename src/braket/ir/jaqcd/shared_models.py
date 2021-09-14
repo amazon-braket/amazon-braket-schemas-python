@@ -1,4 +1,4 @@
-# Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -335,3 +335,19 @@ class MultiState(BaseModel):
     """
 
     states: conlist(constr(regex="^[01]+$", min_length=1), min_items=1)
+
+
+class CompilerDirective(BaseModel):
+    """
+    A Compiler Directive to preserve a block of code between StartVerbatimBlock
+    and EndVerbatimBlock directives.
+
+    Attributes:
+        directive (List [StartVerbatimBlock | EndVerbatimBlock])
+
+    Examples:
+        >>> CompilerDirective (directive="StartVerbatimBlock")
+        >>> CompilerDirective (directive="EndVerbatimBlock")
+    """
+
+    directive: constr(regex="^(Start|End)VerbatimBlock$")

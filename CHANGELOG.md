@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.4.0.post0 (2021-09-10)
+
+### Documentation Changes
+
+ * Fix jaqcd typo in README.md
+
+## v1.4.0 (2021-09-02)
+
+### Features
+
+ * StartVerbatimBox and EndVerbatimBox
+
+### Bug Fixes and Other Changes
+
+ * Update copyright headers
+
+## v1.3.0 (2021-08-05)
+
+### Features
+
+ * support for StartPreserveBlock and EndPreserveBlock instructions.
+
 ## v1.2.2 (2021-06-04)
 
 ### Bug Fixes and Other Changes

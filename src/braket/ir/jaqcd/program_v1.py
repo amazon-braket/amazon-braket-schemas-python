@@ -1,4 +1,4 @@
-# Copyright 2019-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"). You
 # may not use this file except in compliance with the License. A copy of
@@ -32,6 +32,7 @@ from braket.ir.jaqcd.instructions import (
     CPhaseShift10,
     CSwap,
     Depolarizing,
+    EndVerbatimBox,
     GeneralizedAmplitudeDamping,
     H,
     I,
@@ -47,6 +48,7 @@ from braket.ir.jaqcd.instructions import (
     Rz,
     S,
     Si,
+    StartVerbatimBox,
     Swap,
     T,
     Ti,
@@ -120,6 +122,11 @@ _valid_noise_channels = {
     TwoQubitDephasing.Type.two_qubit_dephasing: TwoQubitDephasing,
     TwoQubitDepolarizing.Type.two_qubit_depolarizing: TwoQubitDepolarizing,
     Kraus.Type.kraus: Kraus,
+}
+
+_valid_compiler_directives = {
+    StartVerbatimBox.Type.start_verbatim_box: StartVerbatimBox,
+    EndVerbatimBox.Type.end_verbatim_box: EndVerbatimBox,
 }
 
 Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
@@ -207,8 +214,12 @@ class Program(BraketSchemaBase):
         2. Validate that the input instructions are supported
         """
         if isinstance(value, BaseModel):
-            if (value.type not in _valid_gates) and (value.type not in _valid_noise_channels):
-                raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            if (
+                (value.type not in _valid_gates)
+                and (value.type not in _valid_noise_channels)
+                and (value.type not in _valid_compiler_directives)
+            ):
+                raise ValueError(f"Invalid value.type specified: {value} for field: {field}")
             return value
 
         if value is not None and "type" in value:
@@ -216,7 +227,9 @@ class Program(BraketSchemaBase):
                 return _valid_gates[value["type"]](**value)
             elif value["type"] in _valid_noise_channels:
                 return _valid_noise_channels[value["type"]](**value)
+            elif value["type"] in _valid_compiler_directives:
+                return _valid_compiler_directives[value["type"]](**value)
             else:
-                raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+                raise ValueError(f"Invalid instruction specified: {value} for field: {field}")
         else:
-            raise ValueError(f"Invalid gate specified: {value} for field: {field}")
+            raise ValueError(f"Invalid type or value specified: {value} for field: {field}")
