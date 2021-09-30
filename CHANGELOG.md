@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.4.1 (2021-09-30)
+
 ## v1.4.0.post0 (2021-09-10)
 
 ### Documentation Changes
