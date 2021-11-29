@@ -118,6 +118,7 @@ def test_get_schema_class_invalid_name():
         "braket.task_result.rigetti_metadata",
         "braket.task_result.simulator_metadata",
         "braket.task_result.task_metadata",
+        "braket.jobs_data.persisted_job_data",
     ],
 )
 def test_no_header_typos(name):
