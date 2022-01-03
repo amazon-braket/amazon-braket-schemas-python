@@ -82,7 +82,7 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsets: Optional[List[float]]
     annealingSchedule: Optional[List[List[float]]]
-    annealingDuration: Optional[int] = Field(gt=0)
+    annealingDuration: Optional[float] = Field(gt=0)
     autoScale: Optional[bool]
     beta: Optional[float]
     chains: Optional[List[List[int]]]
