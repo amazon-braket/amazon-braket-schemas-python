@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.5.1 (2022-01-04)
+
+### Bug Fixes and Other Changes
+
+ * change annealingDurationRange to a list of floats.
+
+## v1.5.0 (2021-11-29)
+
+### Features
+
+ * Add support for jobs
+
+## v1.4.1 (2021-09-30)
+
 ## v1.4.0.post0 (2021-09-10)
 
 ### Documentation Changes

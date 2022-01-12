@@ -39,7 +39,7 @@ class DwaveProviderProperties(BraketSchemaBase):
         ...    "annealingOffsetStep": 1.45,
         ...    "annealingOffsetStepPhi0": 1.45,
         ...    "annealingOffsetRanges": [[1.45, 1.45], [1.45, 1.45]],
-        ...    "annealingDurationRange": [1, 2, 3],
+        ...    "annealingDurationRange": [1.45, 2.45, 3],
         ...    "couplers": [[1, 2, 3], [1, 2, 3]],
         ...    "defaultAnnealingDuration": 1,
         ...    "defaultProgrammingThermalizationDuration": 1,
@@ -69,7 +69,7 @@ class DwaveProviderProperties(BraketSchemaBase):
     annealingOffsetStep: float
     annealingOffsetStepPhi0: float
     annealingOffsetRanges: List[List[float]]
-    annealingDurationRange: List[int]
+    annealingDurationRange: List[float]
     couplers: List[List[int]]
     defaultAnnealingDuration: int
     defaultProgrammingThermalizationDuration: int

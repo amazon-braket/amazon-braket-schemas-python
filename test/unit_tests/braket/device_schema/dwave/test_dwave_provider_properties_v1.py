@@ -29,7 +29,7 @@ def valid_input():
         "annealingOffsetStep": 1.45,
         "annealingOffsetStepPhi0": 1.45,
         "annealingOffsetRanges": [[1.45, 1.45], [1.45, 1.45]],
-        "annealingDurationRange": [1, 2, 3],
+        "annealingDurationRange": [1.45, 2.45, 3],
         "couplers": [[1, 2, 3], [1, 2, 3]],
         "defaultAnnealingDuration": 1,
         "defaultProgrammingThermalizationDuration": 1,
