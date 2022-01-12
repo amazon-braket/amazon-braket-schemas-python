@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -22,6 +22,7 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
 )
 from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -102,6 +103,8 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.ionq.ionq_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
+    action: Dict[
+        DeviceActionType, Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]
+    ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[IonqProviderProperties]

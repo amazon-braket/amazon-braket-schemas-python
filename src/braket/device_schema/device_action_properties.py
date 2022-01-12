@@ -22,6 +22,7 @@ class DeviceActionType(str, Enum):
     These are the actions supported by Braket.
     """
 
+    OPENQASM = "braket.ir.openqasm.program"
     JAQCD = "braket.ir.jaqcd.program"
     ANNEALING = "braket.ir.annealing.problem"
 
