@@ -16,6 +16,7 @@ from typing import Any, List, Optional, Union
 from pydantic import BaseModel, Field, validator
 
 from braket.ir.jaqcd.instructions import (
+    CV,
     CY,
     CZ,
     XX,
@@ -84,6 +85,7 @@ _valid_gates = {
     CPhaseShift01.Type.cphaseshift01: CPhaseShift01,
     CPhaseShift10.Type.cphaseshift10: CPhaseShift10,
     CSwap.Type.cswap: CSwap,
+    CV.Type.cv: CV,
     CY.Type.cy: CY,
     CZ.Type.cz: CZ,
     H.Type.h: H,
@@ -164,6 +166,7 @@ class Program(BraketSchemaBase):
         CPhaseShift01,
         CPhaseShift10,
         CSwap,
+        CV,
         CY,
         CZ,
         Depolarizing,

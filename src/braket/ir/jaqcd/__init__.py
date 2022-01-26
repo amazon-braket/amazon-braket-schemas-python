@@ -12,6 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from braket.ir.jaqcd.instructions import (  # noqa: F401
+    CV,
     CY,
     CZ,
     XX,

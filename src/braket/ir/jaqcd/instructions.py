@@ -542,6 +542,26 @@ class CCNot(SingleTarget, DoubleControl):
     type = Type.ccnot
 
 
+class CV(SingleTarget, SingleControl):
+    """
+    Controlled sqrt(NOT) gate. Also known as the CV gate.
+
+    Attributes:
+        type (str): The instruction type. default = "cv". (type) is optional.
+            This should be unique among all instruction types.
+        control (int): The control qubit. This is an int >= 0.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> CV(control=0, target=1)
+    """
+
+    class Type(str, Enum):
+        cv = "cv"
+
+    type = Type.cv
+
+
 class CY(SingleTarget, SingleControl):
     """
     Controlled Y-gate.
