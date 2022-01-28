@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.0 (2022-01-27)
+
+### Features
+
+ * add control-sqrt-not gate
+
 ## v1.5.1 (2022-01-04)
 
 ### Bug Fixes and Other Changes

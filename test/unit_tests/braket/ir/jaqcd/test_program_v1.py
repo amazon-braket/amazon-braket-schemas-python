@@ -15,49 +15,49 @@ import pytest
 from pydantic import ValidationError
 
 from braket.ir.jaqcd import BitFlip, CNot, EndVerbatimBox, Expectation, H, StartVerbatimBox
-from braket.ir.jaqcd.program_v1 import Program as JaqcdProgram
+from braket.ir.jaqcd.program_v1 import Program
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_instructions_property():
-    JaqcdProgram()
+    Program()
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_non_instruction():
-    JaqcdProgram(instructions=["foo"])
+    Program(instructions=["foo"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_wrong_instruction():
-    JaqcdProgram(instructions=[{"type": "foo", "target": 0}])
+    Program(instructions=[{"type": "foo", "target": 0}])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_partial_non_instruction():
-    JaqcdProgram(instructions=[CNot(control=0, target=1), "foo"])
+    Program(instructions=[CNot(control=0, target=1), "foo"])
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_partial_non_result():
-    JaqcdProgram(
+    Program(
         instructions=[CNot(control=0, target=1)],
         results=[Expectation(targets=[1], observable=["x"]), CNot(control=0, target=1)],
     )
 
 
 def test_instruction_no_results():
-    program = JaqcdProgram(instructions=[CNot(control=0, target=1)])
-    assert JaqcdProgram.parse_raw(program.json()) == program
+    program = Program(instructions=[CNot(control=0, target=1)])
+    assert Program.parse_raw(program.json()) == program
 
 
 def test_instruction_no_noise_results():
-    program = JaqcdProgram(instructions=[BitFlip(target=0, probability=0.1)])
-    assert JaqcdProgram.parse_raw(program.json()) == program
+    program = Program(instructions=[BitFlip(target=0, probability=0.1)])
+    assert Program.parse_raw(program.json()) == program
 
 
 def test_instruction_with_results():
-    JaqcdProgram(
+    Program(
         instructions=[CNot(control=0, target=1)],
         results=[Expectation(targets=[1], observable=["x"])],
     )
@@ -65,31 +65,29 @@ def test_instruction_with_results():
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_partial_non_rotation_basis_instruction():
-    JaqcdProgram(
+    Program(
         instructions=[CNot(control=0, target=1)],
         basis_rotation_instructions=[Expectation(targets=[1], observable=["x"]), H(target=1)],
     )
 
 
 def test_no_rotation_basis_instruction():
-    JaqcdProgram(
+    Program(
         instructions=[CNot(control=0, target=1)],
     )
 
 
 def test_rotation_basis_instruction():
-    JaqcdProgram(
-        instructions=[CNot(control=0, target=1)], basis_rotation_instructions=[H(target=1)]
-    )
+    Program(instructions=[CNot(control=0, target=1)], basis_rotation_instructions=[H(target=1)])
 
 
 def test_start_verbatim_box_instruction():
-    JaqcdProgram(instructions=[StartVerbatimBox()])
+    Program(instructions=[StartVerbatimBox()])
 
 
 def test_end_verbatim_box_instruction():
-    JaqcdProgram(instructions=[EndVerbatimBox()])
+    Program(instructions=[EndVerbatimBox()])
 
 
 def test_type_validation_for_compiler_directive():
-    JaqcdProgram(instructions=[{"type": "end_verbatim_box"}])
+    Program(instructions=[{"type": "end_verbatim_box"}])
