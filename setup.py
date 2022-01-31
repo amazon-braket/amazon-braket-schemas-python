@@ -33,6 +33,7 @@ setup(
             "flake8",
             "isort",
             "jsonschema==3.2.0",
+            "numpy",
             "pre-commit",
             "pylint",
             "pytest",
@@ -43,7 +44,6 @@ setup(
             "sphinx-rtd-theme",
             "sphinxcontrib-apidoc",
             "tox",
-            "numpy",
         ]
     },
     url="https://github.com/aws/amazon-braket-schemas-python",
