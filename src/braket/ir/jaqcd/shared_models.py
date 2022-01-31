@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
+from typing import Dict, Optional, Union
 
 from pydantic import BaseModel, confloat, conint, conlist, constr, root_validator
 
@@ -230,6 +230,54 @@ class TripleProbability(BaseModel):
         p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
         if p1 + p2 + p3 > 1:
             raise ValueError("Sum of probabilities cannot exceed 1.")
+        return values
+
+
+class MultiProbability(BaseModel):
+    """A multi-value-probability parameter set for the Pauli noise channel.
+
+    Attributes:
+        probabilities [Dict[str, float]]: The coefficients of the Pauli channel
+
+    Examples:
+        >>> MultiProbability(probabilities={"X": 0.1})
+        >>> MultiProbability(probabilities={"XY": 0.1, "YX": 0.01})
+    """
+
+    probabilities: Dict[
+        constr(regex="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
+    ]
+
+    @root_validator
+    def validate_probabilities(cls, values):
+        """
+        Pydantic uses the validation subsystem to create objects.
+        This custom validator has the purpose to ensure sum(probabilities) <= 1
+        and that the lengths of each Pauli string are equal.
+        """
+
+        probabilities = values.get("probabilities")
+        if not probabilities:
+            raise ValueError("Pauli dictionary must not be empty.")
+
+        qubit_count = len(list(probabilities)[0])
+
+        if qubit_count * "I" in probabilities.keys():
+            i = qubit_count * "I"
+            raise ValueError(
+                f"{i} is not allowed as a key. Please enter only non-identity Pauli strings."
+            )
+
+        for pauli_string, prob in probabilities.items():
+            if len(pauli_string) != qubit_count:
+                raise ValueError("Length of each Pauli string must be equal to number of qubits.")
+
+        total_prob = sum(probabilities.values())
+        if total_prob > 1.0 or total_prob < 0.0:
+            raise ValueError(
+                f"Total probability must be a real number in the interval [0, 1]. Total probability was {total_prob}."  # noqa: E501
+            )
+
         return values
 
 

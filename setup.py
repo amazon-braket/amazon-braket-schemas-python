@@ -33,6 +33,7 @@ setup(
             "flake8",
             "isort",
             "jsonschema==3.2.0",
+            "numpy",
             "pre-commit",
             "pylint",
             "pytest",
