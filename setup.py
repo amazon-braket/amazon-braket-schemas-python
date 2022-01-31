@@ -43,6 +43,7 @@ setup(
             "sphinx-rtd-theme",
             "sphinxcontrib-apidoc",
             "tox",
+            "numpy",
         ]
     },
     url="https://github.com/aws/amazon-braket-schemas-python",
