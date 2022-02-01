@@ -54,26 +54,10 @@ There are currently two types of IR, including jaqcd (JsonAwsQuantumCircuitDescr
 
 **Serializing python structures**
 ```python
-from braket.ir.openqasm import Program as OpenQASMProgram
-from braket.ir.jaqcd import CNot, H
-from braket.ir.gate_model_shared import Expectation
-from braket.ir.jaqcd import Program as JaqcdProgram
+from braket.ir.jaqcd import CNot, H, Program, Expectation
 from braket.ir.annealing import Problem, ProblemType
 
-program = OpenQASMProgram(source="OPENQASM 3.0; cnot $0, $1;")
-print(program.json(indent=2))
-
-"""
-{
-  "braketSchemaHeader": {
-    "name": "braket.ir.openqasm.program",
-    "version": "1"
-  },
-  "source": "OPENQASM 3.0; cnot $0, $1;",
-}
-"""
-
-program = JaqcdProgram(instructions=[H(target=0), CNot(control=0, target=1)])
+program = Program(instructions=[H(target=0), CNot(control=0, target=1)])
 print(program.json(indent=2))
 
 """
@@ -98,7 +82,7 @@ print(program.json(indent=2))
 }
 """
 
-program = JaqcdProgram(
+program = Program(
     instructions=[H(target=0), CNot(control=0, target=1)],
     results=[Expectation(targets=[0], observable=['x'])],
     basis_rotation_instructions=[H(target=0)]
@@ -160,25 +144,8 @@ print(problem.json(indent=2))
 
 **Deserializing into python structures**
 ```python
-from braket.ir.openqasm import Program as OpenQASMProgram
-from braket.ir.jaqcd import Program as JaqcdProgram
+from braket.ir.jaqcd import Program
 from braket.ir.annealing import Problem
-
-openqasm_string = """
-{
-  "braketSchemaHeader": {
-    "name": "braket.ir.openqasm.program",
-    "version": "1"
-  },
-  "source": "OPENQASM 3.0; cnot $0, $1;",
-}"""
-
-program = OpenQASMProgram.parse_raw(openqasm_string)
-print(program)
-
-"""
-braketSchemaHeader=BraketSchemaHeader(name='braket.ir.openqasm.program', version='1') source='OPENQASM 3.0; cnot $0, $1;'
-"""
 
 jaqcd_string = """
 {
@@ -213,7 +180,7 @@ jaqcd_string = """
 }
 """
 
-program = JaqcdProgram.parse_raw(jaqcd_string)
+program = Program.parse_raw(jaqcd_string)
 print(program)
 
 """

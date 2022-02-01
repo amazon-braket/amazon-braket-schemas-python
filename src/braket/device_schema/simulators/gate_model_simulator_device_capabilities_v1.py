@@ -11,14 +11,13 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Union
+from typing import Dict
 
 from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
-from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
 from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (
     GateModelSimulatorParadigmProperties,
 )
@@ -98,7 +97,5 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         name="braket.device_schema.simulators.gate_model_simulator_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[
-        DeviceActionType, Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]
-    ]
+    action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
     paradigm: GateModelSimulatorParadigmProperties
