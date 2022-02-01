@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.1 (2022-02-01)
+
+### Bug Fixes and Other Changes
+
+ * multiqubit pauli channel with multitarget
+
 ## v1.7.0 (2022-02-01)
 
 ### Features
