@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.7.0 (2022-02-01)
+
+### Features
+
+ * adding MultiQubitPauliChannel to ir
+
+### Bug Fixes and Other Changes
+
+ * Relax requirements from pydantic
+
 ## v1.6.0 (2022-01-27)
 
 ### Features
