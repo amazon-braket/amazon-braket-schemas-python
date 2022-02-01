@@ -784,7 +784,7 @@ class PauliChannel(SingleTarget, TripleProbability):
     type = Type.pauli_channel
 
 
-class MultiQubitPauliChannel(DoubleTarget, MultiProbability):
+class MultiQubitPauliChannel(MultiTarget, MultiProbability):
     """
     Multi-qubit Pauli noise channel.
 
