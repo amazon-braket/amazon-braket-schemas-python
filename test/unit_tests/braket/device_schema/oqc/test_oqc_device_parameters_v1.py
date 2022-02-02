@@ -42,13 +42,8 @@ def test_valid(valid_input):
     assert result.braketSchemaHeader.name == "braket.device_schema.oqc.oqc_device_parameters"
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader(valid_input):
-    valid_input.pop("braketSchemaHeader")
-    OqcDeviceParameters.parse_raw_schema(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_paradigmProperties(valid_input):
-    valid_input.pop("paradigmParameters")
-    OqcDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+@pytest.mark.parametrize("missing_field", ["braketSchemaHeader", "paradigmParameters"])
+def test_missing_field(valid_input, missing_field):
+    with pytest.raises(ValidationError):
+        valid_input.pop(missing_field)
+        OqcDeviceParameters.parse_raw_schema(json.dumps(valid_input))

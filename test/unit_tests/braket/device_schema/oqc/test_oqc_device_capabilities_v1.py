@@ -78,31 +78,10 @@ def test_valid(valid_input):
     assert result.braketSchemaHeader.name == "braket.device_schema.oqc.oqc_device_capabilities"
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader(valid_input):
-    valid_input.pop("braketSchemaHeader")
-    OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_paradigm(valid_input):
-    valid_input.pop("paradigm")
-    OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_deviceParameters(valid_input):
-    valid_input.pop("deviceParameters")
-    OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_action(valid_input):
-    valid_input.pop("action")
-    OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_service(valid_input):
-    valid_input.pop("service")
-    OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+@pytest.mark.parametrize(
+    "missing_field", ["braketSchemaHeader", "paradigm", "deviceParameters", "action", "service"]
+)
+def test_missing_field(valid_input, missing_field):
+    with pytest.raises(ValidationError):
+        valid_input.pop(missing_field)
+        OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
