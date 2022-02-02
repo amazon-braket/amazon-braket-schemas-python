@@ -20,6 +20,7 @@ from braket.ir.jaqcd.shared_models import (
     DampingSingleProbability,
     DoubleControl,
     DoubleTarget,
+    MultiProbability,
     MultiTarget,
     SingleControl,
     SingleProbability,
@@ -786,7 +787,7 @@ class PhaseFlip(SingleTarget, SingleProbability):
 
 class PauliChannel(SingleTarget, TripleProbability):
     """
-    Genearal Pauli noise channel.
+    A single qubit Pauli noise channel.
 
     Attributes:
         type (str): The instruction type. default = "pauli_channel". (type) is
@@ -801,6 +802,28 @@ class PauliChannel(SingleTarget, TripleProbability):
         pauli_channel = "pauli_channel"
 
     type = Type.pauli_channel
+
+
+class MultiQubitPauliChannel(MultiTarget, MultiProbability):
+    """
+    Multi-qubit Pauli noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "multi_qubit_pauli_channel". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit(s). This is list of intergers >= 0.
+        The length of the list must match the length of the Pauli strings provided.
+
+    Examples:
+        >>> MultiQubitPauliChannel(target=1, probabilities={"X": 0.1})
+        >>> MultiQubitPauliChannel(target=[0,1], probabilities={"XY": 0.1})
+        >>> MultiQubitPauliChannel(target=[0,1,2], probabilities={"XYZ": 0.1})
+    """
+
+    class Type(str, Enum):
+        multi_qubit_pauli_channel = "multi_qubit_pauli_channel"
+
+    type = Type.multi_qubit_pauli_channel
 
 
 class Depolarizing(SingleTarget, SingleProbability_34):
