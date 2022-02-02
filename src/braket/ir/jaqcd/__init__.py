@@ -36,6 +36,7 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
     I,
     ISwap,
     Kraus,
+    MultiQubitPauliChannel,
     PauliChannel,
     PhaseDamping,
     PhaseFlip,
