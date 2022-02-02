@@ -24,14 +24,15 @@ from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActio
 from braket.device_schema.oqc.oqc_provider_properties_v1 import OqcProviderProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
+# TODO: Update the device and topology details when we have information from the provider
+
 
 class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
-
     """
     This defines the capabilities of an OQC device.
     Attributes:
-        action(Dict[DeviceActionType, Union[OpenQASMDeviceActionProperties,
-            JaqcdDeviceActionProperties]]): Actions that an OQC device can support
+        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]]): Actions
+            that an OQC device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[OqcProviderProperties]): OQC provider specific properties
     Examples:
@@ -63,7 +64,7 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...             "summary": "Summary on the device",
         ...             "externalDocumentationUrl": "external doc link",
         ...         },
-        ...         "deviceLocation": "us-east-1",
+        ...         "deviceLocation": "eu-west-2",
         ...         "updatedAt": "2020-06-16T19:28:02.869136"
         ...    },
         ...    "action": {
