@@ -32,8 +32,9 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of an IonQ device.
 
     Attributes:
-        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that an IonQ device
-            can support
+        action(Dict[Union[DeviceActionType, str],
+            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that an
+            IonQ device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[IonqProviderProperties]): IonQ provider specific properties
 
@@ -104,7 +105,8 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[
-        DeviceActionType, Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[IonqProviderProperties]

@@ -30,7 +30,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     This defines the capabilities of a simulator device.
 
     Attributes:
-        action (Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
+        action (Dict[Union[DeviceActionType, str],
+            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             gate model simulator device can support
         paradigm (GateModelSimulatorParadigmProperties): Paradigm properties of a simulator
 
@@ -99,6 +100,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[
-        DeviceActionType, Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
     paradigm: GateModelSimulatorParadigmProperties

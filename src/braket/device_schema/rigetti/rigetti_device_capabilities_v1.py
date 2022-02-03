@@ -31,7 +31,8 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of a Rigetti device.
 
     Attributes:
-        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
+        action(Dict[Union[DeviceActionType, str],
+            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             Rigetti device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties of a Rigetti
         provider(Optional[RigettiProviderProperties]): Rigetti provider specific properties
@@ -104,7 +105,8 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: Dict[
-        DeviceActionType, Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[RigettiProviderProperties]

@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import List
+from typing import List, Union
 
 from pydantic import BaseModel
 
@@ -32,8 +32,9 @@ class DeviceActionProperties(BaseModel):
     This class defines the actions that can be performed by a device
 
     Attributes:
-        version: List of versions for the actions the device supports
-        actionType: Enum for the action type. Type of the action to be performed.
+        version (List[str]): List of versions for the actions the device supports
+        actionType (Union[DeviceActionType, str]): Enum for the action type.
+             Type of the action to be performed.
 
     Examples:
         >>> import json
@@ -45,4 +46,4 @@ class DeviceActionProperties(BaseModel):
     """
 
     version: List[str]
-    actionType: DeviceActionType
+    actionType: Union[DeviceActionType, str]
