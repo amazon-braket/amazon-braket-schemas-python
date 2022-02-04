@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -31,7 +31,7 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
     This defines the capabilities of an OQC device.
     Attributes:
-        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]]): Actions
+        action(Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]): Actions
             that an OQC device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[OqcProviderProperties]): OQC provider specific properties
@@ -101,6 +101,6 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.oqc.oqc_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
+    action: Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[OqcProviderProperties]
