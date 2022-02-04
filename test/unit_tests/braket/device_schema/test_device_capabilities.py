@@ -52,6 +52,13 @@ def test_valid(valid_input):
     assert DeviceCapabilities.parse_raw(json.dumps(valid_input))
 
 
+def test_valid_action_str(valid_input):
+    action = valid_input["action"]
+    action["blah"] = action["braket.ir.jaqcd.program"]
+    action.pop("braket.ir.jaqcd.program")
+    assert DeviceCapabilities.parse_raw(json.dumps(valid_input))
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")

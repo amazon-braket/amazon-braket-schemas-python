@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict
+from typing import Dict, Union
 
 from pydantic import Field
 
@@ -29,7 +29,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     This defines the capabilities of a simulator device.
 
     Attributes:
-        action (Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
+        action(Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]): Actions that a
             gate model simulator device can support
         paradigm (GateModelSimulatorParadigmProperties): Paradigm properties of a simulator
 
@@ -97,5 +97,5 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         name="braket.device_schema.simulators.gate_model_simulator_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
+    action: Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]
     paradigm: GateModelSimulatorParadigmProperties
