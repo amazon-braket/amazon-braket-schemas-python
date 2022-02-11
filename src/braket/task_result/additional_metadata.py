@@ -19,6 +19,7 @@ from braket.ir.annealing import Problem
 from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata
+from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.rigetti_metadata_v1 import RigettiMetadata
 from braket.task_result.simulator_metadata_v1 import SimulatorMetadata
 
@@ -40,4 +41,5 @@ class AdditionalMetadata(BaseModel):
     action: Union[JaqcdProgram, OpenQASMProgram, Problem]
     dwaveMetadata: Optional[DwaveMetadata]
     rigettiMetadata: Optional[RigettiMetadata]
+    oqcMetadata: Optional[OqcMetadata]
     simulatorMetadata: Optional[SimulatorMetadata]
