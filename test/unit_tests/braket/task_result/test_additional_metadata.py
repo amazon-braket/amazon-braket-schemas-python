@@ -35,8 +35,8 @@ def test_additional_metadata_correct_gate_model(program):
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
-def test_additional_metadata_oqc(oqc_metadata, jacqd_program):
-    metadata = AdditionalMetadata(action=jacqd_program, oqcMetadata=oqc_metadata)
+def test_additional_metadata_oqc(oqc_metadata, program):
+    metadata = AdditionalMetadata(action=program, oqcMetadata=oqc_metadata)
     assert metadata.oqcMetadata == oqc_metadata
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
