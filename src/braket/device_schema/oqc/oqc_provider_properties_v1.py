@@ -30,9 +30,11 @@ QubitType = TypeVar("QubitType", bound=Dict[str, Union[OneQubitType, TwoQubitTyp
 class OqcProviderProperties(BraketSchemaBase):
     """
     This defines the properties common to all the OQC devices.
+
     Attributes:
         properties (Dict[str, Dict[str, Union[int, List[int]]]]): Basic specifications for
             the device, such as gate fidelities and coherence times.
+
     Examples:
         >>> import json
         >>> input_json = {

@@ -20,6 +20,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class OqcDeviceParameters(BraketSchemaBase):
     """
     This defines the parameters common to all the OQC devices.
+
     Attributes:
         paradigmParameters: Parameters that are common to gatemodel paradigm
     Examples:
