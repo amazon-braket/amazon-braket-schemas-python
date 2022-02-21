@@ -101,6 +101,9 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.oqc.oqc_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]
+    action: Dict[
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+    ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[OqcProviderProperties]
