@@ -34,4 +34,4 @@ class OqcMetadata(BraketSchemaBase):
         default=_OQC_METADATA_HEADER, const=_OQC_METADATA_HEADER
     )
 
-    executedProgram: constr(min_length=2)
+    compiledProgram: constr(min_length=2)
