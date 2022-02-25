@@ -90,7 +90,7 @@ def dwave_metadata(active_variables, dwave_timing, braket_schema_header):
 
 @pytest.fixture
 def oqc_metadata(compiled_program):
-    return OqcMetadata(executedProgram=compiled_program)
+    return OqcMetadata(compiledProgram=compiled_program)
 
 
 @pytest.fixture
