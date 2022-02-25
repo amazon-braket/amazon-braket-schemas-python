@@ -34,6 +34,8 @@ def valid_input():
         "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
         "requiresAllQubitsMeasurement": False,
         "requiresContiguousQubitIndices": False,
+        "supportsPartialVerbatimBox": True,
+        "supportsUnassignedMeasurements": True,
     }
     return input
 

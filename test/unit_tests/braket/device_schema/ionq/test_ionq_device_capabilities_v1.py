@@ -111,6 +111,8 @@ openqasm_valid_input = {
             "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
             "requiresAllQubitsMeasurement": False,
             "requiresContiguousQubitIndices": False,
+            "supportsPartialVerbatimBox": False,
+            "supportsUnassignedMeasurements": False,
         }
     },
     "paradigm": {

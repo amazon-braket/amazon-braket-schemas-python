@@ -55,6 +55,8 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
         ...    "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
         ...    "requiresAllQubitsMeasurement": False
         ...    "requiresContiguousQubitIndices": False
+        ...    "supportsPartialVerbatimBox": False
+        ...    "supportsUnassignedMeasurements": True
         ... }
         >>> OpenQASMDeviceActionProperties.parse_raw(json.dumps(input_json))
 
@@ -70,5 +72,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
     requiresAllQubitsMeasurement: Optional[bool] = False
     supportPhysicalQubits: Optional[bool] = False
     requiresContiguousQubitIndices: Optional[bool] = False
+    supportsPartialVerbatimBox: Optional[bool] = True
+    supportsUnassignedMeasurements: Optional[bool] = True
     disabledQubitRewiringSupported: Optional[bool] = False
     supportedResultTypes: Optional[List[ResultType]]
