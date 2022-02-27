@@ -603,6 +603,26 @@ class CZ(SingleTarget, SingleControl):
     type = Type.cz
 
 
+class ECR(DoubleTarget):
+    """
+    An echoed RZX(pi/2) gate.
+
+    Attributes:
+        type (str): The instruction type. default = "ecr". (type) is optional.
+            This should be unique among all instruction types.
+        targets (List[int]): The target qubits.
+            This is a list with two items and all items are int >= 0.
+
+    Examples:
+        >>> ECR(targets=[0, 1])
+    """
+
+    class Type(str, Enum):
+        ecr = "ecr"
+
+    type = Type.ecr
+
+
 class XX(DoubleTarget, Angle):
     """
     The Ising (XX) gate.

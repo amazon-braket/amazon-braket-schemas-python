@@ -21,6 +21,7 @@ from braket.device_schema.dwave import (
     DwaveDeviceParameters,
 )
 from braket.device_schema.ionq import IonqDeviceParameters
+from braket.device_schema.oqc import OqcDeviceParameters
 from braket.device_schema.rigetti import RigettiDeviceParameters
 from braket.device_schema.simulators import GateModelSimulatorDeviceParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -69,6 +70,7 @@ class TaskMetadata(BraketSchemaBase):
             Dwave2000QDeviceParameters,
             RigettiDeviceParameters,
             IonqDeviceParameters,
+            OqcDeviceParameters,
             GateModelSimulatorDeviceParameters,
         ]
     ]

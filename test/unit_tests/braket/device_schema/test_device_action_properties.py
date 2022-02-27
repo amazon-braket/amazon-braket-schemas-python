@@ -33,6 +33,12 @@ def test_valid(valid_input):
     assert result.actionType == "braket.ir.jaqcd.program"
 
 
+def test_valid_str_invalid_enum(valid_input):
+    valid_input["actionType"] = "blah"
+    result = DeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.actionType == "blah"
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_actionType(valid_input):
     valid_input.pop("actionType")

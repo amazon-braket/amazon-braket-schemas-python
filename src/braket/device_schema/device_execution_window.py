@@ -13,6 +13,7 @@
 
 from datetime import time
 from enum import Enum
+from typing import Union
 
 from pydantic import BaseModel
 
@@ -52,9 +53,9 @@ class DeviceExecutionWindow(BaseModel):
     This class defines when a device can execute a given task.
 
     Attributes:
-        executionDay: Days of the execution window
-        windowStartHour: UTC 24-hour format of the time when the execution window starts
-        windowEndHour: UTC 24-hour format of the time when the execution window ends
+        executionDay (Union[ExecutionDay, str]): Days of the execution window
+        windowStartHour (time): UTC 24-hour format of the time when the execution window starts
+        windowEndHour (time): UTC 24-hour format of the time when the execution window ends
 
     Examples:
         >>> import json
@@ -67,6 +68,6 @@ class DeviceExecutionWindow(BaseModel):
 
     """
 
-    executionDay: ExecutionDay
+    executionDay: Union[ExecutionDay, str]
     windowStartHour: time
     windowEndHour: time
