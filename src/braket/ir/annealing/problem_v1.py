@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Dict
+from typing import Dict, Union
 
 from pydantic import Field, conint
 
@@ -36,7 +36,7 @@ class Problem(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
-        type (ProblemType): The type of problem; can be either "QUBO" or "ISING"
+        type (Union[ProblemType, str]): The type of problem; can be either "QUBO" or "ISING"
         linear (Dict[int, float]): Linear terms of the model.
         quadratic (Dict[str, float]): Quadratic terms of the model, keyed on comma-separated
             variables as strings
@@ -47,6 +47,6 @@ class Problem(BraketSchemaBase):
 
     _PROBLEM_HEADER = BraketSchemaHeader(name="braket.ir.annealing.problem", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER, const=_PROBLEM_HEADER)
-    type: ProblemType
+    type: Union[ProblemType, str]
     linear: Dict[conint(ge=0), float]
     quadratic: Dict[str, float]

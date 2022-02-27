@@ -18,6 +18,7 @@ from braket.ir.jaqcd import CNot, Program
 from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
+from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
@@ -83,6 +84,11 @@ def dwave_metadata(active_variables, dwave_timing, braket_schema_header):
         activeVariables=active_variables,
         timing=dwave_timing,
     )
+
+
+@pytest.fixture
+def oqc_metadata(compiled_program):
+    return OqcMetadata(compiledProgram=compiled_program)
 
 
 @pytest.fixture

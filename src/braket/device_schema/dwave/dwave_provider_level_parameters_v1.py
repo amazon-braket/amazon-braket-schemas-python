@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
@@ -62,6 +62,8 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
             you must supply the initial state to which the system is set.
         maxResults (Optional[int] = Field(gt=1)): Specifies the maximum number of
             answers returned from the solver.
+        postprocessingType (Optional[Union[PostProcessingType, str]]): Defines what type
+             of postprocessing the system runs online on raw solutions.
         postprocessingType (Optional[PostProcessingType]): Defines what type of postprocessing the
             system runs online on raw solutions.
         programmingThermalizationDuration (Optional[int]): Gives the time (in microseconds) to wait
@@ -105,7 +107,7 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     fluxBiases: Optional[List[float]]
     initialState: Optional[List[int]]
     maxResults: Optional[int] = Field(gt=0)
-    postprocessingType: Optional[PostProcessingType]
+    postprocessingType: Optional[Union[PostProcessingType, str]]
     programmingThermalizationDuration: Optional[int]
     readoutThermalizationDuration: Optional[int]
     reduceIntersampleCorrelation: Optional[bool]
