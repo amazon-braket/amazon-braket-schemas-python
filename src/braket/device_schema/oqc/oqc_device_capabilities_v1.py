@@ -21,6 +21,7 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
 from braket.device_schema.oqc.oqc_provider_properties_v1 import OqcProviderProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -30,11 +31,14 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     """
     This defines the capabilities of an OQC device.
+
     Attributes:
-        action(Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]): Actions
-            that an OQC device can support
+        action(Dict[Union[DeviceActionType, str],
+            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that an
+            OQC device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[OqcProviderProperties]): OQC provider specific properties
+
     Examples:
         >>> import json
         >>> input_json = {
@@ -101,6 +105,9 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.oqc.oqc_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]
+    action: Dict[
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+    ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[OqcProviderProperties]

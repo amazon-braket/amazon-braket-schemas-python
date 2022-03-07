@@ -29,14 +29,26 @@ def test_additional_metadata_correct_annealing(problem, dwave_metadata):
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
-def test_additional_metadata_correct_gate_model(program):
-    metadata = AdditionalMetadata(action=program)
-    assert metadata.action == program
+def test_additional_metadata_correct_jaqcd_program(jacqd_program):
+    metadata = AdditionalMetadata(action=jacqd_program)
+    assert metadata.action == jacqd_program
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
-def test_additional_metadata_oqc(oqc_metadata, program):
-    metadata = AdditionalMetadata(action=program, oqcMetadata=oqc_metadata)
+def test_additional_metadata_correct_openqasm_program(openqasm_program):
+    metadata = AdditionalMetadata(action=openqasm_program)
+    assert metadata.action == openqasm_program
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
+def test_additional_metadata_jacqd(oqc_metadata, jacqd_program):
+    metadata = AdditionalMetadata(action=jacqd_program, oqcMetadata=oqc_metadata)
+    assert metadata.oqcMetadata == oqc_metadata
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
+def test_additional_metadata_oqc(oqc_metadata, openqasm_program):
+    metadata = AdditionalMetadata(action=openqasm_program, oqcMetadata=oqc_metadata)
     assert metadata.oqcMetadata == oqc_metadata
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
@@ -47,5 +59,5 @@ def test_incorrect_action(dwave_metadata):
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test_incorrect_dwave_metadata(program):
-    AdditionalMetadata(dwaveMetadata=program)
+def test_incorrect_dwave_metadata(jacqd_program):
+    AdditionalMetadata(dwaveMetadata=jacqd_program)

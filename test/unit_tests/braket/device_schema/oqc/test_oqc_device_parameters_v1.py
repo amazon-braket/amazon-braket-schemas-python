@@ -43,7 +43,7 @@ def test_valid(valid_input):
 
 
 @pytest.mark.parametrize("missing_field", ["braketSchemaHeader", "paradigmParameters"])
-def test_missing_field(valid_input, missing_field):
+def test__missing_paradigmProperties(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
         OqcDeviceParameters.parse_raw_schema(json.dumps(valid_input))

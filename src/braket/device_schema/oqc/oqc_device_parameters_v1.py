@@ -23,6 +23,7 @@ class OqcDeviceParameters(BraketSchemaBase):
 
     Attributes:
         paradigmParameters: Parameters that are common to gatemodel paradigm
+
     Examples:
         >>> import json
         >>> input_json = {
