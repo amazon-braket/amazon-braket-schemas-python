@@ -18,61 +18,116 @@ from pydantic import ValidationError
 
 from braket.device_schema.oqc.oqc_device_capabilities_v1 import OqcDeviceCapabilities
 
-
-@pytest.fixture(scope="module")
-def valid_input():
-    input = {
+jaqcd_valid_input = {
+    "braketSchemaHeader": {
+        "name": "braket.device_schema.oqc.oqc_device_capabilities",
+        "version": "1",
+    },
+    "service": {
         "braketSchemaHeader": {
-            "name": "braket.device_schema.oqc.oqc_device_capabilities",
+            "name": "braket.device_schema.device_service_properties",
             "version": "1",
         },
-        "service": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.device_service_properties",
-                "version": "1",
-            },
-            "executionWindows": [
-                {"executionDay": "Everyday", "windowStartHour": "11:00", "windowEndHour": "12:00"}
+        "executionWindows": [
+            {"executionDay": "Everyday", "windowStartHour": "11:00", "windowEndHour": "12:00"}
+        ],
+        "shotsRange": [1, 10],
+        "deviceCost": {"price": 0.25, "unit": "minute"},
+        "deviceDocumentation": {
+            "imageUrl": "image_url",
+            "summary": "Summary on the device",
+            "externalDocumentationUrl": "exter doc link",
+        },
+        "deviceLocation": "eu-west-2",
+        "updatedAt": "2020-06-16T19:28:02.869136",
+    },
+    "action": {
+        "braket.ir.jaqcd.program": {
+            "actionType": "braket.ir.jaqcd.program",
+            "version": ["1"],
+            "supportedOperations": ["x", "y"],
+            "supportedResultTypes": [
+                {
+                    "name": "resultType1",
+                    "observables": ["observable1"],
+                    "minShots": 2,
+                    "maxShots": 4,
+                }
             ],
-            "shotsRange": [1, 10],
-            "deviceCost": {"price": 0.25, "unit": "minute"},
-            "deviceDocumentation": {
-                "imageUrl": "image_url",
-                "summary": "Summary on the device",
-                "externalDocumentationUrl": "exter doc link",
-            },
-            "deviceLocation": "eu-west-2",
-            "updatedAt": "2020-06-16T19:28:02.869136",
+        }
+    },
+    "paradigm": {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
+            "version": "1",
         },
-        "action": {
-            "braket.ir.jaqcd.program": {
-                "actionType": "braket.ir.jaqcd.program",
-                "version": ["1"],
-                "supportedOperations": ["x", "y"],
-                "supportedResultTypes": [
-                    {
-                        "name": "resultType1",
-                        "observables": ["observable1"],
-                        "minShots": 2,
-                        "maxShots": 4,
-                    }
-                ],
-            }
+        "qubitCount": 32,
+        "nativeGateSet": ["ccnot", "cy"],
+        "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
+    },
+    "deviceParameters": {},
+}
+
+openqasm_valid_input = {
+    "braketSchemaHeader": {
+        "name": "braket.device_schema.oqc.oqc_device_capabilities",
+        "version": "1",
+    },
+    "service": {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.device_service_properties",
+            "version": "1",
         },
-        "paradigm": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
-                "version": "1",
-            },
-            "qubitCount": 32,
-            "nativeGateSet": ["ccnot", "cy"],
-            "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
+        "executionWindows": [
+            {"executionDay": "Everyday", "windowStartHour": "11:00", "windowEndHour": "12:00"}
+        ],
+        "shotsRange": [1, 10],
+        "deviceCost": {"price": 0.25, "unit": "minute"},
+        "deviceDocumentation": {
+            "imageUrl": "image_url",
+            "summary": "Summary on the device",
+            "externalDocumentationUrl": "exter doc link",
         },
-        "deviceParameters": {},
-    }
-    return input
+        "deviceLocation": "us-east-1",
+        "updatedAt": "2020-06-16T19:28:02.869136",
+    },
+    "action": {
+        "braket.ir.openqasm.program": {
+            "actionType": "braket.ir.openqasm.program",
+            "version": ["1"],
+            "supportedOperations": ["x", "y"],
+            "supportedResultTypes": [
+                {
+                    "name": "resultType1",
+                    "observables": ["observable1"],
+                    "minShots": 2,
+                    "maxShots": 4,
+                },
+            ],
+            "supportPhysicalQubits": False,
+            "supportedPragmas": ["braket_noise_bit_flip"],
+            "forbiddenPragmas": ["braket_unitary_matrix"],
+            "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
+            "requireAllQubitsMeasurement": False,
+            "requireContiguousQubitIndices": False,
+            "supportsPartialVerbatimBox": False,
+            "supportsUnassignedMeasurements": False,
+        }
+    },
+    "paradigm": {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.gate_model_qpu_paradigm_properties",
+            "version": "1",
+        },
+        "qubitCount": 32,
+        "nativeGateSet": ["ccnot", "cy"],
+        "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
+    },
+    "deviceParameters": {},
+}
 
 
+@pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 def test_valid(valid_input):
     result = OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.oqc.oqc_device_capabilities"
@@ -81,7 +136,8 @@ def test_valid(valid_input):
 @pytest.mark.parametrize(
     "missing_field", ["braketSchemaHeader", "paradigm", "deviceParameters", "action", "service"]
 )
-def test_missing_field(valid_input, missing_field):
+@pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
+def test_missing_paradigm(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
         OqcDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))

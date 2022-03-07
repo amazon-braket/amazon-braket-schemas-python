@@ -16,7 +16,8 @@ from typing import Optional, Union
 from pydantic import BaseModel
 
 from braket.ir.annealing import Problem
-from braket.ir.jaqcd import Program
+from braket.ir.jaqcd import Program as JaqcdProgram
+from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.rigetti_metadata_v1 import RigettiMetadata
@@ -37,7 +38,7 @@ class AdditionalMetadata(BaseModel):
 
     """
 
-    action: Union[Program, Problem]
+    action: Union[JaqcdProgram, OpenQASMProgram, Problem]
     dwaveMetadata: Optional[DwaveMetadata]
     rigettiMetadata: Optional[RigettiMetadata]
     oqcMetadata: Optional[OqcMetadata]

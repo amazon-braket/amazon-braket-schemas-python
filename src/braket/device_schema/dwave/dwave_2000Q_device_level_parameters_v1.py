@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import Field
 
@@ -47,8 +47,8 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
             you must supply the initial state to which the system is set.
         maxResults (Optional[int] = Field(gt=1)): Specifies the maximum number of
             answers returned from the solver.
-        postprocessingType (Optional[PostProcessingType]): Defines what type of postprocessing the
-            system runs online on raw solutions.
+        postprocessingType (Optional[Union[PostProcessingType, str]]): Defines what type
+             of postprocessing the system runs online on raw solutions.
         programmingThermalizationDuration (Optional[int]): Gives the time (in microseconds) to wait
             after programming the QPU for it to cool back to base temperature (i.e.,
             post-programming thermalization time).
@@ -90,7 +90,7 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
     fluxBiases: Optional[List[float]]
     initialState: Optional[List[int]]
     maxResults: Optional[int] = Field(gt=0)
-    postprocessingType: Optional[PostProcessingType]
+    postprocessingType: Optional[Union[PostProcessingType, str]]
     programmingThermalizationDuration: Optional[int]
     readoutThermalizationDuration: Optional[int]
     reduceIntersampleCorrelation: Optional[bool]

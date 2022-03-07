@@ -18,6 +18,7 @@ from pydantic import Field
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
 from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (
     GateModelSimulatorParadigmProperties,
 )
@@ -29,7 +30,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     This defines the capabilities of a simulator device.
 
     Attributes:
-        action(Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]): Actions that a
+        action (Dict[Union[DeviceActionType, str],
+            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             gate model simulator device can support
         paradigm (GateModelSimulatorParadigmProperties): Paradigm properties of a simulator
 
@@ -97,5 +99,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         name="braket.device_schema.simulators.gate_model_simulator_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[Union[DeviceActionType, str], JaqcdDeviceActionProperties]
+    action: Dict[
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+    ]
     paradigm: GateModelSimulatorParadigmProperties

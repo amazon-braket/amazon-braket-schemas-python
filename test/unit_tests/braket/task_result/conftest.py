@@ -14,7 +14,9 @@
 import pytest
 
 from braket.ir.annealing import Problem, ProblemType
-from braket.ir.jaqcd import CNot, Program
+from braket.ir.jaqcd import CNot
+from braket.ir.jaqcd import Program as JaqcdProgram
+from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
@@ -106,13 +108,18 @@ def additional_metadata_annealing(problem, dwave_metadata):
 
 
 @pytest.fixture
-def program():
-    return Program(instructions=[CNot(control=0, target=1)])
+def jacqd_program():
+    return JaqcdProgram(instructions=[CNot(control=0, target=1)])
 
 
 @pytest.fixture
-def additional_metadata_gate_model(program, rigetti_metadata):
-    return AdditionalMetadata(action=program, rigettiMetadata=rigetti_metadata)
+def openqasm_program():
+    return OpenQASMProgram(source="OPENQASM 3.0; cnot $0, $1;")
+
+
+@pytest.fixture
+def additional_metadata_gate_model(jacqd_program, rigetti_metadata):
+    return AdditionalMetadata(action=jacqd_program, rigettiMetadata=rigetti_metadata)
 
 
 @pytest.fixture

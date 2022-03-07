@@ -13,37 +13,10 @@
 
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
-
-
-class ResultType(BaseModel):
-    """
-    Provides the result type for a quantum task to return.
-
-    Attributes:
-
-        name: Name of the result type.
-        observables: Supported result types for this result type.
-        minShots: Minimum number of shots for the results.
-        maxShots: Maximum number of shots for the results.
-
-    Examples:
-        >>> import json
-        >>> input_json = {
-        ...     "name": "resultType1",
-        ...     "observables": ["observable1"],
-        ...     "minShots": 0,
-        ...     "maxShots": 4,
-        ... }
-        >>> ResultType.parse_raw(json.dumps(input_json))
-    """
-
-    name: str
-    observables: Optional[List[str]]
-    minShots: Optional[int]
-    maxShots: Optional[int]
+from braket.device_schema.result_type import ResultType
 
 
 class JaqcdDeviceActionProperties(DeviceActionProperties):
@@ -76,6 +49,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
 
     """
 
+    actionType: constr(regex=r"^braket\.ir\.jaqcd\.program$")
     supportedOperations: List[str]
     supportedResultTypes: Optional[List[ResultType]]
     disabledQubitRewiringSupported: Optional[bool] = None
