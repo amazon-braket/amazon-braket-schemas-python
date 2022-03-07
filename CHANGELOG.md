@@ -1,5 +1,12 @@
 # Changelog
 
+
+## v1.7.2 (2022-02-27)
+
+### Bug Fixes and Other Changes
+
+ - Oqc release
+
 ## v1.7.1 (2022-02-01)
 
 ### Bug Fixes and Other Changes
