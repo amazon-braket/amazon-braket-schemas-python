@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.8.0 (2022-03-07)
+
+### Features
+
+ * Add support for running OpenQASM programs
 
 ## v1.7.2 (2022-02-27)
 
