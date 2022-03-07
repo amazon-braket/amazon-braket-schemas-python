@@ -59,7 +59,28 @@ def valid_input():
                         "maxShots": 4,
                     }
                 ],
-            }
+            },
+            "braket.ir.openqasm.program": {
+                "actionType": "braket.ir.openqasm.program",
+                "version": ["1"],
+                "supportedOperations": ["x", "y"],
+                "supportedResultTypes": [
+                    {
+                        "name": "resultType1",
+                        "observables": ["observable1"],
+                        "minShots": 2,
+                        "maxShots": 4,
+                    },
+                ],
+                "supportPhysicalQubits": False,
+                "supportedPragmas": ["braket_noise_bit_flip", "braket_unitary_matrix"],
+                "forbiddenPragmas": [],
+                "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
+                "requireAllQubitsMeasurement": True,
+                "requireContiguousQubitIndices": False,
+                "supportsPartialVerbatimBox": True,
+                "supportsUnassignedMeasurements": True,
+            },
         },
         "paradigm": {
             "braketSchemaHeader": {
