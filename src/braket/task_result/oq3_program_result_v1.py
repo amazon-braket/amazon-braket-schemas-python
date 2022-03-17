@@ -11,10 +11,10 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 from braket.task_result import ResultTypeValue
-from pydantic import Field, constr
+from pydantic import Field, constr, StrictFloat, confloat, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -29,10 +29,20 @@ class OQ3ProgramResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_OQ3_PROGRAM_RESULT_HEADER, const=_OQ3_PROGRAM_RESULT_HEADER
     )
-    bitVariables: Optional[
+    # bitVariables: Optional[
+    #     Dict[
+    #         constr(min_length=1),
+    #         List[constr(regex="^[01]+$", min_length=1)],
+    #     ]
+    # ]
+    outputVariables: Optional[
         Dict[
             constr(min_length=1),
-            List[constr(regex="^[01]+$", min_length=1)],
+            List[Union[
+                constr(regex="^[01]+$", min_length=1),
+                confloat(strict=True),
+                int,
+            ]]
         ]
     ]
     resultTypes: Optional[List[ResultTypeValue]]
