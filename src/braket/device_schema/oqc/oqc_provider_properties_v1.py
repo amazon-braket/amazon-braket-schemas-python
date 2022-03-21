@@ -20,10 +20,8 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 # TODO: Replace the calibration data with actual values we receive from the device.
 
 
-OneQubitType = TypeVar("OneQubitType", bound=Union[int, Dict[str, Union[float, int]]])
+OneQubitType = TypeVar("OneQubitType", bound=Dict[str, Union[float, int]])
 TwoQubitType = TypeVar("TwoQubitType", bound=Dict[str, Union[float, Dict[str, int]]])
-
-QubitType = TypeVar("QubitType", bound=Dict[str, Union[OneQubitType, TwoQubitType]])
 
 
 class OqcProviderProperties(BraketSchemaBase):
@@ -31,7 +29,7 @@ class OqcProviderProperties(BraketSchemaBase):
     This defines the properties common to all the OQC devices.
 
     Attributes:
-        specs (Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]): Basic specifications for
+        specs (Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]]): Basic specifications for
             the device, such as gate fidelities and coherence times.
 
     Examples:
@@ -42,7 +40,7 @@ class OqcProviderProperties(BraketSchemaBase):
         ...     "version": "1",
         ... },
         ... "specs": {
-        ...     "one_qubit": {
+        ...     "1Q": {
         ...         "0": {
         ...             "T1": 28.9,
         ...             "T2": 44.5,
@@ -51,13 +49,13 @@ class OqcProviderProperties(BraketSchemaBase):
         ...             "qubit": 0
         ...         },
         ...     },
-        ...     "two_qubit": {
+        ...     "2Q": {
         ...         "0-1": {
         ...             "coupling": {
         ...                 "control_qubit": 0,
         ...                 "target_qubit": 1
         ...             },
-        ...             "fCX": 87.7
+        ...             "fCNOT": 87.7
         ...         },
         ...     }
         ... },
@@ -69,4 +67,4 @@ class OqcProviderProperties(BraketSchemaBase):
         name="braket.device_schema.oqc.oqc_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    specs: Dict[str, Dict[str, QubitType]]
+    specs: Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]]
