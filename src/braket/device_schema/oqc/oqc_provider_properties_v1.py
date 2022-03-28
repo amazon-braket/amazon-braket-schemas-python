@@ -21,7 +21,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 OneQubitType = TypeVar("OneQubitType", bound=Dict[str, Union[float, int]])
-TwoQubitType = TypeVar("TwoQubitType", bound=Dict[str, Union[float, Dict[str, int]]])
+TwoQubitType = TypeVar("TwoQubitType", bound=Dict[str, Union[Dict[str, int], float]])
 
 
 class OqcProviderProperties(BraketSchemaBase):
@@ -29,8 +29,8 @@ class OqcProviderProperties(BraketSchemaBase):
     This defines the properties common to all the OQC devices.
 
     Attributes:
-        specs (Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]]): Basic specifications for
-            the device, such as gate fidelities and coherence times.
+        properties (Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]]): Basic
+            specifications for the device, such as gate fidelities and coherence times.
 
     Examples:
         >>> import json
@@ -39,8 +39,8 @@ class OqcProviderProperties(BraketSchemaBase):
         ...     "name": "braket.device_schema.oqc.oqc_provider_properties",
         ...     "version": "1",
         ... },
-        ... "specs": {
-        ...     "1Q": {
+        ... "properties": {
+        ...     "one_qubit": {
         ...         "0": {
         ...             "T1": 28.9,
         ...             "T2": 44.5,
@@ -49,15 +49,15 @@ class OqcProviderProperties(BraketSchemaBase):
         ...             "qubit": 0
         ...         },
         ...     },
-        ...     "2Q": {
+        ...     "two_qubit": {
         ...         "0-1": {
         ...             "coupling": {
         ...                 "control_qubit": 0,
         ...                 "target_qubit": 1
         ...             },
-        ...             "fCNOT": 87.7
+        ...             "fCX": 87.7
         ...         },
-        ...     }
+        ...     },
         ... },
         ... }
         >>> OqcProviderProperties.parse_raw_schema(json.dumps(input_json))
@@ -67,4 +67,4 @@ class OqcProviderProperties(BraketSchemaBase):
         name="braket.device_schema.oqc.oqc_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    specs: Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]]
+    properties: Dict[str, Dict[str, Union[OneQubitType, TwoQubitType]]]

@@ -26,8 +26,8 @@ def valid_input():
             "name": "braket.device_schema.oqc.oqc_provider_properties",
             "version": "1",
         },
-        "specs": {
-            "1Q": {
+        "properties": {
+            "one_qubit": {
                 "0": {"T1": 12.2, "T2": 13.5, "fRO": 0.99, "fRB": 0.98, "qubit": 0},
                 "1": {"T1": 12.2, "T2": 13.5, "fRO": 0.99, "fRB": 0.98, "qubit": 1},
                 "2": {"T1": 12.2, "T2": 13.5, "fRO": 0.99, "fRB": 0.98, "qubit": 2},
@@ -37,38 +37,46 @@ def valid_input():
                 "6": {"T1": 12.2, "T2": 13.5, "fRO": 0.99, "fRB": 0.98, "qubit": 6},
                 "7": {"T1": 12.2, "T2": 13.5, "fRO": 0.99, "fRB": 0.98, "qubit": 7},
             },
-            "2Q": {
+            "two_qubit": {
                 "0-1": {
                     "coupling": {"control_qubit": 0, "target_qubit": 1},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "1-2": {
                     "coupling": {"control_qubit": 1, "target_qubit": 2},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "2-3": {
                     "coupling": {"control_qubit": 2, "target_qubit": 3},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "3-4": {
                     "coupling": {"control_qubit": 3, "target_qubit": 4},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "4-5": {
                     "coupling": {"control_qubit": 4, "target_qubit": 5},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "5-6": {
                     "coupling": {"control_qubit": 5, "target_qubit": 6},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "6-7": {
                     "coupling": {"control_qubit": 6, "target_qubit": 7},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
                 "7-0": {
                     "coupling": {"control_qubit": 7, "target_qubit": 0},
                     "fCNOT": 0.99,
+                    "fCX": 0.99,
                 },
             },
         },
@@ -81,7 +89,7 @@ def test_valid(valid_input):
     assert result.braketSchemaHeader.name == "braket.device_schema.oqc.oqc_provider_properties"
 
 
-@pytest.mark.parametrize("missing_field", ["braketSchemaHeader", "specs"])
+@pytest.mark.parametrize("missing_field", ["braketSchemaHeader", "properties"])
 def test_missing_field(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
