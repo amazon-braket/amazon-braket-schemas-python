@@ -18,6 +18,43 @@ from pydantic import ValidationError
 
 from braket.device_schema.oqc.oqc_device_capabilities_v1 import OqcDeviceCapabilities
 
+device_properties_data = {
+    "braketSchemaHeader": {
+        "name": "braket.device_schema.standardized_gate_model_qpu_device_properties",
+        "version": "1",
+    },
+    "oneQubitProperties": {
+        "0": {
+            "T1": {"value": 28.9, "standardError": 0.01, "unit": "us"},
+            "T2": {"value": 44.5, "standardError": 0.02, "unit": "us"},
+            "oneQubitFidelity": [
+                {
+                    "fidelityType": {"name": "READOUT"},
+                    "fidelity": 0.9993,
+                    "standardError": None,
+                },
+                {
+                    "fidelityType": {"name": "RANDOMIZED_BENCHMARKING"},
+                    "fidelity": 0.903,
+                    "standardError": None,
+                },
+            ],
+        }
+    },
+    "twoQubitProperties": {
+        "0-1": {
+            "twoQubitGateFidelity": [
+                {
+                    "direction": {"control": 0, "target": 1},
+                    "gateName": "CNOT",
+                    "fidelity": 0.877,
+                    "fidelityType": {"name": "INTERLEAVED_RANDOMIZED_BENCHMARKING"},
+                }
+            ]
+        }
+    },
+}
+
 jaqcd_valid_input = {
     "braketSchemaHeader": {
         "name": "braket.device_schema.oqc.oqc_device_capabilities",
@@ -124,6 +161,7 @@ openqasm_valid_input = {
         "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
     },
     "deviceParameters": {},
+    "standardized": device_properties_data,
 }
 
 
