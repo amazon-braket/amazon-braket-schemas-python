@@ -10,11 +10,14 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-from typing import Optional, Dict, List, Union
-
-from pydantic import Field, constr
+from typing import Dict, List, Optional, Union
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from pydantic import BaseModel, Field, confloat, constr
+
+# support 1d array input for now
+leaf_io_type = Union[constr(regex="^[01]+$", min_length=1, strict=True), confloat(strict=True), int]
+io_type = Union[leaf_io_type, List[leaf_io_type]]
 
 
 class Program(BraketSchemaBase):
@@ -37,6 +40,9 @@ class Program(BraketSchemaBase):
     inputs: Optional[
         Dict[
             constr(min_length=1),
-            Union[constr(regex="^[01]+$", min_length=1), int, float]
+            io_type,
         ]
     ]
+
+
+# Program.update_forward_refs()

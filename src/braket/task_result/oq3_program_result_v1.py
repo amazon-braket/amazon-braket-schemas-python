@@ -11,14 +11,14 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
-from braket.task_result import ResultTypeValue
-from pydantic import Field, constr, StrictFloat, confloat, conint
-
+from braket.ir.openqasm.program_v1 import io_type
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.task_result import ResultTypeValue
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
+from pydantic import Field, constr
 
 
 class OQ3ProgramResult(BraketSchemaBase):
@@ -29,22 +29,7 @@ class OQ3ProgramResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_OQ3_PROGRAM_RESULT_HEADER, const=_OQ3_PROGRAM_RESULT_HEADER
     )
-    # bitVariables: Optional[
-    #     Dict[
-    #         constr(min_length=1),
-    #         List[constr(regex="^[01]+$", min_length=1)],
-    #     ]
-    # ]
-    outputVariables: Optional[
-        Dict[
-            constr(min_length=1),
-            List[Union[
-                constr(regex="^[01]+$", min_length=1),
-                confloat(strict=True),
-                int,
-            ]]
-        ]
-    ]
+    outputVariables: Optional[Dict[constr(min_length=1), List[io_type]]]
     resultTypes: Optional[List[ResultTypeValue]]
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata
