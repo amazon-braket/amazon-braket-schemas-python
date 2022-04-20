@@ -18,7 +18,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result import ResultTypeValue
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
-from pydantic import Field, constr
+from pydantic import Field, constr, conlist, conint
 
 
 class OQ3ProgramResult(BraketSchemaBase):
@@ -33,3 +33,5 @@ class OQ3ProgramResult(BraketSchemaBase):
     resultTypes: Optional[List[ResultTypeValue]]
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata
+    measurements: Optional[conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1)]
+    measuredQubits: Optional[conlist(conint(ge=0), min_items=1)]
