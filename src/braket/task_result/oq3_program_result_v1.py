@@ -13,12 +13,13 @@
 
 from typing import Dict, List, Optional
 
+from pydantic import Field, conint, conlist, constr
+
 from braket.ir.openqasm.program_v1 import io_type
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result import ResultTypeValue
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
-from pydantic import Field, constr, conlist, conint
 
 
 class OQ3ProgramResult(BraketSchemaBase):

@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 from typing import Dict, List, Optional, Union
 
+from pydantic import Field, confloat, constr
+
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
-from pydantic import BaseModel, Field, confloat, constr
 
 # support 1d array input for now
 leaf_io_type = Union[constr(regex="^[01]+$", min_length=1, strict=True), confloat(strict=True), int]
@@ -43,6 +44,3 @@ class Program(BraketSchemaBase):
             io_type,
         ]
     ]
-
-
-# Program.update_forward_refs()
