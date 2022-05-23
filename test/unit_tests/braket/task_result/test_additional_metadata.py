@@ -47,6 +47,12 @@ def test_additional_metadata_oqc(oqc_metadata, jacqd_program):
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
+def test_additional_metadata_xanadu(xanadu_metadata, blackbird_program):
+    metadata = AdditionalMetadata(action=blackbird_program, xanaduMetadata=xanadu_metadata)
+    assert metadata.xanaduMetadata == xanadu_metadata
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_action(dwave_metadata):
     AdditionalMetadata(action=dwave_metadata)
