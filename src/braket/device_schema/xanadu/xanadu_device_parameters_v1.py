@@ -15,7 +15,7 @@ from typing import Dict, List
 
 from pydantic import Field
 
-from braket.device_schema.photon_model_parameters_v1 import PhotonModelParameters
+from braket.device_schema.photonic_model_parameters_v1 import PhotonicModelParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -37,7 +37,7 @@ class XanaduDeviceParameters(BraketSchemaBase):
         ...    },
         ...    "paradigmParameters": {
         ...         "braketSchemaHeader": {
-        ...             "name": "braket.device_schema.photon_model_parameters",
+        ...             "name": "braket.device_schema.photonic_model_parameters",
         ...             "version": "1",
         ...         },
         ...         "modes": {
@@ -64,6 +64,6 @@ class XanaduDeviceParameters(BraketSchemaBase):
         name="braket.device_schema.xanadu.xanadu_device_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    paradigmParameters: PhotonModelParameters
+    paradigmParameters: PhotonicModelParameters
     gateParameters: Dict[str, List[List[float]]]
     target: str

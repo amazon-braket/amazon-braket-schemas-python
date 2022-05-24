@@ -135,7 +135,7 @@ def additional_metadata_gate_model(jacqd_program, rigetti_metadata):
 
 
 @pytest.fixture
-def additional_metadata_photon_model(blackbird_program, xanadu_metadata):
+def additional_metadata_photonic_model(blackbird_program, xanadu_metadata):
     return AdditionalMetadata(action=blackbird_program, xanadu_metadata=xanadu_metadata)
 
 

@@ -18,7 +18,7 @@ from pydantic import Field
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
-class PhotonModelParameters(BraketSchemaBase):
+class PhotonicModelParameters(BraketSchemaBase):
     """
     Defines parameters common to all photonic model devices.
 
@@ -30,7 +30,7 @@ class PhotonModelParameters(BraketSchemaBase):
         >>> import json
         >>> input_json = {
         ...    "braketSchemaHeader": {
-        ...        "name": "braket.device_schema.photon_model_parameters",
+        ...        "name": "braket.device_schema.photonic_model_parameters",
         ...        "version": "1",
         ...    },
         ...    "modes": {
@@ -38,11 +38,11 @@ class PhotonModelParameters(BraketSchemaBase):
         ...     },
         ...     "layout": "name template_borealis\nversion 1.0\nMeasureFock() | 0"
         ... }
-        >>> PhotonModelParameters.parse_raw_schema(json.dumps(input_json))
+        >>> PhotonicModelParameters.parse_raw_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
-        name="braket.device_schema.photon_model_parameters", version="1"
+        name="braket.device_schema.photonic_model_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     modes: Dict[str, float]

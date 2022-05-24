@@ -28,7 +28,7 @@ def valid_input():
         },
         "paradigmParameters": {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.photon_model_parameters",
+                "name": "braket.device_schema.photonic_model_parameters",
                 "version": "1",
             },
             "modes": {"spatial": 1},

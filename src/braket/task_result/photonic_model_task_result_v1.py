@@ -20,9 +20,9 @@ from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
-class PhotonModelTaskResult(BraketSchemaBase):
+class PhotonicModelTaskResult(BraketSchemaBase):
     """
-    The photon model task result schema
+    The photonic model task result schema
 
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
@@ -33,12 +33,12 @@ class PhotonModelTaskResult(BraketSchemaBase):
         additionalMetadata (AdditionalMetadata): Additional metadata of the task
     """
 
-    _PHOTON_MODEL_TASK_RESULT_HEADER = BraketSchemaHeader(
-        name="braket.task_result.photon_model_task_result", version="1"
+    _PHOTONIC_MODEL_TASK_RESULT_HEADER = BraketSchemaHeader(
+        name="braket.task_result.photonic_model_task_result", version="1"
     )
 
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_PHOTON_MODEL_TASK_RESULT_HEADER, const=_PHOTON_MODEL_TASK_RESULT_HEADER
+        default=_PHOTONIC_MODEL_TASK_RESULT_HEADER, const=_PHOTONIC_MODEL_TASK_RESULT_HEADER
     )
     measurements: Optional[
         conlist(conlist(conlist(conint(ge=0, le=256), min_items=1), min_items=1), min_items=1)

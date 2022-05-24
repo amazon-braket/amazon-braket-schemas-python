@@ -14,7 +14,7 @@
 import pytest
 from pydantic import ValidationError
 
-from braket.task_result.photon_model_task_result_v1 import PhotonModelTaskResult
+from braket.task_result.photonic_model_task_result_v1 import PhotonicModelTaskResult
 
 
 @pytest.fixture
@@ -29,39 +29,39 @@ def measurements(request):
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_properties():
-    PhotonModelTaskResult()
+    PhotonicModelTaskResult()
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_header(
     braket_schema_header,
     task_metadata,
-    additional_metadata_photon_model,
+    additional_metadata_photonic_model,
     measurements,
 ):
-    PhotonModelTaskResult(
+    PhotonicModelTaskResult(
         braketSchemaHeader=braket_schema_header,
         measurements=measurements,
         taskMetadata=task_metadata,
-        additionalMetadata=additional_metadata_photon_model,
+        additionalMetadata=additional_metadata_photonic_model,
     )
 
 
 def test_correct_result_measurements(
     task_metadata,
-    additional_metadata_photon_model,
+    additional_metadata_photonic_model,
     measurements,
 ):
-    result = PhotonModelTaskResult(
+    result = PhotonicModelTaskResult(
         measurements=measurements,
         taskMetadata=task_metadata,
-        additionalMetadata=additional_metadata_photon_model,
+        additionalMetadata=additional_metadata_photonic_model,
     )
     assert result.measurements == measurements
     assert result.taskMetadata == task_metadata
-    assert result.additionalMetadata == additional_metadata_photon_model
-    assert PhotonModelTaskResult.parse_raw(result.json()) == result
-    assert result == PhotonModelTaskResult.parse_raw_schema(result.json())
+    assert result.additionalMetadata == additional_metadata_photonic_model
+    assert PhotonicModelTaskResult.parse_raw(result.json()) == result
+    assert result == PhotonicModelTaskResult.parse_raw_schema(result.json())
 
 
 @pytest.mark.parametrize(
@@ -72,11 +72,11 @@ def test_incorrect_measurements(
     measurements,
     measured_qubits,
     task_metadata,
-    additional_metadata_photon_model,
+    additional_metadata_photonic_model,
 ):
-    PhotonModelTaskResult(
+    PhotonicModelTaskResult(
         measurements=measurements,
         measuredQubits=measured_qubits,
         taskMetadata=task_metadata,
-        additionalMetadata=additional_metadata_photon_model,
+        additionalMetadata=additional_metadata_photonic_model,
     )
