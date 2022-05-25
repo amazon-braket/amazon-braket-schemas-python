@@ -11,11 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, List
 
 from pydantic import Field
 
-from braket.device_schema.photonic_model_parameters_v1 import PhotonicModelParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -35,27 +33,6 @@ class XanaduDeviceParameters(BraketSchemaBase):
         ...        "name": "braket.device_schema.xanadu.xanadu_device_parameters",
         ...        "version": "1",
         ...    },
-        ...    "paradigmParameters": {
-        ...         "braketSchemaHeader": {
-        ...             "name": "braket.device_schema.photonic_model_parameters",
-        ...             "version": "1",
-        ...         },
-        ...         "modes": {
-        ...             "spatial": 1,
-        ...             "concurrent": 44,
-        ...             "temporal_max": 331
-        ...         },
-        ...         "layout": "name template_borealis\nversion 1.0\nMeasureFock() | 0"
-        ...     },
-        ...     "gateParameters": {
-        ...         "s": [
-        ...             [
-        ...                 0.0,
-        ...                 2.0
-        ...             ]
-        ...         ]
-        ...     },
-        ...     "target": "borealis",
         ... }
         >>> XanaduDeviceParameters.parse_raw_schema(json.dumps(input_json))
     """
@@ -64,6 +41,3 @@ class XanaduDeviceParameters(BraketSchemaBase):
         name="braket.device_schema.xanadu.xanadu_device_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    paradigmParameters: PhotonicModelParameters
-    gateParameters: Dict[str, List[List[float]]]
-    target: str

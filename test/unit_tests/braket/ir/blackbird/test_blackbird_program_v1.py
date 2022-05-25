@@ -29,10 +29,12 @@ def test_blackbird_program():
 
 
 def test_parse_obj():
-    program = BlackbirdProgram(source="test source")
+    source = "testsource"
+    program = BlackbirdProgram(source=source)
     assert program == BlackbirdProgram.parse_obj(program.dict())
 
 
 def test_parse_raw():
-    program = BlackbirdProgram(source="test source")
+    source = "testsource"
+    program = BlackbirdProgram(source=source)
     assert program == BlackbirdProgram.parse_raw(program.json())

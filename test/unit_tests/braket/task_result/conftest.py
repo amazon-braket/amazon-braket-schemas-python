@@ -119,9 +119,12 @@ def jacqd_program():
     return JaqcdProgram(instructions=[CNot(control=0, target=1)])
 
 
+
 @pytest.fixture
 def blackbird_program():
-    return BlackbirdProgram(source="name StateTeleportation \nversion 1.0 \nCoherent({alpha}) | 0")
+    return BlackbirdProgram(
+        source="name StateTeleportation \nversion 1.0 \nCoherent({alpha}) | 0",
+    )
 
 
 @pytest.fixture

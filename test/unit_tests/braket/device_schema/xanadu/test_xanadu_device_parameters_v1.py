@@ -31,11 +31,9 @@ def valid_input():
                 "name": "braket.device_schema.photonic_model_parameters",
                 "version": "1",
             },
-            "modes": {"spatial": 1},
-            "layout": "name template_borealis\nversion 1.0\ntarget borealis",
+            "recompile": False,
+            "compileOptions": {"optimize": True, "warnConnected": False},
         },
-        "gateParameters": {"s": [[0.0, 2.0]]},
-        "target": "borealis",
     }
     return input
 

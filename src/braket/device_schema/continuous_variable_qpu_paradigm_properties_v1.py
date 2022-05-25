@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List
+from typing import Dict, List
 
 from pydantic import Field
 
@@ -34,6 +34,28 @@ class ContinuousVariableQpuParadigmProperties(BraketSchemaBase):
         ...        "version": "1",
         ...    },
         ...    "nativeGateSet": ["XGate", "BSGate"],
+        ...     "modes": {
+        ...         "spatial": 1
+        ...     }
+        ...     "layout": "some layout",
+        ...     "compiler": ["borealis"],
+        ...     "supportedLanguages": ["blackbird:1.0"],
+        ...     "compilerDefault": "borealis",
+        ...     "nativeGateSet": ["XGate"]
+        ...     "gateParameters": {
+        ...         "s": [
+        ...                 [
+        ...                     0.0,
+        ...                     2.0
+        ...                 ]
+        ...         ],
+        ...         "r0": [
+        ...                 [
+        ...                     -1.5707963267948966,
+        ...                     1.5707963267948966
+        ...                 ]
+        ...         ]
+        ...     }
         ... }
         >>> ContinuousVariableQpuParadigmProperties.parse_raw_schema(json.dumps(input_json))
     """
@@ -42,4 +64,11 @@ class ContinuousVariableQpuParadigmProperties(BraketSchemaBase):
         name="braket.device_schema.continuous_variable_qpu_paradigm_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    modes: Dict[str, float]
+    layout: str
+    compiler: List[str]
+    supportedLanguages: List[str]
+    compilerDefault: str
     nativeGateSet: List[str]
+    gateParameters: Dict[str, List[List[float]]]
+    target: str
