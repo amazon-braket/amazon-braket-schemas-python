@@ -35,21 +35,32 @@ def test_correct_metadata_minimum(id, device_id, shots):
     assert TaskMetadata.parse_raw(metadata.json()) == metadata
 
 
-def test_correct_metadata_all(id, device_id, shots):
-    device_parameters = {
-        "braketSchemaHeader": {
-            "name": "braket.device_schema.rigetti.rigetti_device_parameters",
-            "version": "1",
-        },
-        "paradigmParameters": {
+@pytest.mark.parametrize(
+    "device_parameters",
+    [
+        {
             "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_parameters",
+                "name": "braket.device_schema.rigetti.rigetti_device_parameters",
                 "version": "1",
             },
-            "qubitCount": 1,
-            "disableQubitRewiring": True,
+            "paradigmParameters": {
+                "braketSchemaHeader": {
+                    "name": "braket.device_schema.gate_model_parameters",
+                    "version": "1",
+                },
+                "qubitCount": 1,
+                "disableQubitRewiring": True,
+            },
         },
-    }
+        {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.xanadu.xanadu_device_parameters",
+                "version": "1",
+            },
+        },
+    ]
+)
+def test_correct_metadata_all(device_parameters, id, device_id, shots):
     createdAt = "2020-01-02T03:04:05.006Z"
     endedAt = "2020-01-03T03:04:05.006Z"
     status = "COMPLETED"
