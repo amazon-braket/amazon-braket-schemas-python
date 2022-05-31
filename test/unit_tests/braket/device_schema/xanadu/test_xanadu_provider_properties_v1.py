@@ -30,11 +30,6 @@ def valid_input():
         "schmidtNumber": 1.1240597475954237,
         "commonEfficiency": 0.42871142768980564,
         "loopEfficiencies": [0.9106461685832691, 0.8904556756334581, 0.8518902619448591],
-        "squeezingParameters": {
-            "low": [0.6130577606615072],
-            "high": [1.0635796125448667],
-            "medium": [0.893051739389763],
-        },
         "squeezingParametersMean": {
             "low": 0.6130577606615072,
             "high": 1.0635796125448667,
@@ -82,7 +77,6 @@ def test__missing_schemaHeader(valid_input):
         "schmidtNumber",
         "commonEfficiency",
         "loopEfficiencies",
-        "squeezingParameters",
         "squeezingParametersMean",
         "relativeChannelEfficiencies",
     ],

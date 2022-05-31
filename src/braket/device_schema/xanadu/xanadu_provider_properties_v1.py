@@ -41,17 +41,6 @@ class XanaduProviderProperties(BraketSchemaBase):
         ...    "loop_efficiencies": [
         ...        0.8518902619448591
         ...    ],
-        ...    "squeezing_parameters": {
-        ...        "low": [
-        ...            0.6130577606615072
-        ...        ],
-        ...        "high": [
-        ...            1.0635796125448667
-        ...        ],
-        ...        "medium": [
-        ...            0.893051739389763
-        ...        ]
-        ...    },
         ...    "squeezing_parameters_mean": {
         ...        "low": 0.6130577606615072,
         ...        "high": 1.0635796125448667,
@@ -73,6 +62,6 @@ class XanaduProviderProperties(BraketSchemaBase):
     loopPhases: List[float]
     schmidtNumber: float
     commonEfficiency: float
-    squeezingParameters: Dict[str, List[float]]
     squeezingParametersMean: Dict[str, float]
     relativeChannelEfficiencies: List[float]
+    loopEfficiencies: List[float]

@@ -58,7 +58,7 @@ def test_correct_metadata_minimum(id, device_id, shots):
                 "version": "1",
             },
         },
-    ]
+    ],
 )
 def test_correct_metadata_all(device_parameters, id, device_id, shots):
     createdAt = "2020-01-02T03:04:05.006Z"

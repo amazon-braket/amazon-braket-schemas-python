@@ -31,8 +31,6 @@ def valid_input():
                 "name": "braket.device_schema.photonic_model_parameters",
                 "version": "1",
             },
-            "recompile": False,
-            "compileOptions": {"optimize": True, "warnConnected": False},
         },
     }
     return input

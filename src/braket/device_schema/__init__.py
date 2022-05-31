@@ -12,10 +12,10 @@
 # language governing permissions and limitations under the License
 
 from braket.device_schema.blackbird_device_action_properties import (  # noqa: F401
-    BlackbirdDeviceActionProperties
+    BlackbirdDeviceActionProperties,
 )
 from braket.device_schema.continuous_variable_qpu_paradigm_properties_v1 import (  # noqa: F401
-    ContinuousVariableQpuParadigmProperties
+    ContinuousVariableQpuParadigmProperties,
 )
 from braket.device_schema.device_action_properties import (  # noqa: F401
     DeviceActionProperties,
