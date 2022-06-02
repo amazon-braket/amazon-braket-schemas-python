@@ -24,6 +24,7 @@ class DeviceActionType(str, Enum):
 
     OPENQASM = "braket.ir.openqasm.program"
     JAQCD = "braket.ir.jaqcd.program"
+    BLACKBIRD = "braket.ir.blackbird.program"
     ANNEALING = "braket.ir.annealing.problem"
 
 

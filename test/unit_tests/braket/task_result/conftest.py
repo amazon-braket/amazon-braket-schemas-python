@@ -14,6 +14,7 @@
 import pytest
 
 from braket.ir.annealing import Problem, ProblemType
+from braket.ir.blackbird import Program as BlackbirdProgram
 from braket.ir.jaqcd import CNot
 from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
@@ -23,6 +24,7 @@ from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
+from braket.task_result.xanadu_metadata_v1 import XanaduMetadata
 
 
 @pytest.fixture
@@ -52,6 +54,11 @@ def native_quil_metadata():
         qpuRuntimeEstimation=191.21,
         topologicalSwaps=0,
     )
+
+
+@pytest.fixture
+def xanadu_metadata(compiled_program):
+    return XanaduMetadata(compiledProgram=compiled_program)
 
 
 @pytest.fixture
@@ -113,6 +120,13 @@ def jacqd_program():
 
 
 @pytest.fixture
+def blackbird_program():
+    return BlackbirdProgram(
+        source="name StateTeleportation \nversion 1.0 \nCoherent({alpha}) | 0",
+    )
+
+
+@pytest.fixture
 def openqasm_program():
     return OpenQASMProgram(source="OPENQASM 3.0; cnot $0, $1;")
 
@@ -120,6 +134,11 @@ def openqasm_program():
 @pytest.fixture
 def additional_metadata_gate_model(jacqd_program, rigetti_metadata):
     return AdditionalMetadata(action=jacqd_program, rigettiMetadata=rigetti_metadata)
+
+
+@pytest.fixture
+def additional_metadata_photonic_model(blackbird_program, xanadu_metadata):
+    return AdditionalMetadata(action=blackbird_program, xanadu_metadata=xanadu_metadata)
 
 
 @pytest.fixture

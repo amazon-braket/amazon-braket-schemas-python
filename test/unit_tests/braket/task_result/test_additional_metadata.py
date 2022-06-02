@@ -47,6 +47,11 @@ def test_additional_metadata_jacqd(oqc_metadata, jacqd_program):
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
+def test_additional_metadata_xanadu(xanadu_metadata, blackbird_program):
+    metadata = AdditionalMetadata(action=blackbird_program, xanaduMetadata=xanadu_metadata)
+    assert metadata.xanaduMetadata == xanadu_metadata
+
+
 def test_additional_metadata_oqc(oqc_metadata, openqasm_program):
     metadata = AdditionalMetadata(action=openqasm_program, oqcMetadata=oqc_metadata)
     assert metadata.oqcMetadata == oqc_metadata
