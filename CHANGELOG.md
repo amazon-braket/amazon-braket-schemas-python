@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.9.0 (2022-04-06)
+
+### Features
+
+ * Add standardized device calibration data for OQC and Rigetti
+
+## v1.8.0 (2022-03-07)
+
+### Features
+
+ * Add support for running OpenQASM programs
+
+## v1.7.2 (2022-02-27)
+
+### Bug Fixes and Other Changes
+
+ - Oqc release
+
 ## v1.7.1 (2022-02-01)
 
 ### Bug Fixes and Other Changes
