@@ -23,9 +23,9 @@ def measured_qubits():
     return [0, 1]
 
 
-@pytest.fixture
-def measurements():
-    return [[1, 0], [1, 0]]
+@pytest.fixture(params=[([[1, 0], [1, 0]])])
+def measurements(request):
+    return request.param
 
 
 @pytest.fixture

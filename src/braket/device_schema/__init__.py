@@ -11,6 +11,12 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
+from braket.device_schema.blackbird_device_action_properties import (  # noqa: F401
+    BlackbirdDeviceActionProperties,
+)
+from braket.device_schema.continuous_variable_qpu_paradigm_properties_v1 import (  # noqa: F401
+    ContinuousVariableQpuParadigmProperties,
+)
 from braket.device_schema.device_action_properties import (  # noqa: F401
     DeviceActionProperties,
     DeviceActionType,
@@ -32,6 +38,7 @@ from braket.device_schema.jaqcd_device_action_properties import (  # noqa: F401
 from braket.device_schema.openqasm_device_action_properties import (  # noqa: F401
     OpenQASMDeviceActionProperties,
 )
+from braket.device_schema.result_type import ResultType  # noqa: F401
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (  # noqa: F401
     StandardizedGateModelQpuDeviceProperties,
 )

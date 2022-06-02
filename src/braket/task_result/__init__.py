@@ -18,5 +18,9 @@ from braket.task_result.gate_model_task_result_v1 import (  # noqa: F401
     GateModelTaskResult,
     ResultTypeValue,
 )
+from braket.task_result.oqc_metadata_v1 import OqcMetadata  # noqa: F401
+from braket.task_result.photonic_model_task_result_v1 import PhotonicModelTaskResult  # noqa: F401
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata  # noqa: F401
+from braket.task_result.simulator_metadata_v1 import SimulatorMetadata  # noqa: F401
 from braket.task_result.task_metadata_v1 import TaskMetadata  # noqa: F401
+from braket.task_result.xanadu_metadata_v1 import XanaduMetadata  # noqa: F401
