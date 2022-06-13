@@ -33,5 +33,5 @@ class Hamiltonian(BaseModel):
         >>> Hamiltonian(driving_fields=[DrivingField],shifting_fields=[ShiftingField])
     """
 
-    driving_fields: List[DrivingField]
-    shifting_fields: List[ShiftingField]
+    drivingFields: List[DrivingField]
+    shiftingFields: List[ShiftingField]

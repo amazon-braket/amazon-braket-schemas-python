@@ -26,7 +26,7 @@ class Setup(BaseModel):
         atom_array : The spatial setup of the neutral atom program
     """
 
-    atom_array: AtomArray
+    atomArray: AtomArray
 
 
 class Program(BraketSchemaBase):
@@ -40,8 +40,8 @@ class Program(BraketSchemaBase):
 
     Examples:
         >>> Program(
-        ...     setup={"atom_array":AtomArray},
-        ...     hamiltonian={"driving_fields":DrivingField,"shifting_fields":ShiftingField}
+        ...     setup={"atomArray":AtomArray},
+        ...     hamiltonian={"drivingFields":DrivingField,"shiftingFields":ShiftingField}
         ...    )
     """
 
