@@ -11,10 +11,10 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+from braket.ir.ahs.atom_array import AtomArray  # noqa: F401
+from braket.ir.ahs.driving_field import DrivingField  # noqa: F401
+from braket.ir.ahs.hamiltonian import Hamiltonian  # noqa: F401
+from braket.ir.ahs.physical_field import PhysicalField  # noqa: F401
 from braket.ir.ahs.program_v1 import Program, Setup  # noqa: F401
-from braket.ir.ahs.atom_array import AtomArray
-from braket.ir.ahs.physical_field import PhysicalField
-from braket.ir.ahs.hamiltonian import Hamiltonian
-from braket.ir.ahs.driving_field import DrivingField
-from braket.ir.ahs.shifting_field import ShiftingField
-from braket.ir.ahs.waveform import Waveform
+from braket.ir.ahs.shifting_field import ShiftingField  # noqa: F401
+from braket.ir.ahs.waveform import Waveform  # noqa: F401

@@ -17,7 +17,7 @@ from pydantic import ValidationError
 from braket.ir.ahs.program_v1 import Program
 
 valid_setup_input = {
-    "atom_array": {
+    "atomArray": {
         "sites": [
             [0.0, 0.0],
             [0.0, 3.0e-6],
@@ -31,7 +31,7 @@ valid_setup_input = {
 }
 
 valid_hamiltonian_input = {
-    "driving_fields": [
+    "drivingFields": [
         {
             "amplitude": {
                 "sequence": {
@@ -53,7 +53,7 @@ valid_hamiltonian_input = {
             },
         }
     ],
-    "shifting_fields": [
+    "shiftingFields": [
         {
             "magnitude": {
                 "sequence": {"values": [-1.25664e8, 1.25664e8], "times": [0.0, 3.0e-6]},

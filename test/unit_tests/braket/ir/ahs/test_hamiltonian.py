@@ -22,21 +22,21 @@ valid_shifting_fields = []
 
 def test_valid():
     hamiltonian_field = Hamiltonian(
-        driving_fields=valid_driving_fields, shifting_fields=valid_shifting_fields
+        drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
     )
-    assert hamiltonian_field.driving_fields == valid_driving_fields
-    assert hamiltonian_field.shifting_fields == valid_shifting_fields
+    assert hamiltonian_field.drivingFields == valid_driving_fields
+    assert hamiltonian_field.shiftingFields == valid_shifting_fields
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_driving_fields():
     Hamiltonian(
-        shifting_fields=valid_shifting_fields,
+        shiftingFields=valid_shifting_fields,
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_shifting_fields():
     Hamiltonian(
-        driving_fields=valid_driving_fields,
+        drivingFields=valid_driving_fields,
     )
