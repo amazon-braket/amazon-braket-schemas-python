@@ -82,4 +82,4 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
         default=_AHS_TASK_RESULT_HEADER, const=_AHS_TASK_RESULT_HEADER
     )
     taskMetadata: TaskMetadata
-    measurements: List[AnalogHamiltonianSimulationShotMeasurement]
+    measurements: Optional[List[AnalogHamiltonianSimulationShotMeasurement]]
