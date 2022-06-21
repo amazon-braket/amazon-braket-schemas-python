@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import List
+from typing import Tuple
 
 from pydantic import BaseModel, Field
 
@@ -23,8 +23,10 @@ class Area(BaseModel):
     """
     The area of the FOV
     Attributes:
-        width (Decimal): The width of the FOV accessible
-        height (Decimal): The height of the FOV accessible
+        width (Decimal): Largest allowed difference between x
+            coordinates of any two sites (measured in meters)
+        height (Decimal): Largest allowed difference between y
+            coordinates of any two sites (measured in meters)
     """
 
     width: Decimal
@@ -35,10 +37,14 @@ class Geometry(BaseModel):
     """
     Spacing or number of sites or rows
     Attributes:
-        spacingRadialMin (Decimal): Minimum radial spacing between any two sites in the lattice
-        spacingVerticalMin (Decimal): Minimum spacing between any two rows in the lattice
-        positionResolution (Decimal): Resolution with which site positions can be specified
-        numberSitesMax (int): Maximum number of sites that can be placed in the lattice
+        spacingRadialMin (Decimal): Minimum radial spacing between any
+            two sites in the lattice (measured in meters)
+        spacingVerticalMin (Decimal): Minimum spacing between any two
+            rows in the lattice (measured in meters)
+        positionResolution (Decimal): Resolution with which site positions
+            can be specified (measured in meters)
+        numberSitesMax (int): Maximum number of sites that can be placed
+            in the lattice
     """
 
     spacingRadialMin: Decimal
@@ -51,8 +57,8 @@ class Lattice(BaseModel):
     """
     Spacing or number of sites or rows
     Attributes:
-        area : Minimum radial spacing between any two sites
-        geometry : Minimum spacing between any two rows
+        area : The rectangular area available for arranging atomic sites
+        geometry : Limitations of atomic site arrangements
     """
 
     area: Area
@@ -61,37 +67,38 @@ class Lattice(BaseModel):
 
 class RydbergGlobal(BaseModel):
     """
-    Rydberg Global
+    Parameters determining the limitations on the driving field that drives the
+        ground-to-Rydberg transition uniformly on all atoms
     Attributes:
-        rabiFrequencyRange (List[Decimal]): Achievable Rabi frequency range
-            for the global Rydberg drive waveform
+        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency
+            range for the global Rydberg drive waveform (measured in rad/s)
         rabiFrequencyResolution (Decimal): Resolution with which global Rabi
-            frequency amplitude can be specified
+            frequency amplitude can be specified (measured in rad/s)
         rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the
-            global Rabi frequency
-        detuningRange(List[Decimal]): Achievable detuning range for the global
-            Rydberg pulse
-        detuningResolution(Decimal): Resolution with which global detuning
-            can be specified
-        detuningSlewRateMax (Decimal): Maximum slew rate for detuning
-        phaseRange(List[Decimal]): Achievable phase range for the global
-            Rydberg pulse
-        phaseResolution(Decimal): Resolution with which global Rabi frequency
-            phase can be specified
-        phaseSlewRateMax(Decimal): Maximum slew rate for phase
-        timeResolution(Decimal): Resolution with which times for global
-            Rydberg drive parameters can be specified
-        timeDeltaMin(Decimal): Minimum time step with which times for
-            global Rydberg drive parameters can be specified
+            global Rabi frequency (measured in (rad/s)/s)
+        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for
+            the global Rydberg pulse (measured in rad/s)
+        detuningResolution(Decimal): Resolution with which global detuning can
+            be specified (measured in rad/s)
+        detuningSlewRateMax (Decimal): Maximum slew rate for detuning (measured in (rad/s)/s)
+        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global
+            Rydberg pulse (measured in rad)
+        phaseResolution(Decimal): Resolution with which global Rabi frequency phase
+            can be specified (measured in rad)
+        phaseSlewRateMax(Decimal): Maximum slew rate for phase (measured in rad/s)
+        timeResolution(Decimal): Resolution with which times for global Rydberg drive
+            parameters can be specified (measured in s)
+        timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg
+            drive parameters can be specified (measured in s)
     """
 
-    rabiFrequencyRange: List[Decimal]
+    rabiFrequencyRange: Tuple[Decimal, Decimal]
     rabiFrequencyResolution: Decimal
     rabiFrequencySlewRateMax: Decimal
-    detuningRange: List[Decimal]
+    detuningRange: Tuple[Decimal, Decimal]
     detuningResolution: Decimal
     detuningSlewRateMax: Decimal
-    phaseRange: List[Decimal]
+    phaseRange: Tuple[Decimal, Decimal]
     phaseResolution: Decimal
     phaseSlewRateMax: Decimal
     timeResolution: Decimal
@@ -100,26 +107,28 @@ class RydbergGlobal(BaseModel):
 
 class RydbergLocal(BaseModel):
     """
-    Rydberg Local
+    Parameters determining the limitations on the shifting field that shifts the
+        Rydberg state energy by a site- and time-dependent amount
     Attributes:
-        detuningRange (List[Decimal]): Achievable detuning range for
-            local detuning patterns
-        commonDetuningResolution(Decimal): Resolution with which time-dependent
-            term of local detuning can be specified
-        localDetuningResolution(Decimal): Resolution with which site-dependent
-            coefficients can be specified
-        detuningSlewRateMax(Decimal): Maximum slew rate for changing the local detuning
-        numberLocalDetuningSites (int): Max number of sites available for the
-            local Rydberg detuning pattern
-        spacingRadialMin (Decimal): Minimum radial spacing between any two
-            sites in the local detuning pattern
-        timeResolution(Decimal): Resolution with which times for local Rydberg
-            drive parameters can be specified
-        timeDeltaMin(Decimal): Minimum time step with which times for local
-            Rydberg drive parameters can be specified
+        detuningRange (Tuple[Decimal,Decimal]): Achievable detuning range for
+            local detuning patterns (measured in rad/s)
+        commonDetuningResolution(Decimal): Resolution with which time-dependent term
+            of local detuning can be specified (measured in rad/s)
+        localDetuningResolution(Decimal): Resolution with which site-dependent coefficients
+            can be specified (unitless)
+        detuningSlewRateMax(Decimal): Maximum slew rate for changing the local
+            detuning (measured in (rad/s)/s)
+        numberLocalDetuningSites (int): Max number of sites available for the local Rydberg
+            detuning pattern
+        spacingRadialMin (Decimal): Minimum radial spacing between any two sites in the local
+            detuning pattern (measured in meters)
+        timeResolution(Decimal): Resolution with which times for local Rydberg drive
+            parameters can be specified (measured in s)
+        timeDeltaMin(Decimal): Minimum time step with which times for local Rydberg drive
+            parameters can be specified (measured in s)
     """
 
-    detuningRange: List[Decimal]
+    detuningRange: Tuple[Decimal, Decimal]
     commonDetuningResolution: Decimal
     localDetuningResolution: Decimal
     detuningSlewRateMax: Decimal
@@ -131,10 +140,11 @@ class RydbergLocal(BaseModel):
 
 class Rydberg(BaseModel):
     """
-    Rydberg Model
+    Parameters determining the limitations of the Rydberg Hamiltonian
     Attributes:
-        c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient
-        timeMax (Decimal): Maximum duration of Rydberg drive
+        c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction
+            coefficient (measured in (rad/s)*m^6)
+        timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
         rydbergGlobal: Rydberg Global
         rydbergLocal: Rydberg Local
     """
@@ -145,11 +155,12 @@ class Rydberg(BaseModel):
     rydbergLocal: RydbergLocal
 
 
-class PerformanceRydbergGeometry(BaseModel):
+class PerformanceLattice(BaseModel):
     """
-    Performance of Rydberg Geometry
+    Uncertainties of atomic site arrangements
     Attributes:
-        positionErrorAbs (Decimal): Error between target and actual site position
+        positionErrorAbs (Decimal): Error between target and actual site
+            position (measured in meters)
     """
 
     positionErrorAbs: Decimal
@@ -157,22 +168,25 @@ class PerformanceRydbergGeometry(BaseModel):
 
 class PerformanceRydbergGlobal(BaseModel):
     """
-    Performance of Rydberg Global
+    Parameters determining the limitations of the global driving field
     Attributes:
-        rabiFrequencyErrorRel (Decimal): random error in the Rabi frequency, relative
-        rabiFrequencyHomogeneity (Decimal): fractional RMS Rabi frequency
-            non-uniformity across the user area
-        detuningErrorAbs (Decimal): random error in the detuning, absolute
-        phaseErrorAbs (Decimal): random error in the phase, absolute
-        omegaTau (Decimal): Product of Rabi frequency and Rabi decay time
-            for a single qubit under resonant Rydberg drive - average over
-            field of view (no local detuning applied)
-        singleQubitFidelity (Decimal): Single qubit fidelity of a pi(3.14)  pulse
-        twoQubitFidelity (Decimal): Fidelity of two-qubit entangled state
+        rabiFrequencyErrorRel (Decimal): random error in the Rabi frequency, relative (unitless)
+        rabiFrequencyHomogeneityRel (Decimal): fractional RMS Rabi frequency non-uniformity
+            across the user area (unitless)
+        rabiFrequencyHomogeneityAbs (Decimal): absolute RMS detuning non-uniformity across
+            the user area (measured in rad/s)
+        detuningErrorAbs (Decimal): random error in the detuning, absolute (measured in rad/s)
+        phaseErrorAbs (Decimal): random error in the phase, absolute (measured in rad)
+        omegaTau (Decimal): Product of Rabi frequency and Rabi decay time for a single qubit
+            under resonan Rydberg drive - average over field of view
+            (no local detuning applied) (unitless)
+        singleQubitFidelity (Decimal): Single qubit fidelity of a pi(3.14) pulse (unitless)
+        twoQubitFidelity (Decimal): Fidelity of two-qubit entangled state (unitless)
     """
 
     rabiFrequencyErrorRel: Decimal
-    rabiFrequencyHomogeneity: Decimal
+    rabiFrequencyHomogeneityRel: Decimal
+    rabiFrequencyHomogeneityAbs: Decimal
     detuningErrorAbs: Decimal
     phaseErrorAbs: Decimal
     omegaTau: Decimal
@@ -182,62 +196,74 @@ class PerformanceRydbergGlobal(BaseModel):
 
 class PerformanceRydbergLocal(BaseModel):
     """
-    Performance of Rydberg Local
+    Parameters determining the limitations of the shifting field
     Attributes:
-        detuningDynamicRange (Decimal): Dynamic range over which the
-            specified local detuning accuracy is preserved, relative to max detuning used.
-            E.g. if the largest local detuning is 2*pi(3.14) *37.0e6 rad/s, detuning
-            accuracy (error) is preserved for other sites down to 2*pi(3.14) *3.7e6
-        detuningErrorRel (Decimal):random local detuning error, relative to the given local detuning
-        detuningHomogeneity (Decimal): worst-case fractional RMS detuning non-uniformity of
-            the detuning pattern, relative to the max detuning used in the detuning pattern;
-            applies over the specified dynamic range only
-        detuningScaleErrorRel (Decimal): Error on the global scaling factor for local
-            detuning, relative
+        detuningDynamicRange (Decimal): dynamic range over which the specified local
+            detuning accuracy is preserved, relative to max detuning used. E.g. if the largest
+            local detuning is 2*pi(3.14) *37.0e6 rad/s, detuning accuracy (error) is preserved
+            for other sites down to 2*pi(3.14) *3.7e6 (unitless)
+        detuningErrorRel (Decimal): random local detuning error, relative to the given local
+            detuning (unitless)
+        detuningHomogeneity (Decimal): worst-case fractional RMS detuning non-uniformity of the
+            detuning pattern, relative to the max detuning used in the detuning pattern;
+            applies over the specified dynamic range only (unitless)
+        detuningScaleErrorRel (Decimal): error on the global scaling factor for local detuning ,
+            relative (unitless)
         darkErrorRete (Decimal): Error rate induced by local detuning pattern under Rydberg
             drive for qubits maximally detuned by the local detuning pattern (scattering)
+            (measured in hertz)
+        brightErrorRate (Decimal): worst-case error rate induced by local detuning pattern under
+            Rydberg drive for qubits minimally detuned by the local detuning pattern
+            (scattering from leakage and crosstalk) (measured in hertz)
     """
 
     detuningDynamicRange: Decimal
     detuningErrorRel: Decimal
     detuningHomogeneity: Decimal
-    detuningScaleErrorRel: int
+    detuningScaleErrorRel: Decimal
     darkErrorRete: Decimal
+    brightErrorRate: Decimal
 
 
 class PerformanceRydberg(BaseModel):
     """
-    Rydberg Performance
+    Parameters determining the limitations the Rydberg simulator
     Attributes:
-        geometry : Performance of Rydberg Geometry
         global: Performance of Rydberg Global
         local: Performance of Rydberg Local
     """
 
-    geometry: PerformanceRydbergGeometry
-    global_rydberg: PerformanceRydbergGlobal = Field(None, alias="global")
-    local: PerformanceRydbergLocal
+    rydbergGlobal: PerformanceRydbergGlobal
+    rydbergLocal: PerformanceRydbergLocal
 
 
 class Detection(BaseModel):
     """
-    Detection of an atom
-    Attributes:
-        atomDetectionFidelity (Decimal): Probability to correctly detect the presence of an atom
-        vacancyDetectionFidelity (Decimal): Probability to correctly detect the absence of an atom
+    Parameters determining the accuracy of atom detection
+     Attributes:
+         atomDetectionFidelity (Decimal): probability of detecting an atom conditioned
+             on the atom being there (unitless)
+         vacancyDetectionFidelity (Decimal): probability of detecting no atom conditioned
+            on the there being no atom (unitless)
+         groundStateDetectionFidelity (Decimal): probability of detecting an atom in the
+            ground state conditioned on the atom being in the ground state (unitless)
+         rydbergStateDetectionFidelity (Decimal): probability of detecting an atom in the
+            Rydberg state conditioned on the atom being in the Rydberg state (unitless)
     """
 
     atomDetectionFidelity: Decimal
     vacancyDetectionFidelity: Decimal
+    groundStateDetectionFidelity: Decimal
+    rydbergStateDetectionFidelity: Decimal
 
 
 class Sorting(BaseModel):
     """
-    Probability for sorting or arranging
+    Success probabilities of sorting and arranging
     Attributes:
-        moveFidelity (Decimal): Probability for a single sorting move to succeed
+        moveFidelity (Decimal): Probability for a single sorting move to succeed (unitless)
         patternFidelitySquare (Decimal): Probability of successfully arranging a maximal square
-            pattern (256 qubits, filling field of view)
+            pattern (256 qubits, filling field of view) (unitless)
     """
 
     moveFidelity: Decimal
@@ -246,13 +272,15 @@ class Sorting(BaseModel):
 
 class Performance(BaseModel):
     """
-    Performance
+    Parameters determining the limitations of the QuEra device
     Attributes:
-        rydberg : Rydberg Performance
-        detection : Detection of an atom
-        sorting : Probability for sorting or arranging
+        performanceLattice: Uncertainties of atomic site arrangements
+        performanceRydberg : Parameters determining the limitations the Rydberg simulator
+        detection : Parameters determining the accuracy of atom detection
+        sorting : Success probabilities of sorting and arranging
     """
 
+    lattice: PerformanceLattice
     rydberg: PerformanceRydberg
     detection: Detection
     sorting: Sorting
@@ -315,6 +343,41 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...             "timeDeltaMin": 1e-8,
         ...         },
         ...     },
+        ...     "performance": {
+        ...         "performanceLattice":{
+        ...             "positionErrorAbs": 0.025e-6,
+        ...         },
+        ...         "performanceRydberg":{
+        ...             "performanceRydbergGlobal":{
+        ...                 "rabiFrequencyErrorRel:": 0.01,
+        ...                 "rabiFrequencyHomogeneityRel": 0.05,
+        ...                 "rabiFrequencyHomogeneityAbs": 60e3,
+        ...                 "detuningErrorAbs": 60e3,
+        ...                 "phaseErrorAbs": 0.005,
+        ...                 "omegaTau": 10,
+        ...                 "singleQubitFidelity": 0.95,
+        ...                 "twoQubitFidelity": 0.95,
+        ...             },
+        ...             "performanceRydbergLocal":{
+        ...                 "detuningDynamicRange:": 10,
+        ...                 "detuningErrorRel": 0.01,
+        ...                 "detuningHomogeneity": 0.02,
+        ...                 "detuningScaleErrorRel": 0.01,
+        ...                 "darkErrorRate": 1e3,
+        ...                 "brightErrorRate": 3e6,
+        ...             }
+        ...         },
+        ...         "detection":{
+        ...                 "atomDetectionFidelity:": 0.99,
+        ...                 "vacancyDetectionFidelity": 0.999,
+        ...                 "groundStateDetectionFidelity": 0.99,
+        ...                 "rydbergStateDetectionFidelity": 0.99,
+        ...         },
+        ...         "sorting":{
+        ...                 "moveFidelity:": 0.98,
+        ...                 "patternFidelitySquare": 1e-4,
+        ...         },
+        ...     },
         ... }
         >>> QueraAhsParadigmProperties.parse_raw_schema(json.dumps(input_json))
     """
@@ -326,3 +389,4 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
     qubitCount: int
     lattice: Lattice
     rydberg: Rydberg
+    performance: Performance

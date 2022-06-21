@@ -73,37 +73,41 @@ def valid_input():
                 "timeDeltaMin": 1e-8,
             },
         },
-        # "performance": {
-        #     "rydberg": {
-        #         "geometry": {
-        #             "positionErrorAbs": 0.025e-6,
-        #         },
-        #         "global": {
-        #             "rabiFrequencyErrorRel": 0.01,
-        #             "rabiFrequencyHomogeneity": 0.05,
-        #             "detuningErrorAbs": 2 * math.pi * 10.0e3,
-        #             "phaseErrorAbs": 2 * math.pi / 1000,
-        #             "omegaTau": 10,
-        #             "singleQubitFidelity": 0.95,
-        #             "twoQubitFidelity": 0.95,
-        #         },
-        #         "local": {
-        #             "detuningDynamicRange": 10,
-        #             "detuningErrorRel": 0.01,
-        #             "detuningHomogeneity": 0.02,
-        #             "detuningScaleErrorRel": 0.01,
-        #             "darkErrorRete": 1e3,
-        #         },
-        #     },
-        #     "detection": {
-        #         "atomDetectionFidelity": 0.99,
-        #         "vacancyDetectionFidelity": 0.999,
-        #     },
-        #     "sorting": {
-        #         "moveFidelity": 0.98,
-        #         "patternFidelitySquare": 1e-4,
-        #     },
-        # },
+        "performance": {
+            "lattice": {
+                "positionErrorAbs": 0.025e-6,
+            },
+            "rydberg": {
+                "rydbergGlobal": {
+                    "rabiFrequencyErrorRel": 0.01,
+                    "rabiFrequencyHomogeneityRel": 0.05,
+                    "rabiFrequencyHomogeneityAbs": 60e3,
+                    "detuningErrorAbs": 2 * math.pi * 10.0e3,
+                    "phaseErrorAbs": 2 * math.pi / 1000,
+                    "omegaTau": 10,
+                    "singleQubitFidelity": 0.95,
+                    "twoQubitFidelity": 0.95,
+                },
+                "rydbergLocal": {
+                    "detuningDynamicRange": 10,
+                    "detuningErrorRel": 0.01,
+                    "detuningHomogeneity": 0.02,
+                    "detuningScaleErrorRel": 0.01,
+                    "darkErrorRete": 1e3,
+                    "brightErrorRate": 3e6,
+                },
+            },
+            "detection": {
+                "atomDetectionFidelity": 0.99,
+                "vacancyDetectionFidelity": 0.999,
+                "groundStateDetectionFidelity": 0.99,
+                "rydbergStateDetectionFidelity": 0.99,
+            },
+            "sorting": {
+                "moveFidelity": 0.98,
+                "patternFidelitySquare": 1e-4,
+            },
+        },
     }
     return input
 
@@ -207,17 +211,21 @@ def test_invalid_field_in_rydbergLocal():
     )
 
 
-# @pytest.mark.xfail(raises=ValidationError)
-# def test_missing_field_in_perfomanceRydbergGlobal():
-#     RydbergGlobal(rabiFrequencyErrorRel=0.01, rabiFrequencyHomogeneity= 0.05)
-#
-# @pytest.mark.xfail(raises=ValidationError)
-# def test_invalid_field_in_perfomanceRydbergGlobal():
-#     RydbergGlobal(rabiFrequencyErrorRel=0.01,
-#                   rabiFrequencyHomogeneity= 0.05,
-#                   detuningErrorAbs=2 * math.pi * 10.0e3,
-#                   phaseErrorAbs=2 * math.pi / 1000,
-#                   phaseRange=99,
-#                   omegaTau=10,
-#                   singleQubitFidelity=0.95,
-#                   twoQubitFidelity=0.95)
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_field_in_perfomanceRydbergGlobal():
+    RydbergGlobal(rabiFrequencyErrorRel=0.01, rabiFrequencyHomogeneityRel=0.05)
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_invalid_field_in_perfomanceRydbergGlobal():
+    RydbergGlobal(
+        rabiFrequencyErrorRel=0.01,
+        rabiFrequencyHomogeneityRel=0.05,
+        rabiFrequencyHomogeneityAbs=60e3,
+        detuningErrorAbs=2 * math.pi * 10.0e3,
+        phaseErrorAbs=2 * math.pi / 1000,
+        phaseRange=99,
+        omegaTau=10,
+        singleQubitFidelity=0.95,
+        twoQubitFidelity=0.95,
+    )
