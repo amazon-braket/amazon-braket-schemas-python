@@ -105,7 +105,7 @@ def test_valid(valid_input):
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_schemaHeader(valid_input):
+def test_missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
     GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
 

@@ -30,6 +30,56 @@ def valid_input():
         ],
         "supportPhysicalQubits": True,
         "supportedPragmas": ["braket_bit_flip_noise"],
+        "supportedLanguageFeatures": {
+            "classicalVariables": [
+                "int",
+                "uint",
+                "float",
+                "bit",
+                "bool",
+            ],
+            "classicalControl": [
+                "if",
+                "for",
+                "while",
+                "subroutine",
+            ],
+            "indexElements": [
+                "int",
+                "range",
+                "discrete_set",
+            ],
+            "gateModifiers": [
+                "inv",
+                "ctrl",
+                "negctrl",
+                "pow",
+            ],
+            "builtinFunctions": [
+                "sin",
+                "cos",
+                "tan",
+                "exp",
+            ],
+
+            "builtinOperators": [
+                "+", "-", "*", "/", "=", "+=", "-=", "*=", "/=",
+            ],
+
+            "ioDirectives": [
+                "input",
+                "output",
+            ],
+            "quantumDirectives": [
+                "gate_def",
+                "parameterized_u",
+                "gphase",
+                "braket_gate",
+                "reset",
+                "measure",
+                "qubit_declaration",
+            ],
+        },
         "forbiddenPragmas": ["braket_kraus_operator"],
         "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
         "requiresAllQubitsMeasurement": False,
@@ -95,6 +145,12 @@ def test_default_requires_contiguous_qubit_indices(valid_input):
     valid_input.pop("requiresContiguousQubitIndices")
     result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.requiresContiguousQubitIndices is False
+
+
+def test_default_supported_language_features(valid_input):
+    valid_input.pop("supportedLanguageFeatures")
+    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.supportedLanguageFeatures is None
 
 
 @pytest.mark.xfail(raises=ValidationError)

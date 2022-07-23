@@ -16,6 +16,7 @@ from typing import List, Optional
 from pydantic import constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
+from braket.device_schema.openqasm_language_features import OpenQASMLanguageFeatures
 from braket.device_schema.result_type import ResultType
 
 
@@ -65,6 +66,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
     actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
     supportedOperations: List[str]
     supportedPragmas: Optional[List[str]] = []
+    supportedLanguageFeatures: Optional[OpenQASMLanguageFeatures] = None
     forbiddenPragmas: Optional[List[str]] = []
     maximumQubitArrays: Optional[int] = None  # None indicates no limit
     maximumClassicalArrays: Optional[int] = None  # None indicates no limit
