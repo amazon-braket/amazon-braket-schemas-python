@@ -17,6 +17,7 @@ class ClassicalControl(str, Enum):
     FOR = "for"
     WHILE = "while"
     SUBROUTINE = "subroutine"
+    INCLUDE = "include"
 
 
 class IndexElement(str, Enum):
