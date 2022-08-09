@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.10.1 (2022-08-04)
+
+### Bug Fixes and Other Changes
+
+ * OpenQASM Local Simulator support
+
 ## v1.10.0 (2022-06-02)
 
 ### Features
