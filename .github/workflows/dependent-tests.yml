@@ -19,6 +19,7 @@ jobs:
           - amazon-braket-sdk-python
           - amazon-braket-ocean-plugin-python
           - amazon-braket-pennylane-plugin-python
+          - amazon-braket-strawberryfields-plugin-python
 
     steps:
     - uses: actions/checkout@v2
