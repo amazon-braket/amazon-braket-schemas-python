@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.10.2 (2022-08-25)
+
+### Bug Fixes and Other Changes
+
+ * Removing unused OpenQASM3 results schema
+
 ## v1.10.1.post0 (2022-08-10)
 
 ### Testing and Release Infrastructure
