@@ -90,6 +90,8 @@ class RydbergGlobal(BaseModel):
             parameters can be specified (measured in s)
         timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg
             drive parameters can be specified (measured in s)
+        timeMin (Decimal): Minimum duration of Rydberg drive (measured in s)
+        timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
     """
 
     rabiFrequencyRange: Tuple[Decimal, Decimal]
@@ -103,6 +105,8 @@ class RydbergGlobal(BaseModel):
     phaseSlewRateMax: Decimal
     timeResolution: Decimal
     timeDeltaMin: Decimal
+    timeMin: Decimal
+    timeMax: Decimal
 
 
 class RydbergLocal(BaseModel):
@@ -144,13 +148,11 @@ class Rydberg(BaseModel):
     Attributes:
         c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction
             coefficient (measured in (rad/s)*m^6)
-        timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
         rydbergGlobal: Rydberg Global
         rydbergLocal: Rydberg Local
     """
 
     c6Coefficient: Decimal
-    timeMax: Decimal
     rydbergGlobal: RydbergGlobal
     rydbergLocal: RydbergLocal
 
@@ -318,7 +320,6 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...     },
         ...     "rydberg": {
         ...         "c6Coefficient": 2*math.pi(3.14) *862690,
-        ...         "timeMax": 4.0e-6,
         ...         "rydbergGlobal": {
         ...             "rabiFrequencyRange": [0, 2*math.pi(3.14) *4.0e6],
         ...             "rabiFrequencyResolution": 400
@@ -331,6 +332,8 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...             "phaseSlewRateMax": 2*math.pi(3.14) /100e-9,
         ...             "timeResolution": 1e-9,
         ...             "timeDeltaMin": 1e-8,
+        ...             "timeMin": 0,
+        ...             "timeMax": 4.0e-6,
         ...         },
         ...         "rydbergLocal": {
         ...             "detuningRange": [0,2*math.pi(3.14) *50.0e6],
