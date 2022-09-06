@@ -76,7 +76,6 @@ def valid_input():
             },
             "rydberg": {
                 "c6Coefficient": 2 * math.pi * 862690,
-                "timeMax": 4.0e-6,
                 "rydbergGlobal": {
                     "rabiFrequencyRange": [0, 2 * math.pi * 4.0e6],
                     "rabiFrequencyResolution": 400,
@@ -89,6 +88,8 @@ def valid_input():
                     "phaseSlewRateMax": 2 * math.pi / 100e-9,
                     "timeResolution": 1e-9,
                     "timeDeltaMin": 1e-8,
+                    "timeMin": 0,
+                    "timeMax": 4.0e-6,
                 },
                 "rydbergLocal": {
                     "detuningRange": [0, 2 * math.pi * 50.0e6],
