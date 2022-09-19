@@ -99,6 +99,6 @@ def test_correct_decimal_serialization():
     serialized_program = program.json()
     deserialized_program = Program.parse_raw(serialized_program)
 
-    original_ampltiude_times = program.hamiltonian.drivingFields[0].amplitude.sequence.times
+    original_amplitude_times = program.hamiltonian.drivingFields[0].amplitude.sequence.times
     new_amplitude_times = deserialized_program.hamiltonian.drivingFields[0].amplitude.sequence.times
-    assert new_amplitude_times == original_ampltiude_times
+    assert new_amplitude_times == original_amplitude_times
