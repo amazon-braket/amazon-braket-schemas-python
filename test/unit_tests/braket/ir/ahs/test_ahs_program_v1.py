@@ -12,6 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
+from decimal import Decimal
 from pydantic import ValidationError
 
 from braket.ir.ahs.program_v1 import Program
@@ -85,3 +86,19 @@ def test__missing_hamiltonian():
     Program(
         setup=valid_setup_input,
     )
+
+
+def test_correct_decimal_serialization():
+    program = Program(
+        setup=valid_setup_input,
+        hamiltonian=valid_hamiltonian_input,
+    )
+    program.hamiltonian.drivingFields[0].amplitude.sequence.times = [Decimal(i * 3e-6 / 7) for i in range(8)]
+    program.hamiltonian.drivingFields[0].amplitude.sequence.values = [Decimal(0.0)] * 8
+
+    serialized_program = program.json()
+    deserialized_program = Program.parse_raw(serialized_program)
+
+    original_ampltiude_times = program.hamiltonian.drivingFields[0].amplitude.sequence.times
+    new_amplitude_times = deserialized_program.hamiltonian.drivingFields[0].amplitude.sequence.times
+    assert new_amplitude_times == original_ampltiude_times
