@@ -13,6 +13,7 @@
 
 
 from pydantic import BaseModel, Field
+from decimal import Decimal
 
 from braket.ir.ahs.atom_array import AtomArray
 from braket.ir.ahs.hamiltonian import Hamiltonian
@@ -49,3 +50,6 @@ class Program(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     setup: Setup
     hamiltonian: Hamiltonian
+
+    class Config:
+        json_encoders = {Decimal: str}
