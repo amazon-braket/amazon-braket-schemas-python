@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from braket.ir.ahs.atom_array import AtomArray  # noqa: F401
+from braket.ir.ahs.atom_arrangement import AtomArrangement  # noqa: F401
 from braket.ir.ahs.driving_field import DrivingField  # noqa: F401
 from braket.ir.ahs.hamiltonian import Hamiltonian  # noqa: F401
 from braket.ir.ahs.physical_field import PhysicalField  # noqa: F401

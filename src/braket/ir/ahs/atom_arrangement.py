@@ -17,7 +17,7 @@ from typing import List
 from pydantic import BaseModel
 
 
-class AtomArray(BaseModel):
+class AtomArrangement(BaseModel):
     """
     Specifies the atom array
 
@@ -27,7 +27,7 @@ class AtomArray(BaseModel):
 
 
     Examples:
-        >>> AtomArray(sites=[
+        >>> AtomArrangement(sites=[
         ...         [0.0, 0.0],
         ...         [0.0, 3.0e-6],
         ...         [0.0, 6.0e-6],
