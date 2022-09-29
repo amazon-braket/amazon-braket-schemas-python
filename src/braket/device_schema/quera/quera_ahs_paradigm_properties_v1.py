@@ -85,7 +85,6 @@ class RydbergGlobal(BaseModel):
             Rydberg pulse (measured in rad)
         phaseResolution(Decimal): Resolution with which global Rabi frequency phase
             can be specified (measured in rad)
-        phaseSlewRateMax(Decimal): Maximum slew rate for phase (measured in rad/s)
         timeResolution(Decimal): Resolution with which times for global Rydberg drive
             parameters can be specified (measured in s)
         timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg
@@ -102,7 +101,6 @@ class RydbergGlobal(BaseModel):
     detuningSlewRateMax: Decimal
     phaseRange: Tuple[Decimal, Decimal]
     phaseResolution: Decimal
-    phaseSlewRateMax: Decimal
     timeResolution: Decimal
     timeDeltaMin: Decimal
     timeMin: Decimal
@@ -149,12 +147,10 @@ class Rydberg(BaseModel):
         c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction
             coefficient (measured in (rad/s)*m^6)
         rydbergGlobal: Rydberg Global
-        rydbergLocal: Rydberg Local
     """
 
     c6Coefficient: Decimal
     rydbergGlobal: RydbergGlobal
-    rydbergLocal: RydbergLocal
 
 
 class PerformanceLattice(BaseModel):
@@ -173,25 +169,11 @@ class PerformanceRydbergGlobal(BaseModel):
     Parameters determining the limitations of the global driving field
     Attributes:
         rabiFrequencyErrorRel (Decimal): random error in the Rabi frequency, relative (unitless)
-        rabiFrequencyHomogeneityRel (Decimal): fractional RMS Rabi frequency non-uniformity
-            across the user area (unitless)
-        rabiFrequencyHomogeneityAbs (Decimal): absolute RMS detuning non-uniformity across
-            the user area (measured in rad/s)
-        detuningErrorAbs (Decimal): random error in the detuning, absolute (measured in rad/s)
-        phaseErrorAbs (Decimal): random error in the phase, absolute (measured in rad)
-        omegaTau (Decimal): Product of Rabi frequency and Rabi decay time for a single qubit
-            under resonan Rydberg drive - average over field of view
-            (no local detuning applied) (unitless)
         singleQubitFidelity (Decimal): Single qubit fidelity of a pi(3.14) pulse (unitless)
         twoQubitFidelity (Decimal): Fidelity of two-qubit entangled state (unitless)
     """
 
     rabiFrequencyErrorRel: Decimal
-    rabiFrequencyHomogeneityRel: Decimal
-    rabiFrequencyHomogeneityAbs: Decimal
-    detuningErrorAbs: Decimal
-    phaseErrorAbs: Decimal
-    omegaTau: Decimal
     singleQubitFidelity: Decimal
     twoQubitFidelity: Decimal
 
@@ -231,12 +213,10 @@ class PerformanceRydberg(BaseModel):
     """
     Parameters determining the limitations the Rydberg simulator
     Attributes:
-        global: Performance of Rydberg Global
-        local: Performance of Rydberg Local
+        rydbergGlobal: Performance of Rydberg Global
     """
 
     rydbergGlobal: PerformanceRydbergGlobal
-    rydbergLocal: PerformanceRydbergLocal
 
 
 class Detection(BaseModel):
@@ -278,14 +258,10 @@ class Performance(BaseModel):
     Attributes:
         performanceLattice: Uncertainties of atomic site arrangements
         performanceRydberg : Parameters determining the limitations the Rydberg simulator
-        detection : Parameters determining the accuracy of atom detection
-        sorting : Success probabilities of sorting and arranging
     """
 
     lattice: PerformanceLattice
     rydberg: PerformanceRydberg
-    detection: Detection
-    sorting: Sorting
 
 
 class QueraAhsParadigmProperties(BraketSchemaBase):
