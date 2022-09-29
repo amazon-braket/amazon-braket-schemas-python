@@ -24,13 +24,13 @@ class PhysicalField(BaseModel):
     Represents the temporal and spatial dependence of a control parameter affecting the atoms
 
     Attributes:
-        sequence: TimeSeries
+        time_series: TimeSeries
         pattern:  Values refer to the pattern at the positions setup.atom_array.sites
 
     Examples:
-        >>> PhysicalField(sequence=TimeSeries,pattern='uniform')
-        >>> PhysicalField(sequence=TimeSeries,pattern=[0.5, 1.0, 0.5, 0.5, 0.5, 0.5])
+        >>> PhysicalField(time_series=TimeSeries,pattern='uniform')
+        >>> PhysicalField(time_series=TimeSeries,pattern=[0.5, 1.0, 0.5, 0.5, 0.5, 0.5])
     """
 
-    sequence: TimeSeries
+    time_series: TimeSeries
     pattern: Union[str, List[Decimal]]

@@ -18,7 +18,7 @@ from pydantic import ValidationError
 
 from braket.ir.ahs.physical_field import PhysicalField
 
-valid_sequence = {"values": [Decimal(0), Decimal(0)], "times": [Decimal(0.0), Decimal(3.0e-6)]}
+valid_time_series = {"values": [Decimal(0), Decimal(0)], "times": [Decimal(0.0), Decimal(3.0e-6)]}
 valid_pattern_str = "uniform"
 valid_pattern_list = [
     Decimal(0.5),
@@ -31,26 +31,26 @@ valid_pattern_list = [
 
 
 def test_valid_default_pattern():
-    physical_field = PhysicalField(sequence=valid_sequence, pattern=valid_pattern_str)
-    assert physical_field.sequence == valid_sequence
+    physical_field = PhysicalField(time_series=valid_time_series, pattern=valid_pattern_str)
+    assert physical_field.time_series == valid_time_series
     assert physical_field.pattern == valid_pattern_str
 
 
 def test_valid_list_pattern():
-    physical_field = PhysicalField(sequence=valid_sequence, pattern=valid_pattern_list)
-    assert physical_field.sequence == valid_sequence
+    physical_field = PhysicalField(time_series=valid_time_series, pattern=valid_pattern_list)
+    assert physical_field.time_series == valid_time_series
     assert physical_field.pattern == valid_pattern_list
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_pattern():
     PhysicalField(
-        sequence=valid_sequence,
+        time_series=valid_time_series,
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_sequence():
+def test__missing_time_series():
     PhysicalField(
         pattern=valid_pattern_str,
     )
