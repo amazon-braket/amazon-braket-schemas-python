@@ -17,4 +17,4 @@ from braket.ir.ahs.hamiltonian import Hamiltonian  # noqa: F401
 from braket.ir.ahs.physical_field import PhysicalField  # noqa: F401
 from braket.ir.ahs.program_v1 import Program, Setup  # noqa: F401
 from braket.ir.ahs.shifting_field import ShiftingField  # noqa: F401
-from braket.ir.ahs.waveform import Waveform  # noqa: F401
+from braket.ir.ahs.time_series import TimeSeries  # noqa: F401

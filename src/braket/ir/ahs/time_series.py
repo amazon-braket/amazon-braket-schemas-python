@@ -17,16 +17,16 @@ from typing import List
 from pydantic import BaseModel
 
 
-class Waveform(BaseModel):
+class TimeSeries(BaseModel):
     """
-    Specifies the Waveform, real-valued time series
+    Specifies the TimeSeries, real-valued time series
 
     Attributes:
         values: List[float]
         times: List[float], ascending
 
     Examples:
-       >>> Waveform(values=[-1.25664e8,1.25664e8],times=[0.0,3.0e-6])
+       >>> TimeSeries(values=[-1.25664e8,1.25664e8],times=[0.0,3.0e-6])
     """
 
     values: List[Decimal]
