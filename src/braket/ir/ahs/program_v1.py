@@ -24,10 +24,10 @@ class Setup(BaseModel):
     """
     Spacing or number of sites or rows
     Attributes:
-        atom_array : The spatial setup of the neutral atom program
+        ahs_register: The spatial setup of the neutral atom program
     """
 
-    atomArray: AtomArray
+    ahs_register: AtomArray
 
 
 class Program(BraketSchemaBase):

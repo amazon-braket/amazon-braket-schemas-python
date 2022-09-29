@@ -18,7 +18,7 @@ from pydantic import ValidationError
 from braket.ir.ahs.program_v1 import Program
 
 valid_setup_input = {
-    "atomArray": {
+    "ahs_register": {
         "sites": [
             [0.0, 0.0],
             [0.0, 3.0e-6],
