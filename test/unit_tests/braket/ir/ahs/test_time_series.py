@@ -16,27 +16,27 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.ahs.waveform import Waveform
+from braket.ir.ahs.time_series import TimeSeries
 
 valid_values = [Decimal(-1.25664e8), Decimal(1.25664e8)]
 valid_times = [Decimal(0.0), Decimal(3.0e-6)]
 
 
 def test_valid():
-    waveform = Waveform(values=valid_values, times=valid_times)
-    assert waveform.values == valid_values
-    assert waveform.times == valid_times
+    time_series = TimeSeries(values=valid_values, times=valid_times)
+    assert time_series.values == valid_values
+    assert time_series.times == valid_times
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_values():
-    Waveform(
+    TimeSeries(
         times=valid_times,
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_times():
-    Waveform(
+    TimeSeries(
         values=valid_values,
     )

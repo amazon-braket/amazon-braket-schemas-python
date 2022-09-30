@@ -16,7 +16,7 @@ from typing import List, Union
 
 from pydantic import BaseModel
 
-from braket.ir.ahs.waveform import Waveform
+from braket.ir.ahs.time_series import TimeSeries
 
 
 class PhysicalField(BaseModel):
@@ -24,13 +24,13 @@ class PhysicalField(BaseModel):
     Represents the temporal and spatial dependence of a control parameter affecting the atoms
 
     Attributes:
-        sequence: Waveform
+        time_series: TimeSeries
         pattern:  Values refer to the pattern at the positions setup.atom_array.sites
 
     Examples:
-        >>> PhysicalField(sequence=Waveform,pattern='uniform')
-        >>> PhysicalField(sequence=Waveform,pattern=[0.5, 1.0, 0.5, 0.5, 0.5, 0.5])
+        >>> PhysicalField(time_series=TimeSeries,pattern='uniform')
+        >>> PhysicalField(time_series=TimeSeries,pattern=[0.5, 1.0, 0.5, 0.5, 0.5, 0.5])
     """
 
-    sequence: Waveform
+    time_series: TimeSeries
     pattern: Union[str, List[Decimal]]

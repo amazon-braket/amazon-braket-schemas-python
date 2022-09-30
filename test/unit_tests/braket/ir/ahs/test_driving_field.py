@@ -16,7 +16,7 @@ from pydantic import ValidationError
 
 from braket.ir.ahs.driving_field import DrivingField
 
-valid_atom_field = {"sequence": {"values": [], "times": []}, "pattern": ""}
+valid_atom_field = {"time_series": {"values": [], "times": []}, "pattern": ""}
 
 
 def test_valid():

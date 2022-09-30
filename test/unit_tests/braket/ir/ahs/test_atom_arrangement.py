@@ -16,7 +16,7 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from braket.ir.ahs.atom_array import AtomArray
+from braket.ir.ahs.atom_arrangement import AtomArrangement
 
 valid_site_input = [
     [Decimal(0.0), Decimal(0.0)],
@@ -30,20 +30,20 @@ valid_filling = [Decimal(1), Decimal(1), Decimal(1), Decimal(1), Decimal(0), Dec
 
 
 def test_valid():
-    atom_array = AtomArray(sites=valid_site_input, filling=valid_filling)
+    atom_array = AtomArrangement(sites=valid_site_input, filling=valid_filling)
     assert atom_array.sites == valid_site_input
     assert atom_array.filling == valid_filling
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_sites():
-    AtomArray(
+    AtomArrangement(
         filling=valid_filling,
     )
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_filling():
-    AtomArray(
+    AtomArrangement(
         sites=valid_site_input,
     )

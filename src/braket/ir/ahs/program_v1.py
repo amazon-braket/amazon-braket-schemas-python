@@ -15,7 +15,7 @@
 from pydantic import BaseModel, Field
 from decimal import Decimal
 
-from braket.ir.ahs.atom_array import AtomArray
+from braket.ir.ahs.atom_arrangement import AtomArrangement
 from braket.ir.ahs.hamiltonian import Hamiltonian
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -24,10 +24,10 @@ class Setup(BaseModel):
     """
     Spacing or number of sites or rows
     Attributes:
-        atom_array : The spatial setup of the neutral atom program
+        ahs_register: The spatial setup of the neutral atom program
     """
 
-    atomArray: AtomArray
+    ahs_register: AtomArrangement
 
 
 class Program(BraketSchemaBase):
@@ -41,7 +41,7 @@ class Program(BraketSchemaBase):
 
     Examples:
         >>> Program(
-        ...     setup={"atomArray":AtomArray},
+        ...     setup={"ahs_register":AtomArrangement},
         ...     hamiltonian={"drivingFields":DrivingField,"shiftingFields":ShiftingField}
         ...    )
     """
