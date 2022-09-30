@@ -26,6 +26,7 @@ class DeviceActionType(str, Enum):
     JAQCD = "braket.ir.jaqcd.program"
     BLACKBIRD = "braket.ir.blackbird.program"
     ANNEALING = "braket.ir.annealing.problem"
+    AHS = "braket.ir.ahs.program"
 
 
 class DeviceActionProperties(BaseModel):
