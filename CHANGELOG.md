@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.11.0 (2022-10-20)
+
+### Features
+
+ * Add support for pulses
+
 ## v1.10.2 (2022-08-25)
 
 ### Bug Fixes and Other Changes
