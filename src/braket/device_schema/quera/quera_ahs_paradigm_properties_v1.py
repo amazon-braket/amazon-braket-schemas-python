@@ -136,13 +136,9 @@ class PerformanceRydbergGlobal(BaseModel):
     Parameters determining the limitations of the global driving field
     Attributes:
         rabiFrequencyErrorRel (Decimal): random error in the Rabi frequency, relative (unitless)
-        singleQubitFidelity (Decimal): Single qubit fidelity of a pi(3.14) pulse (unitless)
-        twoQubitFidelity (Decimal): Fidelity of two-qubit entangled state (unitless)
     """
 
     rabiFrequencyErrorRel: Decimal
-    singleQubitFidelity: Decimal
-    twoQubitFidelity: Decimal
 
 
 class PerformanceRydberg(BaseModel):
@@ -221,8 +217,6 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...         "performanceRydberg":{
         ...             "performanceRydbergGlobal":{
         ...                 "rabiFrequencyErrorRel:": 0.01,
-        ...                 "singleQubitFidelity": 0.95,
-        ...                 "twoQubitFidelity": 0.95,
         ...             },
         ...         },
         ...     },

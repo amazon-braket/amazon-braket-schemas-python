@@ -70,8 +70,6 @@ def valid_input():
             "rydberg": {
                 "rydbergGlobal": {
                     "rabiFrequencyErrorRel": 0.01,
-                    "singleQubitFidelity": 0.95,
-                    "twoQubitFidelity": 0.95,
                 },
             },
         },
