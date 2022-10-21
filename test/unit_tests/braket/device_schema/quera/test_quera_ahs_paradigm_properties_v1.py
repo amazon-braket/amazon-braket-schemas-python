@@ -22,7 +22,6 @@ from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import (
     Geometry,
     QueraAhsParadigmProperties,
     RydbergGlobal,
-    RydbergLocal,
 )
 
 
@@ -155,24 +154,6 @@ def test_invalid_field_in_rydbergGlobal():
         phaseSlewRateMax=2 * math.pi / 100e-9,
         timeDiscretization=1e-9,
         timeMax=4.0e-6,
-    )
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_field_in_rydbergLocal():
-    RydbergLocal(detuningRange=[0, 2 * math.pi * 50.0e6], commonDetuningResolution=2000)
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test_invalid_field_in_rydbergLocal():
-    RydbergLocal(
-        detuningRange=[0, 2 * math.pi * 50.0e6],
-        commonDetuningResolution=2000,
-        localDetuningResolution=0.01,
-        detuningSlewRateMax=[0, 1],
-        numberLocalDetuningSites=256,
-        timeResolution=1e-9,
-        timeDeltaMin=1e-8,
     )
 
 
