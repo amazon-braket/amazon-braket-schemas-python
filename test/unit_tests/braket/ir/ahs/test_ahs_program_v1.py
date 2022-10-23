@@ -93,12 +93,16 @@ def test_correct_decimal_serialization():
         setup=valid_setup_input,
         hamiltonian=valid_hamiltonian_input,
     )
-    program.hamiltonian.drivingFields[0].amplitude.time_series.times = [Decimal(i * 3e-6 / 7) for i in range(8)]
+    program.hamiltonian.drivingFields[0].amplitude.time_series.times = [
+        Decimal(i * 3e-6 / 7) for i in range(8)
+    ]
     program.hamiltonian.drivingFields[0].amplitude.time_series.values = [Decimal(0.0)] * 8
 
     serialized_program = program.json()
     deserialized_program = Program.parse_raw(serialized_program)
 
     original_amplitude_times = program.hamiltonian.drivingFields[0].amplitude.time_series.times
-    new_amplitude_times = deserialized_program.hamiltonian.drivingFields[0].amplitude.time_series.times
+    new_amplitude_times = deserialized_program.hamiltonian.drivingFields[
+        0
+    ].amplitude.time_series.times
     assert new_amplitude_times == original_amplitude_times

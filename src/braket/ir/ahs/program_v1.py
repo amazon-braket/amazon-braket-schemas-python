@@ -22,7 +22,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class Setup(BaseModel):
     """
-    Spacing or number of sites or rows
+    The initial setup of the quantum register
     Attributes:
         ahs_register: The spatial setup of the neutral atom program
     """
@@ -31,13 +31,13 @@ class Setup(BaseModel):
 
 
 class Program(BraketSchemaBase):
-    """Specifies an ahs problem.
+    """Specifies an AHS program
 
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
-            to set this value. Only default is allowed.
-        setup: Neutral atom lattice set up.
-        hamiltonian: Quera rydberg hamiltonian.
+            to set this value. Only default is allowed
+        setup: Neutral atom lattice set up
+        hamiltonian: rydberg hamiltonian
 
     Examples:
         >>> Program(

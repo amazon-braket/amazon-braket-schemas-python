@@ -107,39 +107,6 @@ class RydbergGlobal(BaseModel):
     timeMax: Decimal
 
 
-class RydbergLocal(BaseModel):
-    """
-    Parameters determining the limitations on the shifting field that shifts the
-        Rydberg state energy by a site- and time-dependent amount
-    Attributes:
-        detuningRange (Tuple[Decimal,Decimal]): Achievable detuning range for
-            local detuning patterns (measured in rad/s)
-        commonDetuningResolution(Decimal): Resolution with which time-dependent term
-            of local detuning can be specified (measured in rad/s)
-        localDetuningResolution(Decimal): Resolution with which site-dependent coefficients
-            can be specified (unitless)
-        detuningSlewRateMax(Decimal): Maximum slew rate for changing the local
-            detuning (measured in (rad/s)/s)
-        numberLocalDetuningSites (int): Max number of sites available for the local Rydberg
-            detuning pattern
-        spacingRadialMin (Decimal): Minimum radial spacing between any two sites in the local
-            detuning pattern (measured in meters)
-        timeResolution(Decimal): Resolution with which times for local Rydberg drive
-            parameters can be specified (measured in s)
-        timeDeltaMin(Decimal): Minimum time step with which times for local Rydberg drive
-            parameters can be specified (measured in s)
-    """
-
-    detuningRange: Tuple[Decimal, Decimal]
-    commonDetuningResolution: Decimal
-    localDetuningResolution: Decimal
-    detuningSlewRateMax: Decimal
-    numberLocalDetuningSites: int
-    spacingRadialMin: Decimal
-    timeResolution: Decimal
-    timeDeltaMin: Decimal
-
-
 class Rydberg(BaseModel):
     """
     Parameters determining the limitations of the Rydberg Hamiltonian
@@ -169,44 +136,9 @@ class PerformanceRydbergGlobal(BaseModel):
     Parameters determining the limitations of the global driving field
     Attributes:
         rabiFrequencyErrorRel (Decimal): random error in the Rabi frequency, relative (unitless)
-        singleQubitFidelity (Decimal): Single qubit fidelity of a pi(3.14) pulse (unitless)
-        twoQubitFidelity (Decimal): Fidelity of two-qubit entangled state (unitless)
     """
 
     rabiFrequencyErrorRel: Decimal
-    singleQubitFidelity: Decimal
-    twoQubitFidelity: Decimal
-
-
-class PerformanceRydbergLocal(BaseModel):
-    """
-    Parameters determining the limitations of the shifting field
-    Attributes:
-        detuningDynamicRange (Decimal): dynamic range over which the specified local
-            detuning accuracy is preserved, relative to max detuning used. E.g. if the largest
-            local detuning is 2*pi(3.14) *37.0e6 rad/s, detuning accuracy (error) is preserved
-            for other sites down to 2*pi(3.14) *3.7e6 (unitless)
-        detuningErrorRel (Decimal): random local detuning error, relative to the given local
-            detuning (unitless)
-        detuningHomogeneity (Decimal): worst-case fractional RMS detuning non-uniformity of the
-            detuning pattern, relative to the max detuning used in the detuning pattern;
-            applies over the specified dynamic range only (unitless)
-        detuningScaleErrorRel (Decimal): error on the global scaling factor for local detuning ,
-            relative (unitless)
-        darkErrorRete (Decimal): Error rate induced by local detuning pattern under Rydberg
-            drive for qubits maximally detuned by the local detuning pattern (scattering)
-            (measured in hertz)
-        brightErrorRate (Decimal): worst-case error rate induced by local detuning pattern under
-            Rydberg drive for qubits minimally detuned by the local detuning pattern
-            (scattering from leakage and crosstalk) (measured in hertz)
-    """
-
-    detuningDynamicRange: Decimal
-    detuningErrorRel: Decimal
-    detuningHomogeneity: Decimal
-    detuningScaleErrorRel: Decimal
-    darkErrorRete: Decimal
-    brightErrorRate: Decimal
 
 
 class PerformanceRydberg(BaseModel):
@@ -217,39 +149,6 @@ class PerformanceRydberg(BaseModel):
     """
 
     rydbergGlobal: PerformanceRydbergGlobal
-
-
-class Detection(BaseModel):
-    """
-    Parameters determining the accuracy of atom detection
-     Attributes:
-         atomDetectionFidelity (Decimal): probability of detecting an atom conditioned
-             on the atom being there (unitless)
-         vacancyDetectionFidelity (Decimal): probability of detecting no atom conditioned
-            on the there being no atom (unitless)
-         groundStateDetectionFidelity (Decimal): probability of detecting an atom in the
-            ground state conditioned on the atom being in the ground state (unitless)
-         rydbergStateDetectionFidelity (Decimal): probability of detecting an atom in the
-            Rydberg state conditioned on the atom being in the Rydberg state (unitless)
-    """
-
-    atomDetectionFidelity: Decimal
-    vacancyDetectionFidelity: Decimal
-    groundStateDetectionFidelity: Decimal
-    rydbergStateDetectionFidelity: Decimal
-
-
-class Sorting(BaseModel):
-    """
-    Success probabilities of sorting and arranging
-    Attributes:
-        moveFidelity (Decimal): Probability for a single sorting move to succeed (unitless)
-        patternFidelitySquare (Decimal): Probability of successfully arranging a maximal square
-            pattern (256 qubits, filling field of view) (unitless)
-    """
-
-    moveFidelity: Decimal
-    patternFidelitySquare: Decimal
 
 
 class Performance(BaseModel):
@@ -305,56 +204,20 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...             "detuningSlewRateMax": 2*math.pi(3.14) *40.0e6/100e-9,
         ...             "phaseRange": [-99,99],
         ...             "phaseResolution": 5e-7,
-        ...             "phaseSlewRateMax": 2*math.pi(3.14) /100e-9,
         ...             "timeResolution": 1e-9,
         ...             "timeDeltaMin": 1e-8,
         ...             "timeMin": 0,
         ...             "timeMax": 4.0e-6,
         ...         },
-        ...         "rydbergLocal": {
-        ...             "detuningRange": [0,2*math.pi(3.14) *50.0e6],
-        ...             "commonDetuningResolution": 2000,
-        ...             "localDetuningResolution": 0.01,
-        ...             "detuningSlewRateMax": 1/100e-9,
-        ...             "numberLocalDetuningSites": 256,
-        ...             "spacingRadialMin": 5e-6,
-        ...             "timeResolution": 1e-9,
-        ...             "timeDeltaMin": 1e-8,
-        ...         },
         ...     },
         ...     "performance": {
-        ...         "performanceLattice":{
+        ...         "lattice":{
         ...             "positionErrorAbs": 0.025e-6,
         ...         },
         ...         "performanceRydberg":{
         ...             "performanceRydbergGlobal":{
         ...                 "rabiFrequencyErrorRel:": 0.01,
-        ...                 "rabiFrequencyHomogeneityRel": 0.05,
-        ...                 "rabiFrequencyHomogeneityAbs": 60e3,
-        ...                 "detuningErrorAbs": 60e3,
-        ...                 "phaseErrorAbs": 0.005,
-        ...                 "omegaTau": 10,
-        ...                 "singleQubitFidelity": 0.95,
-        ...                 "twoQubitFidelity": 0.95,
         ...             },
-        ...             "performanceRydbergLocal":{
-        ...                 "detuningDynamicRange:": 10,
-        ...                 "detuningErrorRel": 0.01,
-        ...                 "detuningHomogeneity": 0.02,
-        ...                 "detuningScaleErrorRel": 0.01,
-        ...                 "darkErrorRate": 1e3,
-        ...                 "brightErrorRate": 3e6,
-        ...             }
-        ...         },
-        ...         "detection":{
-        ...                 "atomDetectionFidelity:": 0.99,
-        ...                 "vacancyDetectionFidelity": 0.999,
-        ...                 "groundStateDetectionFidelity": 0.99,
-        ...                 "rydbergStateDetectionFidelity": 0.99,
-        ...         },
-        ...         "sorting":{
-        ...                 "moveFidelity:": 0.98,
-        ...                 "patternFidelitySquare": 1e-4,
         ...         },
         ...     },
         ... }
