@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.11.0 (2022-10-20)
+
+### Features
+
+ * Add support for pulses
+
+## v1.10.2 (2022-08-25)
+
+### Bug Fixes and Other Changes
+
+ * Removing unused OpenQASM3 results schema
+
+## v1.10.1.post0 (2022-08-10)
+
+### Testing and Release Infrastructure
+
+ * Add feature branch pull request tests
+ * Add SF plugin to dependent tests
+
 ## v1.10.1 (2022-08-04)
 
 ### Bug Fixes and Other Changes
