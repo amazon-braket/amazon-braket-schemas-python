@@ -11,8 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import pytest
 from decimal import Decimal
+
+import pytest
 from pydantic import ValidationError
 
 from braket.ir.ahs.program_v1 import Program

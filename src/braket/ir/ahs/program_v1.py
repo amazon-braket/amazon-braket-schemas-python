@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic import BaseModel, Field
 from decimal import Decimal
+
+from pydantic import BaseModel, Field
 
 from braket.ir.ahs.atom_arrangement import AtomArrangement
 from braket.ir.ahs.hamiltonian import Hamiltonian

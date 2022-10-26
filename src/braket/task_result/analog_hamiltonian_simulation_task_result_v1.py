@@ -16,6 +16,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field, conint, conlist, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
@@ -83,3 +84,4 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
     )
     taskMetadata: TaskMetadata
     measurements: Optional[List[AnalogHamiltonianSimulationShotMeasurement]]
+    additionalMetadata: Optional[AdditionalMetadata]
