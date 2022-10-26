@@ -23,10 +23,10 @@ class QueraMetadata(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header.
             Users do not need to set this value. Only default is allowed.
-        executedProgram (str): The program executed on the QPU.
+        numSuccessfulShots (int): Number of successful shots in result.
 
     Examples:
-        >>> QueraMetadata(executedProgram="DECLARE ro BIT[2];")
+        >>> QueraMetadata(numSuccessfulShots=100)
     """
 
     _QUERA_METADATA_HEADER = BraketSchemaHeader(
