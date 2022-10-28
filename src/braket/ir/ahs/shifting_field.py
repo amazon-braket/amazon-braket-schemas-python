@@ -17,7 +17,6 @@ from braket.ir.ahs.physical_field import PhysicalField
 
 
 class ShiftingField(BaseModel):
-    """
     r"""Specifies the shifting field, defined by the formula
 
     .. math::
