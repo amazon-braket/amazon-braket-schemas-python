@@ -17,27 +17,31 @@ from braket.ir.ahs.physical_field import PhysicalField
 
 
 class DrivingField(BaseModel):
-    """
-    Specifies the driving field
+    r"""Specifies the driving field, defined by the formula
 
-    formula:((Omega(t)/2)*exp(1j*phi(t))*Sum_k|g_k><r_k|+h.c.)-Delta(t)*Sum_k|r_k><r_k|
+    .. math::
+        H_{drive} (t) := \frac{\Omega(t)}{2} e^{i \phi(t)} \left(
+            \sum_k |g_k \rangle \langle r_k| + |r_k \rangle \langle g_k|
+        \right) - \Delta(t) \sum_k{| r_k \rangle \langle r_k |}
 
-    states:
-        |g_k> : ground state of atom k.
+    where
 
-        |r_k> : Rydberg state of atom k.
-    other symbols:
-        Sum_k : summation over all target atoms.
+        :math:`\Omega(t)` is the global Rabi frequency in rad/s,
 
-        h.c.  : Hermitian conjugate of the preceeding term.
+        :math:`\phi(t)` is the global phase in rad/s,
+
+        :math:`\Delta(t)` is the global detuning in rad/s,
+
+        :math:`|g_k \rangle` is the ground state of atom k,
+
+        :math:`|r_k \rangle` is the Rydberg state of atom k.
+
+    with the sum :math:`\sum_k` taken over all target atoms.
 
     Attributes:
-        amplitude: PhysicalField(pattern=“uniform”) (“Ω(t)”)
-        phase: PhysicalField(pattern=“uniform”) (“P(t)”)
-        detuning: PhysicalField(pattern=“uniform”) (“D(t)”)
-
-    Examples:
-        >>> DrivingField(amplitude=PhysicalField,phase=PhysicalField,detuning=PhysicalField)
+        amplitude: PhysicalField(pattern=“uniform”)
+        phase: PhysicalField(pattern=“uniform”)
+        detuning: PhysicalField(pattern=“uniform”)
     """
 
     amplitude: PhysicalField
