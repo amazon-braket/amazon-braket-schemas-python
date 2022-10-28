@@ -18,17 +18,23 @@ from braket.ir.ahs.physical_field import PhysicalField
 
 class ShiftingField(BaseModel):
     """
-    Specifies the shifting field
+    r"""Specifies the shifting field, defined by the formula
 
-    formula:-Delta(t)*Sum_k h_k|r_k><r_k|
+    .. math::
+        H_{shift} (t) := -\Delta(t) \sum_k h_k | r_k \rangle \langle r_k |
 
-    states:
-        |r_k> : Rydberg state of atom k.
-    other symbols:
-        Sum_k : summation over all target atoms.
+    where
+
+        :math:`\Delta(t)` is the magnitude of the frequency shift in rad/s,
+
+        :math:`h_k` is the site coefficient,
+
+        :math:`|r_k \rangle` is the Rydberg state of atom k.
+
+    with the sum :math:`\sum_k` taken over all target atoms.
 
     Attributes:
-        magnitude: PhysicalField (“Delta(t)*delta_s")
+        magnitude: PhysicalField
 
     Examples:
         >>> ShiftingField(magnitude=PhysicalField)
