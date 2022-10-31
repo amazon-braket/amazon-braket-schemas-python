@@ -58,6 +58,12 @@ def test_additional_metadata_oqc(oqc_metadata, openqasm_program):
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
+def test_additional_metadata_quera(quera_metadata, ahs_program):
+    metadata = AdditionalMetadata(action=ahs_program, queraMetadata=quera_metadata)
+    assert metadata.queraMetadata == quera_metadata
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_action(dwave_metadata):
     AdditionalMetadata(action=dwave_metadata)

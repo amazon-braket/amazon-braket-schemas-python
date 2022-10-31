@@ -13,6 +13,7 @@
 
 import pytest
 
+from braket.ir.ahs import Program as AHSProgram
 from braket.ir.annealing import Problem, ProblemType
 from braket.ir.blackbird import Program as BlackbirdProgram
 from braket.ir.jaqcd import CNot
@@ -22,6 +23,7 @@ from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
+from braket.task_result.quera_metadata_v1 import QueraMetadata
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 from braket.task_result.xanadu_metadata_v1 import XanaduMetadata
@@ -101,6 +103,11 @@ def oqc_metadata(compiled_program):
 
 
 @pytest.fixture
+def quera_metadata():
+    return QueraMetadata(numSuccessfulShots=100)
+
+
+@pytest.fixture
 def problem():
     return Problem(
         type=ProblemType.QUBO,
@@ -127,6 +134,57 @@ def blackbird_program():
 
 
 @pytest.fixture
+def ahs_program():
+    return AHSProgram(
+        setup={
+            "ahs_register": {
+                "sites": [
+                    [0.0, 0.0],
+                    [0.0, 3.0e-6],
+                    [0.0, 6.0e-6],
+                    [3.0e-6, 0.0],
+                    [3.0e-6, 3.0e-6],
+                    [3.0e-6, 6.0e-6],
+                ],
+                "filling": [1, 1, 1, 1, 0, 0],
+            }
+        },
+        hamiltonian={
+            "drivingFields": [
+                {
+                    "amplitude": {
+                        "time_series": {
+                            "values": [0.0, 2.51327e7, 2.51327e7, 0.0],
+                            "times": [0.0, 3.0e-7, 2.7e-6, 3.0e-6],
+                        },
+                        "pattern": "uniform",
+                    },
+                    "phase": {
+                        "time_series": {"values": [0, 0], "times": [0.0, 3.0e-6]},
+                        "pattern": "uniform",
+                    },
+                    "detuning": {
+                        "time_series": {
+                            "values": [-1.25664e8, -1.25664e8, 1.25664e8, 1.25664e8],
+                            "times": [0.0, 3.0e-7, 2.7e-6, 3.0e-6],
+                        },
+                        "pattern": "uniform",
+                    },
+                }
+            ],
+            "shiftingFields": [
+                {
+                    "magnitude": {
+                        "time_series": {"values": [-1.25664e8, 1.25664e8], "times": [0.0, 3.0e-6]},
+                        "pattern": [0.5, 1.0, 0.5, 0.5, 0.5, 0.5],
+                    }
+                }
+            ],
+        },
+    )
+
+
+@pytest.fixture
 def openqasm_program():
     return OpenQASMProgram(source="OPENQASM 3.0; cnot $0, $1;")
 
@@ -139,6 +197,11 @@ def additional_metadata_gate_model(jacqd_program, rigetti_metadata):
 @pytest.fixture
 def additional_metadata_photonic_model(blackbird_program, xanadu_metadata):
     return AdditionalMetadata(action=blackbird_program, xanadu_metadata=xanadu_metadata)
+
+
+@pytest.fixture
+def additional_metadata_ahs(ahs_program, quera_metadata):
+    return AdditionalMetadata(action=ahs_program, quera_metadata=quera_metadata)
 
 
 @pytest.fixture
