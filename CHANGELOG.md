@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.12.0 (2022-10-31)
+
+### Features
+
+ * support new device schema quera and new ir schema ahs
+
 ## v1.11.0 (2022-10-20)
 
 ### Features
