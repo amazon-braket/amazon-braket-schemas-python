@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13.0 (2022-11-14)
+
+### Features
+
+ * add getTaskPollIntervalMillis to device service properties
+
 ## v1.12.0 (2022-10-31)
 
 ### Features
