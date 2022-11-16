@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13.1 (2022-11-16)
+
+### Bug Fixes and Other Changes
+
+ * Reference code from the current commit for dependent tests
+
 ## v1.13.0 (2022-11-14)
 
 ### Features
