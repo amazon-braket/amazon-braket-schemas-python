@@ -17,7 +17,6 @@ jobs:
         dependent:
           - amazon-braket-default-simulator-python
           - amazon-braket-sdk-python
-          - amazon-braket-ocean-plugin-python
           - amazon-braket-pennylane-plugin-python
           - amazon-braket-strawberryfields-plugin-python
 
