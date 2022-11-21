@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13.1.post0 (2022-11-21)
+
+### Testing and Release Infrastructure
+
+ * Remove Ocean plugin from dependent tests
+
 ## v1.13.1 (2022-11-16)
 
 ### Bug Fixes and Other Changes
