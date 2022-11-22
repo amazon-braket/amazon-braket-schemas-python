@@ -50,156 +50,45 @@ or alternatively from within Python:
 ```
 
 ## Usage
-There are currently two types of IR, including jaqcd (JsonAwsQuantumCircuitDescription) and annealing. See below for their usage.
+OpenQASM (Open Quantum Assembly Language) is one type of IR. See below for its usage.
 
 **Serializing python structures**
 ```python
-from braket.ir.jaqcd import CNot, H, Program, Expectation
-from braket.ir.annealing import Problem, ProblemType
+from braket.ir.openqasm import Program as OpenQASMProgram
 
-program = Program(instructions=[H(target=0), CNot(control=0, target=1)])
+program = OpenQASMProgram(source="OPENQASM 3.0; cnot $0, $1;")
 print(program.json(indent=2))
 
 """
 {
   "braketSchemaHeader": {
-    "name": "braket.ir.jaqcd.program",
+    "name": "braket.ir.openqasm.program",
     "version": "1"
   },
-  "instructions": [
-    {
-      "target": 0,
-      "type": "h"
-    },
-    {
-      "control": 0,
-      "target": 1,
-      "type": "cnot"
-    }
-  ],
-  "results": null,
-  "basis_rotation_instructions": null,
-}
-"""
-
-program = Program(
-    instructions=[H(target=0), CNot(control=0, target=1)],
-    results=[Expectation(targets=[0], observable=['x'])],
-    basis_rotation_instructions=[H(target=0)]
-)
-print(program.json(indent=2))
-
-"""
-{
-  "braketSchemaHeader": {
-    "name": "braket.ir.jaqcd.program",
-    "version": "1"
-  },
-  "instructions": [
-    {
-      "target": 0,
-      "type": "h"
-    },
-    {
-      "control": 0,
-      "target": 1,
-      "type": "cnot"
-    }
-  ],
-  "results": [
-    {
-      "observable": [
-        "x"
-      ],
-      "targets": [
-        0
-      ],
-      "type": "expectation"
-    }
-  ],
-  "basis_rotation_instructions": [
-    {
-      "target": 0,
-      "type": "h"
-    }
-  ]
-}
-"""
-
-problem = Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={"0,5": 0.667})
-print(problem.json(indent=2))
-
-"""
-{
-  "braketSchemaHeader": {
-    "name": "braket.ir.annealing.problem",
-    "version": "1"
-  },
-  "type": "QUBO",
-  "linear": {0: 0.3, 4: -0.3},
-  "quadratic": {"0,5": 0.667}
+  "source": "OPENQASM 3.0; cnot $0, $1;",
+  "inputs": null
 }
 """
 ```
 
 **Deserializing into python structures**
 ```python
-from braket.ir.jaqcd import Program
-from braket.ir.annealing import Problem
+from braket.ir.openqasm import Program as OpenQASMProgram
 
-jaqcd_string = """
+openqasm_string = """
 {
-  "instructions": [
-    {
-      "target": 0,
-      "type": "h"
-    },
-    {
-      "control": 0,
-      "target": 1,
-      "type": "cnot"
-    }
-  ],
-  "results": [
-    {
-      "observable": [
-        "x"
-      ],
-      "targets": [
-        0
-      ],
-      "type": "expectation"
-    }
-  ],
-  "basis_rotation_instructions": [
-    {
-      "target": 0,
-      "type": "h"
-    }
-  ]
-}
-"""
+  "braketSchemaHeader": {
+    "name": "braket.ir.openqasm.program",
+    "version": "1"
+  },
+  "source": "OPENQASM 3.0; cnot $0, $1;"
+}"""
 
-program = Program.parse_raw(jaqcd_string)
+program = OpenQASMProgram.parse_raw(openqasm_string)
 print(program)
 
 """
-braketSchemaHeader=BraketSchemaHeader(name='braket.ir.jaqcd.program', version='1') instructions=[H(target=0, type=<Type.h: 'h'>), CNot(control=0, target=1, type=<Type.cnot: 'cnot'>)] results=[Expectation(observable=['x'], targets=[0], type=<Type.expectation: 'expectation'>)] basis_rotation_instructions=[H(target=0, type=<Type.h: 'h'>)]
-"""
-
-annealing_string = """
-{
-  "type": "QUBO",
-  "linear": {0: 0.3, 4: -0.3},
-  "quadratic": {"0,5": 0.667}
-}
-"""
-
-problem = Problem.parse_raw(annealing_string)
-print(problem)
-
-"""
-braketSchemaHeader=BraketSchemaHeader(name='braket.ir.annealing.problem', version='1') type=<ProblemType.QUBO: 'QUBO'>, linear={0: 0.3, 4: -0.3}, quadratic={'0,5': 0.667}
+braketSchemaHeader=BraketSchemaHeader(name='braket.ir.openqasm.program', version='1') source='OPENQASM 3.0; cnot $0, $1;' inputs=None
 """
 
 ```
