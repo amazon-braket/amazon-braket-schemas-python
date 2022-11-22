@@ -20,6 +20,7 @@ from braket.ir.jaqcd.shared_models import (
     DampingSingleProbability,
     DoubleControl,
     DoubleTarget,
+    MultiProbability,
     MultiTarget,
     SingleControl,
     SingleProbability,
@@ -542,6 +543,26 @@ class CCNot(SingleTarget, DoubleControl):
     type = Type.ccnot
 
 
+class CV(SingleTarget, SingleControl):
+    """
+    Controlled sqrt(NOT) gate. Also known as the CV gate.
+
+    Attributes:
+        type (str): The instruction type. default = "cv". (type) is optional.
+            This should be unique among all instruction types.
+        control (int): The control qubit. This is an int >= 0.
+        target (int): The target qubit. This is an int >= 0.
+
+    Examples:
+        >>> CV(control=0, target=1)
+    """
+
+    class Type(str, Enum):
+        cv = "cv"
+
+    type = Type.cv
+
+
 class CY(SingleTarget, SingleControl):
     """
     Controlled Y-gate.
@@ -580,6 +601,26 @@ class CZ(SingleTarget, SingleControl):
         cz = "cz"
 
     type = Type.cz
+
+
+class ECR(DoubleTarget):
+    """
+    An echoed RZX(pi/2) gate.
+
+    Attributes:
+        type (str): The instruction type. default = "ecr". (type) is optional.
+            This should be unique among all instruction types.
+        targets (List[int]): The target qubits.
+            This is a list with two items and all items are int >= 0.
+
+    Examples:
+        >>> ECR(targets=[0, 1])
+    """
+
+    class Type(str, Enum):
+        ecr = "ecr"
+
+    type = Type.ecr
 
 
 class XX(DoubleTarget, Angle):
@@ -746,7 +787,7 @@ class PhaseFlip(SingleTarget, SingleProbability):
 
 class PauliChannel(SingleTarget, TripleProbability):
     """
-    Genearal Pauli noise channel.
+    A single qubit Pauli noise channel.
 
     Attributes:
         type (str): The instruction type. default = "pauli_channel". (type) is
@@ -761,6 +802,28 @@ class PauliChannel(SingleTarget, TripleProbability):
         pauli_channel = "pauli_channel"
 
     type = Type.pauli_channel
+
+
+class MultiQubitPauliChannel(MultiTarget, MultiProbability):
+    """
+    Multi-qubit Pauli noise channel.
+
+    Attributes:
+        type (str): The instruction type. default = "multi_qubit_pauli_channel". (type) is
+            optional. This should be unique among all instruction types.
+        target (int): The target qubit(s). This is list of intergers >= 0.
+        The length of the list must match the length of the Pauli strings provided.
+
+    Examples:
+        >>> MultiQubitPauliChannel(target=1, probabilities={"X": 0.1})
+        >>> MultiQubitPauliChannel(target=[0,1], probabilities={"XY": 0.1})
+        >>> MultiQubitPauliChannel(target=[0,1,2], probabilities={"XYZ": 0.1})
+    """
+
+    class Type(str, Enum):
+        multi_qubit_pauli_channel = "multi_qubit_pauli_channel"
+
+    type = Type.multi_qubit_pauli_channel
 
 
 class Depolarizing(SingleTarget, SingleProbability_34):

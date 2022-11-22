@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -21,7 +21,12 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
+from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
+from braket.device_schema.pulse.pulse_device_action_properties_v1 import PulseDeviceActionProperties
 from braket.device_schema.rigetti.rigetti_provider_properties_v1 import RigettiProviderProperties
+from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (
+    StandardizedGateModelQpuDeviceProperties,
+)
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -30,10 +35,15 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of a Rigetti device.
 
     Attributes:
-        action(Dict[DeviceActionType, JaqcdDeviceActionProperties]): Actions that a
+        action(Dict[Union[DeviceActionType, str],
+            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             Rigetti device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties of a Rigetti
         provider(Optional[RigettiProviderProperties]): Rigetti provider specific properties
+        standardized
+            (StandardizedGateModelQpuDeviceProperties): Braket standarized device
+            properties for Rigetti
+        pulse(PulseDeviceActionProperties): Hardware device details for pulse control
 
     Examples:
         >>> import json
@@ -93,6 +103,9 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        },
         ...    },
         ...    "deviceParameters": {RigettiDeviceParameters.schema_json()},
+        ...    "standardized": \
+        ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},
+        ...    "pulse": {PulseDeviceActionProperties.schema_json()},
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
@@ -102,6 +115,11 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.rigetti.rigetti_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[DeviceActionType, JaqcdDeviceActionProperties]
+    action: Dict[
+        Union[DeviceActionType, str],
+        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+    ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[RigettiProviderProperties]
+    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
+    pulse: Optional[PulseDeviceActionProperties]

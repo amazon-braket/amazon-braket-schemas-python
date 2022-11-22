@@ -24,8 +24,10 @@ from test_common import (
 )
 
 from braket.ir.jaqcd import (
+    CV,
     CY,
     CZ,
+    ECR,
     XX,
     XY,
     YY,
@@ -109,8 +111,10 @@ testdata = [
     (CPhaseShift00, [SingleControl, SingleTarget, Angle], "cphaseshift00"),
     (CPhaseShift01, [SingleControl, SingleTarget, Angle], "cphaseshift01"),
     (CPhaseShift10, [SingleControl, SingleTarget, Angle], "cphaseshift10"),
+    (CV, [SingleTarget, SingleControl], "cv"),
     (CY, [SingleTarget, SingleControl], "cy"),
     (CZ, [SingleTarget, SingleControl], "cz"),
+    (ECR, [DoubleTarget], "ecr"),
     (V, [SingleTarget], "v"),
     (Vi, [SingleTarget], "vi"),
     (XX, [DoubleTarget, Angle], "xx"),

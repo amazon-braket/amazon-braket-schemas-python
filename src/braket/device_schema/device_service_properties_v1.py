@@ -80,6 +80,8 @@ class DeviceServiceProperties(BraketSchemaBase):
             details like image, summary etc.
         deviceLocation (Optional[str]): location fo the device
         updatedAt (Optional[datetime]): time when the device properties are last updated.
+        getTaskPollIntervalMillis (Optional[int]): (suggested) interval between polling tasks
+            in milliseconds.
 
     Examples:
         >>> import json
@@ -106,7 +108,8 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...        "externalDocumentationUrl": "exter doc link",
         ...    },
         ...    "deviceLocation": "us-east-1",
-        ...    "updatedAt": "2020-06-16T19:28:02.869136"
+        ...    "updatedAt": "2020-06-16T19:28:02.869136",
+        ...    "getTaskPollIntervalMillis": 200,
         ... }
         >>> DeviceServiceProperties.parse_raw_schema(json.dumps(input_json))
 
@@ -122,3 +125,4 @@ class DeviceServiceProperties(BraketSchemaBase):
     deviceDocumentation: Optional[DeviceDocumentation]
     deviceLocation: Optional[str]
     updatedAt: Optional[datetime]
+    getTaskPollIntervalMillis: Optional[int]

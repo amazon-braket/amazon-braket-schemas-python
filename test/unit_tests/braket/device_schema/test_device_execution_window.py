@@ -38,9 +38,3 @@ def test_valid(valid_input):
 def test__missing_executionDay(valid_input):
     valid_input.pop("executionDay")
     assert DeviceExecutionWindow.parse_raw(json.dumps(valid_input))
-
-
-@pytest.mark.xfail(raises=ValidationError)
-def test__invalid_executionDay(valid_input):
-    valid_input["executionDay"] = "today"
-    DeviceExecutionWindow.parse_raw(json.dumps(valid_input))

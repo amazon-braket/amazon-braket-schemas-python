@@ -21,8 +21,10 @@ from braket.device_schema.dwave import (
     DwaveDeviceParameters,
 )
 from braket.device_schema.ionq import IonqDeviceParameters
+from braket.device_schema.oqc import OqcDeviceParameters
 from braket.device_schema.rigetti import RigettiDeviceParameters
 from braket.device_schema.simulators import GateModelSimulatorDeviceParameters
+from braket.device_schema.xanadu import XanaduDeviceParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -38,7 +40,7 @@ class TaskMetadata(BraketSchemaBase):
         deviceId (str): The ID of the device on which the task ran.
             For AWS devices, this is the device ARN.
         deviceParameters any of (DwaveDeviceParameters, RigettiDeviceParameters,
-            IonqDeviceParameters, GateModelSimulatorDeviceParameters).
+            IonqDeviceParameters, GateModelSimulatorDeviceParameters, XanaduDeviceParameters).
             The device parameters of the task. Default is None.
         createdAt (str): The timestamp of creation;
             the format must be in ISO-8601/RFC3339 string format YYYY-MM-DDTHH:mm:ss.sssZ.
@@ -69,7 +71,9 @@ class TaskMetadata(BraketSchemaBase):
             Dwave2000QDeviceParameters,
             RigettiDeviceParameters,
             IonqDeviceParameters,
+            OqcDeviceParameters,
             GateModelSimulatorDeviceParameters,
+            XanaduDeviceParameters,
         ]
     ]
     createdAt: Optional[constr(min_length=1, max_length=24)]

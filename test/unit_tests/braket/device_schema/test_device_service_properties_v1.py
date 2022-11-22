@@ -19,7 +19,7 @@ from pydantic import ValidationError
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def valid_input():
     input = {
         "braketSchemaHeader": {
@@ -40,6 +40,12 @@ def valid_input():
         "updatedAt": "2020-06-16T19:28:02.869136",
     }
     return input
+
+
+@pytest.fixture()
+def valid_input_with_getTaskPollInterval(valid_input):
+    valid_input["getTaskPollIntervalMillis"] = 200
+    return valid_input
 
 
 def test_valid(valid_input):
@@ -63,3 +69,16 @@ def test__missing_executionWindows(valid_input):
 def test__missing_shots(valid_input):
     valid_input.pop("shotsRange")
     DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+
+
+def test_parse_valid_input_without_getTaskPollIntervalMillis(valid_input):
+    assert "getTaskPollIntervalMillis" not in valid_input
+    service_props = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    assert not service_props.getTaskPollIntervalMillis
+
+
+def test_parse_valid_input_with_getTaskPollInterval(valid_input_with_getTaskPollInterval):
+    service_props = DeviceServiceProperties.parse_raw_schema(
+        json.dumps(valid_input_with_getTaskPollInterval)
+    )
+    assert service_props.getTaskPollIntervalMillis == 200

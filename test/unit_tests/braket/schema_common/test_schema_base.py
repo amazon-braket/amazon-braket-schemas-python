@@ -112,12 +112,14 @@ def test_get_schema_class_invalid_name():
         "braket.device_schema.gate_model_qpu_paradigm_properties",
         "braket.ir.annealing.problem",
         "braket.ir.jaqcd.program",
+        "braket.ir.openqasm.program",
         "braket.task_result.annealing_task_result",
         "braket.task_result.dwave_metadata",
         "braket.task_result.gate_model_task_result",
         "braket.task_result.rigetti_metadata",
         "braket.task_result.simulator_metadata",
         "braket.task_result.task_metadata",
+        "braket.jobs_data.persisted_job_data",
     ],
 )
 def test_no_header_typos(name):

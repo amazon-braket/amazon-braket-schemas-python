@@ -2,6 +2,8 @@
 *#
 *.swp
 *.idea
+*.iml
+.vscode/*
 
 .ycm_extra_conf.py
 .tox

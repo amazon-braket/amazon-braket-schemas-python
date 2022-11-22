@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/** ]
 
 jobs:
   build:
@@ -17,8 +17,8 @@ jobs:
         dependent:
           - amazon-braket-default-simulator-python
           - amazon-braket-sdk-python
-          - amazon-braket-ocean-plugin-python
           - amazon-braket-pennylane-plugin-python
+          - amazon-braket-strawberryfields-plugin-python
 
     steps:
     - uses: actions/checkout@v2
@@ -33,6 +33,8 @@ jobs:
         cd ..
         git clone https://github.com/aws/${{ matrix.dependent }}.git
         cd ${{ matrix.dependent }}
+        # Update the amazon-braket-schemas dependency to reference the current commit
+        python ${GITHUB_WORKSPACE}/.github/scripts/update_dependency.py
         pip install -e .[test]
     - name: Run unit tests
       run: |
