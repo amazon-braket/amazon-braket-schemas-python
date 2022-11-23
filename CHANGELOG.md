@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13.1.post1 (2022-11-23)
+
+### Documentation Changes
+
+ * remove ir types from examples
+
 ## v1.13.1.post0 (2022-11-21)
 
 ### Testing and Release Infrastructure
