@@ -15,7 +15,13 @@ from enum import Enum
 
 from pydantic import BaseModel
 
-from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
+from braket.ir.jaqcd.shared_models import (
+    MultiState,
+    Observable,
+    OptionalMultiParameter,
+    OptionalMultiTarget,
+    OptionalNestedMultiTarget,
+)
 
 
 class Expectation(OptionalMultiTarget, Observable):
@@ -44,6 +50,35 @@ class Expectation(OptionalMultiTarget, Observable):
         expectation = "expectation"
 
     type = Type.expectation
+
+
+class AdjointGradient(OptionalNestedMultiTarget, Observable, OptionalMultiParameter):
+    """
+    Adjoint Gradient as requested result.
+    Attributes:
+        type (str): The result type. default = "adjoint_gradient". (type) is optional.
+            This should be unique among all result types.
+        targets (Optional[List[List[int]]]): The target qubits. This is a two dimensional
+            nested list of ints >= 0.
+        observable (List[Union[str, List[List[List[float]]]]): A list with at least
+            one item and items are strings matching the observable regex or a two
+            dimensional hermitian matrix with complex entries. Each complex number is
+            represented using a List[float] of size 2, with element[0] being the real part
+            and element[1] imaginary. inf, -inf, and NaN are not allowable inputs for the element.
+        parameters (List[str]): The parameters used in the adjoint gradient calculation.
+            This is a list of parameter names. Default: all parameters.
+    Examples:
+        >>> AdjointGradient(
+        >>>     targets=[[1, 2], [3]],
+        >>>     observable=["2 * x @ y + z"],
+        >>>     parameters=["theta", "beta"]
+        >>> )
+    """
+
+    class Type(str, Enum):
+        adjoint_gradient = "adjoint_gradient"
+
+    type = Type.adjoint_gradient
 
 
 class Sample(OptionalMultiTarget, Observable):

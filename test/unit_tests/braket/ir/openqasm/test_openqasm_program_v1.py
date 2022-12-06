@@ -35,3 +35,19 @@ def test_parse_obj():
 def test_parse_raw():
     obj = OpenQASMProgram(source="this is a string.")
     assert obj == OpenQASMProgram.parse_raw(obj.json())
+
+
+@pytest.mark.parametrize(
+    "inputs",
+    [
+        {
+            "input_1": "abc",
+        },
+        {
+            "input_1": float("nan"),
+        },
+    ],
+)
+@pytest.mark.xfail(raises=ValidationError)
+def test_openqasm_program_with_invalid_input_value_should_raise_validation_error(inputs):
+    OpenQASMProgram(inputs=inputs)

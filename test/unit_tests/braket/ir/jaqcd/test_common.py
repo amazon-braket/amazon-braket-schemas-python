@@ -24,8 +24,16 @@ def multi_target_valid_input():
     return {"targets": [0, 1, 2]}
 
 
+def nested_multi_target_valid_input():
+    return {"targets": [[0, 1], [2]]}
+
+
 def angle_valid_input():
     return {"angle": 0.123}
+
+
+def multi_parameter_valid_input():
+    return {"parameters": ["alpha", "beta"]}
 
 
 def single_probability_valid_input():
@@ -103,6 +111,7 @@ def create_switcher(type):
         "SingleTarget": single_target_valid_input,
         "DoubleTarget": two_target_valid_input,
         "MultiTarget": multi_target_valid_input,
+        "OptionalMultiParameter": multi_parameter_valid_input,
         "Angle": angle_valid_input,
         "SingleProbability": single_probability_valid_input,
         "SingleProbability_34": single_probability_34_valid_input,
@@ -118,6 +127,7 @@ def create_switcher(type):
         "Observable": observable_valid_input,
         "MultiState": multi_state_valid_input,
         "OptionalMultiTarget": multi_target_valid_input,
+        "OptionalNestedMultiTarget": nested_multi_target_valid_input,
         "Type": type_valid_input,
     }
 
