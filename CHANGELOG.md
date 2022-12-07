@@ -22,62 +22,62 @@
 
 ### Features
 
- * add getTaskPollIntervalMillis to device service properties
+- add getTaskPollIntervalMillis to device service properties
 
 ## v1.12.0 (2022-10-31)
 
 ### Features
 
- * support new device schema quera and new ir schema ahs
+- support new device schema quera and new ir schema ahs
 
 ## v1.11.0 (2022-10-20)
 
 ### Features
 
- * Add support for pulses
+- Add support for pulses
 
 ## v1.10.2 (2022-08-25)
 
 ### Bug Fixes and Other Changes
 
- * Removing unused OpenQASM3 results schema
+- Removing unused OpenQASM3 results schema
 
 ## v1.10.1.post0 (2022-08-10)
 
 ### Testing and Release Infrastructure
 
- * Add feature branch pull request tests
- * Add SF plugin to dependent tests
+- Add feature branch pull request tests
+- Add SF plugin to dependent tests
 
 ## v1.10.1 (2022-08-04)
 
 ### Bug Fixes and Other Changes
 
- * OpenQASM Local Simulator support
+- OpenQASM Local Simulator support
 
 ## v1.10.0 (2022-06-02)
 
 ### Features
 
- * Add support for photonic computations
+- Add support for photonic computations
 
 ## v1.9.0 (2022-04-06)
 
 ### Features
 
- * Add standardized device calibration data for OQC and Rigetti
+- Add standardized device calibration data for OQC and Rigetti
 
 ## v1.8.0 (2022-03-07)
 
 ### Features
 
- * Add support for running OpenQASM programs
+- Add support for running OpenQASM programs
 
 ## v1.7.2 (2022-02-27)
 
 ### Bug Fixes and Other Changes
 
- - Oqc release
+- Oqc release
 
 ## v1.7.1 (2022-02-01)
 

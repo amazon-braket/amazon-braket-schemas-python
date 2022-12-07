@@ -63,6 +63,26 @@ def test_list_matching_regex():
     assert obj.observable == observable
 
 
+@pytest.mark.parametrize(
+    "observable",
+    [
+        "2*x",
+        "2 * x",
+        "20.10 * x",
+        "2 * x @ y",
+        "2 * x @ y @ z",
+        "2 * x @ - 2 * y @ z",
+        "2 * x @ y - z @ i",
+        "2 * x @ y + 3.1 * z @ i",
+        "2 * x @ y - 3.1 * z @ i + h@h",
+        "-2 * x @ y + 3.1 * z @ i + h@h",
+    ],
+)
+def test_hamiltonian_regex(observable):
+    obj = Observable(observable=observable)
+    assert obj.observable == observable
+
+
 def test_list_2d_matrix():
     observable = [[[[1.0, 0], [0, 1]], [[0.0, 1], [1, 0]]]]
     obj = Observable(observable=observable)

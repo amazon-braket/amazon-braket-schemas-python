@@ -26,8 +26,8 @@ class ResultTypeValue(BaseModel):
     Requested result type and value of gate model task result.
 
     Attributes:
-         type (Union[Expectation, Sample, StateVector, Variance, Probability, Amplitude]): The
-            requested result type
+         type (Union[Expectation, Sample, StateVector, Variance, Probability, Amplitude,
+            AdjointGradient]): The requested result type
          value (Union[List, float, Dict]): The value of the requested result
     """
 
