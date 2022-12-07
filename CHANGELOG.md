@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.14.0 (2022-12-07)
+
+### Features
+
+ * adjoint gradient
+
 ## v1.13.1.post1 (2022-11-23)
 
 ### Documentation Changes
