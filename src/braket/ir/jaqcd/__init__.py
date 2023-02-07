@@ -62,6 +62,7 @@ from braket.ir.jaqcd.instructions import (  # noqa: F401
 )
 from braket.ir.jaqcd.program_v1 import Program  # noqa: F401
 from braket.ir.jaqcd.results import (  # noqa: F401
+    AdjointGradient,
     Amplitude,
     DensityMatrix,
     Expectation,

@@ -17,7 +17,9 @@ from pydantic import Field, confloat, constr
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 # support 1d array input for now
-leaf_io_type = Union[constr(regex="^[01]+$", min_length=1, strict=True), confloat(strict=True), int]
+leaf_io_type = Union[
+    constr(regex="^[01]+$", min_length=1, strict=True), confloat(ge=-float("inf"), strict=True), int
+]
 io_type = Union[leaf_io_type, List[leaf_io_type]]
 
 

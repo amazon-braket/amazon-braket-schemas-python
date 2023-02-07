@@ -64,6 +64,7 @@ from braket.ir.jaqcd.instructions import (
     Z,
 )
 from braket.ir.jaqcd.results import (
+    AdjointGradient,
     Amplitude,
     DensityMatrix,
     Expectation,
@@ -133,7 +134,16 @@ _valid_compiler_directives = {
     EndVerbatimBox.Type.end_verbatim_box: EndVerbatimBox,
 }
 
-Results = Union[Amplitude, Expectation, Probability, Sample, StateVector, DensityMatrix, Variance]
+Results = Union[
+    Amplitude,
+    Expectation,
+    Probability,
+    Sample,
+    StateVector,
+    DensityMatrix,
+    Variance,
+    AdjointGradient,
+]
 
 
 class Program(BraketSchemaBase):
