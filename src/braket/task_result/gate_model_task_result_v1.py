@@ -63,11 +63,7 @@ class GateModelTaskResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
     )
-    measurements: Optional[
-        Union[
-            conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),
-        ]
-    ]
+    measurements: Optional[Union[conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),]]
     measurementProbabilities: Optional[
         Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ]
