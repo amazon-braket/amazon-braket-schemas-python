@@ -35,7 +35,7 @@ class ResultTypeValue(BaseModel):
     value: Union[List, float, Dict]
 
 
-class GateModelTaskResult(BraketSchemaBase):  # noqa E231
+class GateModelTaskResult(BraketSchemaBase):
     """
     The gate model task result schema
 
@@ -63,7 +63,13 @@ class GateModelTaskResult(BraketSchemaBase):  # noqa E231
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
     )
-    measurements: Optional[Union[conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),]]
+    # fmt: off
+    measurements: Optional[
+        Union[
+            conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),
+        ]
+    ]
+    # fmt: on
     measurementProbabilities: Optional[
         Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ]
