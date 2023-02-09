@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.14.1 (2023-02-09)
+
+### Bug Fixes and Other Changes
+
+ * update: adding build for python 3.10
+
 ## v1.14.0 (2022-12-07)
 
 ### Features
