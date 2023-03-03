@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.15.0 (2023-03-03)
+
+### Deprecations and Removals
+
+ * deprecate python 3.7
+
+### Documentation Changes
+
+ * Remove Black badge
+
 ## v1.14.1.post0 (2023-02-13)
 
 ### Testing and Release Infrastructure
