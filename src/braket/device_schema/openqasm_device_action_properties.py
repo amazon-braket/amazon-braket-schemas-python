@@ -11,12 +11,34 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List, Optional
+from typing import List, Optional, Type, Union
 
-from pydantic import constr
+from pydantic import BaseModel, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
+
+
+class Control(BaseModel):
+    name: str = "ctrl"
+    max_qubits: int
+
+
+class NegControl(BaseModel):
+    name: str = "negctrl"
+    max_qubits: int
+
+
+class Power(BaseModel):
+    name: str = "pow"
+    exponent_types: List[Type[Union[int, float]]]
+
+
+class Inverse(BaseModel):
+    name: str = "inv"
+
+
+Modifier = Union[Control, Power, Inverse]
 
 
 class OpenQASMDeviceActionProperties(DeviceActionProperties):
@@ -64,6 +86,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
 
     actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
     supportedOperations: List[str]
+    supportedModifiers: Optional[List[Modifier]] = []
     supportedPragmas: Optional[List[str]] = []
     forbiddenPragmas: Optional[List[str]] = []
     maximumQubitArrays: Optional[int] = None  # None indicates no limit

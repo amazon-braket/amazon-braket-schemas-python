@@ -25,6 +25,23 @@ def valid_input():
         "actionType": "braket.ir.openqasm.program",
         "version": ["1"],
         "supportedOperations": ["x", "y"],
+        "supportedModifiers": [
+            {
+                "name": "ctrl",
+                "max_qubits": 20,
+            },
+            {
+                "name": "negctrl",
+                "max_qubits": 20,
+            },
+            {
+                "name": "pow",
+                "exponent_types": [int, float],
+            },
+            {
+                "name": "inv",
+            },
+        ],
         "supportedResultTypes": [
             {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
         ],
@@ -107,3 +124,9 @@ def test_missing_action_type(valid_input):
 def test_invalid_supported_operations(valid_input):
     valid_input.pop("supportedOperations")
     OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+
+
+def test_default_supported_modifiers(valid_input):
+    valid_input.pop("supportedModifiers")
+    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.supportedModifiers == []
