@@ -31,7 +31,7 @@ class NegControl(BaseModel):
 
 class Power(BaseModel):
     name: str = "pow"
-    exponent_types: List[Type[Union[int, float]]]
+    exponent_types: List[str]
 
 
 class Inverse(BaseModel):

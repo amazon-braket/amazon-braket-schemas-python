@@ -36,7 +36,7 @@ def valid_input():
             },
             {
                 "name": "pow",
-                "exponent_types": [int, float],
+                "exponent_types": ["int", "float"],
             },
             {
                 "name": "inv",
