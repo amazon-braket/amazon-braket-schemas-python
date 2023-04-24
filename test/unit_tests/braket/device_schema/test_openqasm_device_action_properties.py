@@ -114,6 +114,12 @@ def test_default_requires_contiguous_qubit_indices(valid_input):
     assert result.requiresContiguousQubitIndices is False
 
 
+def test_default_supported_modifiers(valid_input):
+    valid_input.pop("supportedModifiers")
+    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.supportedModifiers == []
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action_type(valid_input):
     valid_input.pop("actionType")
@@ -124,9 +130,3 @@ def test_missing_action_type(valid_input):
 def test_invalid_supported_operations(valid_input):
     valid_input.pop("supportedOperations")
     OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
-
-
-def test_default_supported_modifiers(valid_input):
-    valid_input.pop("supportedModifiers")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
-    assert result.supportedModifiers == []
