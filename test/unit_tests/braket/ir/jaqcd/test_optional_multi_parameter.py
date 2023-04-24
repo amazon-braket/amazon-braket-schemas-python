@@ -11,8 +11,24 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-"""Version information.
-   Version number (major.minor.patch[-label])
-"""
+import pytest
+from pydantic import ValidationError
 
-__version__ = "1.15.1.dev0"
+from braket.ir.jaqcd.shared_models import OptionalMultiParameter
+
+
+def test_missing_targets():
+    OptionalMultiParameter()
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_list_empty_str():
+    OptionalMultiParameter(parameters=[""])
+
+
+def test_different_str_formats():
+    OptionalMultiParameter(parameters=["theta_0", "beta", "gamma1", "0"])
+
+
+def test_empty_list():
+    OptionalMultiParameter(parameters=[])

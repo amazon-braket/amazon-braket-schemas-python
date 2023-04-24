@@ -26,8 +26,8 @@ class ResultTypeValue(BaseModel):
     Requested result type and value of gate model task result.
 
     Attributes:
-         type (Union[Expectation, Sample, StateVector, Variance, Probability, Amplitude]): The
-            requested result type
+         type (Union[Expectation, Sample, StateVector, Variance, Probability, Amplitude,
+            AdjointGradient]): The requested result type
          value (Union[List, float, Dict]): The value of the requested result
     """
 
@@ -63,11 +63,13 @@ class GateModelTaskResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
     )
+    # fmt: off
     measurements: Optional[
         Union[
             conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),
         ]
     ]
+    # fmt: on
     measurementProbabilities: Optional[
         Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ]

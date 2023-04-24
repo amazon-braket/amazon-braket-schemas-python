@@ -72,6 +72,31 @@ class OptionalMultiTarget(BaseModel):
     targets: Optional[conlist(conint(ge=0), min_items=1)]
 
 
+class OptionalNestedMultiTarget(BaseModel):
+    """
+    Optional variable length nested target indices for Hamiltonians
+
+    Attributes:
+        targets (Optional[List[int]]): A two dimensional nested list with items that
+            are all int >= 0.
+
+    Examples:
+        >>> OptionalNestedMultiTarget(targets=[[0, 1], [2]])
+    """
+
+    targets: Optional[conlist(conlist(conint(ge=0), min_items=1), min_items=1)]
+
+
+class OptionalMultiParameter(BaseModel):
+    """
+    Variable length parameter names.
+    Attributes:
+        parameters (Optional[List[str]]): A list of parameter names.
+    """
+
+    parameters: Optional[conlist(constr(min_length=1), min_items=0)]
+
+
 class MultiControl(BaseModel):
     """
     Variable length control indices.
@@ -343,31 +368,42 @@ class Observable(BaseModel):
     of each operator in the list.
 
     Attributes:
-        observable (List[Union[str, List[List[List[float]]]]): A list with at least
+        observable (Union[List[Union[str, List[List[List[float]]]], str]): A list with at least
             one item and items are strings matching the observable regex
             or a two-dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
             element[0] being the real part and element[1] imaginary.
             inf, -inf, and NaN are not allowable inputs for the element.
+            Alternatively, a string constructing an observable in Hamiltonian format.
 
     Examples:
         >>> Observable(observable=["x"])
         >>> Observable(observable=[[[0, 0], [1, 0]], [[1, 0], [0, 0]]])
+        >>> Observable(observable="2 * x @ y + 3 * z")
     """
 
-    observable: conlist(
-        Union[
-            constr(regex="(x|y|z|h|i)"),
-            conlist(
+    _coef_regex = r"(-?\d*\.?\d*\s*\*\s*)"
+    _obs_regex = r"[xyzhi]"
+    _term_regex = rf"{_coef_regex}?{_obs_regex}(\s*@\s*{_obs_regex})*"
+    _hamiltonian_regex = rf"{_term_regex}(\s*\+\s*{_term_regex})*"
+    observable: Union[
+        conlist(
+            Union[
+                constr(regex="(x|y|z|h|i)"),
                 conlist(
-                    conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+                    conlist(
+                        conlist(
+                            confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2
+                        ),
+                        min_items=2,
+                    ),
                     min_items=2,
                 ),
-                min_items=2,
-            ),
-        ],
-        min_items=1,
-    )
+            ],
+            min_items=1,
+        ),
+        constr(regex=_hamiltonian_regex),
+    ]
 
 
 class MultiState(BaseModel):

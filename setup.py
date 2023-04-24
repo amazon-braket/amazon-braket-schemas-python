@@ -23,7 +23,7 @@ setup(
     name="amazon-braket-schemas",
     version=version,
     license="Apache License 2.0",
-    python_requires=">= 3.7",
+    python_requires=">= 3.8",
     packages=find_namespace_packages(where="src", exclude=("test",)),
     package_dir={"": "src"},
     install_requires=["pydantic >=1.8.2, <2.0.0"],
@@ -58,8 +58,8 @@ setup(
         "Natural Language :: English",
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
 )

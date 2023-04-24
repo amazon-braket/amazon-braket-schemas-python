@@ -25,6 +25,7 @@ from test_common import (
 
 from braket.ir.jaqcd import Program
 from braket.ir.jaqcd.results import (
+    AdjointGradient,
     Amplitude,
     DensityMatrix,
     Expectation,
@@ -33,7 +34,13 @@ from braket.ir.jaqcd.results import (
     StateVector,
     Variance,
 )
-from braket.ir.jaqcd.shared_models import MultiState, Observable, OptionalMultiTarget
+from braket.ir.jaqcd.shared_models import (
+    MultiState,
+    Observable,
+    OptionalMultiParameter,
+    OptionalMultiTarget,
+    OptionalNestedMultiTarget,
+)
 
 testdata = [
     (Amplitude, [MultiState], "amplitude"),
@@ -43,6 +50,11 @@ testdata = [
     (StateVector, [], "statevector"),
     (DensityMatrix, [OptionalMultiTarget], "densitymatrix"),
     (Variance, [OptionalMultiTarget, Observable], "variance"),
+    (
+        AdjointGradient,
+        [OptionalNestedMultiTarget, Observable, OptionalMultiParameter],
+        "adjoint_gradient",
+    ),
 ]
 
 
