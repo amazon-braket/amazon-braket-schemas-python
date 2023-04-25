@@ -10,7 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-
+from enum import Enum
 from typing import List, Optional, Union
 
 from pydantic import BaseModel, constr
@@ -29,9 +29,14 @@ class NegControl(BaseModel):
     max_qubits: int
 
 
+class ExponentType(str, Enum):
+    INT = "int"
+    FLOAT = "float"
+
+
 class Power(BaseModel):
     name: str = "pow"
-    exponent_types: List[str]
+    exponent_types: List[ExponentType]
 
 
 class Inverse(BaseModel):
