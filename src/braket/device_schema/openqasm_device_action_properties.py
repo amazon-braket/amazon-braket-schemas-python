@@ -21,12 +21,12 @@ from braket.device_schema.result_type import ResultType
 
 class Control(BaseModel):
     name: str = "ctrl"
-    max_qubits: int
+    max_qubits: None  # None indicates no limit
 
 
 class NegControl(BaseModel):
     name: str = "negctrl"
-    max_qubits: int
+    max_qubits: None  # None indicates no limit
 
 
 class ExponentType(str, Enum):

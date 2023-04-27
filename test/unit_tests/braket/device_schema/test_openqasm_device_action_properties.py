@@ -32,7 +32,6 @@ def valid_input():
             },
             {
                 "name": "negctrl",
-                "max_qubits": 20,
             },
             {
                 "name": "pow",
