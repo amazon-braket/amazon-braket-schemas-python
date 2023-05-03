@@ -10,40 +10,13 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-from enum import Enum
-from typing import List, Optional, Union
+from typing import List, Optional
 
-from pydantic import BaseModel, constr
+from pydantic import constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
-
-
-class Control(BaseModel):
-    name: str = "ctrl"
-    max_qubits: Optional[int] = None  # None indicates no limit
-
-
-class NegControl(BaseModel):
-    name: str = "negctrl"
-    max_qubits: Optional[int] = None  # None indicates no limit
-
-
-class ExponentType(str, Enum):
-    INT = "int"
-    FLOAT = "float"
-
-
-class Power(BaseModel):
-    name: str = "pow"
-    exponent_types: List[ExponentType]
-
-
-class Inverse(BaseModel):
-    name: str = "inv"
-
-
-Modifier = Union[Control, Power, Inverse]
+from braket.ir.openqasm.modifiers import Modifier
 
 
 class OpenQASMDeviceActionProperties(DeviceActionProperties):
