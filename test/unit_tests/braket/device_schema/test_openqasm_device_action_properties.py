@@ -25,6 +25,22 @@ def valid_input():
         "actionType": "braket.ir.openqasm.program",
         "version": ["1"],
         "supportedOperations": ["x", "y"],
+        "supportedModifiers": [
+            {
+                "name": "ctrl",
+                "max_qubits": 20,
+            },
+            {
+                "name": "negctrl",
+            },
+            {
+                "name": "pow",
+                "exponent_types": ["int", "float"],
+            },
+            {
+                "name": "inv",
+            },
+        ],
         "supportedResultTypes": [
             {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
         ],
@@ -95,6 +111,12 @@ def test_default_requires_contiguous_qubit_indices(valid_input):
     valid_input.pop("requiresContiguousQubitIndices")
     result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.requiresContiguousQubitIndices is False
+
+
+def test_default_supported_modifiers(valid_input):
+    valid_input.pop("supportedModifiers")
+    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.supportedModifiers == []
 
 
 @pytest.mark.xfail(raises=ValidationError)

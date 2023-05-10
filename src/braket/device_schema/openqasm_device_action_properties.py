@@ -17,6 +17,7 @@ from pydantic import constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
+from braket.ir.openqasm.modifiers import Modifier
 
 
 class OpenQASMDeviceActionProperties(DeviceActionProperties):
@@ -64,6 +65,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
 
     actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
     supportedOperations: List[str]
+    supportedModifiers: Optional[List[Modifier]] = []
     supportedPragmas: Optional[List[str]] = []
     forbiddenPragmas: Optional[List[str]] = []
     maximumQubitArrays: Optional[int] = None  # None indicates no limit
