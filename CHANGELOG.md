@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.16.0 (2023-05-11)
+
+### Features
+
+ * supportedModifiers schema
+
 ## v1.15.1 (2023-05-03)
 
 ### Bug Fixes and Other Changes
