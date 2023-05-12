@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.16.1 (2023-05-12)
+
+### Bug Fixes and Other Changes
+
+ * constrain modifier name string
+
 ## v1.16.0 (2023-05-11)
 
 ### Features
