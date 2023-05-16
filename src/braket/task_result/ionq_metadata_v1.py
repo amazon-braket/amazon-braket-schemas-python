@@ -29,9 +29,7 @@ class IonQMetadata(BraketSchemaBase):
             postprocessing with sharpening. Default: None.
     """
 
-    _IONQ_METADATA_HEADER = BraketSchemaHeader(
-        name="braket.task_result.ionq_metadata", version="1"
-    )
+    _IONQ_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.ionq_metadata", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_IONQ_METADATA_HEADER, const=_IONQ_METADATA_HEADER
     )
