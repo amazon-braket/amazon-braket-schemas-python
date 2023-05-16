@@ -11,6 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+import json
 from typing import Dict, Optional, Union
 
 from pydantic import Field
@@ -24,6 +25,23 @@ from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderPr
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+
+
+def _loads_with_provider(serialized: str) -> dict:
+    deserialized = json.loads(serialized)
+    provider = deserialized.get("provider")
+    deserialized["provider"] = (
+        IonqProviderProperties.parse_raw(json.dumps(provider)).dict() if provider else None
+    )
+    return deserialized
+
+
+def _dumps_with_provider(payload: dict, **kwargs):
+    provider = payload.get("provider")
+    payload["provider"] = (
+        json.loads(IonqProviderProperties.parse_obj(provider).json()) if provider else None
+    )
+    return json.dumps(payload, **kwargs)
 
 
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
@@ -110,3 +128,11 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[IonqProviderProperties]
+
+    class Config:
+        # Pydantic does not use the custom encoders/decoders of nested models:
+        # https://github.com/pydantic/pydantic/issues/2277#issuecomment-1236369282
+        # This should be fixed in Pydantic v2:
+        # https://github.com/pydantic/pydantic/discussions/4456
+        json_loads = _loads_with_provider
+        json_dumps = _dumps_with_provider

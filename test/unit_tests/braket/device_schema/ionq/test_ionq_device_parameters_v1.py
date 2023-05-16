@@ -16,30 +16,50 @@ import json
 import pytest
 from pydantic import ValidationError
 
+from braket.device_schema import GateModelParameters
+from braket.device_schema.error_mitigation import Debias
 from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
+
+PARADIGM = {
+    "braketSchemaHeader": {
+        "name": "braket.device_schema.gate_model_parameters",
+        "version": "1",
+    },
+    "qubitCount": 1,
+}
 
 
 @pytest.fixture(scope="module")
 def valid_input():
-    input = {
+    return {
         "braketSchemaHeader": {
             "name": "braket.device_schema.ionq.ionq_device_parameters",
             "version": "1",
         },
-        "paradigmParameters": {
-            "braketSchemaHeader": {
-                "name": "braket.device_schema.gate_model_parameters",
-                "version": "1",
-            },
-            "qubitCount": 1,
-        },
+        "paradigmParameters": PARADIGM,
     }
-    return input
 
 
 def test_valid(valid_input):
     result = IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_parameters"
+    assert result.errorMitigation is None
+
+
+def test_error_mitigation(valid_input):
+    params = IonqDeviceParameters(paradigmParameters=PARADIGM, errorMitigation=[Debias()])
+    em_str = "braket.device_schema.error_mitigation.debias.Debias"
+    valid_input["errorMitigation"] = [{"type": em_str}]
+    result = IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    assert params.errorMitigation == result.errorMitigation
+
+
+@pytest.mark.parametrize(
+    "extra", ["blah", GateModelParameters.parse_raw_schema(json.dumps(PARADIGM))]
+)
+def test_invalid_error_mitigation(extra):
+    with pytest.raises(ValueError):
+        IonqDeviceParameters(paradigmParameters=PARADIGM, errorMitigation=[Debias(), extra])
 
 
 @pytest.mark.xfail(raises=ValidationError)

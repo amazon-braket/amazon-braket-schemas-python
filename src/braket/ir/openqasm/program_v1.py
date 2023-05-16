@@ -34,7 +34,7 @@ class Program(BraketSchemaBase):
         inputs (Dict): Inputs for the OpenQASM program.
 
     Examples:
-        >>> OpenQASMProgram(source='OPENQASM3.0; cx $0, $1')
+        >>> Program(source='OPENQASM3.0; cx $0, $1')
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.openqasm.program", version="1")
