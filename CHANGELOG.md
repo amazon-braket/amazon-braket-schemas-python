@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.17.0 (2023-05-16)
+
+### Features
+
+ * Introduce error mitigation
+
 ## v1.16.1 (2023-05-12)
 
 ### Bug Fixes and Other Changes
