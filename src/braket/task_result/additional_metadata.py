@@ -21,6 +21,7 @@ from braket.ir.blackbird import Program as BlackbirdProgram
 from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata
+from braket.task_result.ionq_metadata_v1 import IonQMetadata
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.quera_metadata_v1 import QueraMetadata
 from braket.task_result.rigetti_metadata_v1 import RigettiMetadata
@@ -34,16 +35,28 @@ class AdditionalMetadata(BaseModel):
 
     Attributes:
         action (Union[Program, Problem]): The action of the task
-        dWaveMetadata (DWaveMetadata): Additional metadata for tasks that ran on D-Wave.
-            Default is None.
+        dwaveMetadata (Optional[DWaveMetadata]): Additional metadata for tasks that ran on D-Wave
+            devices. Default: None.
+        ionqMetadata (Optional[IonQMetadata): Additional metadata for tasks that ran on IonQ
+            devices. Default: None.
+        rigettiMetadata (Optional[RigettiMetadata): Additional metadata for tasks that ran on
+            Rigetti devices. Default: None.
+        oqcMetadata (Optional[OqcMetadata): Additional metadata for tasks that ran on Oxforc Quantum
+            Computing devices. Default: None.
+        xanaduMetadata (Optional[XanaduMetadata): Additional metadata for tasks that ran on Xanadu
+            devices. Default: None.
+        queraMetadata (Optional[QueraMetadata): Additional metadata for tasks that ran on QuEra
+            devices. Default: None.
+        simulatorMetadata (Optional[SimulatorQMetadata): Additional metadata for tasks that ran on
+            simulator devices. Default: None.
 
     Examples:
-        >>> AdditionalMetadata(action=Program(instructions=[CNot(control=0, target=1)]))
-
+        >>> AdditionalMetadata(action=OpenQASMProgram(source='OPENQASM3.0; cx $0, $1'))
     """
 
     action: Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]
     dwaveMetadata: Optional[DwaveMetadata]
+    ionqMetadata: Optional[IonQMetadata]
     rigettiMetadata: Optional[RigettiMetadata]
     oqcMetadata: Optional[OqcMetadata]
     xanaduMetadata: Optional[XanaduMetadata]

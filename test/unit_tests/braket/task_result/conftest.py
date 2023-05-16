@@ -20,6 +20,7 @@ from braket.ir.jaqcd import CNot
 from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.schema_common.schema_header import BraketSchemaHeader
+from braket.task_result import IonQMetadata
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
@@ -61,6 +62,11 @@ def native_quil_metadata():
 @pytest.fixture
 def xanadu_metadata(compiled_program):
     return XanaduMetadata(compiledProgram=compiled_program)
+
+
+@pytest.fixture
+def ionq_metadata():
+    return IonQMetadata(majority={"00": 0.5, "11": 0.5})
 
 
 @pytest.fixture

@@ -16,6 +16,7 @@ import json
 import pytest
 from pydantic import ValidationError
 
+from braket.device_schema.error_mitigation import Debias
 from braket.device_schema.ionq.ionq_device_capabilities_v1 import IonqDeviceCapabilities
 
 jaqcd_valid_input = {
@@ -132,6 +133,30 @@ openqasm_valid_input = {
 def test_valid(valid_input):
     result = IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
+
+
+@pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
+def test_valid_provider(valid_input):
+    valid_input = dict(valid_input)
+    valid_input["provider"] = {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.ionq.ionq_provider_properties",
+            "version": "1",
+        },
+        "fidelity": {"1Q": {"mean": 0.99717}, "2Q": {"mean": 0.9696}, "spam": {"mean": 0.9961}},
+        "timing": {
+            "T1": 10000000000,
+            "T2": 500000,
+            "1Q": 1.1e-05,
+            "2Q": 0.00021,
+            "readout": 0.000175,
+            "reset": 3.5e-05,
+        },
+        "errorMitigation": {Debias: {"minimumShots": 2500}},
+    }
+    result = IonqDeviceCapabilities.parse_obj(valid_input)
+    assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
+    assert result == IonqDeviceCapabilities.parse_raw(result.json())
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])

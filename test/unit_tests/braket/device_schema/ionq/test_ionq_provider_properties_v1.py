@@ -16,12 +16,13 @@ import json
 import pytest
 from pydantic import ValidationError
 
+from braket.device_schema.error_mitigation import Debias, ErrorMitigationProperties
 from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties
 
 
 @pytest.fixture(scope="module")
 def valid_input():
-    input = {
+    return {
         "braketSchemaHeader": {
             "name": "braket.device_schema.ionq.ionq_provider_properties",
             "version": "1",
@@ -36,12 +37,24 @@ def valid_input():
             "reset": 3.5e-05,
         },
     }
-    return input
 
 
 def test_valid(valid_input):
     result = IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_provider_properties"
+    assert result.errorMitigation is None
+
+
+def test_error_mitigation(valid_input):
+    minimum_shots = 2500
+    result = IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    result.errorMitigation = {Debias: ErrorMitigationProperties(minimumShots=minimum_shots)}
+    em_json = {
+        "braket.device_schema.error_mitigation.debias.Debias": {"minimumShots": minimum_shots}
+    }
+    valid_input["errorMitigation"] = em_json
+    assert result == IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    assert json.loads(result.json())["errorMitigation"] == em_json
 
 
 @pytest.mark.xfail(raises=ValidationError)

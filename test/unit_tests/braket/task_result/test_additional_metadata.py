@@ -52,6 +52,12 @@ def test_additional_metadata_xanadu(xanadu_metadata, blackbird_program):
     assert metadata.xanaduMetadata == xanadu_metadata
 
 
+def test_additional_metadata_ionq(ionq_metadata, openqasm_program):
+    metadata = AdditionalMetadata(action=openqasm_program, ionqMetadata=ionq_metadata)
+    assert metadata.ionqMetadata == ionq_metadata
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
 def test_additional_metadata_oqc(oqc_metadata, openqasm_program):
     metadata = AdditionalMetadata(action=openqasm_program, oqcMetadata=oqc_metadata)
     assert metadata.oqcMetadata == oqc_metadata
