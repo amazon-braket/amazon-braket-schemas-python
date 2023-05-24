@@ -31,6 +31,7 @@ setup(
         "test": [
             "black",
             "flake8",
+            "flake8-rst-docstrings",
             "isort",
             "jsonschema==3.2.0",
             "numpy",
