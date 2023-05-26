@@ -11,6 +11,7 @@ on:
 
 jobs:
   build:
+    name: Check code format
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -22,7 +23,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install -e .[test]
-    - name: Check code format
+    - name: Run code format checks
       run: |
         # stop the build if there are Python format errors or undefined names
         black --check .
