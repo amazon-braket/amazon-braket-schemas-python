@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-    name: Unit tests and coverage
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
