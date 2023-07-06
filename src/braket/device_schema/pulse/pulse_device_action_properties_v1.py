@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import Field
+from pydantic import Field, AnyUrl
 
 from braket.device_schema.pulse.frame_v1 import Frame
 from braket.device_schema.pulse.port_v1 import Port
@@ -25,7 +25,7 @@ class PulseDeviceActionProperties(BraketSchemaBase):
         supportsDynamicFrames: Details whether a device may create frames at runtime from
          `ports` or if it
             must use the frames defined in `frames`
-
+        nativeGateCalibrationsRef(AnyUrl): An URL to download native gate calibrations
     Examples:
         >>> import json
         >>> input_json = {
@@ -116,7 +116,8 @@ class PulseDeviceActionProperties(BraketSchemaBase):
         ...             "MAX_SCALE": 1.0,
         ...             "MAX_AMPLITUDE": 1.0,
         ...             "PERMITTED_FREQUENCY_DIFFERENCE": 1.0,
-        ...         }
+        ...         },
+        ...         "nativeGateCalibrationsRef": {AnyUrl},
         ...     }
         >>> PulseDeviceActionProperties.parse_raw_schema(json.dumps(input_json))
     """
@@ -133,3 +134,5 @@ class PulseDeviceActionProperties(BraketSchemaBase):
     supportsDynamicFrames: Optional[bool] = True
     supportsNonNativeGatesWithPulses: Optional[bool] = False
     validationParameters: Optional[Dict[str, float]]
+    nativeGateCalibrationsRef: Optional[AnyUrl]
+    
