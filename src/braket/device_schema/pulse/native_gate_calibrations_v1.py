@@ -1,6 +1,9 @@
-from typing import List, Any, Union, Optional, Tuple, Dict
+from typing import Any, Dict, List, Optional, Tuple, Union
+
 from pydantic import BaseModel, Field
+
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+
 
 class InstructionArgument(BaseModel):
     """
@@ -13,11 +16,13 @@ class InstructionArgument(BaseModel):
         optional: The boolean to represent if argument is optional or not
 
     """
+
     name: str
     value: Any
     type: str
     optional: bool = False
-    
+
+
 class Instruction(BaseModel):
     """
     Defines a Native Gate Calibration Instruction
@@ -26,8 +31,10 @@ class Instruction(BaseModel):
         instructionName: The name of the instruction
         arguments: List of instruction's argument
     """
+
     name: str
     arguments: Optional[List[InstructionArgument]]
+
 
 class PulseFunctionArgument(BaseModel):
     """
@@ -40,10 +47,12 @@ class PulseFunctionArgument(BaseModel):
         optional: The boolean to represent if argumenet is optional or not
 
     """
+
     name: str
     value: Any
     type: str
     optional: bool = False
+
 
 class PulseFunction(BaseModel):
     """
@@ -53,8 +62,10 @@ class PulseFunction(BaseModel):
         name: The name of the pulse function
         arguments: List of the pulse function's arguments
     """
+
     name: str
     arguments: List[PulseFunctionArgument]
+
 
 class NativeGate(BaseModel):
     """
@@ -66,10 +77,12 @@ class NativeGate(BaseModel):
         arguments: The list of the native gate's argument
         calibrations: List of instructions/pulse functions
     """
+
     name: str
     qubits: List[str]
     arguments: List[str]
     calibrations: List[Union[Instruction, PulseFunction]]
+
 
 class TemplateWaveformArgument(BaseModel):
     """
@@ -81,6 +94,7 @@ class TemplateWaveformArgument(BaseModel):
         type: The string name of the argument's value type
         optional: The boolean to represent if argumenet is optional or not
     """
+
     name: str
     value: Any
     type: str
@@ -94,6 +108,7 @@ class Waveform(BaseModel):
     Attributes:
     waveformId: Id to uniquely identify waveforms
     """
+
     waveformId: str
 
 
@@ -119,6 +134,7 @@ class ArbitraryWaveform(Waveform):
         amplitudes: List of Tuple containg two floats to
             denote the real and imaginary part of a complex number
     """
+
     amplitudes: List[Tuple[float, float]]
 
 
@@ -127,17 +143,17 @@ class NativeGateCalibrations(BraketSchemaBase):
     Defines the structure of how native gates will be represented
 
     Attributes:
-        gates: Nested dictionary with an outer and inner key. 
+        gates: Nested dictionary with an outer and inner key.
         Outer key will be the qubit and inner key will be the gate name.
         waveforms: Dictionary that holds waveform ID as the key and waveform as the value
-    
+
     Examples:
         >>> input_json = {
         ...         "braketSchemaHeader": {
         ...             "name": "braket.device_schema.pulse.native_gate_calibrations",
         ...             "version": "1",
         ...         },
-        ...         "gates": 
+        ...         "gates":
         ...             {
         ...                 "0": {
         ...                     "rx": [{"name": "rx", "qubits": ["0"], "arguments": ["-1.5707963267948966"], "calibrations": [
@@ -158,15 +174,16 @@ class NativeGateCalibrations(BraketSchemaBase):
         ...             "wf_drag_gaussian_0": {"waveformId": "wf_drag_gaussian_0", "name": "drag_gaussian" , "arguments": [
         ...                                                                 {"name": "length", "value": 6.000000000000001e-08, "type": "float"},
         ...                                                                 {"name": "sigma", "value": 6.369913502160144e-09, "type": "float"},
-        ...                                                                 {"name": "amplitude", "value": -0.4549282253548838, "type": "float"}, 
+        ...                                                                 {"name": "amplitude", "value": -0.4549282253548838, "type": "float"},
         ...                                                                 {"name": "beta", "value": 7.494904522022295e-10, "type": "float"}]}
         ...                 .
         ...                 .
         ...                 .
-        ...         }                        
+        ...         }
         ...     }
         >>> NativeGateCalibrations.parse_raw_schema(json.dumps(input_json))
-    """
+    """  # noqa: E501
+
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.pulse.native_gate_calibrations", version="1"
     )

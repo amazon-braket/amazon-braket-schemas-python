@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import Field, AnyUrl
+from pydantic import AnyUrl, Field
 
 from braket.device_schema.pulse.frame_v1 import Frame
 from braket.device_schema.pulse.port_v1 import Port
@@ -135,4 +135,3 @@ class PulseDeviceActionProperties(BraketSchemaBase):
     supportsNonNativeGatesWithPulses: Optional[bool] = False
     validationParameters: Optional[Dict[str, float]]
     nativeGateCalibrationsRef: Optional[AnyUrl]
-    
