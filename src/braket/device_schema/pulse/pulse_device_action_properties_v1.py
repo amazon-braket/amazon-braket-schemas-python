@@ -134,4 +134,4 @@ class PulseDeviceActionProperties(BraketSchemaBase):
     supportsDynamicFrames: Optional[bool] = True
     supportsNonNativeGatesWithPulses: Optional[bool] = False
     validationParameters: Optional[Dict[str, float]]
-    nativeGateCalibrationsRef: Optional[AnyUrl]
+    nativeGateCalibrationsRef: Optional[AnyUrl] = None
