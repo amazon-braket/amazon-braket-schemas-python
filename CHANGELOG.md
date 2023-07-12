@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.19.0 (2023-07-12)
+
+### Features
+
+ * add the native gate calibration schema
+
 ## v1.18.0 (2023-06-29)
 
 ### Features
