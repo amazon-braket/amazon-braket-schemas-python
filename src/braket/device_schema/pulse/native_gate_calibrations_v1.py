@@ -189,4 +189,4 @@ class NativeGateCalibrations(BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     gates: Dict[str, Dict[str, List[NativeGate]]]
-    waveforms: Dict[str, Waveform]
+    waveforms: Dict[str, Union[TemplateWaveform, ArbitraryWaveform]]
