@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.19.1 (2023-07-25)
+
+### Bug Fixes and Other Changes
+
+ * Specify waveform types
+
 ## v1.19.0 (2023-07-12)
 
 ### Features
