@@ -47,7 +47,7 @@ setup(
             "tox",
         ]
     },
-    url="https://github.com/aws/amazon-braket-schemas-python",
+    url="https://github.com/amazon-braket/amazon-braket-schemas-python",
     author="Amazon Web Services",
     description="An open source library that contains the schemas for Amazon Braket",
     long_description=long_description,
