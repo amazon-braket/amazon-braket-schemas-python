@@ -7,7 +7,7 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 * schemas for the S3 results of each quantum task
 * schemas for the device capabilities of each device
 
-Here you'll find an overview and API documentation for Amazon Braket Python Schemas. The project homepage is in GitHub, https://github.com/aws/amazon-braket-schemas-python, where you can find the source and installation instructions for the library.
+Here you'll find an overview and API documentation for Amazon Braket Python Schemas. The project homepage is in GitHub, https://github.com/amazon-braket/amazon-braket-schemas-python, where you can find the source and installation instructions for the library.
 
 Indices and tables
 __________________
