@@ -2,8 +2,8 @@
 
 [![Latest Version](https://img.shields.io/pypi/v/amazon-braket-schemas.svg)](https://pypi.python.org/pypi/amazon-braket-schemas)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/amazon-braket-schemas.svg)](https://pypi.python.org/pypi/amazon-braket-schemas)
-[![Build status](https://github.com/aws/amazon-braket-schemas-python/actions/workflows/python-package.yml/badge.svg)](https://github.com/aws/amazon-braket-schemas-python/actions/workflows/python-package.yml)
-[![codecov](https://codecov.io/gh/aws/amazon-braket-schemas-python/branch/main/graph/badge.svg?token=XV9R0dUbr1)](https://codecov.io/gh/aws/amazon-braket-schemas-python)
+[![Build status](https://github.com/amazon-braket/amazon-braket-schemas-python/actions/workflows/python-package.yml/badge.svg)](https://github.com/amazon-braket/amazon-braket-schemas-python/actions/workflows/python-package.yml)
+[![codecov](https://codecov.io/gh/amazon-braket/amazon-braket-schemas-python/branch/main/graph/badge.svg?token=XV9R0dUbr1)](https://codecov.io/gh/amazon-braket/amazon-braket-schemas-python)
 [![Documentation Status](https://img.shields.io/readthedocs/amazon-braket-schemas-python.svg?logo=read-the-docs)](https://amazon-braket-schemas-python.readthedocs.io/en/latest/?badge=latest)
 
 Amazon Braket Python Schemas is an open source library that contains the schemas for Braket, including:
@@ -18,8 +18,8 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 
 ### Steps
 
-The preferred way to get Amazon Braket Python Schemas is by installing the [Amazon Braket Python SDK](https://github.com/aws/amazon-braket-sdk-python), which will pull in the schemas.
-Follow the instructions in the [README](https://github.com/aws/amazon-braket-sdk-python/blob/main/README.md) for setup.
+The preferred way to get Amazon Braket Python Schemas is by installing the [Amazon Braket Python SDK](https://github.com/amazon-braket/amazon-braket-sdk-python), which will pull in the schemas.
+Follow the instructions in the [README](https://github.com/amazon-braket/amazon-braket-sdk-python/blob/main/README.md) for setup.
 
 However, if you only want to use the schemas, it can be installed on its own as follows:
 
@@ -30,7 +30,7 @@ pip install amazon-braket-schemas
 You can install from source by cloning this repository and running a pip install command in the root directory of the repository:
 
 ```shell
-git clone https://github.com/aws/amazon-braket-schemas-python.git
+git clone https://github.com/amazon-braket/amazon-braket-schemas-python.git
 cd amazon-braket-schemas-python
 pip install .
 ```
