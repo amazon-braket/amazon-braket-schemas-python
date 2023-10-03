@@ -14,7 +14,7 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 ## Installation
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.9+
 
 ### Steps
 
