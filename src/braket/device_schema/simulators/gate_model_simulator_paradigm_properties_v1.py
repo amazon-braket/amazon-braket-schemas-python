@@ -11,6 +11,8 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+from typing import Literal
+
 from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -41,5 +43,5 @@ class GateModelSimulatorParadigmProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.simulators.gate_model_simulator_paradigm_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     qubitCount: conint(ge=0)

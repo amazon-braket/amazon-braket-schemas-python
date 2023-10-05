@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, List, TypeVar, Union
+from typing import Dict, List, Literal, TypeVar, Union
 
 from pydantic import Field
 
@@ -72,5 +72,5 @@ class OqcProviderProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.oqc.oqc_provider_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     properties: Dict[str, Dict[str, QubitType]]

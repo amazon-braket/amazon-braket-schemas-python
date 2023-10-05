@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, conint, conlist
 
@@ -62,7 +62,7 @@ class DwaveMetadata(BraketSchemaBase):
         name="braket.task_result.dwave_metadata", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_DWAVE_METADATA_HEADER, const=_DWAVE_METADATA_HEADER
+        default=_DWAVE_METADATA_HEADER, Literal=_DWAVE_METADATA_HEADER
     )
     activeVariables: conlist(conint(ge=0))
     timing: DwaveTiming

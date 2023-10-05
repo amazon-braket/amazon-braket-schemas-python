@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from datetime import datetime
-from typing import List, Optional, Tuple
+from typing import List, Literal, Optional, Tuple
 
 from pydantic import BaseModel, Field
 
@@ -118,7 +118,7 @@ class DeviceServiceProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_service_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     executionWindows: List[DeviceExecutionWindow]
     shotsRange: Tuple[int, int]
     deviceCost: Optional[DeviceCost]

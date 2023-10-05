@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
+from typing import Literal, Optional, Union
 
 from pydantic import Field, conint, constr
 
@@ -59,7 +59,7 @@ class TaskMetadata(BraketSchemaBase):
     _TASK_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.task_metadata", version="1")
 
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_TASK_METADATA_HEADER, const=_TASK_METADATA_HEADER
+        default=_TASK_METADATA_HEADER, Literal=_TASK_METADATA_HEADER
     )
     id: constr(min_length=1)
     shots: conint(ge=0)

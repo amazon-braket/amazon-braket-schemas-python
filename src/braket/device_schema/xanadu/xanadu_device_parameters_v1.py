@@ -12,6 +12,8 @@
 # language governing permissions and limitations under the License.
 
 
+from typing import Literal
+
 from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -40,4 +42,4 @@ class XanaduDeviceParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.xanadu.xanadu_device_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)

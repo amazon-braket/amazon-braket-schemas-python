@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import List, Optional, Union
+from typing import List, Literal, Optional, Union
 
 from pydantic import Field
 
@@ -79,7 +79,7 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_2000Q_device_level_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     annealingOffsets: Optional[List[float]]
     annealingSchedule: Optional[List[List[float]]]
     annealingDuration: Optional[float] = Field(gt=0)

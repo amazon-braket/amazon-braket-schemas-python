@@ -63,7 +63,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
+    actionType: constr(pattern=r"^braket\.ir\.openqasm\.program$")
     supportedOperations: List[str]
     supportedModifiers: Optional[List[Modifier]] = []
     supportedPragmas: Optional[List[str]] = []

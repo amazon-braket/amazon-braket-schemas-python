@@ -11,6 +11,8 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
+from typing import Literal
+
 from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -33,7 +35,7 @@ class QueraMetadata(BraketSchemaBase):
         name="braket.task_result.quera_metadata", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_QUERA_METADATA_HEADER, const=_QUERA_METADATA_HEADER
+        default=_QUERA_METADATA_HEADER, Literal=_QUERA_METADATA_HEADER
     )
 
     numSuccessfulShots: conint(ge=0, le=1000)

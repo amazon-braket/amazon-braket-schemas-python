@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict, Literal, Optional
 
 from pydantic import AnyUrl, Field
 
@@ -125,7 +125,7 @@ class PulseDeviceActionProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.pulse.pulse_device_action_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     supportedQhpTemplateWaveforms: Dict[str, PulseFunction]
     ports: Dict[str, Port]
     supportedFunctions: Dict[str, PulseFunction]

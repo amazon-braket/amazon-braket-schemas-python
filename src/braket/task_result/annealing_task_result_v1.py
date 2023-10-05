@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from pydantic import Field, conint, conlist
 
@@ -41,9 +41,9 @@ class AnnealingTaskResult(BraketSchemaBase):
         name="braket.task_result.annealing_task_result", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_ANNEALING_TASK_RESULT_HEADER, const=_ANNEALING_TASK_RESULT_HEADER
+        default=_ANNEALING_TASK_RESULT_HEADER, Literal=_ANNEALING_TASK_RESULT_HEADER
     )
-    solutions: Optional[List[conlist(conint(ge=-1, le=3), min_items=1)]]
+    solutions: Optional[List[conlist(conint(ge=-1, le=3), min_length=1)]]
     solutionCounts: Optional[List[conint(ge=0)]]
     values: Optional[List[float]]
     variableCount: Optional[conint(ge=0)]

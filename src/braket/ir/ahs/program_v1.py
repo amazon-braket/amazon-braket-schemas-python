@@ -13,6 +13,7 @@
 
 
 from decimal import Decimal
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -48,7 +49,7 @@ class Program(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.ahs.program", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, LITERAL=_PROGRAM_HEADER)
     setup: Setup
     hamiltonian: Hamiltonian
 

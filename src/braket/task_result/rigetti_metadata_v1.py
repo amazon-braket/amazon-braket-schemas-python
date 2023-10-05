@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field, confloat, conint, conlist, constr
 
@@ -72,7 +72,7 @@ class RigettiMetadata(BraketSchemaBase):
         name="braket.task_result.rigetti_metadata", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_RIGETTI_METADATA_HEADER, const=_RIGETTI_METADATA_HEADER
+        default=_RIGETTI_METADATA_HEADER, Literal=_RIGETTI_METADATA_HEADER
     )
 
     nativeQuilMetadata: Optional[NativeQuilMetadata]

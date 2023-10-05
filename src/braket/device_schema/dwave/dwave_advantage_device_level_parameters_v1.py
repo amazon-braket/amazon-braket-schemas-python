@@ -68,7 +68,7 @@ class DwaveAdvantageDeviceLevelParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_advantage_device_level_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     annealingOffsets: Optional[List[float]]
     annealingSchedule: Optional[List[List[float]]]
     annealingDuration: Optional[float] = Field(gt=0)

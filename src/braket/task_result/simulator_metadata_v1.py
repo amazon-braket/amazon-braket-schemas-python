@@ -11,6 +11,8 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
+from typing import Literal
+
 from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -35,6 +37,6 @@ class SimulatorMetadata(BraketSchemaBase):
         name="braket.task_result.simulator_metadata", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_SIMULATOR_METADATA_HEADER, const=_SIMULATOR_METADATA_HEADER
+        default=_SIMULATOR_METADATA_HEADER, Literal=_SIMULATOR_METADATA_HEADER
     )
     executionDuration: conint(ge=0)

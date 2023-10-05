@@ -11,6 +11,8 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
+from typing import Literal
+
 from pydantic import Field, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -31,7 +33,7 @@ class OqcMetadata(BraketSchemaBase):
 
     _OQC_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.oqc_metadata", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_OQC_METADATA_HEADER, const=_OQC_METADATA_HEADER
+        default=_OQC_METADATA_HEADER, Literal=_OQC_METADATA_HEADER
     )
 
     compiledProgram: constr(min_length=2)

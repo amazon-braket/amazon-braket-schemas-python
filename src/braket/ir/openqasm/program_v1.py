@@ -10,7 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Literal, Optional, Union
 
 from pydantic import Field, confloat, constr
 
@@ -18,7 +18,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 # support 1d array input for now
 leaf_io_type = Union[
-    constr(regex="^[01]+$", min_length=1, strict=True), confloat(ge=-float("inf"), strict=True), int
+    constr(pattern="^[01]+$", min_length=1, strict=True), confloat(ge=-float("inf"), strict=True), int
 ]
 io_type = Union[leaf_io_type, List[leaf_io_type]]
 
@@ -38,7 +38,7 @@ class Program(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.openqasm.program", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     source: str
     inputs: Optional[
         Dict[

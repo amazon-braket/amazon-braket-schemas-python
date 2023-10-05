@@ -12,6 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
+from typing import ClassVar
 
 from braket.ir.jaqcd.shared_models import (
     Angle,
@@ -67,7 +68,7 @@ class H(SingleTarget):
     class Type(str, Enum):
         h = "h"
 
-    type = Type.h
+    type: ClassVar[str] = Type.h
 
 
 class I(SingleTarget):  # noqa: E742, E261
@@ -86,7 +87,7 @@ class I(SingleTarget):  # noqa: E742, E261
     class Type(str, Enum):
         i = "i"
 
-    type = Type.i
+    type: ClassVar[str] = Type.i
 
 
 class X(SingleTarget):
@@ -105,7 +106,7 @@ class X(SingleTarget):
     class Type(str, Enum):
         x = "x"
 
-    type = Type.x
+    type: ClassVar[str] = Type.x
 
 
 class Y(SingleTarget):
@@ -124,7 +125,7 @@ class Y(SingleTarget):
     class Type(str, Enum):
         y = "y"
 
-    type = Type.y
+    type: ClassVar[str] = Type.y
 
 
 class Z(SingleTarget):
@@ -143,7 +144,7 @@ class Z(SingleTarget):
     class Type(str, Enum):
         z = "z"
 
-    type = Type.z
+    type: ClassVar[str] = Type.z
 
 
 class Rx(SingleTarget, Angle):
@@ -164,7 +165,7 @@ class Rx(SingleTarget, Angle):
     class Type(str, Enum):
         rx = "rx"
 
-    type = Type.rx
+    type: ClassVar[str] = Type.rx
 
 
 class Ry(SingleTarget, Angle):
@@ -185,7 +186,7 @@ class Ry(SingleTarget, Angle):
     class Type(str, Enum):
         ry = "ry"
 
-    type = Type.ry
+    type: ClassVar[str] = Type.ry
 
 
 class Rz(SingleTarget, Angle):
@@ -206,7 +207,7 @@ class Rz(SingleTarget, Angle):
     class Type(str, Enum):
         rz = "rz"
 
-    type = Type.rz
+    type: ClassVar[str] = Type.rz
 
 
 class S(SingleTarget):
@@ -225,7 +226,7 @@ class S(SingleTarget):
     class Type(str, Enum):
         s = "s"
 
-    type = Type.s
+    type: ClassVar[str] = Type.s
 
 
 class T(SingleTarget):
@@ -244,7 +245,7 @@ class T(SingleTarget):
     class Type(str, Enum):
         t = "t"
 
-    type = Type.t
+    type: ClassVar[str] = Type.t
 
 
 class Si(SingleTarget):
@@ -263,7 +264,7 @@ class Si(SingleTarget):
     class Type(str, Enum):
         si = "si"
 
-    type = Type.si
+    type: ClassVar[str] = Type.si
 
 
 class Ti(SingleTarget):
@@ -282,7 +283,7 @@ class Ti(SingleTarget):
     class Type(str, Enum):
         ti = "ti"
 
-    type = Type.ti
+    type: ClassVar[str] = Type.ti
 
 
 class Swap(DoubleTarget):
@@ -302,7 +303,7 @@ class Swap(DoubleTarget):
     class Type(str, Enum):
         swap = "swap"
 
-    type = Type.swap
+    type: ClassVar[str] = Type.swap
 
 
 class CSwap(SingleControl, DoubleTarget):
@@ -323,7 +324,7 @@ class CSwap(SingleControl, DoubleTarget):
     class Type(str, Enum):
         cswap = "cswap"
 
-    type = Type.cswap
+    type: ClassVar[str] = Type.cswap
 
 
 class ISwap(DoubleTarget):
@@ -346,7 +347,7 @@ class ISwap(DoubleTarget):
     class Type(str, Enum):
         iswap = "iswap"
 
-    type = Type.iswap
+    type: ClassVar[str] = Type.iswap
 
 
 class PSwap(DoubleTarget, Angle):
@@ -368,7 +369,7 @@ class PSwap(DoubleTarget, Angle):
     class Type(str, Enum):
         pswap = "pswap"
 
-    type = Type.pswap
+    type: ClassVar[str] = Type.pswap
 
 
 class XY(DoubleTarget, Angle):
@@ -390,7 +391,7 @@ class XY(DoubleTarget, Angle):
     class Type(str, Enum):
         xy = "xy"
 
-    type = Type.xy
+    type: ClassVar[str] = Type.xy
 
 
 class PhaseShift(SingleTarget, Angle):
@@ -411,7 +412,7 @@ class PhaseShift(SingleTarget, Angle):
     class Type(str, Enum):
         phaseshift = "phaseshift"
 
-    type = Type.phaseshift
+    type: ClassVar[str] = Type.phaseshift
 
 
 class CPhaseShift(SingleTarget, SingleControl, Angle):
@@ -433,7 +434,7 @@ class CPhaseShift(SingleTarget, SingleControl, Angle):
     class Type(str, Enum):
         cphaseshift = "cphaseshift"
 
-    type = Type.cphaseshift
+    type: ClassVar[str] = Type.cphaseshift
 
 
 class CPhaseShift00(SingleTarget, SingleControl, Angle):
@@ -455,7 +456,7 @@ class CPhaseShift00(SingleTarget, SingleControl, Angle):
     class Type(str, Enum):
         cphaseshift00 = "cphaseshift00"
 
-    type = Type.cphaseshift00
+    type: ClassVar[str] = Type.cphaseshift00
 
 
 class CPhaseShift01(SingleTarget, SingleControl, Angle):
@@ -477,7 +478,7 @@ class CPhaseShift01(SingleTarget, SingleControl, Angle):
     class Type(str, Enum):
         cphaseshift01 = "cphaseshift01"
 
-    type = Type.cphaseshift01
+    type: ClassVar[str] = Type.cphaseshift01
 
 
 class CPhaseShift10(SingleTarget, SingleControl, Angle):
@@ -499,7 +500,7 @@ class CPhaseShift10(SingleTarget, SingleControl, Angle):
     class Type(str, Enum):
         cphaseshift10 = "cphaseshift10"
 
-    type = Type.cphaseshift10
+    type: ClassVar[str] = Type.cphaseshift10
 
 
 class CNot(SingleTarget, SingleControl):
@@ -519,7 +520,7 @@ class CNot(SingleTarget, SingleControl):
     class Type(str, Enum):
         cnot = "cnot"
 
-    type = Type.cnot
+    type: ClassVar[str] = Type.cnot
 
 
 class CCNot(SingleTarget, DoubleControl):
@@ -540,7 +541,7 @@ class CCNot(SingleTarget, DoubleControl):
     class Type(str, Enum):
         ccnot = "ccnot"
 
-    type = Type.ccnot
+    type: ClassVar[str] = Type.ccnot
 
 
 class CV(SingleTarget, SingleControl):
@@ -560,7 +561,7 @@ class CV(SingleTarget, SingleControl):
     class Type(str, Enum):
         cv = "cv"
 
-    type = Type.cv
+    type: ClassVar[str] = Type.cv
 
 
 class CY(SingleTarget, SingleControl):
@@ -580,7 +581,7 @@ class CY(SingleTarget, SingleControl):
     class Type(str, Enum):
         cy = "cy"
 
-    type = Type.cy
+    type: ClassVar[str] = Type.cy
 
 
 class CZ(SingleTarget, SingleControl):
@@ -600,7 +601,7 @@ class CZ(SingleTarget, SingleControl):
     class Type(str, Enum):
         cz = "cz"
 
-    type = Type.cz
+    type: ClassVar[str] = Type.cz
 
 
 class ECR(DoubleTarget):
@@ -620,7 +621,7 @@ class ECR(DoubleTarget):
     class Type(str, Enum):
         ecr = "ecr"
 
-    type = Type.ecr
+    type: ClassVar[str] = Type.ecr
 
 
 class XX(DoubleTarget, Angle):
@@ -642,7 +643,7 @@ class XX(DoubleTarget, Angle):
     class Type(str, Enum):
         xx = "xx"
 
-    type = Type.xx
+    type: ClassVar[str] = Type.xx
 
 
 class YY(DoubleTarget, Angle):
@@ -664,7 +665,7 @@ class YY(DoubleTarget, Angle):
     class Type(str, Enum):
         yy = "yy"
 
-    type = Type.yy
+    type: ClassVar[str] = Type.yy
 
 
 class ZZ(DoubleTarget, Angle):
@@ -686,7 +687,7 @@ class ZZ(DoubleTarget, Angle):
     class Type(str, Enum):
         zz = "zz"
 
-    type = Type.zz
+    type: ClassVar[str] = Type.zz
 
 
 class V(SingleTarget):
@@ -705,7 +706,7 @@ class V(SingleTarget):
     class Type(str, Enum):
         v = "v"
 
-    type = Type.v
+    type: ClassVar[str] = Type.v
 
 
 class Vi(SingleTarget):
@@ -724,7 +725,7 @@ class Vi(SingleTarget):
     class Type(str, Enum):
         vi = "vi"
 
-    type = Type.vi
+    type: ClassVar[str] = Type.vi
 
 
 class Unitary(TwoDimensionalMatrix, MultiTarget):
@@ -744,7 +745,7 @@ class Unitary(TwoDimensionalMatrix, MultiTarget):
     class Type(str, Enum):
         unitary = "unitary"
 
-    type = Type.unitary
+    type: ClassVar[str] = Type.unitary
 
 
 class BitFlip(SingleTarget, SingleProbability):
@@ -763,7 +764,7 @@ class BitFlip(SingleTarget, SingleProbability):
     class Type(str, Enum):
         bit_flip = "bit_flip"
 
-    type = Type.bit_flip
+    type: ClassVar[str] = Type.bit_flip
 
 
 class PhaseFlip(SingleTarget, SingleProbability):
@@ -782,7 +783,7 @@ class PhaseFlip(SingleTarget, SingleProbability):
     class Type(str, Enum):
         phase_flip = "phase_flip"
 
-    type = Type.phase_flip
+    type: ClassVar[str] = Type.phase_flip
 
 
 class PauliChannel(SingleTarget, TripleProbability):
@@ -801,7 +802,7 @@ class PauliChannel(SingleTarget, TripleProbability):
     class Type(str, Enum):
         pauli_channel = "pauli_channel"
 
-    type = Type.pauli_channel
+    type: ClassVar[str] = Type.pauli_channel
 
 
 class MultiQubitPauliChannel(MultiTarget, MultiProbability):
@@ -823,7 +824,7 @@ class MultiQubitPauliChannel(MultiTarget, MultiProbability):
     class Type(str, Enum):
         multi_qubit_pauli_channel = "multi_qubit_pauli_channel"
 
-    type = Type.multi_qubit_pauli_channel
+    type: ClassVar[str] = Type.multi_qubit_pauli_channel
 
 
 class Depolarizing(SingleTarget, SingleProbability_34):
@@ -842,7 +843,7 @@ class Depolarizing(SingleTarget, SingleProbability_34):
     class Type(str, Enum):
         depolarizing = "depolarizing"
 
-    type = Type.depolarizing
+    type: ClassVar[str] = Type.depolarizing
 
 
 class TwoQubitDepolarizing(DoubleTarget, SingleProbability_1516):
@@ -861,7 +862,7 @@ class TwoQubitDepolarizing(DoubleTarget, SingleProbability_1516):
     class Type(str, Enum):
         two_qubit_depolarizing = "two_qubit_depolarizing"
 
-    type = Type.two_qubit_depolarizing
+    type: ClassVar[str] = Type.two_qubit_depolarizing
 
 
 class TwoQubitDephasing(DoubleTarget, SingleProbability_34):
@@ -880,7 +881,7 @@ class TwoQubitDephasing(DoubleTarget, SingleProbability_34):
     class Type(str, Enum):
         two_qubit_dephasing = "two_qubit_dephasing"
 
-    type = Type.two_qubit_dephasing
+    type: ClassVar[str] = Type.two_qubit_dephasing
 
 
 class AmplitudeDamping(SingleTarget, DampingProbability):
@@ -899,7 +900,7 @@ class AmplitudeDamping(SingleTarget, DampingProbability):
     class Type(str, Enum):
         amplitude_damping = "amplitude_damping"
 
-    type = Type.amplitude_damping
+    type: ClassVar[str] = Type.amplitude_damping
 
 
 class GeneralizedAmplitudeDamping(SingleTarget, DampingProbability, DampingSingleProbability):
@@ -918,7 +919,7 @@ class GeneralizedAmplitudeDamping(SingleTarget, DampingProbability, DampingSingl
     class Type(str, Enum):
         generalized_amplitude_damping = "generalized_amplitude_damping"
 
-    type = Type.generalized_amplitude_damping
+    type: ClassVar[str] = Type.generalized_amplitude_damping
 
 
 class PhaseDamping(SingleTarget, DampingProbability):
@@ -937,7 +938,7 @@ class PhaseDamping(SingleTarget, DampingProbability):
     class Type(str, Enum):
         phase_damping = "phase_damping"
 
-    type = Type.phase_damping
+    type: ClassVar[str] = Type.phase_damping
 
 
 class Kraus(TwoDimensionalMatrixList, MultiTarget):
@@ -962,7 +963,7 @@ class Kraus(TwoDimensionalMatrixList, MultiTarget):
     class Type(str, Enum):
         kraus = "kraus"
 
-    type = Type.kraus
+    type: ClassVar[str] = Type.kraus
 
 
 class StartVerbatimBox(CompilerDirective):
@@ -982,7 +983,7 @@ class StartVerbatimBox(CompilerDirective):
     class Type(str, Enum):
         start_verbatim_box = "start_verbatim_box"
 
-    type = Type.start_verbatim_box
+    type: ClassVar[str] = Type.start_verbatim_box
 
     directive: str = "StartVerbatimBox"
 
@@ -1004,6 +1005,6 @@ class EndVerbatimBox(CompilerDirective):
     class Type(str, Enum):
         end_verbatim_box = "end_verbatim_box"
 
-    type = Type.end_verbatim_box
+    type: ClassVar[str] = Type.end_verbatim_box
 
     directive: str = "EndVerbatimBox"

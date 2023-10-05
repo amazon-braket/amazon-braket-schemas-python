@@ -49,7 +49,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.jaqcd\.program$")
+    actionType: constr(pattern=r"^braket\.ir\.jaqcd\.program$")
     supportedOperations: List[str]
     supportedResultTypes: Optional[List[ResultType]]
     disabledQubitRewiringSupported: Optional[bool] = None

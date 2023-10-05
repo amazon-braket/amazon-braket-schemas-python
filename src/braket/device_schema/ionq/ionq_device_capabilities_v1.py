@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import json
-from typing import Dict, Optional, Union
+from typing import Dict, Literal, Optional, Union
 
 from pydantic import Field
 
@@ -121,7 +121,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     action: Dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],

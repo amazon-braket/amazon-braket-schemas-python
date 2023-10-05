@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-
+from typing import ClassVar
 from pydantic import BaseModel
 
 from braket.ir.jaqcd.shared_models import (
@@ -49,7 +49,7 @@ class Expectation(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         expectation = "expectation"
 
-    type = Type.expectation
+    type: ClassVar[str] = Type.expectation
 
 
 class AdjointGradient(OptionalNestedMultiTarget, Observable, OptionalMultiParameter):
@@ -78,7 +78,7 @@ class AdjointGradient(OptionalNestedMultiTarget, Observable, OptionalMultiParame
     class Type(str, Enum):
         adjoint_gradient = "adjoint_gradient"
 
-    type = Type.adjoint_gradient
+    type: ClassVar[str] = Type.adjoint_gradient
 
 
 class Sample(OptionalMultiTarget, Observable):
@@ -106,7 +106,7 @@ class Sample(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         sample = "sample"
 
-    type = Type.sample
+    type: ClassVar[str] = Type.sample
 
 
 class Variance(OptionalMultiTarget, Observable):
@@ -134,7 +134,7 @@ class Variance(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         variance = "variance"
 
-    type = Type.variance
+    type : ClassVar[str]= Type.variance
 
 
 class StateVector(BaseModel):
@@ -152,7 +152,7 @@ class StateVector(BaseModel):
     class Type(str, Enum):
         statevector = "statevector"
 
-    type = Type.statevector
+    type: ClassVar[str] = Type.statevector
 
 
 class DensityMatrix(OptionalMultiTarget):
@@ -172,7 +172,7 @@ class DensityMatrix(OptionalMultiTarget):
     class Type(str, Enum):
         densitymatrix = "densitymatrix"
 
-    type = Type.densitymatrix
+    type: ClassVar[str] = Type.densitymatrix
 
 
 class Amplitude(MultiState):
@@ -192,7 +192,7 @@ class Amplitude(MultiState):
     class Type(str, Enum):
         amplitude = "amplitude"
 
-    type = Type.amplitude
+    type: ClassVar[str] = Type.amplitude
 
 
 class Probability(OptionalMultiTarget):
@@ -212,4 +212,4 @@ class Probability(OptionalMultiTarget):
     class Type(str, Enum):
         probability = "probability"
 
-    type = Type.probability
+    type: ClassVar[str] = Type.probability

@@ -12,9 +12,9 @@
 # language governing permissions and limitations under the License.
 
 from importlib import import_module
-from typing import List, Optional
+from typing import List, Literal, Optional
 
-from pydantic import Field, validator
+from pydantic import Field, field_validator
 
 from braket.device_schema.error_mitigation.error_mitigation_scheme import ErrorMitigationScheme
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
@@ -52,11 +52,11 @@ class IonqDeviceParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_device_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     paradigmParameters: GateModelParameters
     errorMitigation: Optional[List[ErrorMitigationScheme]] = None
 
-    @validator("errorMitigation", each_item=True, pre=True)
+    @field_validator("errorMitigation",mode='before')
     def validate_em(cls, value, field):
         """
         Pydantic uses the validation subsystem to create objects.

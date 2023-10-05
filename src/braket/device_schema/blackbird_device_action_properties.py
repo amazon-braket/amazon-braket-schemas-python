@@ -42,6 +42,6 @@ class BlackbirdDeviceActionProperties(DeviceActionProperties):
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.blackbird\.program$")
+    actionType: constr(pattern=r"^braket\.ir\.blackbird\.program$")
     supportedOperations: List[str]
-    supportedResultTypes: conlist(ResultType, max_items=0)
+    supportedResultTypes: conlist(ResultType, max_length=0)

@@ -12,6 +12,8 @@
 # language governing permissions and limitations under the License.
 
 
+from typing import Literal
+
 from pydantic import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -73,5 +75,5 @@ class QueraDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.quera.quera_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     paradigm: QueraAhsParadigmProperties

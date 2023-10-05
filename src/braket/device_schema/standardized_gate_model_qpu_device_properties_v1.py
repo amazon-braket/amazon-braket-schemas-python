@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, confloat
 
@@ -200,6 +200,6 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.standardized_gate_model_qpu_device_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     oneQubitProperties: Dict[str, OneQubitProperties]
     twoQubitProperties: Dict[str, TwoQubitProperties]

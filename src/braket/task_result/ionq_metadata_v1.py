@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional
+from typing import Dict, Literal, Optional
 
 from pydantic import Field, confloat, constr
 
@@ -31,8 +31,8 @@ class IonQMetadata(BraketSchemaBase):
 
     _IONQ_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.ionq_metadata", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_IONQ_METADATA_HEADER, const=_IONQ_METADATA_HEADER
+        default=_IONQ_METADATA_HEADER, Literal=_IONQ_METADATA_HEADER
     )
     sharpenedProbabilities: Optional[
-        Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
+        Dict[constr(pattern="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ] = None

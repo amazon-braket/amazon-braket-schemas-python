@@ -13,7 +13,7 @@
 
 import json
 from importlib import import_module
-from typing import Dict, Optional, Type
+from typing import Dict, Literal, Optional, Type
 
 from pydantic import Field
 
@@ -94,7 +94,7 @@ class IonqProviderProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_provider_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     fidelity: Dict[str, Dict[str, float]]
     timing: Dict[str, float]
     errorMitigation: Optional[Dict[Type[ErrorMitigationScheme], ErrorMitigationProperties]] = None

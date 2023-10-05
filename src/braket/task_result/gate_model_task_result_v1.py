@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field, confloat, conint, conlist, constr
 
@@ -61,19 +61,19 @@ class GateModelTaskResult(BraketSchemaBase):
     )
 
     braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
+        default=_GATE_MODEL_TASK_RESULT_HEADER, Literal=_GATE_MODEL_TASK_RESULT_HEADER
     )
     # fmt: off
     measurements: Optional[
         Union[
-            conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),
+            conlist(conlist(conint(ge=0, le=1), min_length=1), min_length=1),
         ]
     ]
     # fmt: on
     measurementProbabilities: Optional[
-        Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
+        Dict[constr(pattern="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ]
     resultTypes: Optional[List[ResultTypeValue]]
-    measuredQubits: Optional[conlist(conint(ge=0), min_items=1)]
+    measuredQubits: Optional[conlist(conint(ge=0), min_length=1)]
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata
