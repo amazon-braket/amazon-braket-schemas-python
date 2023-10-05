@@ -30,11 +30,11 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DeviceExecutionWindow.parse_raw(json.dumps(valid_input))
+    result = DeviceExecutionWindow.model_validate_json(json.dumps(valid_input))
     assert result.executionDay == ExecutionDay("Everyday")
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_executionDay(valid_input):
     valid_input.pop("executionDay")
-    assert DeviceExecutionWindow.parse_raw(json.dumps(valid_input))
+    assert DeviceExecutionWindow.model_validate_json(json.dumps(valid_input))

@@ -29,8 +29,8 @@ def test_dwave_metadata_correct(active_variables, dwave_timing):
     )
     assert metadata.activeVariables == active_variables
     assert metadata.timing == dwave_timing
-    assert DwaveMetadata.parse_raw(metadata.json()) == metadata
-    assert metadata == DwaveMetadata.parse_raw_schema(metadata.json())
+    assert DwaveMetadata.model_validate_json(metadata.model_dump_json()) == metadata
+    assert metadata == DwaveMetadata.parse_raw_schema(metadata.model_dump_json())
 
 
 @pytest.mark.parametrize("active_variables", [(23), ([-1])])

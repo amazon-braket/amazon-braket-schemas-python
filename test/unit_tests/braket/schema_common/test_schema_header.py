@@ -36,7 +36,7 @@ def test_schema_header_correct(name, version):
     header = BraketSchemaHeader(name=name, version=version)
     assert header.name == name
     assert header.version == version
-    assert BraketSchemaHeader.parse_raw(header.json()) == header
+    assert BraketSchemaHeader.model_validate_json(header.model_dump_json()) == header
 
 
 @pytest.mark.xfail(raises=ValidationError)

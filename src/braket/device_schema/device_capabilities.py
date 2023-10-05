@@ -68,7 +68,7 @@ class DeviceCapabilities(BaseModel):
         ...    },
         ...    "deviceParameters": {#Schema of specific device parameter instance},
         ... }
-        >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
+        >>> DeviceCapabilities.model_validate_json(json.dumps(input_json))
     """
 
     service: DeviceServiceProperties

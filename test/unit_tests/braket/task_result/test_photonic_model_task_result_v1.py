@@ -60,8 +60,8 @@ def test_correct_result_measurements(
     assert result.measurements == measurements
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_photonic_model
-    assert PhotonicModelTaskResult.parse_raw(result.json()) == result
-    assert result == PhotonicModelTaskResult.parse_raw_schema(result.json())
+    assert PhotonicModelTaskResult.model_validate_json(result.model_dump_json()) == result
+    assert result == PhotonicModelTaskResult.parse_raw_schema(result.model_dump_json())
 
 
 @pytest.mark.parametrize(

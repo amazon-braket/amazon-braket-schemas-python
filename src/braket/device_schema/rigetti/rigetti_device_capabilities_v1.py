@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Literal, Optional, Union
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -102,10 +102,10 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {RigettiDeviceParameters.schema_json()},
+        ...    "deviceParameters": {RigettiDeviceParameters.schema.model_dump_json()},
         ...    "standardized": \
-        ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},
-        ...    "pulse": {PulseDeviceActionProperties.schema_json()},
+        ...            {StandardizedGateModelQpuDeviceProperties.schema.model_dump_json()},
+        ...    "pulse": {PulseDeviceActionProperties.schema.model_dump_json()},
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 

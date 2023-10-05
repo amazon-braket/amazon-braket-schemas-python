@@ -28,8 +28,8 @@ def test_rigetti_metadata_correct(compiled_program, native_quil_metadata):
     )
     assert metadata.compiledProgram == compiled_program
     assert metadata.nativeQuilMetadata == native_quil_metadata
-    assert RigettiMetadata.parse_raw(metadata.json()) == metadata
-    assert metadata == RigettiMetadata.parse_raw_schema(metadata.json())
+    assert RigettiMetadata.model_validate_json(metadata.model_dump_json()) == metadata
+    assert metadata == RigettiMetadata.parse_raw_schema(metadata.model_dump_json())
 
 
 @pytest.mark.parametrize("compiled_program", [(""), (["random string"])])

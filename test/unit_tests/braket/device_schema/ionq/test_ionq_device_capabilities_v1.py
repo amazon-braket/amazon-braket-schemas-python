@@ -156,7 +156,7 @@ def test_valid_provider(valid_input):
     }
     result = IonqDeviceCapabilities.parse_obj(valid_input)
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
-    assert result == IonqDeviceCapabilities.parse_raw(result.json())
+    assert result == IonqDeviceCapabilities.model_validate_json(result.model_dump_json())
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])

@@ -71,8 +71,8 @@ def test_valid():
         setup=valid_setup_input,
         hamiltonian=valid_hamiltonian_input,
     )
-    assert Program.parse_raw_schema(program.json()) == program
-    assert program == Program.parse_raw_schema(program.json())
+    assert Program.parse_raw_schema(program.model_dump_json()) == program
+    assert program == Program.parse_raw_schema(program.model_dump_json())
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -99,8 +99,8 @@ def test_correct_decimal_serialization():
     ]
     program.hamiltonian.drivingFields[0].amplitude.time_series.values = [Decimal(0.0)] * 8
 
-    serialized_program = program.json()
-    deserialized_program = Program.parse_raw(serialized_program)
+    serialized_program = program.model_dump_json()
+    deserialized_program = Program.model_validate_json(serialized_program)
 
     original_amplitude_times = program.hamiltonian.drivingFields[0].amplitude.time_series.times
     new_amplitude_times = deserialized_program.hamiltonian.drivingFields[

@@ -37,4 +37,4 @@ def test_parse_obj():
 def test_parse_raw():
     source = "testsource"
     program = BlackbirdProgram(source=source)
-    assert program == BlackbirdProgram.parse_raw(program.json())
+    assert program == BlackbirdProgram.model_validate_json(program.model_dump_json())

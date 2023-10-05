@@ -54,7 +54,7 @@ def test_error_mitigation(valid_input):
     }
     valid_input["errorMitigation"] = em_json
     assert result == IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
-    assert json.loads(result.json())["errorMitigation"] == em_json
+    assert json.loads(result.model_dump_json())["errorMitigation"] == em_json
 
 
 @pytest.mark.xfail(raises=ValidationError)

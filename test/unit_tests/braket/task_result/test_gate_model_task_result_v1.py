@@ -79,8 +79,8 @@ def test_correct_result_measurements(
     assert result.measuredQubits == measured_qubits
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_gate_model
-    assert GateModelTaskResult.parse_raw(result.json()) == result
-    assert result == GateModelTaskResult.parse_raw_schema(result.json())
+    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
+    assert result == GateModelTaskResult.parse_raw_schema(result.model_dump_json())
 
 
 def test_correct_result_measurement_probabilities(
@@ -96,7 +96,7 @@ def test_correct_result_measurement_probabilities(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.measurementProbabilities == measurement_probabilities
-    assert GateModelTaskResult.parse_raw(result.json()) == result
+    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
 
 
 def test_correct_result_types(
@@ -112,7 +112,7 @@ def test_correct_result_types(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.resultTypes == result_types
-    assert GateModelTaskResult.parse_raw(result.json()) == result
+    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
 
 
 @pytest.mark.parametrize("measured_qubits", [([]), ([-1])])

@@ -38,7 +38,7 @@ class BlackbirdDeviceActionProperties(DeviceActionProperties):
         ...    "supportedOperations": [ BSGate, XGate, ZGate],
         ...    "supportedResultTypes": [],
         ... }
-        >>> BlackbirdDeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> BlackbirdDeviceActionProperties.model_validate_json(json.dumps(input_json))
 
     """
 

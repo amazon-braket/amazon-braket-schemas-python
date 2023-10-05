@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Literal, Optional, Union
+from typing import Optional, Union
 
 from pydantic import Field, conint, constr
 
@@ -75,8 +75,8 @@ class TaskMetadata(BraketSchemaBase):
             GateModelSimulatorDeviceParameters,
             XanaduDeviceParameters,
         ]
-    ]
-    createdAt: Optional[constr(min_length=1, max_length=24)]
-    endedAt: Optional[constr(min_length=1, max_length=24)]
-    status: Optional[constr(min_length=1, max_length=20)]
-    failureReason: Optional[constr(min_length=1)]
+    ] = None
+    createdAt: Optional[constr(min_length=1, max_length=24)] = None
+    endedAt: Optional[constr(min_length=1, max_length=24)] = None
+    status: Optional[constr(min_length=1, max_length=20)] = None
+    failureReason: Optional[constr(min_length=1)] = None

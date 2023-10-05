@@ -35,10 +35,10 @@ class ResultType(BaseModel):
         ...     "minShots": 0,
         ...     "maxShots": 4,
         ... }
-        >>> ResultType.parse_raw(json.dumps(input_json))
+        >>> ResultType.model_validate_json(json.dumps(input_json))
     """
 
     name: str
-    observables: Optional[List[str]]
-    minShots: Optional[int]
-    maxShots: Optional[int]
+    observables: Optional[List[str]] = None
+    minShots: Optional[int] = None
+    maxShots: Optional[int] = None

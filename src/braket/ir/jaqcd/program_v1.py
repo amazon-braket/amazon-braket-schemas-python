@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Any, List, Literal, Optional, Union
+from typing import Any, List, Optional, Union
 
-from pydantic import BaseModel, Field, field_validator, validator
+from pydantic import BaseModel, Field, field_validator
 
 from braket.ir.jaqcd.instructions import (
     CV,
@@ -218,10 +218,10 @@ class Program(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, Literal=_PROGRAM_HEADER)
     instructions: List[Any]
-    results: Optional[List[Results]]
-    basis_rotation_instructions: Optional[List[Any]]
+    results: Optional[List[Results]] = None
+    basis_rotation_instructions: Optional[List[Any]] = None
 
-    @field_validator("instructions", "basis_rotation_instructions", mode='before')
+    @field_validator("instructions", "basis_rotation_instructions", mode="before")
     def validate_instructions(cls, value, field):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has

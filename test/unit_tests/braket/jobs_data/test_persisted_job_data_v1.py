@@ -42,7 +42,7 @@ def test_json_validates_against_schema():
     persisted_job_data = PersistedJobData(
         dataDictionary={"a": 1}, dataFormat=PersistedJobDataFormat.PLAINTEXT
     )
-    validate(json.loads(persisted_job_data.json()), persisted_job_data.schema())
+    validate(json.loads(persisted_job_data.model_dump_json()), persisted_job_data.schema())
 
 
 def test_persisted_job_data_parses_json():
@@ -56,6 +56,6 @@ def test_persisted_job_data_parses_json():
             "dataFormat": "plaintext",
         }
     )
-    persisted_data = PersistedJobData.parse_raw(json_str)
+    persisted_data = PersistedJobData.model_validate_json(json_str)
     assert persisted_data.dataDictionary == {"converged": True, "energy": -0.2}
     assert persisted_data.dataFormat == PersistedJobDataFormat.PLAINTEXT

@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Literal, Union
+from typing import Dict, Union
 
 from pydantic import Field
 
@@ -89,7 +89,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        },
         ...        "qubitCount": 31
         ...    },
-        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()},
+        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema.model_dump_json()},
         ... }
         >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 

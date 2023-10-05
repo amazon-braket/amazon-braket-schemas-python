@@ -76,8 +76,8 @@ def test_valid_json(testclass, subclasses, type):
     json_obj = create_valid_json(subclasses, type)
     json_raw = json.dumps(json_obj)
     result = create_valid_class_instance(testclass, subclasses, type)
-    assert json.loads(result.json()) == json_obj
-    assert testclass.parse_raw(json_raw) == result
+    assert json.loads(result.model_dump_json()) == json_obj
+    assert testclass.model_validate_json(json_raw) == result
 
 
 @pytest.mark.parametrize("testclass,subclasses,type", testdata, ids=idfn)

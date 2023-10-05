@@ -92,7 +92,7 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...            "version": ["1"],
         ...        }
         ...    },
-        ...    "deviceParameters": {DwaveDeviceParameters.schema_json()},
+        ...    "deviceParameters": {DwaveDeviceParameters.schema.model_dump_json()},
         ... }
         >>> DwaveDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """

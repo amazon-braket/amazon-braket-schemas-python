@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Literal, Optional, Union
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -88,7 +88,7 @@ class XanaduDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...        "supportedLanguages": ["blackbird:1.0"],
         ...        "compilerDefault": "borealis",
         ...    },
-        ...    "deviceParameters": {XanaduDeviceParameters.schema_json()},
+        ...    "deviceParameters": {XanaduDeviceParameters.schema.model_dump_json()},
         ... }
         >>> XanaduDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 

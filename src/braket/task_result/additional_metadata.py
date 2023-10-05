@@ -55,10 +55,10 @@ class AdditionalMetadata(BaseModel):
     """
 
     action: Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]
-    dwaveMetadata: Optional[DwaveMetadata]
-    ionqMetadata: Optional[IonQMetadata]
-    rigettiMetadata: Optional[RigettiMetadata]
-    oqcMetadata: Optional[OqcMetadata]
-    xanaduMetadata: Optional[XanaduMetadata]
-    queraMetadata: Optional[QueraMetadata]
-    simulatorMetadata: Optional[SimulatorMetadata]
+    dwaveMetadata: Optional[DwaveMetadata] = None
+    ionqMetadata: Optional[IonQMetadata] = None
+    rigettiMetadata: Optional[RigettiMetadata] = None
+    oqcMetadata: Optional[OqcMetadata] = None
+    xanaduMetadata: Optional[XanaduMetadata] = None
+    queraMetadata: Optional[QueraMetadata] = None
+    simulatorMetadata: Optional[SimulatorMetadata] = None

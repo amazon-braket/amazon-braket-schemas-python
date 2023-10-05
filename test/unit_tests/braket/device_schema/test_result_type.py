@@ -26,7 +26,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = ResultType.parse_raw(json.dumps(valid_input))
+    result = ResultType.model_validate_json(json.dumps(valid_input))
     assert result.name == "resultType1"
     assert result.observables == ["observable1"]
     assert result.minShots == 2
@@ -36,4 +36,4 @@ def test_valid(valid_input):
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_name(valid_input):
     valid_input.pop("name")
-    ResultType.parse_raw(json.dumps(valid_input))
+    ResultType.model_validate_json(json.dumps(valid_input))

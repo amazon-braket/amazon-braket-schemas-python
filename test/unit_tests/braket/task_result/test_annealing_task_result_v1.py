@@ -64,8 +64,8 @@ def test_correct_result(
     assert result.variableCount == variable_count
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_annealing
-    assert AnnealingTaskResult.parse_raw(result.json()) == result
-    assert result == AnnealingTaskResult.parse_raw_schema(result.json())
+    assert AnnealingTaskResult.model_validate_json(result.model_dump_json()) == result
+    assert result == AnnealingTaskResult.parse_raw_schema(result.model_dump_json())
 
 
 @pytest.mark.xfail(raises=ValidationError)

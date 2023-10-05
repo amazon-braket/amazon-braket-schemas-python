@@ -64,7 +64,7 @@ class DeviceExecutionWindow(BaseModel):
         ...    "windowStartHour": "09:00",
         ...    "windowEndHour": "19:00",
         ... }
-        >>> DeviceExecutionWindow.parse_raw(json.dumps(input_json))
+        >>> DeviceExecutionWindow.model_validate_json(json.dumps(input_json))
 
     """
 

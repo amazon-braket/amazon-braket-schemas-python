@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import json
-from typing import Dict, Literal, Optional, Union
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -31,7 +31,9 @@ def _loads_with_provider(serialized: str) -> dict:
     deserialized = json.loads(serialized)
     provider = deserialized.get("provider")
     deserialized["provider"] = (
-        IonqProviderProperties.parse_raw(json.dumps(provider)).dict() if provider else None
+        IonqProviderProperties.model_validate_json(json.dumps(provider)).dict()
+        if provider
+        else None
     )
     return deserialized
 
@@ -39,7 +41,9 @@ def _loads_with_provider(serialized: str) -> dict:
 def _dumps_with_provider(payload: dict, **kwargs):
     provider = payload.get("provider")
     payload["provider"] = (
-        json.loads(IonqProviderProperties.parse_obj(provider).json()) if provider else None
+        json.loads(IonqProviderProperties.parse_obj(provider).model_dump_json())
+        if provider
+        else None
     )
     return json.dumps(payload, **kwargs)
 
@@ -113,7 +117,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {IonqDeviceParameters.schema_json()},
+        ...    "deviceParameters": {IonqDeviceParameters.schema.model_dump_json()},
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """

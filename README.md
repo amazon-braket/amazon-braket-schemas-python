@@ -83,7 +83,7 @@ openqasm_string = """
   "source": "OPENQASM 3.0; cnot $0, $1;"
 }"""
 
-program = OpenQASMProgram.parse_raw(openqasm_string)
+program = OpenQASMProgram.model_validate_json(openqasm_string)
 print(program)
 
 """

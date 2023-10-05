@@ -21,7 +21,7 @@ valid_atom_field = {"time_series": {"values": [], "times": []}, "pattern": ""}
 
 def test_valid():
     shifting_field = ShiftingField(magnitude=valid_atom_field)
-    assert shifting_field.magnitude == valid_atom_field
+    assert shifting_field.magnitude.model_dump_json() == valid_atom_field
 
 
 @pytest.mark.xfail(raises=ValidationError)

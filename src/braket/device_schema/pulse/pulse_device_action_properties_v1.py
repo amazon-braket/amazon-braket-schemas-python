@@ -1,4 +1,4 @@
-from typing import Dict, Literal, Optional
+from typing import Dict, Optional
 
 from pydantic import AnyUrl, Field
 

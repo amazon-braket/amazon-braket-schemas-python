@@ -25,8 +25,8 @@ def test_missing_properties():
 def test_simulator_metadata_correct(execution_duration):
     metadata = SimulatorMetadata(executionDuration=execution_duration)
     assert metadata.executionDuration == execution_duration
-    assert SimulatorMetadata.parse_raw(metadata.json()) == metadata
-    assert metadata == SimulatorMetadata.parse_raw_schema(metadata.json())
+    assert SimulatorMetadata.model_validate_json(metadata.model_dump_json()) == metadata
+    assert metadata == SimulatorMetadata.parse_raw_schema(metadata.model_dump_json())
 
 
 @pytest.mark.xfail(raises=ValidationError)

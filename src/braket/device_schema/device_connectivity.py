@@ -35,7 +35,7 @@ class DeviceConnectivity(BaseModel):
         ...    "fullyConnected": False,
         ...    "connectivityGraph": {"1": ["2", "3"]},
         ... }
-        >>> DeviceConnectivity.parse_raw(json.dumps(input_json))
+        >>> DeviceConnectivity.model_validate_json(json.dumps(input_json))
     """
 
     fullyConnected: bool

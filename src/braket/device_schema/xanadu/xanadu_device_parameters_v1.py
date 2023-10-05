@@ -12,8 +12,6 @@
 # language governing permissions and limitations under the License.
 
 
-from typing import Literal
-
 from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader

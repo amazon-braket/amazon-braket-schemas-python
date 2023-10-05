@@ -13,6 +13,7 @@
 
 from enum import Enum
 from typing import ClassVar
+
 from pydantic import BaseModel
 
 from braket.ir.jaqcd.shared_models import (
@@ -134,7 +135,7 @@ class Variance(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         variance = "variance"
 
-    type : ClassVar[str]= Type.variance
+    type: ClassVar[str] = Type.variance
 
 
 class StateVector(BaseModel):

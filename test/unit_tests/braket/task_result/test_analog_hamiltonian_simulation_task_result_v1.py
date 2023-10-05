@@ -132,8 +132,13 @@ def test_correct_analogHamiltonianSimulationTaskResult(
     assert result.taskMetadata == task_metadata
     assert result.measurements == ahs_measurements
     assert result.additionalMetadata == additional_metadata_ahs
-    assert AnalogHamiltonianSimulationTaskResult.parse_raw(result.json()) == result
-    assert result == AnalogHamiltonianSimulationTaskResult.parse_raw_schema(result.json())
+    assert (
+        AnalogHamiltonianSimulationTaskResult.model_validate_json(result.model_dump_json())
+        == result
+    )
+    assert result == AnalogHamiltonianSimulationTaskResult.parse_raw_schema(
+        result.model_dump_json()
+    )
 
 
 def test_optional_value_analogHamiltonianSimulationTaskResult(task_metadata):
@@ -141,8 +146,13 @@ def test_optional_value_analogHamiltonianSimulationTaskResult(task_metadata):
         taskMetadata=task_metadata,
     )
     assert result.taskMetadata == task_metadata
-    assert AnalogHamiltonianSimulationTaskResult.parse_raw(result.json()) == result
-    assert result == AnalogHamiltonianSimulationTaskResult.parse_raw_schema(result.json())
+    assert (
+        AnalogHamiltonianSimulationTaskResult.model_validate_json(result.model_dump_json())
+        == result
+    )
+    assert result == AnalogHamiltonianSimulationTaskResult.parse_raw_schema(
+        result.model_dump_json()
+    )
 
 
 @pytest.mark.xfail(raises=ValidationError)

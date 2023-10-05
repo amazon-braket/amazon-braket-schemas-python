@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from datetime import datetime
-from typing import List, Literal, Optional, Tuple
+from typing import List, Optional, Tuple
 
 from pydantic import BaseModel, Field
 
@@ -35,7 +35,7 @@ class DeviceCost(BaseModel):
         ...     "price": 0.25,
         ...     "unit": "minute"
         ... }
-        >>> DeviceCost.parse_raw(json.dumps(input_json))
+        >>> DeviceCost.model_validate_json(json.dumps(input_json))
     """
 
     price: float
@@ -59,7 +59,7 @@ class DeviceDocumentation(BaseModel):
         ...     "summary": "Summary on the device",
         ...     "externalDocumentationUrl": "exter doc link",
         ... }
-        >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
+        >>> DeviceDocumentation.model_validate_json(json.dumps(input_json))
     """
 
     imageUrl: Optional[str]

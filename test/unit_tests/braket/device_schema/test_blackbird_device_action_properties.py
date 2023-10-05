@@ -31,7 +31,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = BlackbirdDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = BlackbirdDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.actionType == "braket.ir.blackbird.program"
     assert result.supportedOperations == ["BSGate", "XGate"]
     assert result.supportedResultTypes == []
@@ -40,10 +40,10 @@ def test_valid(valid_input):
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action_type(valid_input):
     valid_input.pop("actionType")
-    BlackbirdDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    BlackbirdDeviceActionProperties.model_validate_json(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_supported_operations(valid_input):
     valid_input.pop("supportedOperations")
-    BlackbirdDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    BlackbirdDeviceActionProperties.model_validate_json(json.dumps(valid_input))

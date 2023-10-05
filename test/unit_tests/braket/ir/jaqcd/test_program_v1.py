@@ -48,12 +48,12 @@ def test_partial_non_result():
 
 def test_instruction_no_results():
     program = Program(instructions=[CNot(control=0, target=1)])
-    assert Program.parse_raw(program.json()) == program
+    assert Program.model_validate_json(program.model_dump_json()) == program
 
 
 def test_instruction_no_noise_results():
     program = Program(instructions=[BitFlip(target=0, probability=0.1)])
-    assert Program.parse_raw(program.json()) == program
+    assert Program.model_validate_json(program.model_dump_json()) == program
 
 
 def test_instruction_with_results():

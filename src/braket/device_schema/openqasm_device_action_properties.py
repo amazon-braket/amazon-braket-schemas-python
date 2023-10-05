@@ -59,7 +59,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
         ...    "supportsPartialVerbatimBox": False
         ...    "supportsUnassignedMeasurements": True
         ... }
-        >>> OpenQASMDeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> OpenQASMDeviceActionProperties.model_validate_json(json.dumps(input_json))
 
     """
 
@@ -77,4 +77,4 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
     supportsPartialVerbatimBox: Optional[bool] = True
     supportsUnassignedMeasurements: Optional[bool] = True
     disabledQubitRewiringSupported: Optional[bool] = False
-    supportedResultTypes: Optional[List[ResultType]]
+    supportedResultTypes: Optional[List[ResultType]] = None

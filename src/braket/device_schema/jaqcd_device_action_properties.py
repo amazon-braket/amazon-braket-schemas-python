@@ -45,7 +45,7 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         ...     }],
         ...    "disabledQubitRewiringSupported": True
         ... }
-        >>> JaqcdDeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> JaqcdDeviceActionProperties.model_validate_json(json.dumps(input_json))
 
     """
 

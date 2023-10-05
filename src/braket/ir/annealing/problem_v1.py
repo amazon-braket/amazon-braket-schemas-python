@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Dict, Literal, Union
+from typing import Dict, Union
 
 from pydantic import Field, conint
 

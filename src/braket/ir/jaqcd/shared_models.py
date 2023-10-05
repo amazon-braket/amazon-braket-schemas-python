@@ -252,7 +252,7 @@ class TripleProbability(BaseModel):
         Pydantic uses the validation subsystem to create objects. This custom validator has
         the purpose to ensure probX + probY + probZ <= 1.
         """
-        p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
+        p1, p2, p3 = values.probX, values.probY, values.probZ
         if p1 + p2 + p3 > 1:
             raise ValueError("Sum of probabilities cannot exceed 1.")
         return values
@@ -268,6 +268,7 @@ class MultiProbability(BaseModel):
         >>> MultiProbability(probabilities={"X": 0.1})
         >>> MultiProbability(probabilities={"XY": 0.1, "YX": 0.01})
     """
+
     probabilities: Dict[
         constr(pattern="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
     ]
@@ -280,7 +281,7 @@ class MultiProbability(BaseModel):
         and that the lengths of each Pauli string are equal.
         """
 
-        probabilities = values.get("probabilities")
+        probabilities = values.probabilities
         if not probabilities:
             raise ValueError("Pauli dictionary must not be empty.")
 

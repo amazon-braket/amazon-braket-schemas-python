@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Literal, Optional, Union
+from typing import Dict, Optional, Union
 
 from pydantic import Field
 
@@ -103,9 +103,9 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {OqcDeviceParameters.schema_json()},
+        ...    "deviceParameters": {OqcDeviceParameters.schema.model_dump_json()},
         ...    "standardized": \
-        ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},,
+        ...            {StandardizedGateModelQpuDeviceProperties.schema.model_dump_json()},,
         ... }
         >>> OqcDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """

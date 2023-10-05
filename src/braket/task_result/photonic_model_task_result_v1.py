@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Literal, Optional
+from typing import Optional
 
 from pydantic import Field, conint, conlist
 
@@ -42,6 +42,6 @@ class PhotonicModelTaskResult(BraketSchemaBase):
     )
     measurements: Optional[
         conlist(conlist(conlist(conint(ge=0, le=256), min_length=1), min_length=1), min_length=1)
-    ]
+    ] = None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

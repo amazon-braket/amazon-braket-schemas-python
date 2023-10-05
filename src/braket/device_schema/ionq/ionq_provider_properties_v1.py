@@ -13,7 +13,7 @@
 
 import json
 from importlib import import_module
-from typing import Dict, Literal, Optional, Type
+from typing import Dict, Optional, Type
 
 from pydantic import Field
 

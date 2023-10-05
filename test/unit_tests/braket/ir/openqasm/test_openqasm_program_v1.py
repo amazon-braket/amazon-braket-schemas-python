@@ -34,7 +34,7 @@ def test_parse_obj():
 
 def test_parse_raw():
     obj = OpenQASMProgram(source="this is a string.")
-    assert obj == OpenQASMProgram.parse_raw(obj.json())
+    assert obj == OpenQASMProgram.model_validate_json(obj.model_dump_json())
 
 
 @pytest.mark.parametrize(

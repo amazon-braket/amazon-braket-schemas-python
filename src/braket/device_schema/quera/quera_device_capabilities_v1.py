@@ -12,8 +12,6 @@
 # language governing permissions and limitations under the License.
 
 
-from typing import Literal
-
 from pydantic import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -66,7 +64,7 @@ class QueraDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "version": ["1"],
         ...        }
         ...    },
-        ...    "paradigm": {QueraAhsParadigmProperties.schema_json()},
+        ...    "paradigm": {QueraAhsParadigmProperties.schema.model_dump_json()},
         ...    "deviceParameters": ""
         ... }
         >>> QueraDeviceCapabilities.parse_raw_schema(json.dumps(input_json))

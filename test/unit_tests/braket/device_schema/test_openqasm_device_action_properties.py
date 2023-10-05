@@ -57,7 +57,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.actionType == "braket.ir.openqasm.program"
     assert result.supportedOperations == ["x", "y"]
     assert result.supportedResultTypes == [
@@ -73,59 +73,59 @@ def test_valid(valid_input):
 
 def test_default_supported_result_types(valid_input):
     valid_input.pop("supportedResultTypes")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.supportedResultTypes is None
 
 
 def test_default_supports_physical_qubits(valid_input):
     valid_input.pop("supportPhysicalQubits")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.supportPhysicalQubits is False
 
 
 def test_default_supported_pragmas(valid_input):
     valid_input.pop("supportedPragmas")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.supportedPragmas == []
 
 
 def test_default_forbidden_pragmas(valid_input):
     valid_input.pop("forbiddenPragmas")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.forbiddenPragmas == []
 
 
 def test_default_forbidden_array_operations(valid_input):
     valid_input.pop("forbiddenArrayOperations")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.forbiddenArrayOperations == []
 
 
 def test_default_requires_all_qubits_measurement(valid_input):
     valid_input.pop("requiresAllQubitsMeasurement")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.requiresAllQubitsMeasurement is False
 
 
 def test_default_requires_contiguous_qubit_indices(valid_input):
     valid_input.pop("requiresContiguousQubitIndices")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.requiresContiguousQubitIndices is False
 
 
 def test_default_supported_modifiers(valid_input):
     valid_input.pop("supportedModifiers")
-    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.supportedModifiers == []
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action_type(valid_input):
     valid_input.pop("actionType")
-    OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_supported_operations(valid_input):
     valid_input.pop("supportedOperations")
-    OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    OpenQASMDeviceActionProperties.model_validate_json(json.dumps(valid_input))

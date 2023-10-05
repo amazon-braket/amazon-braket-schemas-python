@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, List, Literal, Optional, Union
+from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field, confloat, conint, conlist, constr
 
@@ -68,12 +68,12 @@ class GateModelTaskResult(BraketSchemaBase):
         Union[
             conlist(conlist(conint(ge=0, le=1), min_length=1), min_length=1),
         ]
-    ]
+    ] = None
     # fmt: on
     measurementProbabilities: Optional[
         Dict[constr(pattern="^[01]+$", min_length=1), confloat(ge=0, le=1)]
-    ]
-    resultTypes: Optional[List[ResultTypeValue]]
-    measuredQubits: Optional[conlist(conint(ge=0), min_length=1)]
+    ] = None
+    resultTypes: Optional[List[ResultTypeValue]] = None
+    measuredQubits: Optional[conlist(conint(ge=0), min_length=1)] = None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

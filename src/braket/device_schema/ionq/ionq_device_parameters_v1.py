@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from importlib import import_module
-from typing import List, Literal, Optional
+from typing import List, Optional
 
 from pydantic import Field, field_validator
 
@@ -56,7 +56,7 @@ class IonqDeviceParameters(BraketSchemaBase):
     paradigmParameters: GateModelParameters
     errorMitigation: Optional[List[ErrorMitigationScheme]] = None
 
-    @field_validator("errorMitigation",mode='before')
+    @field_validator("errorMitigation", mode="before")
     def validate_em(cls, value, field):
         """
         Pydantic uses the validation subsystem to create objects.

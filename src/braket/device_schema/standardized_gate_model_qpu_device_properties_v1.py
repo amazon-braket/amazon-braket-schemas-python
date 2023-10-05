@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Dict, List, Literal, Optional
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field, confloat
 
@@ -38,7 +38,7 @@ class FidelityType(BaseModel):
     """
 
     name: str
-    description: Optional[str]
+    description: Optional[str] = None
 
 
 class GateFidelity2Q(BaseModel):
@@ -98,7 +98,7 @@ class CoherenceTime(BaseModel):
     """
 
     value: float
-    standardError: Optional[float]
+    standardError: Optional[float] = None
     unit: str
 
 
