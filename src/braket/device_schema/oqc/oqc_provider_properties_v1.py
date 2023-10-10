@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, List, TypeVar, Union
+from typing import TypeVar, Union
 
 from pydantic import Field
 
@@ -20,11 +20,11 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 # TODO: Replace the calibration data with actual values we receive from the device.
 
 
-GateFidelityType = TypeVar("GateFidelityType", bound=Dict[str, Union[str, float]])
-OneQubitType = TypeVar("OneQubitType", bound=Union[float, List[GateFidelityType]])
-TwoQubitType = TypeVar("TwoQubitType", bound=Dict[str, Union[float, Dict[str, int]]])
+GateFidelityType = TypeVar("GateFidelityType", bound=dict[str, Union[str, float]])
+OneQubitType = TypeVar("OneQubitType", bound=Union[float, list[GateFidelityType]])
+TwoQubitType = TypeVar("TwoQubitType", bound=dict[str, Union[float, dict[str, int]]])
 
-QubitType = TypeVar("QubitType", bound=Dict[str, Union[OneQubitType, TwoQubitType]])
+QubitType = TypeVar("QubitType", bound=dict[str, Union[OneQubitType, TwoQubitType]])
 
 
 class OqcProviderProperties(BraketSchemaBase):
@@ -32,7 +32,7 @@ class OqcProviderProperties(BraketSchemaBase):
     This defines the properties common to all the OQC devices.
 
     Attributes:
-        properties (Dict[str, Dict[str, Union[int, List[int]]]]): Basic specifications for
+        properties (dict[str, dict[str, Union[int, list[int]]]]): Basic specifications for
             the device, such as gate fidelities and coherence times.
 
     Examples:
@@ -73,4 +73,4 @@ class OqcProviderProperties(BraketSchemaBase):
         name="braket.device_schema.oqc.oqc_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    properties: Dict[str, Dict[str, QubitType]]
+    properties: dict[str, dict[str, QubitType]]

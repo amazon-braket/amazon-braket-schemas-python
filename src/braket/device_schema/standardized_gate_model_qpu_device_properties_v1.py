@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from pydantic import BaseModel, Field, confloat
 
@@ -45,7 +45,7 @@ class GateFidelity2Q(BaseModel):
     """
     Describes the fidelity of two-qubit pairing
     Attributes:
-        direction (Optional[Dict[QubitDirection, int]]): Describes which qubit is
+        direction (Optional[dict[QubitDirection, int]]): Describes which qubit is
             control/target for the pair. If direction is None the pair is considered
             bi-directional.
         gateName (str): the 2-qubit gate that the fidelity measurement was performed on
@@ -55,7 +55,7 @@ class GateFidelity2Q(BaseModel):
             for the presented value
     """
 
-    direction: Optional[Dict[QubitDirection, int]] = None
+    direction: Optional[dict[QubitDirection, int]] = None
     gateName: str
     fidelity: confloat(ge=0, le=1)
     standardError: Optional[confloat(ge=0, le=1)] = None
@@ -69,7 +69,7 @@ class TwoQubitProperties(BaseModel):
         twoQubitGateFidelity: two qubit fidelity properties
     """
 
-    twoQubitGateFidelity: List[GateFidelity2Q]
+    twoQubitGateFidelity: list[GateFidelity2Q]
 
 
 class Fidelity1Q(BaseModel):
@@ -113,7 +113,7 @@ class OneQubitProperties(BaseModel):
 
     T1: CoherenceTime
     T2: CoherenceTime
-    oneQubitFidelity: List[Fidelity1Q]
+    oneQubitFidelity: list[Fidelity1Q]
 
 
 class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
@@ -122,9 +122,9 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     Braket standarized gate model device qpu properties for the given quantum hardware
 
     Attributes:
-        oneQubitProperties (Dict[str, OneQubitProperties]): Dictionary describing a qubit
+        oneQubitProperties (dict[str, OneQubitProperties]): Dictionary describing a qubit
             identifier (ex: '1'), to the calibration property set
-        twoQubitProperties (Dict[str, TwoQubitProperties]): Dictionary describing the
+        twoQubitProperties (dict[str, TwoQubitProperties]): Dictionary describing the
             two-qubit identifier (ex: '0-1'), to the calibration property set
     Examples:
         >>> import json
@@ -201,5 +201,5 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
         name="braket.device_schema.standardized_gate_model_qpu_device_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    oneQubitProperties: Dict[str, OneQubitProperties]
-    twoQubitProperties: Dict[str, TwoQubitProperties]
+    oneQubitProperties: dict[str, OneQubitProperties]
+    twoQubitProperties: dict[str, TwoQubitProperties]

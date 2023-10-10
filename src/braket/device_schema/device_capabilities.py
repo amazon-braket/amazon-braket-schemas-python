@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Union
+from typing import Union
 
 from pydantic import BaseModel
 
@@ -26,7 +26,7 @@ class DeviceCapabilities(BaseModel):
 
     Attributes:
         service (DeviceServiceProperties): properties which are common to the Braket service
-        action (Dict[Union[DeviceActionType, str], DeviceActionProperties]): Map of the action
+        action (dict[Union[DeviceActionType, str], DeviceActionProperties]): Map of the action
              to its properties
         deviceParameters (dict): The json schema of the deviceParameters for each device.
              For example, the deviceParameter for IonqDeviceCapabilities will be
@@ -72,5 +72,5 @@ class DeviceCapabilities(BaseModel):
     """
 
     service: DeviceServiceProperties
-    action: Dict[Union[DeviceActionType, str], DeviceActionProperties]
+    action: dict[Union[DeviceActionType, str], DeviceActionProperties]
     deviceParameters: dict

@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import constr
 
@@ -64,17 +64,17 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
     """
 
     actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
-    supportedOperations: List[str]
-    supportedModifiers: Optional[List[Modifier]] = []
-    supportedPragmas: Optional[List[str]] = []
-    forbiddenPragmas: Optional[List[str]] = []
+    supportedOperations: list[str]
+    supportedModifiers: Optional[list[Modifier]] = []
+    supportedPragmas: Optional[list[str]] = []
+    forbiddenPragmas: Optional[list[str]] = []
     maximumQubitArrays: Optional[int] = None  # None indicates no limit
     maximumClassicalArrays: Optional[int] = None  # None indicates no limit
-    forbiddenArrayOperations: Optional[List[str]] = []
+    forbiddenArrayOperations: Optional[list[str]] = []
     requiresAllQubitsMeasurement: Optional[bool] = False
     supportPhysicalQubits: Optional[bool] = False
     requiresContiguousQubitIndices: Optional[bool] = False
     supportsPartialVerbatimBox: Optional[bool] = True
     supportsUnassignedMeasurements: Optional[bool] = True
     disabledQubitRewiringSupported: Optional[bool] = False
-    supportedResultTypes: Optional[List[ResultType]]
+    supportedResultTypes: Optional[list[ResultType]]

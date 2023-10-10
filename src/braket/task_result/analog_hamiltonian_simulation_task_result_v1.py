@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import BaseModel, Field, conint, conlist, constr
 
@@ -72,7 +72,7 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
         taskMetadata (TaskMetadata): The task metadata
-        measurements (List[AnalogHamiltonianSimulationShotMeasurement]): List of measurements for
+        measurements (list[AnalogHamiltonianSimulationShotMeasurement]): List of measurements for
             each shot.
     """
 
@@ -83,5 +83,5 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
         default=_AHS_TASK_RESULT_HEADER, const=_AHS_TASK_RESULT_HEADER
     )
     taskMetadata: TaskMetadata
-    measurements: Optional[List[AnalogHamiltonianSimulationShotMeasurement]]
+    measurements: Optional[list[AnalogHamiltonianSimulationShotMeasurement]]
     additionalMetadata: Optional[AdditionalMetadata]

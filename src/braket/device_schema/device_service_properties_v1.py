@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from datetime import datetime
-from typing import List, Optional, Tuple
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -72,9 +72,9 @@ class DeviceServiceProperties(BraketSchemaBase):
     This class defines the common service properties for each device.
 
     Attributes:
-        executionWindows (List[DeviceExecutionWindow]): List of the execution windows,
+        executionWindows (list[DeviceExecutionWindow]): List of the execution windows,
             it tells us which days the device can execute a task.
-        shotsRange (Tuple[int, int]): range of the shots for a given device.
+        shotsRange (tuple[int, int]): range of the shots for a given device.
         deviceCost (Optional[DeviceCost]): cost of the device to run the quantum circuits
         deviceDocumentation (Optional[DeviceDocumentation]): provides device specific
             details like image, summary etc.
@@ -119,8 +119,8 @@ class DeviceServiceProperties(BraketSchemaBase):
         name="braket.device_schema.device_service_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    executionWindows: List[DeviceExecutionWindow]
-    shotsRange: Tuple[int, int]
+    executionWindows: list[DeviceExecutionWindow]
+    shotsRange: tuple[int, int]
     deviceCost: Optional[DeviceCost]
     deviceDocumentation: Optional[DeviceDocumentation]
     deviceLocation: Optional[str]

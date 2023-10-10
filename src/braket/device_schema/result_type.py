@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List, Optional
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -39,6 +39,6 @@ class ResultType(BaseModel):
     """
 
     name: str
-    observables: Optional[List[str]]
+    observables: Optional[list[str]]
     minShots: Optional[int]
     maxShots: Optional[int]

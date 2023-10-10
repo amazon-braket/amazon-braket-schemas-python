@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import Tuple
 
 from pydantic import BaseModel, Field
 
@@ -70,18 +69,18 @@ class RydbergGlobal(BaseModel):
     Parameters determining the limitations on the driving field that drives the
         ground-to-Rydberg transition uniformly on all atoms
     Attributes:
-        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency
+        rabiFrequencyRange (tuple[Decimal,Decimal]): Achievable Rabi frequency
             range for the global Rydberg drive waveform (measured in rad/s)
         rabiFrequencyResolution (Decimal): Resolution with which global Rabi
             frequency amplitude can be specified (measured in rad/s)
         rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the
             global Rabi frequency (measured in (rad/s)/s)
-        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for
+        detuningRange(tuple[Decimal,Decimal]): Achievable detuning range for
             the global Rydberg pulse (measured in rad/s)
         detuningResolution(Decimal): Resolution with which global detuning can
             be specified (measured in rad/s)
         detuningSlewRateMax (Decimal): Maximum slew rate for detuning (measured in (rad/s)/s)
-        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global
+        phaseRange(tuple[Decimal,Decimal]): Achievable phase range for the global
             Rydberg pulse (measured in rad)
         phaseResolution(Decimal): Resolution with which global Rabi frequency phase
             can be specified (measured in rad)
@@ -93,13 +92,13 @@ class RydbergGlobal(BaseModel):
         timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
     """
 
-    rabiFrequencyRange: Tuple[Decimal, Decimal]
+    rabiFrequencyRange: tuple[Decimal, Decimal]
     rabiFrequencyResolution: Decimal
     rabiFrequencySlewRateMax: Decimal
-    detuningRange: Tuple[Decimal, Decimal]
+    detuningRange: tuple[Decimal, Decimal]
     detuningResolution: Decimal
     detuningSlewRateMax: Decimal
-    phaseRange: Tuple[Decimal, Decimal]
+    phaseRange: tuple[Decimal, Decimal]
     phaseResolution: Decimal
     timeResolution: Decimal
     timeDeltaMin: Decimal

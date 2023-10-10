@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
@@ -24,5 +24,5 @@ class Frame(BaseModel):
     centerFrequency: Optional[float]
     phase: float
     associatedGate: Optional[str]
-    qubitMappings: Optional[List[int]]
-    qhpSpecificProperties: Optional[Dict[str, Any]]
+    qubitMappings: Optional[list[int]]
+    qhpSpecificProperties: Optional[dict[str, Any]]

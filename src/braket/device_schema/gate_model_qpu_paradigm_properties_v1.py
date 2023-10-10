@@ -11,8 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List
-
 from pydantic import Field
 
 from braket.device_schema.device_connectivity import DeviceConnectivity
@@ -53,4 +51,4 @@ class GateModelQpuParadigmProperties(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     connectivity: DeviceConnectivity
     qubitCount: int
-    nativeGateSet: List[str]
+    nativeGateSet: list[str]
