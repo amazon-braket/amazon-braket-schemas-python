@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import List, Union
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class DeviceActionType(str, Enum):

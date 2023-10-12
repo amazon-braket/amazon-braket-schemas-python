@@ -15,7 +15,7 @@ import json
 from importlib import import_module
 from typing import Dict, Optional, Type
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.error_mitigation.error_mitigation_properties import (
     ErrorMitigationProperties,

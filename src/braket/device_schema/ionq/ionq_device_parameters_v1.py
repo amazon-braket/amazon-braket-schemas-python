@@ -14,7 +14,7 @@
 from importlib import import_module
 from typing import List, Optional
 
-from pydantic import Field, validator
+from pydantic.v1 import Field, validator
 
 from braket.device_schema.error_mitigation.error_mitigation_scheme import ErrorMitigationScheme
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters

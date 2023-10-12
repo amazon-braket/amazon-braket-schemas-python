@@ -14,7 +14,7 @@
 from datetime import datetime
 from typing import List, Optional, Tuple
 
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 from braket.device_schema.device_execution_window import DeviceExecutionWindow
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader

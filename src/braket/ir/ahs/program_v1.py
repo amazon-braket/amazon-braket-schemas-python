@@ -14,7 +14,7 @@
 
 from decimal import Decimal
 
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 from braket.ir.ahs.atom_arrangement import AtomArrangement
 from braket.ir.ahs.hamiltonian import Hamiltonian

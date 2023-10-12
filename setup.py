@@ -26,7 +26,7 @@ setup(
     python_requires=">= 3.9",
     packages=find_namespace_packages(where="src", exclude=("test",)),
     package_dir={"": "src"},
-    install_requires=["pydantic >=1.8.2, <2.0.0"],
+    install_requires=["pydantic>2"],
     extras_require={
         "test": [
             "black",
@@ -41,7 +41,7 @@ setup(
             "pytest-cov",
             "pytest-rerunfailures",
             "pytest-xdist",
-            "sphinx < 3.0.0",
+            "sphinx",
             "sphinx-rtd-theme",
             "sphinxcontrib-apidoc",
             "tox",

@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic import Field, conint, constr
+from pydantic.v1 import Field, conint, constr
 
 from braket.device_schema.dwave import (
     Dwave2000QDeviceParameters,

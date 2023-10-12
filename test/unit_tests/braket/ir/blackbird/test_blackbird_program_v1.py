@@ -11,7 +11,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.ir.blackbird import Program as BlackbirdProgram
 

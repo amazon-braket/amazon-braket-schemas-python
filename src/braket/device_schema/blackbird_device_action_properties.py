@@ -13,7 +13,7 @@
 
 from typing import List
 
-from pydantic import conlist, constr
+from pydantic.v1 import conlist, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType

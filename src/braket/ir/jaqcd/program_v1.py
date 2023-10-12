@@ -13,7 +13,7 @@
 
 from typing import Any, List, Optional, Union
 
-from pydantic import BaseModel, Field, validator
+from pydantic.v1 import BaseModel, Field, validator
 
 from braket.ir.jaqcd.instructions import (
     CV,

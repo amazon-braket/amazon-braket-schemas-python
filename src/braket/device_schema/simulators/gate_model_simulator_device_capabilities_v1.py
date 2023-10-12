@@ -13,7 +13,7 @@
 
 from typing import Dict, Union
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities

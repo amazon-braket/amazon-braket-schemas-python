@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from braket.ir.ahs import Program as AHSProgram
 from braket.ir.annealing import Problem

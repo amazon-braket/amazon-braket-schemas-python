@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, Field, confloat
+from pydantic.v1 import BaseModel, Field, confloat
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

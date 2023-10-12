@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader

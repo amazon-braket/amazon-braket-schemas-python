@@ -13,7 +13,7 @@
 
 from typing import List
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from braket.ir.ahs.driving_field import DrivingField
 from braket.ir.ahs.shifting_field import ShiftingField

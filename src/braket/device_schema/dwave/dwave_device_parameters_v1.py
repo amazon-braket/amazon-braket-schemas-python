@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 from typing import Optional, Union
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.dwave.dwave_2000Q_device_level_parameters_v1 import (
     Dwave2000QDeviceLevelParameters,

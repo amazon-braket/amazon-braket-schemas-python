@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pydantic import AnyUrl, Field
+from pydantic.v1 import AnyUrl, Field
 
 from braket.device_schema.pulse.frame_v1 import Frame
 from braket.device_schema.pulse.port_v1 import Port

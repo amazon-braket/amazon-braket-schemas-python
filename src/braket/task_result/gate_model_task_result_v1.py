@@ -13,7 +13,7 @@
 
 from typing import Dict, List, Optional, Union
 
-from pydantic import BaseModel, Field, confloat, conint, conlist, constr
+from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
 
 from braket.ir.jaqcd.program_v1 import Results
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader

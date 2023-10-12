@@ -13,7 +13,7 @@
 
 from importlib import import_module
 
-from pydantic import BaseModel, constr
+from pydantic.v1 import BaseModel, constr
 
 
 class BraketSchemaHeader(BaseModel):
