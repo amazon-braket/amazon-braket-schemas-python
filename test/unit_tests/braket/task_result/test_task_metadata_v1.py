@@ -17,7 +17,6 @@ from pydantic.v1 import ValidationError
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
-
 def test_missing_properties():
     with pytest.raises(ValidationError):
         TaskMetadata()
@@ -25,7 +24,9 @@ def test_missing_properties():
 
 def test_incorrect_header(braket_schema_header, id, device_id, shots):
     with pytest.raises(ValidationError):
-        TaskMetadata(braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots)
+        TaskMetadata(
+            braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots
+        )
 
 
 def test_correct_metadata_minimum(id, device_id, shots):
