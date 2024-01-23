@@ -124,18 +124,19 @@ class PerformanceLattice(BaseModel):
     """
     Uncertainties of atomic site arrangements
     Attributes:
-        positionErrorAbs (Decimal): Error between target and actual site
-            position (measured in meters)
+        positionErrorAbs (Decimal): Total error of the atom position during
+            coherent evolution relative to the lab frame, and combines lattice
+            site position and thermal atom position errors (measured in meters)
         sitePositionError (Decimal): Systematic, pattern-dependent error
             between specified and actual lattice site positions (measured in meters)
         atomPositionError (Decimal): Random error in the atom position during
             coherent evolution as a result of thermal motion (measured in meters)
         fillingErrorTypical (Decimal): Typical probability of failing to occupy a site specified
-            by user as 'filled'. Upper bound that includes the pattern-dependence and site position
-            dependence. Normalized to 1.
-        fillingErrorWorst (Decimal): Worst-case probability of failing to occupy a site specified
             by user as 'filled'. These probabilities are dependent on the pattern and site position
             within the pattern. Normalized to 1.
+        fillingErrorWorst (Decimal): Worst-case probability of failing to occupy a site specified
+            by user as 'filled'. Upper bound that includes the pattern-dependence and site position
+            dependence. Normalized to 1.
         vacancyErrorTypical (Decimal): Typical probability of erroneously filling a site specified
             by user as 'unfilled'. These probabilities can be dependent on the pattern and site position
             within the pattern, and can change slightly with time. Normalized to 1.
@@ -266,7 +267,7 @@ class PerformanceRydbergGlobal(BaseModel):
     T2BlockadedRabiEnsemble: Decimal
     detuningError: Decimal
     detuningInhomogeneity: Decimal
-    rabiAmplitudeRampCorrection: List[RabiCorrection]
+    rabiAmplitudeRampCorrection: [RabiCorrection]
 
 
 class PerformanceRydberg(BaseModel):
