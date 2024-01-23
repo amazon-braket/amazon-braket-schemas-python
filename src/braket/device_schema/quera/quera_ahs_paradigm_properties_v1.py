@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import List, Tuple
+from typing import Annotated, List, Tuple
 
 from pydantic import BaseModel, Field
 
@@ -126,67 +126,74 @@ class PerformanceLattice(BaseModel):
     Attributes:
         positionErrorAbs (Decimal): Total error of the atom position during
             coherent evolution relative to the lab frame, and combines lattice
-            site position and thermal atom position errors (measured in meters)
+            site position and thermal atom position errors. (measured in meters)
         sitePositionError (Decimal): Systematic, pattern-dependent error
-            between specified and actual lattice site positions (measured in meters)
+            between specified and actual lattice site positions. (measured in meters)
         atomPositionError (Decimal): Random error in the atom position during
-            coherent evolution as a result of thermal motion (measured in meters)
-        fillingErrorTypical (Decimal): Typical probability of failing to occupy a site specified
-            by user as 'filled'. These probabilities are dependent on the pattern and site position
-            within the pattern. Normalized to 1.
-        fillingErrorWorst (Decimal): Worst-case probability of failing to occupy a site specified
-            by user as 'filled'. Upper bound that includes the pattern-dependence and site position
-            dependence. Normalized to 1.
-        vacancyErrorTypical (Decimal): Typical probability of erroneously filling a site specified
-            by user as 'unfilled'. These probabilities can be dependent on the pattern and site
-            position within the pattern, and can change slightly with time. Normalized to 1.
-        vacancyErrorWorst (Decimal): Worst-case probability of erroneously filling a site specified
-            by user as 'unfilled'. Upper bound that includes the pattern-dependence, site position
-            dependence and time-variation of this probability. Normalized to 1.
-        atomLossProbabilityTypical (Decimal): Typical Probability of atom loss from a filled site
-            between the first and second image. These probabilities can be dependent on the pattern
-            and site position within the pattern, and can change slightly with time. Normalized to
-            1.
-        atomLossProbabilityWorst (Decimal): Worst-case probability of atom loss from a filled site
-            between the first and second image. Upper bound that includes the pattern-dependence,
-            site position dependence and time-variation of this probability. Normalized to 1.
-        atomCaptureProbabilityTypical (Decimal): Typical probability of atom capture into an empty
-            site between the first and second image.These probabilities can be dependent on the
-            pattern and site position within the pattern, and can change slightly with time.
+            coherent evolution as a result of thermal motion. (measured in meters)
+        fillingErrorTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of failing
+            to occupy a site specified by user as 'filled'. These probabilities are dependent on
+            the pattern and site position within the pattern. Normalized to 1.
+        fillingErrorWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            failing to occupy a site specified by user as 'filled'. Upper bound that includes the
+            pattern-dependence and site position dependence. Normalized to 1.
+        vacancyErrorTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of
+            erroneously filling a site specified by user as 'unfilled'. These probabilities can be
+            dependent on the pattern and site position within the pattern, and can change slightly
+            with time. Normalized to 1.
+        vacancyErrorWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            erroneously filling a site specified by user as 'unfilled'. Upper bound that includes
+            the pattern-dependence, site position dependence and time-variation of this
+            probability. Normalized to 1.
+        atomLossProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical Probability of
+            atom loss from a filled site between the first and second image. These probabilities
+            can be dependent on the pattern and site position within the pattern, and can change
+            slightly with time. Normalized to 1.
+        atomLossProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            atom loss from a filled site between the first and second image. Upper bound that
+            includes the pattern-dependence, site position dependence and time-variation of this
+            probability. Normalized to 1.
+        atomCaptureProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability
+            of atom capture into an empty site between the first and second image.These
+            probabilities can be dependent on the pattern and site position within the pattern, and
+            can change slightly with time. Normalized to 1.
+        atomCaptureProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability
+            of atom capture from a filled site between the first and second image. Upper bound that
+            includes the pattern-dependence, site position dependence and time-variation of this
+            probability. Normalized to 1.
+        atomDetectionErrorFalsePositiveTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
+            probability of a false-positive atom detection error. These probabilities can be
+            dependent on the pattern and site position within the pattern, and can change slightly
+            with time. Normalized to 1.
+        atomDetectionErrorFalsePositiveWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case
+            probability of a false-positive atom detection error. Upper bound that includes the
+            pattern-dependence, site position dependence and time-variation of this probability.
             Normalized to 1.
-        atomCaptureProbabilityWorst (Decimal): Worst-case probability of atom capture from a filled
-            site between the first and second image. Upper bound that includes the pattern-
-            dependence, site position dependence and time-variation of this probability. Normalized
-            to 1.
-        atomDetectionErrorFalsePositiveTypical (Decimal): Typical probability of a false-positive
-            atom detection error. These probabilities can be dependent on the pattern and site
-            position within the pattern, and can change slightly with time. Normalized to 1.
-        atomDetectionErrorFalsePositiveWorst (Decimal): Worst-case probability of a false-positive
-            atom detection error. Upper bound that includes the pattern-dependence, site position
-            dependence and time-variation of this probability. Normalized to 1.
-        atomDetectionErrorFalseNegativeTypical (Decimal): Typical probability of a false-negative
-            atom detection error. These probabilities can be dependent on the pattern and site
-            position within the pattern, and can change slightly with time. Normalized to 1.
-        atomDetectionErrorFalseNegativeWorst (Decimal): Worst-case probability of a false-negative
-            atom detection error. Upper bound that includes the pattern-dependence, site position
-            dependence and time-variation of this probability. Normalized to 1.
+        atomDetectionErrorFalseNegativeTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
+            probability of a false-negative atom detection error. These probabilities can be
+            dependent on the pattern and site position within the pattern, and can change slightly
+            with time. Normalized to 1.
+        atomDetectionErrorFalseNegativeWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case
+            probability of a false-negative atom detection error. Upper bound that includes the
+            pattern-dependence, site position dependence and time-variation of this probability.
+            Normalized to 1.
     """
 
     positionErrorAbs: Decimal
     sitePositionError: Decimal
     atomPositionError: Decimal
-    fillingErrorTypical: Decimal
-    fillingErrorWorst: Decimal
-    vacancyErrorTypical: Decimal
-    vacancyErrorWorst: Decimal
-    atomLossProbabilityTypical: Decimal
-    atomLossProbabilityWorst: Decimal
-    atomCaptureProbabilityTypical: Decimal
-    atomCaptureProbabilityWorst: Decimal
-    atomDetectionErrorFalsePositiveTypical: Decimal
-    atomDetectionErrorFalsePositiveWorst: Decimal
-    atomDetectionErrorFalseNegativeTypical: Decimal
-    atomDetectionErrorFalseNegativeWorst: Decimal
+    fillingErrorTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    fillingErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    vacancyErrorTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    vacancyErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomLossProbabilityTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomLossProbabilityWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomCaptureProbabilityTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomCaptureProbabilityWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalsePositiveTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalsePositiveWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalseNegativeTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalseNegativeWorst: Annotated[Decimal, Field(ge=0, le=1)]
 
 
 class RabiCorrection(BaseModel):
@@ -195,12 +202,12 @@ class RabiCorrection(BaseModel):
         function of ramp time, in the absence of any local detuning pattern.
     Attributes:
         rampTime (Decimal): The ramp time. (measured in s)
-        rabiCorrection (Decimal): The fraction of the expected rabi oscillation frequency.
-            Normalized to the range [0.0, 1.0].
+        rabiCorrection (Annotated[Decimal, Field(ge=0.0, le=1.0)]): The fraction of the expected
+            rabi oscillation frequency. Normalized to the range [0.0, 1.0].
     """
 
     rampTime: Decimal
-    rabiCorrection: Decimal
+    rabiCorrection: Annotated[Decimal, Field(ge=0.0, le=1.0)]
 
 
 class PerformanceRydbergGlobal(BaseModel):
@@ -217,16 +224,18 @@ class PerformanceRydbergGlobal(BaseModel):
             Rydberg-state atom. (unitless)
         rydbergDetectionError (Decimal): Probability of mis-detecting a Rydberg-state atom as a
             ground-state atom. (unitless)
-        groundPrepError (Decimal): Probability of failing to initialize an atom in the ground state
+        groundPrepError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of failing to
+            initialize an atom in the ground state
             prior to user-programmed coherent evolution, in the absense of any local detuning
             pattern. Normalized to 1.
-        rydbergPrepErrorBest (Decimal): Probability of failing to initialize an atom in the Rydberg
-            state by an optimal (for that site) user specified pi-pulse from the ground state at
-            maximum Rabi frequency, in the absense of any local detuning pattern. Normalized to 1.
-        rydbergPrepErrorWorst (Decimal): Worst-case probability of failing to initialize an atom in
-            the Rydberg state by a user specified pi-pulse from the ground state at maximum Rabi
-            frequency, optimized for a different site, in the absense of any local detuning
-            pattern. Normalized to 1.
+        rydbergPrepErrorBest (Annotated[Decimal, Field(ge=0, le=1)]): Probability of failing to
+            initialize an atom in the Rydberg state by an optimal (for that site) user specified
+            pi-pulse from the ground state at maximum Rabi frequency, in the absense of any local
+            detuning pattern. Normalized to 1.
+        rydbergPrepErrorWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            failing to initialize an atom in the Rydberg state by a user specified pi-pulse from
+            the ground state at maximum Rabi frequency, optimized for a different site, in the
+            absense of any local detuning pattern. Normalized to 1.
         T1Single (Decimal): Typical lifetime of the Rydberg state for a single non-interacting
             qubit in the absense of drive, as measured by a pi-wait-pi protocol. (measured in s)
         T1Ensemble (Decimal): Lifetime of the Rydberg state for an ensemble of non-interacting
@@ -274,9 +283,9 @@ class PerformanceRydbergGlobal(BaseModel):
     rabiFrequencyInhomogeneityRel: Decimal
     groundDetectionError: Decimal
     rydbergDetectionError: Decimal
-    groundPrepError: Decimal
-    rydbergPrepErrorBest: Decimal
-    rydbergPrepErrorWorst: Decimal
+    groundPrepError: Annotated[Decimal, Field(ge=0, le=1)]
+    rydbergPrepErrorBest: Annotated[Decimal, Field(ge=0, le=1)]
+    rydbergPrepErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
     T1Single: Decimal
     T1Ensemble: Decimal
     T2StarSingle: Decimal
