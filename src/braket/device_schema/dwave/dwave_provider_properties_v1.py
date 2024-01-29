@@ -19,7 +19,6 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class DwaveProviderProperties(BraketSchemaBase):
-
     """
 
     This defines the properties specific to D-Wave device
