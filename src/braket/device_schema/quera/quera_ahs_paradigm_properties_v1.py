@@ -220,10 +220,10 @@ class PerformanceRydbergGlobal(BaseModel):
             value. (unitless)
         rabiFrequencyInhomogeneityRel (Decimal): RMS Rabi frequency inhomogeneity over the user
             region, relative to the specified value. (unitless)
-        groundDetectionError (Decimal): Probability of mis-detecting a ground-state atom as a
-            Rydberg-state atom. (unitless)
-        rydbergDetectionError (Decimal): Probability of mis-detecting a Rydberg-state atom as a
-            ground-state atom. (unitless)
+        groundDetectionError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of mis-detecting
+            a ground-state atom as a Rydberg-state atom. (unitless)
+        rydbergDetectionError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of mis-detecting
+            a Rydberg-state atom as a ground-state atom. (unitless)
         groundPrepError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of failing to
             initialize an atom in the ground state prior to user-programmed coherent evolution, in
             the absence of any local detuning pattern. Normalized to 1.
@@ -280,8 +280,8 @@ class PerformanceRydbergGlobal(BaseModel):
     rabiFrequencyErrorRel: Decimal
     rabiFrequencyGlobalErrorRel: Decimal
     rabiFrequencyInhomogeneityRel: Decimal
-    groundDetectionError: Decimal
-    rydbergDetectionError: Decimal
+    groundDetectionError: Annotated[Decimal, Field(ge=0, le=1)]
+    rydbergDetectionError: Annotated[Decimal, Field(ge=0, le=1)]
     groundPrepError: Annotated[Decimal, Field(ge=0, le=1)]
     rydbergPrepErrorBest: Annotated[Decimal, Field(ge=0, le=1)]
     rydbergPrepErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
