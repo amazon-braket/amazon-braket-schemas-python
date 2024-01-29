@@ -21,7 +21,6 @@ from braket.ir.openqasm.modifiers import Modifier
 
 
 class OpenQASMDeviceActionProperties(DeviceActionProperties):
-
     """
     Defines the schema for properties for the actions that can be supported by OpenQASM devices.
 
