@@ -215,11 +215,11 @@ class PerformanceRydbergGlobal(BaseModel):
     Parameters determining the limitations of the global driving field
     Attributes:
         rabiFrequencyErrorRel (Decimal): Total error in the Rabi frequency due to inhomogeneity and
-            variations in time, relative. (unitless)
+            variations in time, relative to the specified value. (unitless)
         rabiFrequencyGlobalErrorRel (Decimal): RMS Rabi frequency variation in time as a relative
             value. (unitless)
         rabiFrequencyInhomogeneityRel (Decimal): RMS Rabi frequency inhomogeneity over the user
-            region, relative. (unitless)
+            region, relative to the specified value. (unitless)
         groundDetectionError (Decimal): Probability of mis-detecting a ground-state atom as a
             Rydberg-state atom. (unitless)
         rydbergDetectionError (Decimal): Probability of mis-detecting a Rydberg-state atom as a
@@ -274,7 +274,7 @@ class PerformanceRydbergGlobal(BaseModel):
             (measured in rad/s)
         rabiAmplitudeRampCorrection (List[RabiCorrection]): dynamic correction curve of effective
             single-qubit on-resonant Rabi oscillation frequency driven by a triangular amplitude
-            waveform, relative.
+            waveform, relative to the specified value.
     """
 
     rabiFrequencyErrorRel: Decimal
