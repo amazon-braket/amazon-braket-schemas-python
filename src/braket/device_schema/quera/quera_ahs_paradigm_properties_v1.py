@@ -164,7 +164,7 @@ class PerformanceLattice(BaseModel):
         atomDetectionErrorFalsePositiveTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
             probability of a false-positive atom detection error. These probabilities can be
             dependent on the pattern and site position within the pattern, and can change slightly
-    with time. Normalized to 1.
+            with time. Normalized to 1.
         atomDetectionErrorFalsePositiveWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case
             probability of a false-positive atom detection error. Upper bound that includes the
             pattern-dependence, site position dependence and time-variation of this probability.
