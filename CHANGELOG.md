@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.20.0 (2024-01-30)
+
+### Features
+
+ * add performance schema for Aquila
+
 ## v1.19.1.post0 (2023-09-14)
 
 ### Documentation Changes

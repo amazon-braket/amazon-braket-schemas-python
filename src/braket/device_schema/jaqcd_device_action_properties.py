@@ -20,7 +20,6 @@ from braket.device_schema.result_type import ResultType
 
 
 class JaqcdDeviceActionProperties(DeviceActionProperties):
-
     """
     Defines the schema for properties for the actions that can be supported by JAQCD devices.
 
