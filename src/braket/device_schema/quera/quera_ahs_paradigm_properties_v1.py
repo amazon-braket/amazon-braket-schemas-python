@@ -70,25 +70,25 @@ class RydbergGlobal(BaseModel):
     Parameters determining the limitations on the driving field that drives the
         ground-to-Rydberg transition uniformly on all atoms
     Attributes:
-        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency
-            range for the global Rydberg drive waveform (measured in rad/s)
-        rabiFrequencyResolution (Decimal): Resolution with which global Rabi
-            frequency amplitude can be specified (measured in rad/s)
-        rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the
-            global Rabi frequency (measured in (rad/s)/s)
-        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for
-            the global Rydberg pulse (measured in rad/s)
-        detuningResolution(Decimal): Resolution with which global detuning can
-            be specified (measured in rad/s)
+        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency range for the global
+            Rydberg drive waveform (measured in rad/s)
+        rabiFrequencyResolution (Decimal): Resolution with which global Rabi frequency amplitude
+            can be specified (measured in rad/s)
+        rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the global Rabi
+            frequency (measured in (rad/s)/s)
+        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for the global Rydberg
+            pulse (measured in rad/s)
+        detuningResolution(Decimal): Resolution with which global detuning can be specified
+            (measured in rad/s)
         detuningSlewRateMax (Decimal): Maximum slew rate for detuning (measured in (rad/s)/s)
-        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global
-            Rydberg pulse (measured in rad)
-        phaseResolution(Decimal): Resolution with which global Rabi frequency phase
-            can be specified (measured in rad)
-        timeResolution(Decimal): Resolution with which times for global Rydberg drive
+        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global Rydberg pulse
+            (measured in rad)
+        phaseResolution(Decimal): Resolution with which global Rabi frequency phase can be
+            specified (measured in rad)
+        timeResolution(Decimal): Resolution with which times for global Rydberg drive parameters
+            can be specified (measured in s)
+        timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg drive
             parameters can be specified (measured in s)
-        timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg
-            drive parameters can be specified (measured in s)
         timeMin (Decimal): Minimum duration of Rydberg drive (measured in s)
         timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
     """
@@ -111,8 +111,8 @@ class Rydberg(BaseModel):
     """
     Parameters determining the limitations of the Rydberg Hamiltonian
     Attributes:
-        c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction
-            coefficient (measured in (rad/s)*m^6)
+        c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient (measured in
+            (rad/s)*m^6)
         rydbergGlobal: Rydberg Global
     """
 
@@ -124,13 +124,13 @@ class PerformanceLattice(BaseModel):
     """
     Uncertainties of atomic site arrangements
     Attributes:
-        positionErrorAbs (Decimal): Total error of the atom position during
-            coherent evolution relative to the lab frame, and combines lattice
-            site position and thermal atom position errors. (measured in meters)
-        sitePositionError (Decimal): Systematic, pattern-dependent error
-            between specified and actual lattice site positions. (measured in meters)
-        atomPositionError (Decimal): Random error in the atom position during
-            coherent evolution as a result of thermal motion. (measured in meters)
+        positionErrorAbs (Decimal): Total error of the atom position during coherent evolution
+            relative to the lab frame, and combines lattice site position and thermal atom position
+            errors. (measured in meters)
+        sitePositionError (Decimal): Systematic, pattern-dependent error between specified and
+            actual lattice site positions. (measured in meters)
+        atomPositionError (Decimal): Random error in the atom position during coherent evolution as
+            a result of thermal motion. (measured in meters)
         fillingErrorTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of failing
             to occupy a site specified by user as 'filled'. These probabilities are dependent on
             the pattern and site position within the pattern. Normalized to 1.
