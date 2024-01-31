@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.20.1 (2024-01-31)
+
+### Bug Fixes and Other Changes
+
+ * formatting for RydbergGlobal doc string
+
 ## v1.20.0 (2024-01-30)
 
 ### Features
