@@ -158,7 +158,7 @@ class PerformanceLattice(BaseModel):
             probabilities can be dependent on the pattern and site position within the pattern, and
             can change slightly with time. Normalized to 1.
         atomCaptureProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability
-            of atom capture from a filled site between the first and second image. Upper bound that
+            of atom capture into an empty site between the first and second image. Upper bound that
             includes the pattern-dependence, site position dependence and time-variation of this
             probability. Normalized to 1.
         atomDetectionErrorFalsePositiveTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
