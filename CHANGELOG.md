@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.20.2 (2024-02-07)
+
+### Bug Fixes and Other Changes
+
+ * update quera_ahs_paradigm doc string
+
 ## v1.20.1 (2024-01-31)
 
 ### Bug Fixes and Other Changes
