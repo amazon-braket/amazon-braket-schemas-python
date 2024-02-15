@@ -18,7 +18,6 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class GateModelQpuParadigmProperties(BraketSchemaBase):
-
     """
     This class defines the properties that are specific to gate model devices
 

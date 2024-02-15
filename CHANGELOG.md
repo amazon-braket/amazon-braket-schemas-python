@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.20.2 (2024-02-07)
+
+### Bug Fixes and Other Changes
+
+ * update quera_ahs_paradigm doc string
+
+## v1.20.1 (2024-01-31)
+
+### Bug Fixes and Other Changes
+
+ * formatting for RydbergGlobal doc string
+
+## v1.20.0 (2024-01-30)
+
+### Features
+
+ * add performance schema for Aquila
+
 ## v1.19.1.post0 (2023-09-14)
 
 ### Documentation Changes

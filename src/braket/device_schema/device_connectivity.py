@@ -15,7 +15,6 @@ from pydantic import BaseModel
 
 
 class DeviceConnectivity(BaseModel):
-
     """
     This schema defines the common properties that need to be existent if a connection is defined.
 

@@ -21,7 +21,6 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class DeviceCost(BaseModel):
-
     """
     This class provides the details on the cost of a device.
 

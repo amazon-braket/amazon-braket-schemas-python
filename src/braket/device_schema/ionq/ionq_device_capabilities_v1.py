@@ -45,7 +45,6 @@ def _dumps_with_provider(payload: dict, **kwargs):
 
 
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
-
     """
     This defines the capabilities of an IonQ device.
 
