@@ -19,7 +19,6 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
-
     """
     These are the capabilities specific to D-Wave device
 

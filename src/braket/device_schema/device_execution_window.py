@@ -48,7 +48,6 @@ class ExecutionDay(str, Enum):
 
 
 class DeviceExecutionWindow(BaseModel):
-
     """
     This class defines when a device can execute a given task.
 

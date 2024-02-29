@@ -17,7 +17,6 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class GateModelSimulatorParadigmProperties(BraketSchemaBase):
-
     """
     This class defines the properties that are specific to simulator device
 

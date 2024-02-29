@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import Tuple
+from typing import Annotated, List, Tuple
 
 from pydantic.v1 import BaseModel, Field
 
@@ -70,25 +70,25 @@ class RydbergGlobal(BaseModel):
     Parameters determining the limitations on the driving field that drives the
         ground-to-Rydberg transition uniformly on all atoms
     Attributes:
-        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency
-            range for the global Rydberg drive waveform (measured in rad/s)
-        rabiFrequencyResolution (Decimal): Resolution with which global Rabi
-            frequency amplitude can be specified (measured in rad/s)
-        rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the
-            global Rabi frequency (measured in (rad/s)/s)
-        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for
-            the global Rydberg pulse (measured in rad/s)
-        detuningResolution(Decimal): Resolution with which global detuning can
-            be specified (measured in rad/s)
+        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency range for the global
+            Rydberg drive waveform (measured in rad/s)
+        rabiFrequencyResolution (Decimal): Resolution with which global Rabi frequency amplitude
+            can be specified (measured in rad/s)
+        rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the global Rabi
+            frequency (measured in (rad/s)/s)
+        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for the global Rydberg
+            pulse (measured in rad/s)
+        detuningResolution(Decimal): Resolution with which global detuning can be specified
+            (measured in rad/s)
         detuningSlewRateMax (Decimal): Maximum slew rate for detuning (measured in (rad/s)/s)
-        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global
-            Rydberg pulse (measured in rad)
-        phaseResolution(Decimal): Resolution with which global Rabi frequency phase
-            can be specified (measured in rad)
-        timeResolution(Decimal): Resolution with which times for global Rydberg drive
+        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global Rydberg pulse
+            (measured in rad)
+        phaseResolution(Decimal): Resolution with which global Rabi frequency phase can be
+            specified (measured in rad)
+        timeResolution(Decimal): Resolution with which times for global Rydberg drive parameters
+            can be specified (measured in s)
+        timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg drive
             parameters can be specified (measured in s)
-        timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg
-            drive parameters can be specified (measured in s)
         timeMin (Decimal): Minimum duration of Rydberg drive (measured in s)
         timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
     """
@@ -111,8 +111,8 @@ class Rydberg(BaseModel):
     """
     Parameters determining the limitations of the Rydberg Hamiltonian
     Attributes:
-        c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction
-            coefficient (measured in (rad/s)*m^6)
+        c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient (measured in
+            (rad/s)*m^6)
         rydbergGlobal: Rydberg Global
     """
 
@@ -124,21 +124,180 @@ class PerformanceLattice(BaseModel):
     """
     Uncertainties of atomic site arrangements
     Attributes:
-        positionErrorAbs (Decimal): Error between target and actual site
-            position (measured in meters)
+        positionErrorAbs (Decimal): Total error of the atom position during coherent evolution
+            relative to the lab frame, and combines lattice site position and thermal atom position
+            errors. (measured in meters)
+        sitePositionError (Decimal): Systematic, pattern-dependent error between specified and
+            actual lattice site positions. (measured in meters)
+        atomPositionError (Decimal): Random error in the atom position during coherent evolution as
+            a result of thermal motion. (measured in meters)
+        fillingErrorTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of failing
+            to occupy a site specified by user as 'filled'. These probabilities are dependent on
+            the pattern and site position within the pattern. Normalized to 1.
+        fillingErrorWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            failing to occupy a site specified by user as 'filled'. Upper bound that includes the
+            pattern-dependence and site position dependence. Normalized to 1.
+        vacancyErrorTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of
+            erroneously filling a site specified by user as 'unfilled'. These probabilities can be
+            dependent on the pattern and site position within the pattern, and can change slightly
+            with time. Normalized to 1.
+        vacancyErrorWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            erroneously filling a site specified by user as 'unfilled'. Upper bound that includes
+            the pattern-dependence, site position dependence and time-variation of this
+            probability. Normalized to 1.
+        atomLossProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of
+            atom loss from a filled site between the first and second image. These probabilities
+            can be dependent on the pattern and site position within the pattern, and can change
+            slightly with time. Normalized to 1.
+        atomLossProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            atom loss from a filled site between the first and second image. Upper bound that
+            includes the pattern-dependence, site position dependence and time-variation of this
+            probability. Normalized to 1.
+        atomCaptureProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability
+            of atom capture into an empty site between the first and second image. These
+            probabilities can be dependent on the pattern and site position within the pattern, and
+            can change slightly with time. Normalized to 1.
+        atomCaptureProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability
+            of atom capture into an empty site between the first and second image. Upper bound that
+            includes the pattern-dependence, site position dependence and time-variation of this
+            probability. Normalized to 1.
+        atomDetectionErrorFalsePositiveTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
+            probability of a false-positive atom detection error. These probabilities can be
+            dependent on the pattern and site position within the pattern, and can change slightly
+            with time. Normalized to 1.
+        atomDetectionErrorFalsePositiveWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case
+            probability of a false-positive atom detection error. Upper bound that includes the
+            pattern-dependence, site position dependence and time-variation of this probability.
+            Normalized to 1.
+        atomDetectionErrorFalseNegativeTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
+            probability of a false-negative atom detection error. These probabilities can be
+            dependent on the pattern and site position within the pattern, and can change slightly
+            with time. Normalized to 1.
+        atomDetectionErrorFalseNegativeWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case
+            probability of a false-negative atom detection error. Upper bound that includes the
+            pattern-dependence, site position dependence and time-variation of this probability.
+            Normalized to 1.
     """
 
     positionErrorAbs: Decimal
+    sitePositionError: Decimal
+    atomPositionError: Decimal
+    fillingErrorTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    fillingErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    vacancyErrorTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    vacancyErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomLossProbabilityTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomLossProbabilityWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomCaptureProbabilityTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomCaptureProbabilityWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalsePositiveTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalsePositiveWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalseNegativeTypical: Annotated[Decimal, Field(ge=0, le=1)]
+    atomDetectionErrorFalseNegativeWorst: Annotated[Decimal, Field(ge=0, le=1)]
+
+
+class RabiCorrection(BaseModel):
+    """
+    Correction factors for calculating the fraction of the expected Rabi oscillation frequency as a
+        function of ramp time, in the absence of any local detuning pattern.
+    Attributes:
+        rampTime (Decimal): The ramp time. (measured in s)
+        rabiCorrection (Annotated[Decimal, Field(ge=0.0, le=1.0)]): The fraction of the expected
+            rabi oscillation frequency. Normalized to the range [0.0, 1.0].
+    """
+
+    rampTime: Decimal
+    rabiCorrection: Annotated[Decimal, Field(ge=0.0, le=1.0)]
 
 
 class PerformanceRydbergGlobal(BaseModel):
     """
     Parameters determining the limitations of the global driving field
     Attributes:
-        rabiFrequencyErrorRel (Decimal): random error in the Rabi frequency, relative (unitless)
+        rabiFrequencyErrorRel (Decimal): Total error in the Rabi frequency due to inhomogeneity and
+            variations in time, relative to the specified value. (unitless)
+        rabiFrequencyGlobalErrorRel (Decimal): RMS Rabi frequency variation in time as a relative
+            value. (unitless)
+        rabiFrequencyInhomogeneityRel (Decimal): RMS Rabi frequency inhomogeneity over the user
+            region, relative to the specified value. (unitless)
+        groundDetectionError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of mis-detecting
+            a ground-state atom as a Rydberg-state atom. (unitless)
+        rydbergDetectionError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of mis-detecting
+            a Rydberg-state atom as a ground-state atom. (unitless)
+        groundPrepError (Annotated[Decimal, Field(ge=0, le=1)]): Probability of failing to
+            initialize an atom in the ground state prior to user-programmed coherent evolution, in
+            the absence of any local detuning pattern. Normalized to 1.
+        rydbergPrepErrorBest (Annotated[Decimal, Field(ge=0, le=1)]): Probability of failing to
+            initialize an atom in the Rydberg state by an optimal (for that site) user specified
+            pi-pulse from the ground state at maximum Rabi frequency, in the absence of any local
+            detuning pattern. Normalized to 1.
+        rydbergPrepErrorWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
+            failing to initialize an atom in the Rydberg state by a user specified pi-pulse from
+            the ground state at maximum Rabi frequency, optimized for a different site, in the
+            absence of any local detuning pattern. Normalized to 1.
+        T1Single (Decimal): Typical lifetime of the Rydberg state for a single non-interacting
+            qubit in the absence of drive, as measured by a pi-wait-pi protocol. (measured in s)
+        T1Ensemble (Decimal): Lifetime of the Rydberg state for an ensemble of non-interacting
+            qubits distributed over the user region, in the absence of drive, as measured by a
+            pi-wait-pi protocol. (measured in s)
+        T2StarSingle (Decimal): Typical dephasing time of a single non-interacting qubit in the
+            absence of drive, as measured by a Ramsey protocol. Includes coherent and incoherent
+            processes. (measured in s)
+        T2StarEnsemble (Decimal): Dephasing time of an ensemble of non-interacting qubits
+            distributed over the user region, in the absence of drive, as measured by a Ramsey
+            protocol. Includes coherent and incoherent processes. (measured in s)
+        T2EchoSingle (Decimal): Typical dephasing time of a single non-interacting qubit in the
+            absence of drive, as measured by a spin-echo dynamical decoupling protocol. This
+            measurement isolates the effects of incoherent processes. (measured in s)
+        T2EchoEnsemble (Decimal): Dephasing time of an ensemble of non-interacting qubits
+            distributed over the user region, in the absence of drive, as measured by a spin-echo
+            dynamical decoupling protocol. This measurement isolates the effects of incoherent
+            processes. (measured in s)
+        T2RabiSingle (Decimal): Typical decoherence time of a single driven qubit, as measured by a
+            Rabi oscillation protocol with variable pulse duration a maximum Rabi frequency.
+            Includes coherent and incoherent processes. (measured in s)
+        T2RabiEnsemble (Decimal): Decoherence time of an ensemble of non-interacting driven qubits
+            distributed over the user region, as measured by a Rabi oscillation protocol with
+            variable pulse duration at maximum Rabi frequency. Includes coherent and incoherent
+            processes. (measured in s)
+        T2BlockadedRabiSingle (Decimal): Typical decoherence time of a single pair of driven
+            blockaded qubits, as measured by a Rabi oscillation protocol with variable pulse
+            duration a maximum Rabi frequency. Includes coherent and incoherent processes.
+            (measured in s)
+        T2BlockadedRabiEnsemble (Decimal): Decoherence time of an ensemble of pairs of driven
+            blockaded qubits distributed over the user region (different pairs do not interact with
+            each other), as measured by a Rabi oscillation protocol with variable pulse duration at
+            maximum Rabi frequency. Includes coherent and incoherent processes. (measured in s)
+        detuningError (Decimal): Systematic error from specified value of the global detuning
+            averaged over the user region. (measured in rad/s)
+        detuningInhomogeneity (Decimal): RMS inhomogeneity of the detuning over the user region.
+            (measured in rad/s)
+        rabiAmplitudeRampCorrection (List[RabiCorrection]): dynamic correction curve of effective
+            single-qubit on-resonant Rabi oscillation frequency driven by a triangular amplitude
+            waveform, relative to the specified value.
     """
 
     rabiFrequencyErrorRel: Decimal
+    rabiFrequencyGlobalErrorRel: Decimal
+    rabiFrequencyInhomogeneityRel: Decimal
+    groundDetectionError: Annotated[Decimal, Field(ge=0, le=1)]
+    rydbergDetectionError: Annotated[Decimal, Field(ge=0, le=1)]
+    groundPrepError: Annotated[Decimal, Field(ge=0, le=1)]
+    rydbergPrepErrorBest: Annotated[Decimal, Field(ge=0, le=1)]
+    rydbergPrepErrorWorst: Annotated[Decimal, Field(ge=0, le=1)]
+    T1Single: Decimal
+    T1Ensemble: Decimal
+    T2StarSingle: Decimal
+    T2StarEnsemble: Decimal
+    T2EchoSingle: Decimal
+    T2EchoEnsemble: Decimal
+    T2RabiSingle: Decimal
+    T2RabiEnsemble: Decimal
+    T2BlockadedRabiSingle: Decimal
+    T2BlockadedRabiEnsemble: Decimal
+    detuningError: Decimal
+    detuningInhomogeneity: Decimal
+    rabiAmplitudeRampCorrection: List[RabiCorrection]
 
 
 class PerformanceRydberg(BaseModel):
@@ -213,10 +372,57 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...     "performance": {
         ...         "lattice":{
         ...             "positionErrorAbs": 0.025e-6,
+        ...             "sitePositionError": 0.025e-6,
+        ...             "atomPositionError": 0.025e-6,
+        ...             "fillingErrorTypical": 0.005,
+        ...             "fillingErrorWorst": 0.01,
+        ...             "vacancyErrorTypical": 0.005,
+        ...             "vacancyErrorWorst": 0.005,
+        ...             "atomLossProbabilityTypical": 0.01,
+        ...             "atomLossProbabilityWorst": 0.01,
+        ...             "atomCaptureProbabilityTypical": 0.01,
+        ...             "atomCaptureProbabilityWorst": 0.01,
+        ...             "atomDetectionErrorFalsePositiveTypical": 0.01,
+        ...             "atomDetectionErrorFalsePositiveWorst": 0.01,
+        ...             "atomDetectionErrorFalseNegativeTypical": 0.01,
+        ...             "atomDetectionErrorFalseNegativeWorst": 0.01,
         ...         },
         ...         "performanceRydberg":{
         ...             "performanceRydbergGlobal":{
         ...                 "rabiFrequencyErrorRel:": 0.01,
+        ...                 "rabiFrequencyGlobalErrorRel": 0.01,
+        ...                 "rabiFrequencyInhomogeneityRel": 0.01,
+        ...                 "groundDetectionError": 0.01,
+        ...                 "rydbergDetectionError":0.1,
+        ...                 "groundPrepError": 0.01,
+        ...                 "rydbergPrepErrorBest": 0.05,
+        ...                 "rydbergPrepErrorWorst": 0.05,
+        ...                 "T1Single": 100e-6,
+        ...                 "T1Ensemble": 100e-6,
+        ...                 "T2StarSingle": 5e-6,
+        ...                 "T2StarEnsemble": 5e-6,
+        ...                 "T2EchoSingle": 5e-6,
+        ...                 "T2EchoEnsemble": 5e-6,
+        ...                 "T2RabiSingle": 5e-6,
+        ...                 "T2RabiEnsemble": 5e-6,
+        ...                 "T2BlockadedRabiSingle":5e-6,
+        ...                 "T2BlockadedRabiEnsemble": 5e-6,
+        ...                 "detuningError": 1e6,
+        ...                 "detuningInhomogeneity": 1e6,
+        ...                 "rabiAmplitudeRampCorrection":[
+        ...                     {
+        ...                         "rampTime":50e-9,
+        ...                         "rabiCorrection": 0.92
+        ...                     },
+        ...                     {
+        ...                         "rampTime": 75e-9,
+        ...                         "rabiCorrection": 0.97
+        ...                     },
+        ...                     {
+        ...                         "rampTime": 100e-9,
+        ...                         "rabiCorrection": 1.00
+        ...                     }
+        ...                 ]
         ...             },
         ...         },
         ...     },
