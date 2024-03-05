@@ -13,7 +13,7 @@
 
 import json
 from importlib import import_module
-from typing import Dict, Optional, Type
+from typing import Optional
 
 from pydantic import Field
 
@@ -47,11 +47,11 @@ class IonqProviderProperties(BraketSchemaBase):
     This defines the properties common to all the IonQ devices.
 
     Attributes:
-        fidelity(Dict[str, Dict[str, float]]): Average fidelity, the measured success
+        fidelity(dict[str, dict[str, float]]): Average fidelity, the measured success
             to perform operations of the given type.
-        timing(Dict[str, float]): The timing characteristics of the device. 1Q, 2Q, readout,
+        timing(dict[str, float]): The timing characteristics of the device. 1Q, 2Q, readout,
             and reset are the operation times. T1 and T2 are decoherence times
-        errorMitigation (Optional[Dict[Type[ErrorMitigationScheme], ErrorMitigationProperties]]):
+        errorMitigation (Optional[dict[type[ErrorMitigationScheme], ErrorMitigationProperties]]):
             The error mitigation schemes supported by the device, where the key is the Python type
             of the error mitigation scheme and the value contains the properties of the scheme.
             Default: None.
@@ -95,9 +95,9 @@ class IonqProviderProperties(BraketSchemaBase):
         name="braket.device_schema.ionq.ionq_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    fidelity: Dict[str, Dict[str, float]]
-    timing: Dict[str, float]
-    errorMitigation: Optional[Dict[Type[ErrorMitigationScheme], ErrorMitigationProperties]] = None
+    fidelity: dict[str, dict[str, float]]
+    timing: dict[str, float]
+    errorMitigation: Optional[dict[type[ErrorMitigationScheme], ErrorMitigationProperties]] = None
 
     class Config:
         json_loads = _loads_with_error_mitigation

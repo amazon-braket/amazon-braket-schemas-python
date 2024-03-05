@@ -11,8 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List
-
 from pydantic import BaseModel
 
 from braket.ir.ahs.driving_field import DrivingField
@@ -33,5 +31,5 @@ class Hamiltonian(BaseModel):
         >>> Hamiltonian(driving_fields=[DrivingField],shifting_fields=[ShiftingField])
     """
 
-    drivingFields: List[DrivingField]
-    shiftingFields: List[ShiftingField]
+    drivingFields: list[DrivingField]
+    shiftingFields: list[ShiftingField]

@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional, Union
+from typing import Optional, Union
 
 from pydantic import Field
 
@@ -35,7 +35,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of a Rigetti device.
 
     Attributes:
-        action(Dict[Union[DeviceActionType, str],
+        action(dict[Union[DeviceActionType, str],
             Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             Rigetti device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties of a Rigetti
@@ -115,7 +115,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.rigetti.rigetti_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[
+    action: dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]

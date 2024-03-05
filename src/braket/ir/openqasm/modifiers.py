@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 from pydantic import BaseModel, constr
 
@@ -34,7 +34,7 @@ class ExponentType(str, Enum):
 
 class Power(BaseModel):
     name: constr(regex=r"^pow$")
-    exponent_types: List[ExponentType]
+    exponent_types: list[ExponentType]
 
 
 class Inverse(BaseModel):

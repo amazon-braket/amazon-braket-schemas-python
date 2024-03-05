@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Optional, Union
 
 from pydantic import BaseModel, Field
 
@@ -33,7 +33,7 @@ class Instruction(BaseModel):
     """
 
     name: str
-    arguments: Optional[List[InstructionArgument]]
+    arguments: Optional[list[InstructionArgument]]
 
 
 class PulseFunctionArgument(BaseModel):
@@ -64,7 +64,7 @@ class PulseFunction(BaseModel):
     """
 
     name: str
-    arguments: List[PulseFunctionArgument]
+    arguments: list[PulseFunctionArgument]
 
 
 class NativeGate(BaseModel):
@@ -79,9 +79,9 @@ class NativeGate(BaseModel):
     """
 
     name: str
-    qubits: List[str]
-    arguments: List[str]
-    calibrations: List[Union[Instruction, PulseFunction]]
+    qubits: list[str]
+    arguments: list[str]
+    calibrations: list[Union[Instruction, PulseFunction]]
 
 
 class TemplateWaveformArgument(BaseModel):
@@ -122,7 +122,7 @@ class TemplateWaveform(Waveform):
     """
 
     name: str
-    arguments: List[TemplateWaveformArgument]
+    arguments: list[TemplateWaveformArgument]
 
 
 class ArbitraryWaveform(Waveform):
@@ -135,7 +135,7 @@ class ArbitraryWaveform(Waveform):
             denote the real and imaginary part of a complex number
     """
 
-    amplitudes: List[Tuple[float, float]]
+    amplitudes: list[tuple[float, float]]
 
 
 class NativeGateCalibrations(BraketSchemaBase):
@@ -188,5 +188,5 @@ class NativeGateCalibrations(BraketSchemaBase):
         name="braket.device_schema.pulse.native_gate_calibrations", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    gates: Dict[str, Dict[str, List[NativeGate]]]
-    waveforms: Dict[str, Union[TemplateWaveform, ArbitraryWaveform]]
+    gates: dict[str, dict[str, list[NativeGate]]]
+    waveforms: dict[str, Union[TemplateWaveform, ArbitraryWaveform]]

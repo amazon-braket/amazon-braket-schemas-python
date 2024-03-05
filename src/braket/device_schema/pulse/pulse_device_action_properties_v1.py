@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Optional
 
 from pydantic import AnyUrl, Field
 
@@ -126,12 +126,12 @@ class PulseDeviceActionProperties(BraketSchemaBase):
         name="braket.device_schema.pulse.pulse_device_action_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    supportedQhpTemplateWaveforms: Dict[str, PulseFunction]
-    ports: Dict[str, Port]
-    supportedFunctions: Dict[str, PulseFunction]
-    frames: Optional[Dict[str, Frame]]
+    supportedQhpTemplateWaveforms: dict[str, PulseFunction]
+    ports: dict[str, Port]
+    supportedFunctions: dict[str, PulseFunction]
+    frames: Optional[dict[str, Frame]]
     supportsLocalPulseElements: Optional[bool] = True
     supportsDynamicFrames: Optional[bool] = True
     supportsNonNativeGatesWithPulses: Optional[bool] = False
-    validationParameters: Optional[Dict[str, float]]
+    validationParameters: Optional[dict[str, float]]
     nativeGateCalibrationsRef: Optional[AnyUrl]

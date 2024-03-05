@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
@@ -30,6 +30,6 @@ class Port(BaseModel):
     direction: Direction
     portType: str
     dt: float
-    qubitMappings: Optional[List[int]]
-    centerFrequencies: Optional[Set[float]]
-    qhpSpecificProperties: Optional[Dict[str, Any]]
+    qubitMappings: Optional[list[int]]
+    centerFrequencies: Optional[set[float]]
+    qhpSpecificProperties: Optional[dict[str, Any]]

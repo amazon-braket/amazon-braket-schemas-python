@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import List
 
 from pydantic import BaseModel
 
@@ -38,5 +37,5 @@ class AtomArrangement(BaseModel):
         ...          filling=[1,1,1,1,0,0])
     """
 
-    sites: List[List[Decimal]]
-    filling: List[int]
+    sites: list[list[Decimal]]
+    filling: list[int]
