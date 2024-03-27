@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.21.0 (2024-03-27)
+
+### Features
+
+ * move to Pydantic 2.0 and use the 1.10 patch branch
+
 ## v1.20.2 (2024-02-07)
 
 ### Bug Fixes and Other Changes
