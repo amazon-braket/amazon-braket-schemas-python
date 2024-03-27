@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.task_metadata_v1 import TaskMetadata

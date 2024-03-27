@@ -13,7 +13,7 @@
 
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     PostProcessingType,

@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from braket.ir.jaqcd.shared_models import (
     MultiState,

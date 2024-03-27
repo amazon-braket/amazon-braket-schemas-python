@@ -15,7 +15,7 @@ from datetime import time
 from enum import Enum
 from typing import Union
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class ExecutionDay(str, Enum):

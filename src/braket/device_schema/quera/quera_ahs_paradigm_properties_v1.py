@@ -14,7 +14,7 @@
 from decimal import Decimal
 from typing import Annotated, List, Tuple
 
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

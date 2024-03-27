@@ -13,7 +13,7 @@
 
 from typing import Dict, Optional, Union
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.blackbird_device_action_properties import BlackbirdDeviceActionProperties
 from braket.device_schema.continuous_variable_qpu_paradigm_properties_v1 import (

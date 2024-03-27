@@ -13,7 +13,7 @@
 
 from typing import List, Optional
 
-from pydantic import BaseModel, Field, conint, conlist, constr
+from pydantic.v1 import BaseModel, Field, conint, conlist, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata

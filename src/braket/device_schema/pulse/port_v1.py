@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Any, Dict, List, Optional, Set
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class Direction(Enum):

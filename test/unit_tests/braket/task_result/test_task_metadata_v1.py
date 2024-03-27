@@ -12,19 +12,21 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
 
-@pytest.mark.xfail(raises=ValidationError)
 def test_missing_properties():
-    TaskMetadata()
+    with pytest.raises(ValidationError):
+        TaskMetadata()
 
 
-@pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_header(braket_schema_header, id, device_id, shots):
-    TaskMetadata(braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots)
+    with pytest.raises(ValidationError):
+        TaskMetadata(
+            braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots
+        )
 
 
 def test_correct_metadata_minimum(id, device_id, shots):
@@ -89,6 +91,6 @@ def test_correct_metadata_all(device_parameters, id, device_id, shots):
 
 
 @pytest.mark.parametrize("shots", [([1, 2]), (-1)])
-@pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_shots(id, device_id, shots):
-    TaskMetadata(id=id, deviceId=device_id, shots=shots)
+    with pytest.raises(ValidationError):
+        TaskMetadata(id=id, deviceId=device_id, shots=shots)

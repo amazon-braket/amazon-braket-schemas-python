@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 from typing import Dict, List, Optional, Union
 
-from pydantic import Field, confloat, constr
+from pydantic.v1 import Field, confloat, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

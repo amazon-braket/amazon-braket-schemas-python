@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

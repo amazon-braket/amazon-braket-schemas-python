@@ -14,7 +14,7 @@
 from decimal import Decimal
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.ir.ahs.atom_arrangement import AtomArrangement
 

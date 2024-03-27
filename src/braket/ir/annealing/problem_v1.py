@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import Dict, Union
 
-from pydantic import Field, conint
+from pydantic.v1 import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 

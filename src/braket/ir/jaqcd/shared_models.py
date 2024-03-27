@@ -13,7 +13,7 @@
 
 from typing import Dict, Optional, Union
 
-from pydantic import BaseModel, confloat, conint, conlist, constr, root_validator
+from pydantic.v1 import BaseModel, confloat, conint, conlist, constr, root_validator
 
 
 class SingleTarget(BaseModel):

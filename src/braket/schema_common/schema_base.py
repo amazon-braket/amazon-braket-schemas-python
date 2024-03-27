@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import re
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
 

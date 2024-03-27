@@ -15,7 +15,7 @@ import json
 
 import pytest
 from jsonschema import validate
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.jobs_data.persisted_job_data_v1 import PersistedJobData, PersistedJobDataFormat
 

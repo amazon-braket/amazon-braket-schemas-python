@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.error_mitigation import Debias, ErrorMitigationProperties
 from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties

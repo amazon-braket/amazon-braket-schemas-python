@@ -14,7 +14,7 @@
 from decimal import Decimal
 from typing import List
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class AtomArrangement(BaseModel):

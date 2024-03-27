@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import QueraAhsParadigmProperties

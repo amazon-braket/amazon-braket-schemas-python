@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, constr
+from pydantic.v1 import BaseModel, constr
 
 
 class Control(BaseModel):
