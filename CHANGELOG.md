@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.21.1 (2024-04-01)
+
+### Bug Fixes and Other Changes
+
+ * restore dependent tests after the Pydantic migration
+
 ## v1.21.0 (2024-03-27)
 
 ### Features
