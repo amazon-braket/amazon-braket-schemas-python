@@ -139,8 +139,10 @@ def blackbird_program():
     )
 
 
-@pytest.fixture
-def ahs_program():
+@pytest.fixture(params=[
+    "shiftingFields", "localDetuning"
+])
+def ahs_program(request):
     return AHSProgram(
         setup={
             "ahs_register": {
@@ -178,7 +180,7 @@ def ahs_program():
                     },
                 }
             ],
-            "shiftingFields": [
+            request.param: [
                 {
                     "magnitude": {
                         "time_series": {"values": [-1.25664e8, 1.25664e8], "times": [0.0, 3.0e-6]},
