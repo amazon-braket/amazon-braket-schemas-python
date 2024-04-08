@@ -36,15 +36,13 @@ class Hamiltonian(BaseModel):
     drivingFields: List[DrivingField]
     localDetuning: List[LocalDetuning] = Field(alias="shiftingFields")
 
+    def __getattr__(self, name):
+        return self.__dict__[name] if name != "shiftingFields" else self.__dict__["localDetuning"]
+
     def __setattr__(self, name, value):
         if name == "shiftingFields":
             name = "localDetuning"
         self.__dict__[name] = value
-
-    def __getattr__(self, name):
-        if name == "shiftingFields":
-            name = "localDetuning"
-        return self.__dict__[name]
 
     def __delattr__(self, name):
         if name == "shiftingFields":

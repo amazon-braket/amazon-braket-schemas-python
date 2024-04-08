@@ -36,6 +36,13 @@ def test_valid():
     assert hamiltonian_field.localDetuning == valid_shifting_fields
 
 
+def test_get_local_detuning():
+    hamiltonian_field = Hamiltonian(
+        drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
+    )
+    assert hamiltonian_field.localDetuning == valid_shifting_fields
+
+
 def test_set():
     hamiltonian_field = Hamiltonian(
         drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
