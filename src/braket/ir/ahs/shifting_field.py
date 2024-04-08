@@ -11,12 +11,10 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from warnings import deprecated
 from braket.ir.ahs.local_detuning import LocalDetuning
 
 # The class `ShiftingField` is deprecated. Please use `LocalDetuning` instead.
 # This file and class will be removed in a future version.
 # We are retaining this now to avoid breaking backwards compatibility for users already
 # utilizing this nomenclature.
-@deprecated("The class `ShiftingField` is deprecated. Please use `LocalDetuning` instead.")
 ShiftingField = LocalDetuning
