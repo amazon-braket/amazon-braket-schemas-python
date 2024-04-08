@@ -30,21 +30,21 @@ class Hamiltonian(BaseModel):
             the effect of which is accurately described by a frequency shift of certain levels.
 
     Examples:
-        >>> Hamiltonian(driving_fields=[DrivingField],local_detuning=[LocalDetuning])
+        >>> Hamiltonian(drivingFields=[DrivingField],localDetuning=[LocalDetuning])
     """
 
     drivingFields: List[DrivingField]
     localDetuning: List[LocalDetuning] = Field(alias="shiftingFields")
 
-    def __getattr__(self, name):
-        if name == "shiftingFields":
-            name = "localDetuning"
-        return self.__dict__[name]
-
     def __setattr__(self, name, value):
         if name == "shiftingFields":
             name = "localDetuning"
         self.__dict__[name] = value
+
+    def __getattr__(self, name):
+        if name == "shiftingFields":
+            name = "localDetuning"
+        return self.__dict__[name]
 
     def __delattr__(self, name):
         if name == "shiftingFields":
