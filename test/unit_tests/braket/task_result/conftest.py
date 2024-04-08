@@ -139,9 +139,7 @@ def blackbird_program():
     )
 
 
-@pytest.fixture(params=[
-    "shiftingFields", "localDetuning"
-])
+@pytest.fixture(params=["shiftingFields", "localDetuning"])
 def ahs_program(request):
     return AHSProgram(
         setup={

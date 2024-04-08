@@ -27,14 +27,18 @@ valid_setup_input = {
             [3.0e-6, 0.0],
             [3.0e-6, 3.0e-6],
             [3.0e-6, 6.0e-6],
-            ],
+        ],
         "filling": [1, 1, 1, 1, 0, 0],
     }
 }
 
-@pytest.fixture(params=[
-    "shiftingFields", "localDetuning",
-])
+
+@pytest.fixture(
+    params=[
+        "shiftingFields",
+        "localDetuning",
+    ]
+)
 def valid_hamiltonian_input(request):
     return {
         "drivingFields": [

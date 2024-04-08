@@ -13,8 +13,8 @@
 
 from braket.ir.ahs.local_detuning import LocalDetuning
 
-
 # The class `ShiftingField` is deprecated. Please use `LocalDetuning` instead.
 # This file and class will be removed in a future version.
-# We are retaining this now to avoid breaking backwards compatibility for users already utilizing this nomenclature.
+# We are retaining this now to avoid breaking backwards compatibility for users already
+# utilizing this nomenclature.
 ShiftingField = LocalDetuning

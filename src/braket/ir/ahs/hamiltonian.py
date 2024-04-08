@@ -18,6 +18,7 @@ from pydantic.v1 import BaseModel, Field
 from braket.ir.ahs.driving_field import DrivingField
 from braket.ir.ahs.local_detuning import LocalDetuning
 
+
 class Hamiltonian(BaseModel):
     """
     Specifies the Hamiltonian
@@ -34,21 +35,21 @@ class Hamiltonian(BaseModel):
 
     drivingFields: List[DrivingField]
     localDetuning: List[LocalDetuning] = Field(alias="shiftingFields")
- 
+
     def __getattr__(self, name):
         if name == "shiftingFields":
             name = "localDetuning"
         return self.__dict__[name]
- 
+
     def __setattr__(self, name, value):
         if name == "shiftingFields":
             name = "localDetuning"
         self.__dict__[name] = value
- 
+
     def __delattr__(self, name):
         if name == "shiftingFields":
             name = "localDetuning"
         del self.__dict__[name]
- 
+
     class Config:
         allow_population_by_field_name = True
