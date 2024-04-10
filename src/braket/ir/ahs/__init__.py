@@ -14,6 +14,7 @@
 from braket.ir.ahs.atom_arrangement import AtomArrangement  # noqa: F401
 from braket.ir.ahs.driving_field import DrivingField  # noqa: F401
 from braket.ir.ahs.hamiltonian import Hamiltonian  # noqa: F401
+from braket.ir.ahs.shifting_field import LocalDetuning  # noqa: F401
 from braket.ir.ahs.physical_field import PhysicalField  # noqa: F401
 from braket.ir.ahs.program_v1 import Program, Setup  # noqa: F401
 from braket.ir.ahs.shifting_field import ShiftingField  # noqa: F401
