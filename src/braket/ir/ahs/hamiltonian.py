@@ -13,10 +13,10 @@
 
 from typing import List
 
-from pydantic.v1 import BaseModel
+from pydantic.v1 import BaseModel, Field
 
 from braket.ir.ahs.driving_field import DrivingField
-from braket.ir.ahs.shifting_field import ShiftingField
+from braket.ir.ahs.local_detuning import LocalDetuning
 
 
 class Hamiltonian(BaseModel):
@@ -24,14 +24,30 @@ class Hamiltonian(BaseModel):
     Specifies the Hamiltonian
 
     Attributes:
-        driving_fileds: An externally controlled force
+        drivingFields: An externally controlled force
             that drives coherent transitions between selected levels of certain atom types
-        shifting_fields: An externally controlled polarizing force
+        localDetuning: An externally controlled polarizing force
             the effect of which is accurately described by a frequency shift of certain levels.
 
     Examples:
-        >>> Hamiltonian(driving_fields=[DrivingField],shifting_fields=[ShiftingField])
+        >>> Hamiltonian(drivingFields=[DrivingField],localDetuning=[LocalDetuning])
     """
 
     drivingFields: List[DrivingField]
-    shiftingFields: List[ShiftingField]
+    localDetuning: List[LocalDetuning] = Field(alias="shiftingFields")
+
+    def __getattr__(self, name):
+        return self.__dict__[name] if name != "shiftingFields" else self.__dict__["localDetuning"]
+
+    def __setattr__(self, name, value):
+        if name == "shiftingFields":
+            name = "localDetuning"
+        self.__dict__[name] = value
+
+    def __delattr__(self, name):
+        if name == "shiftingFields":
+            name = "localDetuning"
+        del self.__dict__[name]
+
+    class Config:
+        allow_population_by_field_name = True

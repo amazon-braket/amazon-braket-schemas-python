@@ -25,7 +25,44 @@ def test_valid():
         drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
     )
     assert hamiltonian_field.drivingFields == valid_driving_fields
+    assert hamiltonian_field.localDetuning == valid_shifting_fields
     assert hamiltonian_field.shiftingFields == valid_shifting_fields
+
+    hamiltonian_field = Hamiltonian(
+        drivingFields=valid_driving_fields, localDetuning=valid_shifting_fields
+    )
+    assert hamiltonian_field.drivingFields == valid_driving_fields
+    assert hamiltonian_field.shiftingFields == valid_shifting_fields
+    assert hamiltonian_field.localDetuning == valid_shifting_fields
+
+
+def test_get_local_detuning():
+    hamiltonian_field = Hamiltonian(
+        drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
+    )
+    assert hamiltonian_field.localDetuning == valid_shifting_fields
+
+
+def test_set():
+    hamiltonian_field = Hamiltonian(
+        drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
+    )
+    hamiltonian_field.localDetuning = []
+    hamiltonian_field.shiftingFields = []
+
+
+def test_del_shifting_fields():
+    hamiltonian_field = Hamiltonian(
+        drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
+    )
+    del hamiltonian_field.shiftingFields
+
+
+def test_del_local_detuning():
+    hamiltonian_field = Hamiltonian(
+        drivingFields=valid_driving_fields, shiftingFields=valid_shifting_fields
+    )
+    del hamiltonian_field.localDetuning
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -36,7 +73,14 @@ def test__missing_driving_fields():
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_shifting_fields():
+def test__missing_driving_fields_with_local_detuning():
+    Hamiltonian(
+        localDetuning=valid_shifting_fields,
+    )
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test__missing_local_detuning():
     Hamiltonian(
         drivingFields=valid_driving_fields,
     )

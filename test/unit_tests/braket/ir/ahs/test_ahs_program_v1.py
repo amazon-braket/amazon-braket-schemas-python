@@ -32,41 +32,49 @@ valid_setup_input = {
     }
 }
 
-valid_hamiltonian_input = {
-    "drivingFields": [
-        {
-            "amplitude": {
-                "time_series": {
-                    "values": [0.0, 2.51327e7, 2.51327e7, 0.0],
-                    "times": [0.0, 3.0e-7, 2.7e-6, 3.0e-6],
+
+@pytest.fixture(
+    params=[
+        "shiftingFields",
+        "localDetuning",
+    ]
+)
+def valid_hamiltonian_input(request):
+    return {
+        "drivingFields": [
+            {
+                "amplitude": {
+                    "time_series": {
+                        "values": [0.0, 2.51327e7, 2.51327e7, 0.0],
+                        "times": [0.0, 3.0e-7, 2.7e-6, 3.0e-6],
+                    },
+                    "pattern": "uniform",
                 },
-                "pattern": "uniform",
-            },
-            "phase": {
-                "time_series": {"values": [0, 0], "times": [0.0, 3.0e-6]},
-                "pattern": "uniform",
-            },
-            "detuning": {
-                "time_series": {
-                    "values": [-1.25664e8, -1.25664e8, 1.25664e8, 1.25664e8],
-                    "times": [0.0, 3.0e-7, 2.7e-6, 3.0e-6],
+                "phase": {
+                    "time_series": {"values": [0, 0], "times": [0.0, 3.0e-6]},
+                    "pattern": "uniform",
                 },
-                "pattern": "uniform",
-            },
-        }
-    ],
-    "shiftingFields": [
-        {
-            "magnitude": {
-                "time_series": {"values": [-1.25664e8, 1.25664e8], "times": [0.0, 3.0e-6]},
-                "pattern": [0.5, 1.0, 0.5, 0.5, 0.5, 0.5],
+                "detuning": {
+                    "time_series": {
+                        "values": [-1.25664e8, -1.25664e8, 1.25664e8, 1.25664e8],
+                        "times": [0.0, 3.0e-7, 2.7e-6, 3.0e-6],
+                    },
+                    "pattern": "uniform",
+                },
             }
-        }
-    ],
-}
+        ],
+        request.param: [
+            {
+                "magnitude": {
+                    "time_series": {"values": [-1.25664e8, 1.25664e8], "times": [0.0, 3.0e-6]},
+                    "pattern": [0.5, 1.0, 0.5, 0.5, 0.5, 0.5],
+                }
+            }
+        ],
+    }
 
 
-def test_valid():
+def test_valid(valid_hamiltonian_input):
     program = Program(
         setup=valid_setup_input,
         hamiltonian=valid_hamiltonian_input,
@@ -76,7 +84,7 @@ def test_valid():
 
 
 @pytest.mark.xfail(raises=ValidationError)
-def test__missing_setup():
+def test__missing_setup(valid_hamiltonian_input):
     Program(
         hamiltonian=valid_hamiltonian_input,
     )
@@ -89,7 +97,7 @@ def test__missing_hamiltonian():
     )
 
 
-def test_correct_decimal_serialization():
+def test_correct_decimal_serialization(valid_hamiltonian_input):
     program = Program(
         setup=valid_setup_input,
         hamiltonian=valid_hamiltonian_input,

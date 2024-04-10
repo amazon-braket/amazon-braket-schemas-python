@@ -11,32 +11,10 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import BaseModel
+from braket.ir.ahs.local_detuning import LocalDetuning
 
-from braket.ir.ahs.physical_field import PhysicalField
-
-
-class ShiftingField(BaseModel):
-    r"""Specifies the shifting field, defined by the formula
-
-    .. math::
-        H_{shift} (t) := -\Delta(t) \sum_k h_k | r_k \rangle \langle r_k |
-
-    where
-
-        :math:`\Delta(t)` is the magnitude of the frequency shift in rad/s,
-
-        :math:`h_k` is the site coefficient,
-
-        :math:`|r_k \rangle` is the Rydberg state of atom k.
-
-    with the sum :math:`\sum_k` taken over all target atoms.
-
-    Attributes:
-        magnitude: PhysicalField
-
-    Examples:
-        >>> ShiftingField(magnitude=PhysicalField)
-    """
-
-    magnitude: PhysicalField
+# The class `ShiftingField` is deprecated. Please use `LocalDetuning` instead.
+# This file and class will be removed in a future version.
+# We are retaining this now to avoid breaking backwards compatibility for users already
+# utilizing this nomenclature.
+ShiftingField = LocalDetuning

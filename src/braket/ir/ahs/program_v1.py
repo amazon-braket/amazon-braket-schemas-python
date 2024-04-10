@@ -43,7 +43,7 @@ class Program(BraketSchemaBase):
     Examples:
         >>> Program(
         ...     setup={"ahs_register":AtomArrangement},
-        ...     hamiltonian={"drivingFields":DrivingField,"shiftingFields":ShiftingField}
+        ...     hamiltonian={"drivingFields":DrivingField,"localDetuning":LocalDetuning}
         ...    )
     """
 
