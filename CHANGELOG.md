@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.21.3 (2024-04-10)
+
+### Bug Fixes and Other Changes
+
+ * add local detuning export
+
 ## v1.21.2 (2024-04-10)
 
 ### Bug Fixes and Other Changes
