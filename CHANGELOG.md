@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.21.2 (2024-04-10)
+
+### Bug Fixes and Other Changes
+
+ * change shiftingFields to localDetuning
+
 ## v1.21.1 (2024-04-01)
 
 ### Bug Fixes and Other Changes
