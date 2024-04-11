@@ -67,7 +67,7 @@ class Lattice(BaseModel):
 
 class RydbergGlobal(BaseModel):
     """
-    Parameters determining the limitations on the driving field that drives the
+    Constraints for the parameters of the driving field that drives the
         ground-to-Rydberg transition uniformly on all atoms
     Attributes:
         rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency range for the global
@@ -107,6 +107,37 @@ class RydbergGlobal(BaseModel):
     timeMax: Decimal
 
 
+class RydbergLocal(BaseModel):
+    """
+    Constraints for the parameters of the local shifting field
+    Attributes:
+        detuningRange(Tuple[Decimal,Decimal]):
+            Achievable detuning range for the local detuning pattern (measured in rad/s)
+        detuningSlewRateMax(Decimal):
+            Maximum slew rate for changing the local detuning (measured in (rad/s)/s)
+        siteCoefficientRange(Tuple[Decimal,Decimal]):
+            Achievable site coefficient range for the local detuning pattern (unitless)
+        numberLocalDetuningSitesMax(Decimal):
+            Maximum number of sites available for the local detuning pattern
+        spacingRadialMin(Decimal):
+            Minimum radial spacing between any two sites with non-zero local detuning
+            (measured in meter)
+        timeResolution(Decimal):
+            Resolution with which times for local detuning time series can be specified
+            (measured in s)
+        timeDeltaMin(Decimal):
+            Minimum step between times for local detuning time series (measured in s)
+    """
+
+    detuningRange: Tuple[Decimal, Decimal]
+    detuningSlewRateMax: Decimal
+    siteCoefficientRange: Tuple[Decimal, Decimal]
+    numberLocalDetuningSitesMax: Decimal
+    spacingRadialMin: Decimal
+    timeResolution: Decimal
+    timeDeltaMin: Decimal
+
+
 class Rydberg(BaseModel):
     """
     Parameters determining the limitations of the Rydberg Hamiltonian
@@ -114,10 +145,12 @@ class Rydberg(BaseModel):
         c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient (measured in
             (rad/s)*m^6)
         rydbergGlobal: Rydberg Global
+        rydbergLocal: Rydberg Local
     """
 
     c6Coefficient: Decimal
     rydbergGlobal: RydbergGlobal
+    rydbergLocal: RydbergLocal
 
 
 class PerformanceLattice(BaseModel):
@@ -212,7 +245,7 @@ class RabiCorrection(BaseModel):
 
 class PerformanceRydbergGlobal(BaseModel):
     """
-    Parameters determining the limitations of the global driving field
+    Performance metrics for the global driving field
     Attributes:
         rabiFrequencyErrorRel (Decimal): Total error in the Rabi frequency due to inhomogeneity and
             variations in time, relative to the specified value. (unitless)
@@ -300,14 +333,43 @@ class PerformanceRydbergGlobal(BaseModel):
     rabiAmplitudeRampCorrection: List[RabiCorrection]
 
 
+class PerformanceRydbergLocal(BaseModel):
+    """
+    Performance metrics for the local shifting field
+    Attributes:
+        detuningErrorRms(Decimal):
+            Shot-to-shot RMS error on the time component of the local detuning values
+            (local detuning waveform)
+        siteCoefficientErrorRms(Decimal):
+            Site-to-site RMS error on the spatial component of the local detuning values
+            (site coefficients)
+        errorRateIncoherentBright(Decimal):
+            Incoherent error rate for locally-addressed sites at max local detuning
+        errorRateIncoherentDark(Decimal):
+            Incoherent error rate at a site that is not locally-addressed due to crosstalk
+            from a single locally-addressed site at min distance and at max local detuning
+        crosstalk(Decimal):
+            Fractional local detuning induced at a site that is not locally-addressed due to
+            crosstalk from a single locally-addressed site
+    """
+
+    detuningErrorRms: Decimal
+    siteCoefficientErrorRms: Decimal
+    errorRateIncoherentBright: Decimal
+    errorRateIncoherentDark: Decimal
+    crosstalk: Decimal
+
+
 class PerformanceRydberg(BaseModel):
     """
-    Parameters determining the limitations the Rydberg simulator
+    Performance metrics of the global driving field and the local
     Attributes:
         rydbergGlobal: Performance of Rydberg Global
+        rydbergLocal: Performance of Rydberg Local
     """
 
     rydbergGlobal: PerformanceRydbergGlobal
+    rydbergLocal: PerformanceRydbergLocal
 
 
 class Performance(BaseModel):
@@ -368,6 +430,15 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...             "timeMin": 0,
         ...             "timeMax": 4.0e-6,
         ...         },
+        ...         "rydbergLocal" : {
+        ...             "detuningRange": [0, 2 * math.pi * 50.0e6],
+        ...             "detuningSlewRateMax": 0.2,
+        ...             "siteCoefficientRange": [0.0, 0.2],
+        ...             "numberLocalDetuningSitesMax": 0.2,
+        ...             "spacingRadialMin": 0.2,
+        ...             "timeResolution": 0.2,
+        ...             "timeDeltaMin": 0.3,
+        ...         }
         ...     },
         ...     "performance": {
         ...         "lattice":{
@@ -387,8 +458,8 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...             "atomDetectionErrorFalseNegativeTypical": 0.01,
         ...             "atomDetectionErrorFalseNegativeWorst": 0.01,
         ...         },
-        ...         "performanceRydberg":{
-        ...             "performanceRydbergGlobal":{
+        ...         "rydberg":{
+        ...             "rydbergGlobal":{
         ...                 "rabiFrequencyErrorRel:": 0.01,
         ...                 "rabiFrequencyGlobalErrorRel": 0.01,
         ...                 "rabiFrequencyInhomogeneityRel": 0.01,
@@ -423,6 +494,13 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...                         "rabiCorrection": 1.00
         ...                     }
         ...                 ]
+        ...             },
+        ...             "rydbergLocal":{
+        ...                 "detuningErrorRms:": 0.01,
+        ...                 "siteCoefficientErrorRms:": 0.01,
+        ...                 "errorRateIncoherentBright:": 0.01,
+        ...                 "errorRateIncoherentDark:": 0.01,
+        ...                 "crosstalk:": 0.01,
         ...             },
         ...         },
         ...     },
