@@ -248,8 +248,6 @@ def test_invalid_field_in_perfomanceRydbergGlobal():
     )
 
 
-
-
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_field_in_rydbergLocal():
     RydbergLocal(
