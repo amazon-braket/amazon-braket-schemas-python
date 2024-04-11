@@ -150,7 +150,7 @@ class Rydberg(BaseModel):
 
     c6Coefficient: Decimal
     rydbergGlobal: RydbergGlobal
-    rydbergLocal: Optional[RydbergLocal]
+    rydbergLocal: Optional[RydbergLocal] = None
 
 
 class PerformanceLattice(BaseModel):
