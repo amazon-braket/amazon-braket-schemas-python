@@ -144,8 +144,8 @@ class Rydberg(BaseModel):
     Attributes:
         c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient (measured in
             (rad/s)*m^6)
-        rydbergGlobal: RydbergGlobal
-        rydbergLocal: Optional[RydbergLocal]
+        rydbergGlobal (RydbergGlobal): Rydberg Global
+        rydbergLocal (Optional[RydbergLocal]): Rydberg Local. Defaults to None.
     """
 
     c6Coefficient: Decimal
@@ -364,20 +364,21 @@ class PerformanceRydberg(BaseModel):
     """
     Performance metrics of the global driving field and the local detuning
     Attributes:
-        rydbergGlobal: Performance of Rydberg Global
-        rydbergLocal: Performance of Rydberg Local
+        rydbergGlobal (PerformanceRydbergGlobal): Performance of Rydberg Global
+        rydbergLocal (Optional[PerformanceRydbergLocal]): Performance of Rydberg Local
     """
 
     rydbergGlobal: PerformanceRydbergGlobal
-    rydbergLocal: PerformanceRydbergLocal
+    rydbergLocal: Optional[PerformanceRydbergLocal] = None
 
 
 class Performance(BaseModel):
     """
     Parameters determining the limitations of the QuEra device
     Attributes:
-        performanceLattice: Uncertainties of atomic site arrangements
-        performanceRydberg : Parameters determining the limitations the Rydberg simulator
+        performanceLattice (PerformanceLattice): Uncertainties of atomic site arrangements
+        performanceRydberg (PerformanceRydberg): Parameters determining the limitations 
+            the Rydberg simulator
     """
 
     lattice: PerformanceLattice
