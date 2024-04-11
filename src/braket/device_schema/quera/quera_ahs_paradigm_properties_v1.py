@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import Annotated, List, Tuple
+from typing import Annotated, List, Optional, Tuple
 
 from pydantic.v1 import BaseModel, Field
 
