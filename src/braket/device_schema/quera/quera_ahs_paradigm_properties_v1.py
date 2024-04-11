@@ -144,13 +144,13 @@ class Rydberg(BaseModel):
     Attributes:
         c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient (measured in
             (rad/s)*m^6)
-        rydbergGlobal: Rydberg Global
-        rydbergLocal: Rydberg Local
+        rydbergGlobal: RydbergGlobal
+        rydbergLocal: Optional[RydbergLocal]
     """
 
     c6Coefficient: Decimal
     rydbergGlobal: RydbergGlobal
-    rydbergLocal: RydbergLocal
+    rydbergLocal: Optional[RydbergLocal]
 
 
 class PerformanceLattice(BaseModel):
