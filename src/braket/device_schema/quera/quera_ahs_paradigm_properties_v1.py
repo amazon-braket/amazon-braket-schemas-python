@@ -377,7 +377,7 @@ class Performance(BaseModel):
     Parameters determining the limitations of the QuEra device
     Attributes:
         performanceLattice (PerformanceLattice): Uncertainties of atomic site arrangements
-        performanceRydberg (PerformanceRydberg): Parameters determining the limitations 
+        performanceRydberg (PerformanceRydberg): Parameters determining the limitations
             the Rydberg simulator
     """
 
