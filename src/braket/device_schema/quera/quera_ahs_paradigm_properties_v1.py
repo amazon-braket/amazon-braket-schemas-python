@@ -109,7 +109,7 @@ class RydbergGlobal(BaseModel):
 
 class RydbergLocal(BaseModel):
     """
-    Constraints for the parameters of the local shifting field
+    Constraints for the parameters of the local detuning
     Attributes:
         detuningRange(Tuple[Decimal,Decimal]):
             Achievable detuning range for the local detuning pattern (measured in rad/s)
@@ -335,7 +335,7 @@ class PerformanceRydbergGlobal(BaseModel):
 
 class PerformanceRydbergLocal(BaseModel):
     """
-    Performance metrics for the local shifting field
+    Performance metrics for the local detuning
     Attributes:
         detuningErrorRms(Decimal):
             Shot-to-shot RMS error on the time component of the local detuning values
@@ -362,7 +362,7 @@ class PerformanceRydbergLocal(BaseModel):
 
 class PerformanceRydberg(BaseModel):
     """
-    Performance metrics of the global driving field and the local
+    Performance metrics of the global driving field and the local detuning
     Attributes:
         rydbergGlobal: Performance of Rydberg Global
         rydbergLocal: Performance of Rydberg Local
