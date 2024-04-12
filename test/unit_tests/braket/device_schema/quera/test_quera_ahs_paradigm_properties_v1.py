@@ -22,6 +22,7 @@ from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import (
     Geometry,
     QueraAhsParadigmProperties,
     RydbergGlobal,
+    RydbergLocal,
 )
 
 
@@ -61,6 +62,15 @@ def valid_input():
                 "timeMin": 0,
                 "timeMax": 4.0e-6,
             },
+            "rydbergLocal": {
+                "detuningRange": [0, 2 * math.pi * 50.0e6],
+                "detuningSlewRateMax": 0.2,
+                "siteCoefficientRange": [0.0, 0.2],
+                "numberLocalDetuningSitesMax": 10,
+                "spacingRadialMin": 0.2,
+                "timeResolution": 1e-9,
+                "timeDeltaMin": 1e-8,
+            },
         },
         "performance": {
             "lattice": {
@@ -90,6 +100,13 @@ def valid_input():
                     "groundPrepError": 0.01,
                     "rydbergPrepErrorBest": 0.05,
                     "rydbergPrepErrorWorst": 0.05,
+                    "rabiFrequencyHomogeneityRel": 0.05,
+                    "rabiFrequencyHomogeneityAbs": 60e3,
+                    "detuningErrorAbs": 2 * math.pi * 10.0e3,
+                    "phaseErrorAbs": 2 * math.pi / 1000,
+                    "omegaTau": 10,
+                    "singleQubitFidelity": 0.95,
+                    "twoQubitFidelity": 0.95,
                     "T1Single": 100e-6,
                     "T1Ensemble": 100e-6,
                     "T2StarSingle": 5e-6,
@@ -108,6 +125,23 @@ def valid_input():
                         {"rampTime": 100e-9, "rabiCorrection": 1.00},
                     ],
                 },
+                "rydbergLocal": {
+                    "detuningErrorRms": 0.2,
+                    "siteCoefficientErrorRms": 0.1,
+                    "errorRateIncoherentBright": 0.2,
+                    "errorRateIncoherentDark": 0.1,
+                    "crosstalk": 0.2,
+                },
+            },
+            "detection": {
+                "atomDetectionFidelity": 0.99,
+                "vacancyDetectionFidelity": 0.999,
+                "groundStateDetectionFidelity": 0.99,
+                "rydbergStateDetectionFidelity": 0.99,
+            },
+            "sorting": {
+                "moveFidelity": 0.98,
+                "patternFidelitySquare": 1e-4,
             },
         },
     }
@@ -189,7 +223,6 @@ def test_invalid_field_in_rydbergGlobal():
         detuningRange=[-2 * math.pi * 20.0e6, 2 * math.pi * 20.0e6],
         detuningSlewRateMax=2 * math.pi * 40.0e6 / 100e-9,
         phaseRange=[-99, 99],
-        phaseSlewRateMax=2 * math.pi / 100e-9,
         timeDiscretization=1e-9,
         timeMax=4.0e-6,
     )
@@ -212,4 +245,41 @@ def test_invalid_field_in_perfomanceRydbergGlobal():
         omegaTau=10,
         singleQubitFidelity=0.95,
         twoQubitFidelity=0.95,
+    )
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_field_in_rydbergLocal():
+    RydbergLocal(
+        detuningRange=[0, 2 * math.pi * 4.0e6],
+        detuningSlewRateMax=2 * math.pi * 4e6 / 100e-9,
+    )
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_invalid_field_in_rydbergLocal():
+    RydbergLocal(
+        detuningRange=[0, 2 * math.pi * 4.0e6],
+        detuningSlewRateMax=2 * math.pi * 4e6 / 100e-9,
+        siteCoefficientRange=[0.0, "foo"],
+        numberLocalDetuningSitesMax=10,
+        spacingRadialMin=0.2,
+        timeResolution=1e-9,
+        timeDeltaMin=5e-8,
+    )
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_missing_field_in_perfomanceRydbergLocal():
+    RydbergLocal(detuningErrorRms=0.01, siteCoefficientErrorRms=0.05)
+
+
+@pytest.mark.xfail(raises=ValidationError)
+def test_invalid_field_in_perfomanceRydbergLocal():
+    RydbergLocal(
+        detuningErrorRms=0.01,
+        siteCoefficientErrorRms=0.05,
+        errorRateIncoherentBright=0.01,
+        errorRateIncoherentDark=0.01,
+        crosstalk="foo",
     )
