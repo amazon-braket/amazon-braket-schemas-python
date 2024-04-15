@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.21.4 (2024-04-15)
+
+### Bug Fixes and Other Changes
+
+ * add Rydberg local schemas
+
 ## v1.21.3 (2024-04-10)
 
 ### Bug Fixes and Other Changes
