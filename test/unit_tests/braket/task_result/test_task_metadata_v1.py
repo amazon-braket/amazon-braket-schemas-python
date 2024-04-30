@@ -60,6 +60,20 @@ def test_correct_metadata_minimum(id, device_id, shots):
                 "version": "1",
             },
         },
+        {
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.iqm.iqm_device_parameters",
+                "version": "1",
+            },
+            "paradigmParameters": {
+                "braketSchemaHeader": {
+                    "name": "braket.device_schema.gate_model_parameters",
+                    "version": "1",
+                },
+                "qubitCount": 1,
+                "disableQubitRewiring": False,
+            },
+        },
     ],
 )
 def test_correct_metadata_all(device_parameters, id, device_id, shots):
