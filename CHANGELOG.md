@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.22.0 (2024-05-22)
+
+### Features
+
+ * add iqm schemas
+
 ## v1.21.4 (2024-04-15)
 
 ### Bug Fixes and Other Changes
