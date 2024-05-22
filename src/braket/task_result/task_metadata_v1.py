@@ -41,7 +41,8 @@ class TaskMetadata(BraketSchemaBase):
         deviceId (str): The ID of the device on which the task ran.
             For AWS devices, this is the device ARN.
         deviceParameters any of (DwaveDeviceParameters, RigettiDeviceParameters,
-            IonqDeviceParameters, GateModelSimulatorDeviceParameters, XanaduDeviceParameters, IqmDeviceParameters).
+            IonqDeviceParameters, GateModelSimulatorDeviceParameters, XanaduDeviceParameters,
+            IqmDeviceParameters).
             The device parameters of the task. Default is None.
         createdAt (str): The timestamp of creation;
             the format must be in ISO-8601/RFC3339 string format YYYY-MM-DDTHH:mm:ss.sssZ.
