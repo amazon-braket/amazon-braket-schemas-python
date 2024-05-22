@@ -22,6 +22,7 @@ from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata
 from braket.task_result.ionq_metadata_v1 import IonQMetadata
+from braket.task_result.iqm_metadata_v1 import IqmMetadata
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.quera_metadata_v1 import QueraMetadata
 from braket.task_result.rigetti_metadata_v1 import RigettiMetadata
@@ -49,6 +50,7 @@ class AdditionalMetadata(BaseModel):
             devices. Default: None.
         simulatorMetadata (Optional[SimulatorQMetadata): Additional metadata for tasks that ran on
             simulator devices. Default: None.
+        iqmMetadata (Optional[IqmMetadata): Additional metadata for tasks that ran on IQM.
 
     Examples:
         >>> AdditionalMetadata(action=OpenQASMProgram(source='OPENQASM3.0; cx $0, $1'))
@@ -62,3 +64,4 @@ class AdditionalMetadata(BaseModel):
     xanaduMetadata: Optional[XanaduMetadata]
     queraMetadata: Optional[QueraMetadata]
     simulatorMetadata: Optional[SimulatorMetadata]
+    iqmMetadata: Optional[IqmMetadata]

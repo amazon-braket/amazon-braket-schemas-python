@@ -64,6 +64,12 @@ def test_additional_metadata_oqc(oqc_metadata, openqasm_program):
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
 
+def test_additional_metadata_iqm(iqm_metadata, openqasm_program):
+    metadata = AdditionalMetadata(action=openqasm_program, iqmMetadata=iqm_metadata)
+    assert metadata.iqmMetadata == iqm_metadata
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
 def test_additional_metadata_quera(quera_metadata, ahs_program):
     metadata = AdditionalMetadata(action=ahs_program, queraMetadata=quera_metadata)
     assert metadata.queraMetadata == quera_metadata

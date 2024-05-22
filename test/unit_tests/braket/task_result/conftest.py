@@ -23,6 +23,7 @@ from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result import IonQMetadata
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
+from braket.task_result.iqm_metadata_v1 import IqmMetadata
 from braket.task_result.oqc_metadata_v1 import OqcMetadata
 from braket.task_result.quera_metadata_v1 import QueraMetadata
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
@@ -106,6 +107,11 @@ def dwave_metadata(active_variables, dwave_timing, braket_schema_header):
 @pytest.fixture
 def oqc_metadata(compiled_program):
     return OqcMetadata(compiledProgram=compiled_program)
+
+
+@pytest.fixture
+def iqm_metadata(compiled_program):
+    return IqmMetadata(compiledProgram=compiled_program)
 
 
 @pytest.fixture
