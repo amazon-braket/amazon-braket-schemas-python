@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.22.1 (2024-09-24)
+
+### Bug Fixes and Other Changes
+
+ * update xanadu tests to use with pytest.raise
+
 ## v1.22.0 (2024-05-22)
 
 ### Features
