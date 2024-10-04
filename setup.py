@@ -29,23 +29,24 @@ setup(
     install_requires=["pydantic>2"],
     extras_require={
         "test": [
-            "black",
-            "flake8",
-            "flake8-rst-docstrings",
-            "isort",
             "jsonschema",
             "numpy",
             "pre-commit",
-            "pylint",
             "pytest",
             "pytest-cov",
             "pytest-rerunfailures",
             "pytest-xdist",
+            "tox",
+        ],
+        "linters": [
+            "ruff",
+            "tox",
+        ],
+        "docs": [
             "sphinx",
             "sphinx-rtd-theme",
             "sphinxcontrib-apidoc",
-            "tox",
-        ]
+        ],
     },
     url="https://github.com/amazon-braket/amazon-braket-schemas-python",
     author="Amazon Web Services",

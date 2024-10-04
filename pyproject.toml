@@ -1,2 +1,9 @@
-[tool.black]
+[tool.ruff]
+target-version = "py39"
 line-length = 100
+lint.isort = { known-first-party = [
+  "braket",
+] }
+lint.extend-select = ["I"]
+lint.preview = true
+
