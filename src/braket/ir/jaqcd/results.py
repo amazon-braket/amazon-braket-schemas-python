@@ -13,11 +13,11 @@
 
 from braket.ir.gate_model_shared.results import (  # noqa: F401
     AdjointGradient,
-    Expectation,
-    Sample,
-    Variance,
-    StateVector,
-    DensityMatrix,
     Amplitude,
+    DensityMatrix,
+    Expectation,
     Probability,
+    Sample,
+    StateVector,
+    Variance,
 )
