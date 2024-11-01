@@ -338,10 +338,10 @@ class PerformanceRydbergLocal(BaseModel):
     Performance metrics for the local detuning
     Attributes:
         detuningErrorRms(Decimal):
-            Shot-to-shot RMS error on the time component of the local detuning values
+            Shot-to-shot relative RMS error on the time component of the local detuning values
             (local detuning waveform)
         siteCoefficientErrorRms(Decimal):
-            Site-to-site RMS error on the spatial component of the local detuning values
+            Site-to-site absolute RMS error on the spatial component of the local detuning values
             (site coefficients)
         errorRateIncoherentBright(Decimal):
             Incoherent error rate for locally-addressed sites at max local detuning
