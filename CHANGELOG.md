@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.22.2 (2024-11-04)
+
+### Bug Fixes and Other Changes
+
+ * Refactoring `jaqcd.results` and `jaqcd.shared_models` to use `gate_model_shared` instead.
+
 ## v1.22.1 (2024-09-24)
 
 ### Bug Fixes and Other Changes
