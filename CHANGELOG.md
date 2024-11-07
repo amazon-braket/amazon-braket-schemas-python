@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.22.3 (2024-11-07)
+
+### Bug Fixes and Other Changes
+
+ * clarify the meaning of PerformanceRydbergLocal attributes
+
 ## v1.22.2 (2024-11-04)
 
 ### Bug Fixes and Other Changes
