@@ -90,7 +90,8 @@ class RydbergGlobal(BaseModel):
         timeDeltaMin(Decimal): Minimum time step with which times for global Rydberg drive
             parameters can be specified (measured in s)
         timeMin (Decimal): Minimum duration of Rydberg drive (measured in s)
-        timeMax (Decimal): Maximum duration of Rydberg drive (measured in s)
+        timeMax (Decimal): Maximum duration of Rydberg drive (measured in s) Note: This may be 
+            longer than the T2 coherence time.
     """
 
     rabiFrequencyRange: Tuple[Decimal, Decimal]
@@ -158,12 +159,13 @@ class PerformanceLattice(BaseModel):
     Uncertainties of atomic site arrangements
     Attributes:
         positionErrorAbs (Decimal): Total error of the atom position during coherent evolution
-            relative to the lab frame, and combines lattice site position and thermal atom position
-            errors. (measured in meters)
+            relative to the lab frame over the course of a 4-microsecond quantum program; it 
+            combines lattice site position and thermal atom position errors. (measured in meters)
         sitePositionError (Decimal): Systematic, pattern-dependent error between specified and
             actual lattice site positions. (measured in meters)
         atomPositionError (Decimal): Random error in the atom position during coherent evolution as
-            a result of thermal motion. (measured in meters)
+            a result of thermal motion over the course of a 4-microsecond quantum program. 
+            (measured in meters)
         fillingErrorTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of failing
             to occupy a site specified by user as 'filled'. These probabilities are dependent on
             the pattern and site position within the pattern. Normalized to 1.
@@ -178,21 +180,25 @@ class PerformanceLattice(BaseModel):
             erroneously filling a site specified by user as 'unfilled'. Upper bound that includes
             the pattern-dependence, site position dependence and time-variation of this
             probability. Normalized to 1.
-        atomLossProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of
-            atom loss from a filled site between the first and second image. These probabilities
-            can be dependent on the pattern and site position within the pattern, and can change
+        atomLossProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability of 
+            atom loss from a filled site over the course of a 4-microsecond quantum program between
+            the first (“pre-sequence”) and second (“post-sequence”) image. These probabilities can
+            be dependent on the pattern and site position within the pattern, and can change 
             slightly with time. Normalized to 1.
         atomLossProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability of
-            atom loss from a filled site between the first and second image. Upper bound that
-            includes the pattern-dependence, site position dependence and time-variation of this
+            atom loss from a filled site over the course of a 4-microsecond quantum program between
+            the first (“pre-sequence”) and second (“post-sequence”) image. Upper bound that 
+            includes the pattern-dependence, site position dependence and time-varition of this 
             probability. Normalized to 1.
-        atomCaptureProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability
-            of atom capture into an empty site between the first and second image. These
+        atomCaptureProbabilityTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical probability 
+            of atom capture into an empty site over the course of a 4-microsecond quantum program 
+            between the first (“pre-sequence”) and second (“post-sequence”) image. These 
             probabilities can be dependent on the pattern and site position within the pattern, and
             can change slightly with time. Normalized to 1.
         atomCaptureProbabilityWorst (Annotated[Decimal, Field(ge=0, le=1)]): Worst-case probability
-            of atom capture into an empty site between the first and second image. Upper bound that
-            includes the pattern-dependence, site position dependence and time-variation of this
+            of atom capture into an empty site over the course of a 4-microsecond quantum program
+            between the first (“pre-sequence”) and second (“post-sequence”) image. Upper bound that
+            includes the pattern-dependence, site position dependence and time-variation of this 
             probability. Normalized to 1.
         atomDetectionErrorFalsePositiveTypical (Annotated[Decimal, Field(ge=0, le=1)]): Typical
             probability of a false-positive atom detection error. These probabilities can be
