@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.22.4 (2024-12-09)
+
+### Bug Fixes and Other Changes
+
+ * Clarify the meaning of aggregate performance metrics in the quera device schema
+
 ## v1.22.3 (2024-11-07)
 
 ### Bug Fixes and Other Changes
