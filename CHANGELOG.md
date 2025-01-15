@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.23.0 (2025-01-15)
+
+### Features
+
+ * add rigetti device properties v2 schemas
+
 ## v1.22.4 (2024-12-09)
 
 ### Bug Fixes and Other Changes
