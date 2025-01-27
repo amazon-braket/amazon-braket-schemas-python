@@ -38,4 +38,4 @@ class DeviceConnectivity(BaseModel):
     """
 
     fullyConnected: bool
-    connectivityGraph: dict
+    connectivityGraph: dict[str, list[str]]
