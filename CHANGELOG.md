@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.23.1 (2025-01-28)
+
+### Bug Fixes and Other Changes
+
+ * constrain device connectivitiy
+
 ## v1.23.0 (2025-01-15)
 
 ### Features
