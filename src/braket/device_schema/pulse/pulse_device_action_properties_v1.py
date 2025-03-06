@@ -1,4 +1,17 @@
-from typing import Dict, Optional
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"). You
+# may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+#     http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file. This file is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+# ANY KIND, either express or implied. See the License for the specific
+# language governing permissions and limitations under the License
+
+from typing import Optional
 
 from pydantic.v1 import AnyUrl, Field
 
@@ -126,12 +139,12 @@ class PulseDeviceActionProperties(BraketSchemaBase):
         name="braket.device_schema.pulse.pulse_device_action_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    supportedQhpTemplateWaveforms: Dict[str, PulseFunction]
-    ports: Dict[str, Port]
-    supportedFunctions: Dict[str, PulseFunction]
-    frames: Optional[Dict[str, Frame]]
+    supportedQhpTemplateWaveforms: dict[str, PulseFunction]
+    ports: dict[str, Port]
+    supportedFunctions: dict[str, PulseFunction]
+    frames: Optional[dict[str, Frame]]
     supportsLocalPulseElements: Optional[bool] = True
     supportsDynamicFrames: Optional[bool] = True
     supportsNonNativeGatesWithPulses: Optional[bool] = False
-    validationParameters: Optional[Dict[str, float]]
+    validationParameters: Optional[dict[str, float]]
     nativeGateCalibrationsRef: Optional[AnyUrl]

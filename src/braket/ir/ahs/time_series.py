@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import List
 
 from pydantic.v1 import BaseModel
 
@@ -22,12 +21,12 @@ class TimeSeries(BaseModel):
     Specifies the TimeSeries, real-valued time series
 
     Attributes:
-        values: List[float]
-        times: List[float], ascending
+        values: list[float]
+        times: list[float], ascending
 
     Examples:
        >>> TimeSeries(values=[-1.25664e8,1.25664e8],times=[0.0,3.0e-6])
     """
 
-    values: List[Decimal]
-    times: List[Decimal]
+    values: list[Decimal]
+    times: list[Decimal]

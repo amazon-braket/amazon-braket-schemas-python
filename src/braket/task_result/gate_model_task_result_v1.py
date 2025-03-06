@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, List, Optional, Union
+from typing import Optional, Union
 
 from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
 
@@ -42,15 +42,15 @@ class GateModelTaskResult(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
-        measurements (List[List[int]]: List of lists, where each list represents a shot
+        measurements (list[list[int]]: List of lists, where each list represents a shot
             and each index of the list represents a qubit. Default is `None`.
-        measurementProbabilities (Dict[str, float]): A dictionary of probabilistic results.
+        measurementProbabilities (dict[str, float]): A dictionary of probabilistic results.
             Key is the measurements in a big endian binary string.
             Value is the probability the measurement occurred.
             Default is `None`.
-        measuredQubits (List[int]): The indices of the measured qubits.
+        measuredQubits (list[int]): The indices of the measured qubits.
             Indicates which qubits are in `measurements`. Default is `None`.
-        resultTypes (List[ResultTypeValue]): Requested result types and their values.
+        resultTypes (list[ResultTypeValue]): Requested result types and their values.
             Default is `None`.
         taskMetadata (TaskMetadata): The task metadata
         additionalMetadata (AdditionalMetadata): Additional metadata of the task
@@ -71,9 +71,9 @@ class GateModelTaskResult(BraketSchemaBase):
     ]
     # fmt: on
     measurementProbabilities: Optional[
-        Dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
+        dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ]
-    resultTypes: Optional[List[ResultTypeValue]]
+    resultTypes: Optional[list[ResultTypeValue]]
     measuredQubits: Optional[conlist(conint(ge=0), min_items=1)]
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

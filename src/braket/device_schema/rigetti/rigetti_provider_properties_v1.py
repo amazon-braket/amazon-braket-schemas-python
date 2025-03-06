@@ -11,8 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict
-
 from pydantic.v1 import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -23,7 +21,7 @@ class RigettiProviderProperties(BraketSchemaBase):
     This defines the parameters common to all Rigetti devices.
 
     Attributes:
-        specs (Dict[str, Dict[str, Dict[str, float]]]): Basic specifications for the device,
+        specs (dict[str, dict[str, dict[str, float]]]): Basic specifications for the device,
             such as gate fidelities and coherence times. More details at
             https://pyquil-docs.rigetti.com/en/stable/apidocs/autogen/pyquil.device.Specs.html
 
@@ -69,4 +67,4 @@ class RigettiProviderProperties(BraketSchemaBase):
         name="braket.device_schema.rigetti.rigetti_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    specs: Dict[str, Dict[str, Dict[str, float]]]
+    specs: dict[str, dict[str, dict[str, float]]]
