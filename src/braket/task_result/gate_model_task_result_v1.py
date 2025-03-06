@@ -32,7 +32,7 @@ class ResultTypeValue(BaseModel):
     """
 
     type: Union[Results]
-    value: Union[List, float, Dict]
+    value: Union[list, float, dict]
 
 
 class GateModelTaskResult(BraketSchemaBase):

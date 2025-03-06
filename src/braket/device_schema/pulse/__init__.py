@@ -17,8 +17,9 @@ from braket.device_schema.pulse.native_gate_calibrations_v1 import (  # noqa: F4
 )
 from braket.device_schema.pulse.port_v1 import Direction, Port  # noqa: F401
 from braket.device_schema.pulse.pulse_device_action_properties_v1 import (  # noqa: F401
-    PulseDeviceActionProperties
+    PulseDeviceActionProperties,
 )
 from braket.device_schema.pulse.pulse_function_v1 import (  # noqa: F401
-    PulseFunction, PulseFunctionArgument
+    PulseFunction,
+    PulseFunctionArgument,
 )
