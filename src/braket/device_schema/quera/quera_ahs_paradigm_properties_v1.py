@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import Annotated, List, Optional, Tuple
+from typing import Annotated, Optional
 
 from pydantic.v1 import BaseModel, Field
 
@@ -70,18 +70,18 @@ class RydbergGlobal(BaseModel):
     Constraints for the parameters of the driving field that drives the
         ground-to-Rydberg transition uniformly on all atoms
     Attributes:
-        rabiFrequencyRange (Tuple[Decimal,Decimal]): Achievable Rabi frequency range for the global
+        rabiFrequencyRange (tuple[Decimal,Decimal]): Achievable Rabi frequency range for the global
             Rydberg drive waveform (measured in rad/s)
         rabiFrequencyResolution (Decimal): Resolution with which global Rabi frequency amplitude
             can be specified (measured in rad/s)
         rabiFrequencySlewRateMax (Decimal): Maximum slew rate for changing the global Rabi
             frequency (measured in (rad/s)/s)
-        detuningRange(Tuple[Decimal,Decimal]): Achievable detuning range for the global Rydberg
+        detuningRange(tuple[Decimal,Decimal]): Achievable detuning range for the global Rydberg
             pulse (measured in rad/s)
         detuningResolution(Decimal): Resolution with which global detuning can be specified
             (measured in rad/s)
         detuningSlewRateMax (Decimal): Maximum slew rate for detuning (measured in (rad/s)/s)
-        phaseRange(Tuple[Decimal,Decimal]): Achievable phase range for the global Rydberg pulse
+        phaseRange(tuple[Decimal,Decimal]): Achievable phase range for the global Rydberg pulse
             (measured in rad)
         phaseResolution(Decimal): Resolution with which global Rabi frequency phase can be
             specified (measured in rad)
@@ -94,13 +94,13 @@ class RydbergGlobal(BaseModel):
             longer than the T2 coherence time.
     """
 
-    rabiFrequencyRange: Tuple[Decimal, Decimal]
+    rabiFrequencyRange: tuple[Decimal, Decimal]
     rabiFrequencyResolution: Decimal
     rabiFrequencySlewRateMax: Decimal
-    detuningRange: Tuple[Decimal, Decimal]
+    detuningRange: tuple[Decimal, Decimal]
     detuningResolution: Decimal
     detuningSlewRateMax: Decimal
-    phaseRange: Tuple[Decimal, Decimal]
+    phaseRange: tuple[Decimal, Decimal]
     phaseResolution: Decimal
     timeResolution: Decimal
     timeDeltaMin: Decimal
@@ -112,11 +112,11 @@ class RydbergLocal(BaseModel):
     """
     Constraints for the parameters of the local detuning
     Attributes:
-        detuningRange(Tuple[Decimal,Decimal]):
+        detuningRange(tuple[Decimal,Decimal]):
             Achievable detuning range for the local detuning pattern (measured in rad/s)
         detuningSlewRateMax(Decimal):
             Maximum slew rate for changing the local detuning (measured in (rad/s)/s)
-        siteCoefficientRange(Tuple[Decimal,Decimal]):
+        siteCoefficientRange(tuple[Decimal,Decimal]):
             Achievable site coefficient range for the local detuning pattern (unitless)
         numberLocalDetuningSitesMax(Decimal):
             Maximum number of sites available for the local detuning pattern
@@ -130,9 +130,9 @@ class RydbergLocal(BaseModel):
             Minimum step between times for local detuning time series (measured in s)
     """
 
-    detuningRange: Tuple[Decimal, Decimal]
+    detuningRange: tuple[Decimal, Decimal]
     detuningSlewRateMax: Decimal
-    siteCoefficientRange: Tuple[Decimal, Decimal]
+    siteCoefficientRange: tuple[Decimal, Decimal]
     numberLocalDetuningSitesMax: Decimal
     spacingRadialMin: Decimal
     timeResolution: Decimal
@@ -311,7 +311,7 @@ class PerformanceRydbergGlobal(BaseModel):
             averaged over the user region. (measured in rad/s)
         detuningInhomogeneity (Decimal): RMS inhomogeneity of the detuning over the user region.
             (measured in rad/s)
-        rabiAmplitudeRampCorrection (List[RabiCorrection]): dynamic correction curve of effective
+        rabiAmplitudeRampCorrection (list[RabiCorrection]): dynamic correction curve of effective
             single-qubit on-resonant Rabi oscillation frequency driven by a triangular amplitude
             waveform, relative to the specified value.
     """
@@ -336,7 +336,7 @@ class PerformanceRydbergGlobal(BaseModel):
     T2BlockadedRabiEnsemble: Decimal
     detuningError: Decimal
     detuningInhomogeneity: Decimal
-    rabiAmplitudeRampCorrection: List[RabiCorrection]
+    rabiAmplitudeRampCorrection: list[RabiCorrection]
 
 
 class PerformanceRydbergLocal(BaseModel):

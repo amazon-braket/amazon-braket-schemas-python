@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 from enum import Enum
-from typing import Any, Dict, Union
+from typing import Any, Union
 
 from pydantic.v1 import Field
 
@@ -21,7 +21,7 @@ from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 class PersistedJobDataFormat(str, Enum):
     """
-    Enum class for the the required formats.
+    Enum class for the required formats.
     """
 
     PLAINTEXT = "plaintext"
@@ -36,7 +36,7 @@ class PersistedJobData(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value.
-        dataDictionary (Dict[str, Any]): Dict representing the data to be persisted.
+        dataDictionary (dict[str, Any]): Dict representing the data to be persisted.
         dataFormat (Union[PersistedJobDataFormat, str]): Data format used for persisting the
             values in `dataDictionary`.
 
@@ -53,5 +53,5 @@ class PersistedJobData(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_PERSISTED_JOB_DATA_HEADER, const=_PERSISTED_JOB_DATA_HEADER
     )
-    dataDictionary: Dict[str, Any]
+    dataDictionary: dict[str, Any]
     dataFormat: Union[PersistedJobDataFormat, str]

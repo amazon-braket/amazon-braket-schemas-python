@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, Optional, Union
+from typing import Optional, Union
 
 from pydantic.v1 import BaseModel, confloat, conint, conlist, constr, root_validator
 
@@ -262,14 +262,14 @@ class MultiProbability(BaseModel):
     """A multi-value-probability parameter set for the Pauli noise channel.
 
     Attributes:
-        probabilities [Dict[str, float]]: The coefficients of the Pauli channel
+        probabilities [dict[str, float]]: The coefficients of the Pauli channel
 
     Examples:
         >>> MultiProbability(probabilities={"X": 0.1})
         >>> MultiProbability(probabilities={"XY": 0.1, "YX": 0.01})
     """
 
-    probabilities: Dict[
+    probabilities: dict[
         constr(regex="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
     ]
 

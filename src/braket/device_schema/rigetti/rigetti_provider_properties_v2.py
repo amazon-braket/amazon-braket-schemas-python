@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, List, Union
+from typing import Union
 
 from pydantic.v1 import Field
 
@@ -23,7 +23,7 @@ class RigettiProviderProperties(BraketSchemaBase):
     This defines the parameters common to all Rigetti devices.
 
     Attributes:
-        specs (Dict[str, Union[str, List, Dict[str, Union[str,List]]]): Basic specifications for the device,
+        specs (dict[str, Union[str, list, dict[str, Union[str,list]]]): Basic specifications for the device,
             such as gate fidelities and coherence times. More details at
             https://docs.api.qcs.rigetti.com/#operation/GetInstructionSetArchitecture
 
@@ -156,4 +156,4 @@ class RigettiProviderProperties(BraketSchemaBase):
         name="braket.device_schema.rigetti.rigetti_provider_properties", version="2"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    specs: Dict[str, Union[str, List, Dict[str, Union[str, List]]]]
+    specs: dict[str, Union[str, list, dict[str, Union[str, list]]]]

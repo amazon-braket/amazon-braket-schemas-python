@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, Optional, Union
+from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -34,7 +34,7 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of an IQM device.
 
     Attributes:
-        action(Dict[Union[DeviceActionType, str],
+        action(dict[Union[DeviceActionType, str],
             Union[OpenQASMDeviceActionProperties]]): Actions that an IQM device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[IqmProviderProperties]): IQM provider specific properties
@@ -47,7 +47,7 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.iqm.iqm_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[
+    action: dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties],
     ]

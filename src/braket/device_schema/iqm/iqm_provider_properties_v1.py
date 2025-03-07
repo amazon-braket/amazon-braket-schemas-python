@@ -11,18 +11,18 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, List, TypeVar, Union
+from typing import TypeVar, Union
 
 from pydantic.v1 import Field
 
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
 
-GateFidelityType = TypeVar("GateFidelityType", bound=Dict[str, Union[str, float]])
-OneQubitType = TypeVar("OneQubitType", bound=Union[float, List[GateFidelityType]])
-TwoQubitType = TypeVar("TwoQubitType", bound=Dict[str, Union[float, Dict[str, int]]])
+GateFidelityType = TypeVar("GateFidelityType", bound=dict[str, Union[str, float]])
+OneQubitType = TypeVar("OneQubitType", bound=Union[float, list[GateFidelityType]])
+TwoQubitType = TypeVar("TwoQubitType", bound=dict[str, Union[float, dict[str, int]]])
 
-QubitType = TypeVar("QubitType", bound=Dict[str, Union[OneQubitType, TwoQubitType]])
+QubitType = TypeVar("QubitType", bound=dict[str, Union[OneQubitType, TwoQubitType]])
 
 
 class IqmProviderProperties(BraketSchemaBase):
@@ -30,7 +30,7 @@ class IqmProviderProperties(BraketSchemaBase):
     This defines the properties common to all the IQM devices.
 
     Attributes:
-        properties (Dict[str, Dict[str, QubitType]]): Basic specifications for
+        properties (dict[str, dict[str, QubitType]]): Basic specifications for
             the device, such as gate fidelities and coherence times.
     """
 
@@ -38,4 +38,4 @@ class IqmProviderProperties(BraketSchemaBase):
         name="braket.device_schema.iqm.iqm_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    properties: Dict[str, Dict[str, QubitType]]
+    properties: dict[str, dict[str, QubitType]]
