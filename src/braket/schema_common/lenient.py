@@ -11,8 +11,8 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Any, Optional, TypeVar, cast
 import warnings
+from typing import Any, Optional, TypeVar, cast
 
 from pydantic.v1 import BaseModel
 from pydantic.v1.fields import ModelField, Undefined
@@ -29,7 +29,7 @@ typing functionality like TypeVar generics.
 Adapted from https://github.com/pydantic/pydantic/issues/2274#issuecomment-788972748
 """
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 class LenientList(list[T]):
@@ -81,8 +81,8 @@ class LenientList(list[T]):
         return parsed
 
 
-K = TypeVar('K')
-V = TypeVar('V')
+K = TypeVar("K")
+V = TypeVar("V")
 
 
 class LenientDict(dict[K, V]):
@@ -116,9 +116,7 @@ class LenientDict(dict[K, V]):
             config=BaseModel.__config__,
         )
         return type(
-            f"LenientDict[{k_name}, {v_name}]",
-            (cls,),
-            {"_field_k": field_k, "_field_v": field_v}
+            f"LenientDict[{k_name}, {v_name}]", (cls,), {"_field_k": field_k, "_field_v": field_v}
         )
 
     @classmethod
