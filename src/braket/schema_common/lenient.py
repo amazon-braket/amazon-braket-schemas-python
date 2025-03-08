@@ -34,19 +34,12 @@ T = TypeVar("T")
 
 class LenientList(list[T]):
     """
-    LenientList[T] is same as List[T], but will skip invalid items instead of raising error
-
-    At some point this behaviour might be implemented in pydantic:
-    https://github.com/samuelcolvin/pydantic/issues/2274
+    A lenient list type that ignores items that fail to be deserialized.
     """
 
     _item_field: ModelField
 
     def __class_getitem__(cls, t_):
-        """
-        Returned type must be subclass of LenientList for validation to work,
-        But it also needs to smell like typing.List[T] for pydantic magic to work properly
-        """
         t_name = getattr(t_, "__name__", None) or t_.__class__.__name__
         item_field = ModelField.infer(
             name="item",
@@ -87,11 +80,7 @@ V = TypeVar("V")
 
 class LenientDict(dict[K, V]):
     """
-    LenientDict[K, V] is like dict[K, V], but will skip invalid items instead of raising an error.
-
-    Note: this is a basic implementation of the dict type, and
-
-    Adapted from https://github.com/pydantic/pydantic/issues/2274#issuecomment-788972748
+    A lenient dict type that ignores keys and values that fail to be deserialized.
     """
 
     _field_k: ModelField
