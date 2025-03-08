@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.23.2 (2025-03-08)
+
+### Bug Fixes and Other Changes
+
+ * Use builtins for type hints
+
 ## v1.23.1 (2025-01-28)
 
 ### Bug Fixes and Other Changes
