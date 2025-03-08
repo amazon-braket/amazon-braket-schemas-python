@@ -25,8 +25,7 @@ from braket.device_schema.openqasm_device_action_properties import OpenQASMDevic
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (
     StandardizedGateModelQpuDeviceProperties,
 )
-from braket.schema_common.schema_base import BraketSchemaBase
-from braket.schema_common.schema_header import BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader, LenientDict
 
 
 class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
@@ -34,12 +33,11 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     This defines the capabilities of an IQM device.
 
     Attributes:
-        action(dict[Union[DeviceActionType, str],
-            Union[OpenQASMDeviceActionProperties]]): Actions that an IQM device can support
+        action(dict[Union[DeviceActionType, str], Union[OpenQASMDeviceActionProperties]]): Actions
+            that an IQM device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[IqmProviderProperties]): IQM provider specific properties
-        standardized
-            (StandardizedGateModelQpuDeviceProperties): Braket standarized device
+        standardized (StandardizedGateModelQpuDeviceProperties): Braket standardized device
             properties for IQM
     """
 
@@ -47,7 +45,7 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.iqm.iqm_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: dict[
+    action: LenientDict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties],
     ]

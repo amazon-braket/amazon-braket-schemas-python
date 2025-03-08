@@ -27,7 +27,7 @@ from braket.device_schema.rigetti.rigetti_provider_properties_v2 import RigettiP
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (
     StandardizedGateModelQpuDeviceProperties,
 )
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader, LenientDict
 
 
 class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
@@ -115,7 +115,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.rigetti.rigetti_device_capabilities", version="2"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: dict[
+    action: LenientDict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
