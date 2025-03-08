@@ -123,7 +123,7 @@ class LenientDict(dict[K, V]):
         for k, v in dict_value.items():
             key, error_k = cls._field_k.validate(k, values, loc=())
             value, error_v = cls._field_v.validate(v, values, loc=())
-            if error_k is not None and error_v is None:
+            if error_k is not None:
                 warnings.warn(
                     f"Invalid key: {key}; please upgrade amazon-braket-schemas. "
                     f"Full error: {error_k}"
