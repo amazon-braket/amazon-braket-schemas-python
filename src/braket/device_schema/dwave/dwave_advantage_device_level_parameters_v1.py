@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import List, Optional
+from typing import Optional
 
 from pydantic.v1 import Field
 
@@ -69,13 +69,13 @@ class DwaveAdvantageDeviceLevelParameters(BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_advantage_device_level_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: Optional[List[float]]
-    annealingSchedule: Optional[List[List[float]]]
+    annealingOffsets: Optional[list[float]]
+    annealingSchedule: Optional[list[list[float]]]
     annealingDuration: Optional[float] = Field(gt=0)
     autoScale: Optional[bool]
     compensateFluxDrift: Optional[bool]
-    fluxBiases: Optional[List[float]]
-    initialState: Optional[List[int]]
+    fluxBiases: Optional[list[float]]
+    initialState: Optional[list[int]]
     maxResults: Optional[int] = Field(gt=0)
     programmingThermalizationDuration: Optional[int]
     readoutThermalizationDuration: Optional[int]

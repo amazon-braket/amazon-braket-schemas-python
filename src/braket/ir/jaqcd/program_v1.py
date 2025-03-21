@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Any, List, Optional, Union
+from typing import Any, Optional, Union
 
 from pydantic.v1 import BaseModel, Field, validator
 
@@ -217,9 +217,9 @@ class Program(BraketSchemaBase):
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    instructions: List[Any]
-    results: Optional[List[Results]]
-    basis_rotation_instructions: Optional[List[Any]]
+    instructions: list[Any]
+    results: Optional[list[Results]]
+    basis_rotation_instructions: Optional[list[Any]]
 
     @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
     def validate_instructions(cls, value, field):
