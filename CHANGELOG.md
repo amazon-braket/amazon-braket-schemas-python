@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.23.3 (2025-03-24)
+
+### Bug Fixes and Other Changes
+
+ * style: update linter to use UP rules
+
 ## v1.23.2 (2025-03-08)
 
 ### Bug Fixes and Other Changes
