@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List
 
 from pydantic.v1 import Field
 
@@ -67,23 +66,23 @@ class DwaveProviderProperties(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     annealingOffsetStep: float
     annealingOffsetStepPhi0: float
-    annealingOffsetRanges: List[List[float]]
-    annealingDurationRange: List[float]
-    couplers: List[List[int]]
+    annealingOffsetRanges: list[list[float]]
+    annealingDurationRange: list[float]
+    couplers: list[list[int]]
     defaultAnnealingDuration: int
     defaultProgrammingThermalizationDuration: int
     defaultReadoutThermalizationDuration: int
-    extendedJRange: List[float]
-    hGainScheduleRange: List[float]
-    hRange: List[float]
-    jRange: List[float]
+    extendedJRange: list[float]
+    hGainScheduleRange: list[float]
+    hRange: list[float]
+    jRange: list[float]
     maximumAnnealingSchedulePoints: int
     maximumHGainSchedulePoints: int
-    perQubitCouplingRange: List[float]
-    programmingThermalizationDurationRange: List[int]
-    qubits: List[int]
+    perQubitCouplingRange: list[float]
+    programmingThermalizationDurationRange: list[int]
+    qubits: list[int]
     qubitCount: int
     quotaConversionRate: float
-    readoutThermalizationDurationRange: List[int]
-    taskRunDurationRange: List[int]
+    readoutThermalizationDurationRange: list[int]
+    taskRunDurationRange: list[int]
     topology: dict

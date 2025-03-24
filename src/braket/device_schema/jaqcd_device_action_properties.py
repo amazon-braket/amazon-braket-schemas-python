@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import List, Optional
+from typing import Optional
 
 from pydantic.v1 import constr
 
@@ -49,6 +49,6 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
     """
 
     actionType: constr(regex=r"^braket\.ir\.jaqcd\.program$")
-    supportedOperations: List[str]
-    supportedResultTypes: Optional[List[ResultType]]
+    supportedOperations: list[str]
+    supportedResultTypes: Optional[list[ResultType]]
     disabledQubitRewiringSupported: Optional[bool] = None

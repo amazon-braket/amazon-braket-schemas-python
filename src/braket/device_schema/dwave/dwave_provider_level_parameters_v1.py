@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -97,15 +97,15 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_provider_level_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: Optional[List[float]]
-    annealingSchedule: Optional[List[List[float]]]
+    annealingOffsets: Optional[list[float]]
+    annealingSchedule: Optional[list[list[float]]]
     annealingDuration: Optional[int] = Field(gt=0)
     autoScale: Optional[bool]
     beta: Optional[float]
-    chains: Optional[List[List[int]]]
+    chains: Optional[list[list[int]]]
     compensateFluxDrift: Optional[bool]
-    fluxBiases: Optional[List[float]]
-    initialState: Optional[List[int]]
+    fluxBiases: Optional[list[float]]
+    initialState: Optional[list[int]]
     maxResults: Optional[int] = Field(gt=0)
     postprocessingType: Optional[Union[PostProcessingType, str]]
     programmingThermalizationDuration: Optional[int]

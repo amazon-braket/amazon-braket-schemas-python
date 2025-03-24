@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, List
 
 from pydantic.v1 import Field
 
@@ -63,11 +62,11 @@ class ContinuousVariableQpuParadigmProperties(BraketSchemaBase):
         name="braket.device_schema.continuous_variable_qpu_paradigm_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    modes: Dict[str, float]
+    modes: dict[str, float]
     layout: str
-    compiler: List[str]
-    supportedLanguages: List[str]
+    compiler: list[str]
+    supportedLanguages: list[str]
     compilerDefault: str
-    nativeGateSet: List[str]
-    gateParameters: Dict[str, List[List[float]]]
+    nativeGateSet: list[str]
+    gateParameters: dict[str, list[list[float]]]
     target: str
