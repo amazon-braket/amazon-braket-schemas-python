@@ -12,7 +12,8 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+import json
+from pydantic import ValidationError
 
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
@@ -34,7 +35,7 @@ def test_correct_metadata_minimum(id, device_id, shots):
     assert metadata.id == id
     assert metadata.deviceId == device_id
     assert metadata.shots == shots
-    assert TaskMetadata.parse_raw(metadata.json()) == metadata
+    assert TaskMetadata.model_validate_json(json.dumps(metadata)) == metadata
 
 
 @pytest.mark.parametrize(
@@ -100,8 +101,8 @@ def test_correct_metadata_all(device_parameters, id, device_id, shots):
     assert metadata.endedAt == endedAt
     assert metadata.status == status
     assert metadata.failureReason == failureReason
-    assert TaskMetadata.parse_raw(metadata.json()) == metadata
-    assert metadata == TaskMetadata.parse_raw_schema(metadata.json())
+    assert TaskMetadata.model_validate_json(metadata.json()) == metadata
+    assert metadata == TaskMetadata.model_validate_json_schema(metadata.json())
 
 
 @pytest.mark.parametrize("shots", [([1, 2]), (-1)])

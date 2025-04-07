@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import Field, conint, conlist
+from pydantic import Annotated, Field, conint, conlist
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -37,11 +37,11 @@ class PhotonicModelTaskResult(BraketSchemaBase):
         name="braket.task_result.photonic_model_task_result", version="1"
     )
 
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_PHOTONIC_MODEL_TASK_RESULT_HEADER, const=_PHOTONIC_MODEL_TASK_RESULT_HEADER
-    )
+    braketSchemaHeader: Annotated[
+        BraketSchemaHeader, Field(default=_PHOTONIC_MODEL_TASK_RESULT_HEADER)
+    ] = Field(default=_PHOTONIC_MODEL_TASK_RESULT_HEADER)
     measurements: Optional[
-        conlist(conlist(conlist(conint(ge=0, le=256), min_items=1), min_items=1), min_items=1)
-    ]
+        conlist(conlist(conlist(conint(ge=0, le=256), min_length=1), min_length=1), min_length=1)
+    ] = Field(default=None)
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

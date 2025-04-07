@@ -11,8 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+from typing import Annotated
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import QueraAhsParadigmProperties
@@ -67,11 +68,13 @@ class QueraDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    "paradigm": {QueraAhsParadigmProperties.schema_json()},
         ...    "deviceParameters": ""
         ... }
-        >>> QueraDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+        >>> QueraDeviceCapabilities.model_validate_json_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.quera.quera_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     paradigm: QueraAhsParadigmProperties

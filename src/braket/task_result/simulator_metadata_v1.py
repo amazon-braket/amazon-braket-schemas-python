@@ -10,8 +10,9 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
+from typing import Literal
 
-from pydantic.v1 import Field, conint
+from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -34,7 +35,7 @@ class SimulatorMetadata(BraketSchemaBase):
     _SIMULATOR_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.simulator_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_SIMULATOR_METADATA_HEADER, const=_SIMULATOR_METADATA_HEADER
+    braketSchemaHeader: Literal[_SIMULATOR_METADATA_HEADER] = Field(
+        default=_SIMULATOR_METADATA_HEADER
     )
     executionDuration: conint(ge=0)

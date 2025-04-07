@@ -15,7 +15,7 @@ import json
 
 import pytest
 from jsonschema import validate
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.dwave import Dwave2000QDeviceLevelParameters, Dwave2000QDeviceParameters
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
@@ -52,7 +52,7 @@ def test_valid(annealing_duration, max_results):
         "resultFormat": "RAW",
         "spinReversalTransformCount": 100,
     }
-    assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+    assert DwaveProviderLevelParameters.model_validate_json_schema(json.dumps(input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -65,7 +65,7 @@ def test_invalid_attribute():
         "annealingOffsets": 1,
     }
     # annealingOffsets should be List[int]
-    DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+    DwaveProviderLevelParameters.model_validate_json_schema(json.dumps(input))
 
 
 def test_2000Q_attribute():
@@ -77,7 +77,9 @@ def test_2000Q_attribute():
         "beta": 123.456,
     }
     # annealingOffsets should be List[int]
-    device_level_params = Dwave2000QDeviceLevelParameters.parse_raw_schema(json.dumps(input))
+    device_level_params = Dwave2000QDeviceLevelParameters.model_validate_json_schema(
+        json.dumps(input)
+    )
     assert device_level_params.beta
     device_parameters = {
         "braketSchemaHeader": {

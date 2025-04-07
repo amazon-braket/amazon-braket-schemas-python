@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Any, Optional, Union
+from typing import Annotated, Any, Optional, Union
 
-from pydantic.v1 import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 from braket.ir.jaqcd.instructions import (
     CV,
@@ -216,13 +216,16 @@ class Program(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     instructions: list[Any]
-    results: Optional[list[Results]]
-    basis_rotation_instructions: Optional[list[Any]]
+    results: Optional[list[Results]] = Field(default=None)
+    basis_rotation_instructions: Optional[list[Any]] = Field(default=None)
 
-    @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
-    def validate_instructions(cls, value, field):
+    @field_validator("instructions", "basis_rotation_instructions", mode="before")
+    @classmethod
+    def validate_instructions(cls, value, info):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has
         2 purposes:
@@ -235,7 +238,7 @@ class Program(BraketSchemaBase):
                 and (value.type not in _valid_noise_channels)
                 and (value.type not in _valid_compiler_directives)
             ):
-                raise ValueError(f"Invalid value.type specified: {value} for field: {field}")
+                raise ValueError(f"Invalid value.type specified: {value} for field: {info}")
             return value
 
         if value is not None and "type" in value:
@@ -246,6 +249,6 @@ class Program(BraketSchemaBase):
             elif value["type"] in _valid_compiler_directives:
                 return _valid_compiler_directives[value["type"]](**value)
             else:
-                raise ValueError(f"Invalid instruction specified: {value} for field: {field}")
+                raise ValueError(f"Invalid instruction specified: {value} for field: {info}")
         else:
-            raise ValueError(f"Invalid type or value specified: {value} for field: {field}")
+            raise ValueError(f"Invalid type or value specified: {value} for field: {info}")

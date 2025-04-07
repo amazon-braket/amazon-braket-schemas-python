@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.schema_common.schema_header import BraketSchemaHeader
 
@@ -36,7 +36,7 @@ def test_schema_header_correct(name, version):
     header = BraketSchemaHeader(name=name, version=version)
     assert header.name == name
     assert header.version == version
-    assert BraketSchemaHeader.parse_raw(header.json()) == header
+    assert BraketSchemaHeader.model_validate_json(header.json()) == header
 
 
 @pytest.mark.xfail(raises=ValidationError)

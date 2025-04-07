@@ -13,7 +13,7 @@
 
 from importlib import import_module
 
-from pydantic.v1 import BaseModel, constr
+from pydantic import BaseModel, ConfigDict, constr
 
 
 class BraketSchemaHeader(BaseModel):
@@ -28,6 +28,7 @@ class BraketSchemaHeader(BaseModel):
         >>> BraketSchemaHeader(name="braket.task_result.annealing_task_result", version="1.0")
     """
 
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     name: constr(min_length=1)
     version: constr(min_length=1, max_length=50)
 

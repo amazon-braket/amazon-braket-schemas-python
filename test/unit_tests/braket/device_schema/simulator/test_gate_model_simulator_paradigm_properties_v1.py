@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (
     GateModelSimulatorParadigmProperties,
@@ -34,16 +34,16 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    assert GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    assert GateModelSimulatorParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_qubitCount(valid_input):
     valid_input.pop("qubitCount")
-    GateModelSimulatorParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorParadigmProperties.model_validate_json_schema(json.dumps(valid_input))

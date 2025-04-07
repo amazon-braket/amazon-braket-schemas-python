@@ -15,7 +15,7 @@ import json
 import math
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import (
     Area,
@@ -149,7 +149,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = QueraAhsParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    result = QueraAhsParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
     assert (
         result.braketSchemaHeader.name == "braket.device_schema.quera.quera_ahs_paradigm_properties"
     )
@@ -159,7 +159,7 @@ def test_valid(valid_input):
 def test_missing_field(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
-        QueraAhsParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+        QueraAhsParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)

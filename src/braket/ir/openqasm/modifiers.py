@@ -14,17 +14,17 @@
 from enum import Enum
 from typing import Optional, Union
 
-from pydantic.v1 import BaseModel, constr
+from pydantic import BaseModel, Field, constr
 
 
 class Control(BaseModel):
-    name: constr(regex=r"^ctrl$")
-    max_qubits: Optional[int] = None  # None indicates no limit
+    name: constr(pattern=r"^ctrl$")
+    max_qubits: Optional[int] = Field(default=None)  # None indicates no limit
 
 
 class NegControl(BaseModel):
-    name: constr(regex=r"^negctrl$")
-    max_qubits: Optional[int] = None  # None indicates no limit
+    name: constr(pattern=r"^negctrl$")
+    max_qubits: Optional[int] = Field(default=None)  # None indicates no limit
 
 
 class ExponentType(str, Enum):
@@ -33,12 +33,12 @@ class ExponentType(str, Enum):
 
 
 class Power(BaseModel):
-    name: constr(regex=r"^pow$")
+    name: constr(pattern=r"^pow$")
     exponent_types: list[ExponentType]
 
 
 class Inverse(BaseModel):
-    name: constr(regex=r"^inv$")
+    name: constr(pattern=r"^inv$")
 
 
 Modifier = Union[Control, NegControl, Power, Inverse]

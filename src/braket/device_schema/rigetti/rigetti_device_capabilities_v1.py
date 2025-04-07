@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -39,7 +39,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
             Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             Rigetti device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties of a Rigetti
-        provider(Optional[RigettiProviderProperties]): Rigetti provider specific properties
+        provider(Optional[RigettiProviderProperties] = Field(default=None)): Rigetti provider specific properties
         standardized
             (StandardizedGateModelQpuDeviceProperties): Braket standarized device
             properties for Rigetti
@@ -107,19 +107,21 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},
         ...    "pulse": {PulseDeviceActionProperties.schema_json()},
         ... }
-        >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+        >>> RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.rigetti.rigetti_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     action: dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[RigettiProviderProperties]
-    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
-    pulse: Optional[PulseDeviceActionProperties]
+    provider: Optional[RigettiProviderProperties] = Field(default=None)
+    standardized: Optional[StandardizedGateModelQpuDeviceProperties] = Field(default=None)
+    pulse: Optional[PulseDeviceActionProperties] = Field(default=None)

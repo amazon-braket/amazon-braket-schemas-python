@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional
+from typing import Annotated, Optional
 
-from pydantic.v1 import Field, confloat, constr
+from pydantic import Field, confloat, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -25,14 +25,14 @@ class IonQMetadata(BraketSchemaBase):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header.
             Users do not need to set this value. Only default is allowed.
-        sharpenedProbabilities (Optional[dict[str, float]]): The histogram of results after
+        sharpenedProbabilities (Optional[dict[str, float] = Field(default=None)]): The histogram of results after
             postprocessing with sharpening. Default: None.
     """
 
     _IONQ_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.ionq_metadata", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_IONQ_METADATA_HEADER, const=_IONQ_METADATA_HEADER
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(default=_IONQ_METADATA_HEADER)] = Field(
+        default=_IONQ_METADATA_HEADER
     )
     sharpenedProbabilities: Optional[
-        dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
+        dict[constr(pattern="^[01]+$", min_length=1), confloat(ge=0, le=1)]
     ] = None

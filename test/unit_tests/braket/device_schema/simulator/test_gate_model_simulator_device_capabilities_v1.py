@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.simulators.gate_model_simulator_device_capabilities_v1 import (
     GateModelSimulatorDeviceCapabilities,
@@ -101,34 +101,34 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    assert GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    assert GateModelSimulatorDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_paradigm(valid_input):
     valid_input.pop("paradigm")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_deviceParameters(valid_input):
     valid_input.pop("deviceParameters")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_service(valid_input):
     valid_input.pop("service")
-    GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    GateModelSimulatorDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))

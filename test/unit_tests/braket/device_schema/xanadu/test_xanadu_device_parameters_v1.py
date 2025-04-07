@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.xanadu.xanadu_device_parameters_v1 import XanaduDeviceParameters
 
@@ -37,17 +37,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = XanaduDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    result = XanaduDeviceParameters.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.xanadu.xanadu_device_parameters"
 
 
 def test_missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
     with pytest.raises(ValidationError):
-        XanaduDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+        XanaduDeviceParameters.model_validate_json_schema(json.dumps(valid_input))
 
 
 def test_missing_paradigmProperties(valid_input):
     valid_input.pop("paradigmParameters")
     with pytest.raises(ValidationError):
-        XanaduDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+        XanaduDeviceParameters.model_validate_json_schema(json.dumps(valid_input))

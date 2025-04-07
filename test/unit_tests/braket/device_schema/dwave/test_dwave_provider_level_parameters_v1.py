@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     DwaveProviderLevelParameters,
@@ -53,7 +53,7 @@ def test_valid(annealing_duration, max_results):
         "resultFormat": "RAW",
         "spinReversalTransformCount": 100,
     }
-    assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+    assert DwaveProviderLevelParameters.model_validate_json_schema(json.dumps(input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -66,4 +66,4 @@ def test_invalid_attribute():
         "annealingOffsets": 1,
     }
     # annealingOffsets should be List[int]
-    DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+    DwaveProviderLevelParameters.model_validate_json_schema(json.dumps(input))

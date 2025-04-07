@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
+from pydantic import Annotated, BaseModel, Field, confloat, conint, conlist, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -71,9 +71,9 @@ class RigettiMetadata(BraketSchemaBase):
     _RIGETTI_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.rigetti_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_RIGETTI_METADATA_HEADER, const=_RIGETTI_METADATA_HEADER
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(default=_RIGETTI_METADATA_HEADER)] = (
+        Field(default=_RIGETTI_METADATA_HEADER)
     )
 
-    nativeQuilMetadata: Optional[NativeQuilMetadata]
+    nativeQuilMetadata: Optional[NativeQuilMetadata] = Field(default=None)
     compiledProgram: constr(min_length=2)

@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.task_metadata_v1 import TaskMetadata
@@ -26,7 +26,7 @@ def test_missing_properties():
 def test_schema_base_correct(braket_schema_header):
     schema = BraketSchemaBase(braketSchemaHeader=braket_schema_header)
     assert schema.braketSchemaHeader == braket_schema_header
-    assert BraketSchemaBase.parse_raw(schema.json()) == schema
+    assert BraketSchemaBase.model_validate_json(schema.json()) == schema
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -41,7 +41,7 @@ def test_import_schema_module():
         shots=1000,
     )
     module = BraketSchemaBase.import_schema_module(schema)
-    assert schema == module.TaskMetadata.parse_raw(schema.json())
+    assert schema == module.TaskMetadata.model_validate_json(schema.json())
 
 
 @pytest.mark.xfail(raises=ModuleNotFoundError)
@@ -54,13 +54,13 @@ def test_import_schema_module_error():
     BraketSchemaBase.import_schema_module(schema)
 
 
-def test_parse_raw_schema():
+def test_model_validate_json_schema():
     schema = TaskMetadata(
         id="test_id",
         deviceId="device_id",
         shots=1000,
     )
-    assert schema == BraketSchemaBase.parse_raw_schema(schema.json())
+    assert schema == BraketSchemaBase.model_validate_json_schema(schema.json())
     assert isinstance(schema, TaskMetadata)
 
 
@@ -123,4 +123,4 @@ def test_get_schema_class_invalid_name():
     ],
 )
 def test_no_header_typos(name):
-    BraketSchemaHeader(name=name, version=1).import_schema_module()
+    BraketSchemaHeader(name=name, version="1").import_schema_module()

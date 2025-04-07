@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
 
@@ -49,36 +49,36 @@ def valid_input_with_getTaskPollInterval(valid_input):
 
 
 def test_valid(valid_input):
-    result = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    result = DeviceServiceProperties.model_validate_json_schema(json.dumps(valid_input))
     assert result.shotsRange == (1, 10)
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    assert DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    assert DeviceServiceProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_executionWindows(valid_input):
     valid_input.pop("executionWindows")
-    assert DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    assert DeviceServiceProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_shots(valid_input):
     valid_input.pop("shotsRange")
-    DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    DeviceServiceProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 def test_parse_valid_input_without_getTaskPollIntervalMillis(valid_input):
     assert "getTaskPollIntervalMillis" not in valid_input
-    service_props = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    service_props = DeviceServiceProperties.model_validate_json_schema(json.dumps(valid_input))
     assert not service_props.getTaskPollIntervalMillis
 
 
 def test_parse_valid_input_with_getTaskPollInterval(valid_input_with_getTaskPollInterval):
-    service_props = DeviceServiceProperties.parse_raw_schema(
+    service_props = DeviceServiceProperties.model_validate_json_schema(
         json.dumps(valid_input_with_getTaskPollInterval)
     )
     assert service_props.getTaskPollIntervalMillis == 200

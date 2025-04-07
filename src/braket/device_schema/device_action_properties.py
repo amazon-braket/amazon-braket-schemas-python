@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import Union
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class DeviceActionType(str, Enum):
@@ -44,7 +44,7 @@ class DeviceActionProperties(BaseModel):
         ...     "actionType": "braket.ir.jaqcd.program",
         ...     "version": ["1"],
         ... }
-        >>> DeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> DeviceActionProperties.model_validate_json(json.dumps(input_json))
     """
 
     version: list[str]

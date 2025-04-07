@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
+from typing import Annotated, Optional
 
-from pydantic.v1 import AnyUrl, Field
+from pydantic import AnyUrl, Field
 
 from braket.device_schema.pulse.frame_v1 import Frame
 from braket.device_schema.pulse.port_v1 import Port
@@ -132,19 +132,21 @@ class PulseDeviceActionProperties(BraketSchemaBase):
         ...         },
         ...         "nativeGateCalibrationsRef": {AnyUrl},
         ...     }
-        >>> PulseDeviceActionProperties.parse_raw_schema(json.dumps(input_json))
+        >>> PulseDeviceActionProperties.model_validate_json_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.pulse.pulse_device_action_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     supportedQhpTemplateWaveforms: dict[str, PulseFunction]
     ports: dict[str, Port]
     supportedFunctions: dict[str, PulseFunction]
-    frames: Optional[dict[str, Frame]]
-    supportsLocalPulseElements: Optional[bool] = True
-    supportsDynamicFrames: Optional[bool] = True
-    supportsNonNativeGatesWithPulses: Optional[bool] = False
-    validationParameters: Optional[dict[str, float]]
-    nativeGateCalibrationsRef: Optional[AnyUrl]
+    frames: Optional[dict[str, Frame]] = Field(default=None)
+    supportsLocalPulseElements: Optional[bool] = Field(default=True)
+    supportsDynamicFrames: Optional[bool] = Field(default=True)
+    supportsNonNativeGatesWithPulses: Optional[bool] = Field(default=False)
+    validationParameters: Optional[dict[str, float]] = Field(default=None)
+    nativeGateCalibrationsRef: Optional[AnyUrl] = Field(default=None)

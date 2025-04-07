@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.task_result.analog_hamiltonian_simulation_task_result_v1 import (
     AnalogHamiltonianSimulationShotMeasurement,
@@ -132,8 +132,8 @@ def test_correct_analogHamiltonianSimulationTaskResult(
     assert result.taskMetadata == task_metadata
     assert result.measurements == ahs_measurements
     assert result.additionalMetadata == additional_metadata_ahs
-    assert AnalogHamiltonianSimulationTaskResult.parse_raw(result.json()) == result
-    assert result == AnalogHamiltonianSimulationTaskResult.parse_raw_schema(result.json())
+    assert AnalogHamiltonianSimulationTaskResult.model_validate_json(result.json()) == result
+    assert result == AnalogHamiltonianSimulationTaskResult.model_validate_json_schema(result.json())
 
 
 def test_optional_value_analogHamiltonianSimulationTaskResult(task_metadata):
@@ -141,8 +141,8 @@ def test_optional_value_analogHamiltonianSimulationTaskResult(task_metadata):
         taskMetadata=task_metadata,
     )
     assert result.taskMetadata == task_metadata
-    assert AnalogHamiltonianSimulationTaskResult.parse_raw(result.json()) == result
-    assert result == AnalogHamiltonianSimulationTaskResult.parse_raw_schema(result.json())
+    assert AnalogHamiltonianSimulationTaskResult.model_validate_json(result.json()) == result
+    assert result == AnalogHamiltonianSimulationTaskResult.model_validate_json_schema(result.json())
 
 
 @pytest.mark.xfail(raises=ValidationError)

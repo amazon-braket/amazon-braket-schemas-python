@@ -14,7 +14,7 @@
 from decimal import Decimal
 from typing import Annotated, Optional
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -146,12 +146,12 @@ class Rydberg(BaseModel):
         c6Coefficient (Decimal): Rydberg-Rydberg C6 interaction coefficient (measured in
             (rad/s)*m^6)
         rydbergGlobal (RydbergGlobal): Rydberg Global
-        rydbergLocal (Optional[RydbergLocal]): Rydberg Local. Defaults to None.
+        rydbergLocal (Optional[RydbergLocal] = Field(default=None)): Rydberg Local. Defaults to None.
     """
 
     c6Coefficient: Decimal
     rydbergGlobal: RydbergGlobal
-    rydbergLocal: Optional[RydbergLocal] = None
+    rydbergLocal: Optional[RydbergLocal] = Field(default=None)
 
 
 class PerformanceLattice(BaseModel):
@@ -371,11 +371,11 @@ class PerformanceRydberg(BaseModel):
     Performance metrics of the global driving field and the local detuning
     Attributes:
         rydbergGlobal (PerformanceRydbergGlobal): Performance of Rydberg Global
-        rydbergLocal (Optional[PerformanceRydbergLocal]): Performance of Rydberg Local
+        rydbergLocal (Optional[PerformanceRydbergLocal] = Field(default=None)): Performance of Rydberg Local
     """
 
     rydbergGlobal: PerformanceRydbergGlobal
-    rydbergLocal: Optional[PerformanceRydbergLocal] = None
+    rydbergLocal: Optional[PerformanceRydbergLocal] = Field(default=None)
 
 
 class Performance(BaseModel):
@@ -512,13 +512,15 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
         ...         },
         ...     },
         ... }
-        >>> QueraAhsParadigmProperties.parse_raw_schema(json.dumps(input_json))
+        >>> QueraAhsParadigmProperties.model_validate_json_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.quera.quera_ahs_paradigm_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     qubitCount: int
     lattice: Lattice
     rydberg: Rydberg

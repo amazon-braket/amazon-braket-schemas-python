@@ -12,9 +12,9 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Union
+from typing import Annotated, Union
 
-from pydantic.v1 import Field, conint
+from pydantic import ConfigDict, Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -45,8 +45,11 @@ class Problem(BraketSchemaBase):
         >>> Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={"0,5": 0.667})
     """
 
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     _PROBLEM_HEADER = BraketSchemaHeader(name="braket.ir.annealing.problem", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER, const=_PROBLEM_HEADER)
+    braketSchemaHeader: Annotated[_PROBLEM_HEADER, Field(default=_PROBLEM_HEADER)] = Field(
+        default=_PROBLEM_HEADER
+    )
     type: Union[ProblemType, str]
     linear: dict[conint(ge=0), float]
     quadratic: dict[str, float]

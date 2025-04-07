@@ -12,9 +12,9 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Optional
+from typing import Annotated, Optional
 
-from pydantic.v1 import BaseModel, Field, confloat
+from pydantic import BaseModel, Field, confloat
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -38,27 +38,27 @@ class FidelityType(BaseModel):
     """
 
     name: str
-    description: Optional[str]
+    description: Optional[str] = Field(default=None)
 
 
 class GateFidelity2Q(BaseModel):
     """
     Describes the fidelity of two-qubit pairing
     Attributes:
-        direction (Optional[dict[QubitDirection, int]]): Describes which qubit is
+        direction (Optional[dict[QubitDirection, int] = Field(default=None)]): Describes which qubit is
             control/target for the pair. If direction is None the pair is considered
             bi-directional.
         gateName (str): the 2-qubit gate that the fidelity measurement was performed on
         fidelity (float): the fidelity value
-        standardError (Optional[float]): Describes the error value on the fidelity measurement
+        standardError (Optional[float] = Field(default=None)): Describes the error value on the fidelity measurement
         fidelityType (FidelityType): The fidelity measurement technique used
             for the presented value
     """
 
-    direction: Optional[dict[QubitDirection, int]] = None
+    direction: Optional[dict[QubitDirection, int]] = Field(default=None)
     gateName: str
     fidelity: confloat(ge=0, le=1)
-    standardError: Optional[confloat(ge=0, le=1)] = None
+    standardError: Optional[confloat(ge=0, le=1)] = Field(default=None)
     fidelityType: FidelityType
 
 
@@ -79,13 +79,13 @@ class Fidelity1Q(BaseModel):
         fidelityType (FidelityType): The fidelity measurement technique used
             for the presented value
         fidelity (float): The measured fidelity value
-        standardError (Optional[float]) The expected error value reported
+        standardError (Optional[float] = Field(default=None)) The expected error value reported
             on the measurement
     """
 
     fidelityType: FidelityType
     fidelity: confloat(ge=0, le=1)
-    standardError: Optional[confloat(ge=0, le=1)] = None
+    standardError: Optional[confloat(ge=0, le=1)] = Field(default=None)
 
 
 class CoherenceTime(BaseModel):
@@ -98,7 +98,7 @@ class CoherenceTime(BaseModel):
     """
 
     value: float
-    standardError: Optional[float]
+    standardError: Optional[float] = Field(default=None)
     unit: str
 
 
@@ -194,12 +194,14 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
         ...             },
         ...         },
         ...     }
-        >>> StandardizedGateModelQpuDeviceProperties.parse_raw_schema(json.dumps(valid_input))
+        >>> StandardizedGateModelQpuDeviceProperties.model_validate_json_schema(json.dumps(valid_input))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.standardized_gate_model_qpu_device_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(default=_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     oneQubitProperties: dict[str, OneQubitProperties]
     twoQubitProperties: dict[str, TwoQubitProperties]

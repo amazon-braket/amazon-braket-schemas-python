@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
+from typing import Literal, Optional
 
-from pydantic.v1 import BaseModel, Field, conint, conlist
+from pydantic import BaseModel, Field, conint, conlist
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -28,19 +28,19 @@ class DwaveTiming(BaseModel):
         >>> DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
     """
 
-    qpuSamplingTime: Optional[conint(ge=0)]
-    qpuAnnealTimePerSample: Optional[conint(ge=0)]
-    qpuAccessTime: Optional[conint(ge=0)]
-    qpuAccessOverheadTime: Optional[conint(ge=0)]
-    qpuReadoutTimePerSample: Optional[conint(ge=0)]
-    qpuProgrammingTime: Optional[conint(ge=0)]
-    qpuDelayTimePerSample: Optional[conint(ge=0)]
-    postProcessingOverheadTime: Optional[conint(ge=0)]
-    totalPostProcessingTime: Optional[conint(ge=0)]
-    totalRealTime: Optional[conint(ge=0)]
-    runTimeChip: Optional[conint(ge=0)]
-    annealTimePerRun: Optional[conint(ge=0)]
-    readoutTimePerRun: Optional[conint(ge=0)]
+    qpuSamplingTime: Optional[conint(ge=0)] = Field(default=None)
+    qpuAnnealTimePerSample: Optional[conint(ge=0)] = Field(default=None)
+    qpuAccessTime: Optional[conint(ge=0)] = Field(default=None)
+    qpuAccessOverheadTime: Optional[conint(ge=0)] = Field(default=None)
+    qpuReadoutTimePerSample: Optional[conint(ge=0)] = Field(default=None)
+    qpuProgrammingTime: Optional[conint(ge=0)] = Field(default=None)
+    qpuDelayTimePerSample: Optional[conint(ge=0)] = Field(default=None)
+    postProcessingOverheadTime: Optional[conint(ge=0)] = Field(default=None)
+    totalPostProcessingTime: Optional[conint(ge=0)] = Field(default=None)
+    totalRealTime: Optional[conint(ge=0)] = Field(default=None)
+    runTimeChip: Optional[conint(ge=0)] = Field(default=None)
+    annealTimePerRun: Optional[conint(ge=0)] = Field(default=None)
+    readoutTimePerRun: Optional[conint(ge=0)] = Field(default=None)
 
 
 class DwaveMetadata(BraketSchemaBase):
@@ -61,8 +61,6 @@ class DwaveMetadata(BraketSchemaBase):
     _DWAVE_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.dwave_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_DWAVE_METADATA_HEADER, const=_DWAVE_METADATA_HEADER
-    )
+    braketSchemaHeader: Literal[_DWAVE_METADATA_HEADER] = Field(default=_DWAVE_METADATA_HEADER)
     activeVariables: conlist(conint(ge=0))
     timing: DwaveTiming

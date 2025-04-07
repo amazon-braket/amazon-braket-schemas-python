@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.oqc.oqc_device_parameters_v1 import OqcDeviceParameters
 
@@ -38,7 +38,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = OqcDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    result = OqcDeviceParameters.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.oqc.oqc_device_parameters"
 
 
@@ -46,4 +46,4 @@ def test_valid(valid_input):
 def test__missing_paradigmProperties(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
-        OqcDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+        OqcDeviceParameters.model_validate_json_schema(json.dumps(valid_input))

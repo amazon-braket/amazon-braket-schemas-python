@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
 
@@ -28,7 +28,7 @@ def test_valid():
         "qubitCount": 1,
         "disableQubitRewiring": True,
     }
-    result = GateModelParameters.parse_raw_schema(json.dumps(input))
+    result = GateModelParameters.model_validate_json_schema(json.dumps(input))
     assert result.qubitCount == 1
     assert result.disableQubitRewiring
 
@@ -41,14 +41,14 @@ def test_no_qubit_rewiring_unspecified():
         },
         "qubitCount": 1,
     }
-    result = GateModelParameters.parse_raw_schema(json.dumps(input))
+    result = GateModelParameters.model_validate_json_schema(json.dumps(input))
     assert not result.disableQubitRewiring
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_header():
     input = "{} "
-    assert GateModelParameters.parse_raw_schema(input)
+    assert GateModelParameters.model_validate_json_schema(input)
 
 
 def test_string_for_int_value():
@@ -60,5 +60,5 @@ def test_string_for_int_value():
         "qubitCount": "1",
     }
     with pytest.raises(ValidationError) as e:
-        GateModelParameters.parse_raw_schema(json.dumps(input))
+        GateModelParameters.model_validate_json_schema(json.dumps(input))
     assert "value is not a valid integer" in str(e.value)

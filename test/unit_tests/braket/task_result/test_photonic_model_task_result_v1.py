@@ -12,7 +12,8 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+import json
+from pydantic import ValidationError
 
 from braket.task_result.photonic_model_task_result_v1 import PhotonicModelTaskResult
 
@@ -60,8 +61,8 @@ def test_correct_result_measurements(
     assert result.measurements == measurements
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_photonic_model
-    assert PhotonicModelTaskResult.parse_raw(result.json()) == result
-    assert result == PhotonicModelTaskResult.parse_raw_schema(result.json())
+    assert PhotonicModelTaskResult.model_validate_json(json.dumps(result)) == result
+    assert result == PhotonicModelTaskResult.model_validate_json_schema(json.dumps(result))
 
 
 @pytest.mark.parametrize(

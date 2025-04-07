@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.annealing.problem_v1 import Problem, ProblemType
 
@@ -26,8 +26,8 @@ def test_creation():
     assert problem.type == ProblemType.QUBO
     assert problem.linear == {0: 0.3333, 1: -0.333, 4: -0.333, 5: 0.333}
     assert problem.quadratic == {"0,4": 0.667, "0,5": -1, "1,4": 0.667, "1,5": 0.667}
-    assert Problem.parse_raw(problem.json()) == problem
-    assert problem == Problem.parse_raw_schema(problem.json())
+    assert Problem.model_validate_json(problem.json()) == problem
+    assert problem == Problem.model_validate_json_schema(problem.json())
 
 
 @pytest.mark.xfail(raises=ValidationError)

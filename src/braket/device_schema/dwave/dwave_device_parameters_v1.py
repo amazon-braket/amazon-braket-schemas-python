@@ -10,9 +10,9 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.dwave.dwave_2000Q_device_level_parameters_v1 import (
     Dwave2000QDeviceLevelParameters,
@@ -47,14 +47,16 @@ class DwaveDeviceParameters(BraketSchemaBase):
         ...         "beta": 1,
         ...     }
         ... }
-        >>> DwaveDeviceParameters.parse_raw_schema(json.dumps(input_json))
+        >>> DwaveDeviceParameters.model_validate_json_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_device_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    providerLevelParameters: Optional[DwaveProviderLevelParameters]
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
+    providerLevelParameters: Optional[DwaveProviderLevelParameters] = Field(default=None)
     deviceLevelParameters: Optional[
         Union[DwaveAdvantageDeviceLevelParameters, Dwave2000QDeviceLevelParameters]
-    ]
+    ] = Field(default=None)

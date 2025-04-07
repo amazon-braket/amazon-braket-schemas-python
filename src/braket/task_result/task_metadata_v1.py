@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic.v1 import Field, conint, constr
+from pydantic import Annotated, Field, conint, constr
 
 from braket.device_schema.dwave import (
     Dwave2000QDeviceParameters,
@@ -60,8 +60,8 @@ class TaskMetadata(BraketSchemaBase):
 
     _TASK_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.task_metadata", version="1")
 
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_TASK_METADATA_HEADER, const=_TASK_METADATA_HEADER
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(default=_TASK_METADATA_HEADER)] = Field(
+        default=_TASK_METADATA_HEADER
     )
     id: constr(min_length=1)
     shots: conint(ge=0)
@@ -79,7 +79,7 @@ class TaskMetadata(BraketSchemaBase):
             IqmDeviceParameters,
         ]
     ]
-    createdAt: Optional[constr(min_length=1, max_length=24)]
-    endedAt: Optional[constr(min_length=1, max_length=24)]
-    status: Optional[constr(min_length=1, max_length=20)]
-    failureReason: Optional[constr(min_length=1)]
+    createdAt: Optional[constr(min_length=1, max_length=24)] = Field(default=None)
+    endedAt: Optional[constr(min_length=1, max_length=24)] = Field(default=None)
+    status: Optional[constr(min_length=1, max_length=20)] = Field(default=None)
+    failureReason: Optional[constr(min_length=1)] = Field(default=None)

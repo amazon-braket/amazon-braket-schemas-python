@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema import GateModelParameters
 from braket.device_schema.error_mitigation import Debias
@@ -41,7 +41,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    result = IonqDeviceParameters.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_parameters"
     assert result.errorMitigation is None
 
@@ -50,12 +50,12 @@ def test_error_mitigation(valid_input):
     params = IonqDeviceParameters(paradigmParameters=PARADIGM, errorMitigation=[Debias()])
     em_str = "braket.device_schema.error_mitigation.debias.Debias"
     valid_input["errorMitigation"] = [{"type": em_str}]
-    result = IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    result = IonqDeviceParameters.model_validate_json_schema(json.dumps(valid_input))
     assert params.errorMitigation == result.errorMitigation
 
 
 @pytest.mark.parametrize(
-    "extra", ["blah", GateModelParameters.parse_raw_schema(json.dumps(PARADIGM))]
+    "extra", ["blah", GateModelParameters.model_validate_json_schema(json.dumps(PARADIGM))]
 )
 def test_invalid_error_mitigation(extra):
     with pytest.raises(ValueError):
@@ -65,10 +65,10 @@ def test_invalid_error_mitigation(extra):
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParameters.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_paradigmProperties(valid_input):
     valid_input.pop("paradigmParameters")
-    IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceParameters.model_validate_json_schema(json.dumps(valid_input))

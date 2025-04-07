@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 from test_common import (
     create_class_instance,
     create_switcher,
@@ -158,7 +158,7 @@ def test_valid_json(testclass, subclasses, type):
     json_raw = json.dumps(json_obj)
     instruction = create_valid_class_instance(testclass, subclasses, type)
     assert json.loads(instruction.json()) == json_obj
-    assert testclass.parse_raw(json_raw) == instruction
+    assert testclass.model_validate_json(json_raw) == instruction
 
 
 @pytest.mark.parametrize("testclass,subclasses,type", testdata, ids=idfn)

@@ -13,7 +13,7 @@
 
 from typing import Union
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
@@ -68,7 +68,7 @@ class DeviceCapabilities(BaseModel):
         ...    },
         ...    "deviceParameters": {#Schema of specific device parameter instance},
         ... }
-        >>> DeviceCapabilities.parse_raw(json.dumps(input_json))
+        >>> DeviceCapabilities.model_validate_json(json.dumps(input_json))
     """
 
     service: DeviceServiceProperties

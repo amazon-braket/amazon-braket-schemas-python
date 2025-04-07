@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.blackbird_device_action_properties import BlackbirdDeviceActionProperties
 from braket.device_schema.continuous_variable_qpu_paradigm_properties_v1 import (
@@ -34,7 +34,7 @@ class XanaduDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
             Union[BlackbirdDeviceActionProperties]]): Actions that a
             Xanadu device can support
         paradigm(ContinuousVariableQpuParadigmProperties): Paradigm properties of a Xanadu device
-        provider(Optional[XanaduProviderProperties]): Xanadu provider specific properties
+        provider(Optional[XanaduProviderProperties] = Field(default=None)): Xanadu provider specific properties
 
     Examples:
         >>> import json
@@ -90,17 +90,19 @@ class XanaduDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    },
         ...    "deviceParameters": {XanaduDeviceParameters.schema_json()},
         ... }
-        >>> XanaduDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+        >>> XanaduDeviceCapabilities.model_validate_json_schema(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.xanadu.xanadu_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     action: dict[
         Union[DeviceActionType, str],
         Union[BlackbirdDeviceActionProperties],
     ]
     paradigm: ContinuousVariableQpuParadigmProperties
-    provider: Optional[XanaduProviderProperties]
+    provider: Optional[XanaduProviderProperties] = Field(default=None)

@@ -10,8 +10,7 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
-
-from pydantic.v1 import Field
+from pydantic import ConfigDict, Field
 
 from braket.device_schema.dwave.dwave_2000Q_device_level_parameters_v1 import (
     Dwave2000QDeviceLevelParameters,
@@ -27,8 +26,9 @@ class Dwave2000QDeviceParameters(BraketSchemaBase):
         deviceLevelParameters: Parameters that are specific to this D-Wave device.
     """
 
+    model_config = ConfigDict(arbitrary_types_allowed=True)
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_2000Q_device_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: _PROGRAM_HEADER = Field(default=_PROGRAM_HEADER)
     deviceLevelParameters: Dwave2000QDeviceLevelParameters

@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.error_mitigation import Debias
 from braket.device_schema.ionq.ionq_device_capabilities_v1 import IonqDeviceCapabilities
@@ -131,7 +131,7 @@ openqasm_valid_input = {
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 def test_valid(valid_input):
-    result = IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = IonqDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
 
 
@@ -156,39 +156,39 @@ def test_valid_provider(valid_input):
     }
     result = IonqDeviceCapabilities.parse_obj(valid_input)
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
-    assert result == IonqDeviceCapabilities.parse_raw(result.json())
+    assert result == IonqDeviceCapabilities.model_validate_json(result.json())
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_paradigm(valid_input):
     valid_input.pop("paradigm")
-    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_deviceParameters(valid_input):
     valid_input.pop("deviceParameters")
-    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")
-    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_service(valid_input):
     valid_input.pop("service")
-    IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    IonqDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))

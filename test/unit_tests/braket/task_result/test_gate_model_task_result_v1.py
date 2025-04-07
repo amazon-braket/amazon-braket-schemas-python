@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.jaqcd.results import Probability
 from braket.task_result.gate_model_task_result_v1 import GateModelTaskResult, ResultTypeValue
@@ -79,8 +79,8 @@ def test_correct_result_measurements(
     assert result.measuredQubits == measured_qubits
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_gate_model
-    assert GateModelTaskResult.parse_raw(result.json()) == result
-    assert result == GateModelTaskResult.parse_raw_schema(result.json())
+    assert GateModelTaskResult.model_validate_json(result.json()) == result
+    assert result == GateModelTaskResult.model_validate_json_schema(result.json())
 
 
 def test_correct_result_measurement_probabilities(
@@ -96,7 +96,7 @@ def test_correct_result_measurement_probabilities(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.measurementProbabilities == measurement_probabilities
-    assert GateModelTaskResult.parse_raw(result.json()) == result
+    assert GateModelTaskResult.model_validate_json(result.json()) == result
 
 
 def test_correct_result_types(
@@ -112,7 +112,7 @@ def test_correct_result_types(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.resultTypes == result_types
-    assert GateModelTaskResult.parse_raw(result.json()) == result
+    assert GateModelTaskResult.model_validate_json(result.json()) == result
 
 
 @pytest.mark.parametrize("measured_qubits", [([]), ([-1])])

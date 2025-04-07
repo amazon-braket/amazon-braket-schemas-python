@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PulseFunctionArgument(BaseModel):
@@ -30,7 +30,7 @@ class PulseFunctionArgument(BaseModel):
     name: str
     type: str
     optional: bool = False
-    description: Optional[str]
+    description: Optional[str] = Field(default=None)
 
 
 class PulseFunction(BaseModel):
@@ -46,4 +46,4 @@ class PulseFunction(BaseModel):
 
     functionName: str
     arguments: list[PulseFunctionArgument]
-    returnType: Optional[str]
+    returnType: Optional[str] = Field(default=None)

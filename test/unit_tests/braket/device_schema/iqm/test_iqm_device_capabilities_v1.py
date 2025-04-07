@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.iqm.iqm_device_capabilities_v1 import IqmDeviceCapabilities
 
@@ -858,7 +858,7 @@ openqasm_valid_input = {
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input])
 def test_valid(valid_input):
-    result = IqmDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = IqmDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.iqm.iqm_device_capabilities"
 
 
@@ -869,4 +869,4 @@ def test_valid(valid_input):
 def test_missing_paradigm(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
-        IqmDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+        IqmDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))

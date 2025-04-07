@@ -29,7 +29,7 @@ default_role = "py:obj"
 html_theme = "sphinx_rtd_theme"
 htmlhelp_basename = "{}doc".format(project)
 
-napoleon_use_rtype = False
+napoleon_use_rtype: Type = False
 
 apidoc_module_dir = "../src/braket"
 apidoc_output_dir = "_apidoc"

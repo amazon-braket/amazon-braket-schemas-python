@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.pulse.pulse_device_action_properties_v1 import PulseDeviceActionProperties
 
@@ -207,7 +207,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = PulseDeviceActionProperties.parse_raw_schema(json.dumps(valid_input))
+    result = PulseDeviceActionProperties.model_validate_json_schema(json.dumps(valid_input))
     assert (
         result.braketSchemaHeader.name
         == "braket.device_schema.pulse.pulse_device_action_properties"
@@ -218,4 +218,4 @@ def test_valid(valid_input):
 def test_missing_field(valid_input, missing_field):
     with pytest.raises(ValidationError):
         valid_input.pop(missing_field)
-        PulseDeviceActionProperties.parse_raw_schema(json.dumps(valid_input))
+        PulseDeviceActionProperties.model_validate_json_schema(json.dumps(valid_input))

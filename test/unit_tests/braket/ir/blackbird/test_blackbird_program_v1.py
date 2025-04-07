@@ -11,7 +11,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.blackbird import Program as BlackbirdProgram
 
@@ -34,7 +34,7 @@ def test_parse_obj():
     assert program == BlackbirdProgram.parse_obj(program.dict())
 
 
-def test_parse_raw():
+def test_model_validate_json():
     source = "testsource"
     program = BlackbirdProgram(source=source)
-    assert program == BlackbirdProgram.parse_raw(program.json())
+    assert program == BlackbirdProgram.model_validate_json(program.json())

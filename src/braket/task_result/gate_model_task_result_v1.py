@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
+from pydantic import BaseModel, Field, confloat, conint, conlist, constr
 
 from braket.ir.jaqcd.program_v1 import Results
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -60,20 +60,20 @@ class GateModelTaskResult(BraketSchemaBase):
         name="braket.task_result.gate_model_task_result", version="1"
     )
 
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
-    )
+    braketSchemaHeader: Annotated[
+        BraketSchemaHeader, Field(default=_GATE_MODEL_TASK_RESULT_HEADER)
+    ] = Field(default=_GATE_MODEL_TASK_RESULT_HEADER)
     # fmt: off
     measurements: Optional[
         Union[
-            conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1),
+            conlist(conlist(conint(ge=0, le=1), min_length=1), min_length=1),
         ]
-    ]
+    ] = Field(default=None)
     # fmt: on
     measurementProbabilities: Optional[
-        dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)]
-    ]
-    resultTypes: Optional[list[ResultTypeValue]]
-    measuredQubits: Optional[conlist(conint(ge=0), min_items=1)]
+        dict[constr(pattern="^[01]+$", min_length=1), confloat(ge=0, le=1)]
+    ] = Field(default=None)
+    resultTypes: Optional[list[ResultTypeValue]] = Field(default=None)
+    measuredQubits: Optional[conlist(conint(ge=0), min_length=1)] = Field(default=None)
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

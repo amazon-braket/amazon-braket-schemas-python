@@ -10,8 +10,9 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
+from typing import Literal
 
-from pydantic.v1 import Field, conint
+from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -32,8 +33,6 @@ class QueraMetadata(BraketSchemaBase):
     _QUERA_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.quera_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_QUERA_METADATA_HEADER, const=_QUERA_METADATA_HEADER
-    )
+    braketSchemaHeader: Literal[_QUERA_METADATA_HEADER] = Field(default=_QUERA_METADATA_HEADER)
 
     numSuccessfulShots: conint(ge=0, le=1000)

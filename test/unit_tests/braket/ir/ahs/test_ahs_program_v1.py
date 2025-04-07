@@ -14,7 +14,7 @@
 from decimal import Decimal
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.ahs.program_v1 import Program
 
@@ -79,8 +79,8 @@ def test_valid(valid_hamiltonian_input):
         setup=valid_setup_input,
         hamiltonian=valid_hamiltonian_input,
     )
-    assert Program.parse_raw_schema(program.json()) == program
-    assert program == Program.parse_raw_schema(program.json())
+    assert Program.model_validate_json_schema(program.json()) == program
+    assert program == Program.model_validate_json_schema(program.json())
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -108,7 +108,7 @@ def test_correct_decimal_serialization(valid_hamiltonian_input):
     program.hamiltonian.drivingFields[0].amplitude.time_series.values = [Decimal(0.0)] * 8
 
     serialized_program = program.json()
-    deserialized_program = Program.parse_raw(serialized_program)
+    deserialized_program = Program.model_validate_json(serialized_program)
 
     original_amplitude_times = program.hamiltonian.drivingFields[0].amplitude.time_series.times
     new_amplitude_times = deserialized_program.hamiltonian.drivingFields[

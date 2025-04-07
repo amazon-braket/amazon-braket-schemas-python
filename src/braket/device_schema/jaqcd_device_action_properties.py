@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import constr
+from pydantic import Field, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -44,11 +44,11 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         ...     }],
         ...    "disabledQubitRewiringSupported": True
         ... }
-        >>> JaqcdDeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> JaqcdDeviceActionProperties.model_validate_json(json.dumps(input_json))
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.jaqcd\.program$")
+    actionType: constr(pattern=r"^braket\.ir\.jaqcd\.program$")
     supportedOperations: list[str]
-    supportedResultTypes: Optional[list[ResultType]]
-    disabledQubitRewiringSupported: Optional[bool] = None
+    supportedResultTypes: Optional[list[ResultType]] = Field(default=None)
+    disabledQubitRewiringSupported: Optional[bool] = Field(default=None)

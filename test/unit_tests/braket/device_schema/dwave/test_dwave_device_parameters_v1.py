@@ -15,7 +15,7 @@ import json
 
 import pytest
 from jsonschema import validate
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.dwave.dwave_device_parameters_v1 import DwaveDeviceParameters
 
@@ -33,13 +33,13 @@ def test_valid():
             }
         },
     }
-    assert DwaveDeviceParameters.parse_raw_schema(json.dumps(input))
+    assert DwaveDeviceParameters.model_validate_json_schema(json.dumps(input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_header():
     input = '{"providerLevelParameters": {"annealingOffsets": [1]}}'
-    DwaveDeviceParameters.parse_raw_schema(input)
+    DwaveDeviceParameters.model_validate_json_schema(input)
 
 
 def test_validation():
@@ -56,5 +56,5 @@ def test_validation():
             "autoScale": False,
         },
     }
-    assert DwaveDeviceParameters.parse_raw_schema(json.dumps(input))
+    assert DwaveDeviceParameters.model_validate_json_schema(json.dumps(input))
     validate(input, DwaveDeviceParameters.schema())

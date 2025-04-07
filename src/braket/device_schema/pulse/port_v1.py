@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Direction(Enum):
@@ -43,6 +43,6 @@ class Port(BaseModel):
     direction: Direction
     portType: str
     dt: float
-    qubitMappings: Optional[list[int]]
-    centerFrequencies: Optional[set[float]]
-    qhpSpecificProperties: Optional[dict[str, Any]]
+    qubitMappings: Optional[list[int]] = Field(default=None)
+    centerFrequencies: Optional[set[float]] = Field(default=None)
+    qhpSpecificProperties: Optional[dict[str, Any]] = Field(default=None)

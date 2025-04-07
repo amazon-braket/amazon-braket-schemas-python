@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.error_mitigation import Debias, ErrorMitigationProperties
 from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties
@@ -40,30 +40,30 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    result = IonqProviderProperties.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_provider_properties"
     assert result.errorMitigation is None
 
 
 def test_error_mitigation(valid_input):
     minimum_shots = 2500
-    result = IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    result = IonqProviderProperties.model_validate_json_schema(json.dumps(valid_input))
     result.errorMitigation = {Debias: ErrorMitigationProperties(minimumShots=minimum_shots)}
     em_json = {
         "braket.device_schema.error_mitigation.debias.Debias": {"minimumShots": minimum_shots}
     }
     valid_input["errorMitigation"] = em_json
-    assert result == IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    assert result == IonqProviderProperties.model_validate_json_schema(json.dumps(valid_input))
     assert json.loads(result.json())["errorMitigation"] == em_json
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    IonqProviderProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_fidelity(valid_input):
     valid_input.pop("fidelity")
-    IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    IonqProviderProperties.model_validate_json_schema(json.dumps(valid_input))

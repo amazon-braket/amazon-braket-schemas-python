@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -41,7 +41,7 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
             Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that an
             OQC device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
-        provider(Optional[OqcProviderProperties]): OQC provider specific properties
+        provider(Optional[OqcProviderProperties] = Field(default=None)): OQC provider specific properties
         standardized
             (StandardizedGateModelQpuDeviceProperties): Braket standarized device
             properties for OQC
@@ -107,18 +107,20 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...    "standardized": \
         ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},,
         ... }
-        >>> OqcDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
+        >>> OqcDeviceCapabilities.model_validate_json_schema(json.dumps(input_json))
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.oqc.oqc_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     action: dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[OqcProviderProperties]
-    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
-    pulse: Optional[PulseDeviceActionProperties]
+    provider: Optional[OqcProviderProperties] = Field(default=None)
+    standardized: Optional[StandardizedGateModelQpuDeviceProperties] = Field(default=None)
+    pulse: Optional[PulseDeviceActionProperties] = Field(default=None)

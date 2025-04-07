@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Any, Optional, Union
+from typing import Annotated, Any, Optional, Union
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -46,7 +46,7 @@ class Instruction(BaseModel):
     """
 
     name: str
-    arguments: Optional[list[InstructionArgument]]
+    arguments: Optional[list[InstructionArgument]] = Field(default=None)
 
 
 class PulseFunctionArgument(BaseModel):
@@ -194,12 +194,14 @@ class NativeGateCalibrations(BraketSchemaBase):
         ...                 .
         ...         }
         ...     }
-        >>> NativeGateCalibrations.parse_raw_schema(json.dumps(input_json))
+        >>> NativeGateCalibrations.model_validate_json_schema(json.dumps(input_json))
     """  # noqa: E501
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.pulse.native_gate_calibrations", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     gates: dict[str, dict[str, list[NativeGate]]]
     waveforms: dict[str, Union[TemplateWaveform, ArbitraryWaveform]]

@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
@@ -36,23 +36,23 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    result = GateModelQpuParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
     assert result.nativeGateSet == ["ccnot", "cy"]
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelQpuParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_qubitCount(valid_input):
     valid_input.pop("qubitCount")
-    GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelQpuParadigmProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__invalid_connectivity(valid_input):
     valid_input["connectivity"]["fullyConnected"] = 1
-    GateModelQpuParadigmProperties.parse_raw_schema(json.dumps(valid_input))
+    GateModelQpuParadigmProperties.model_validate_json_schema(json.dumps(valid_input))

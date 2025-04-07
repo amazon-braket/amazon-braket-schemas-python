@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.ir.ahs.driving_field import DrivingField
 from braket.ir.ahs.local_detuning import LocalDetuning
@@ -32,7 +32,7 @@ class Hamiltonian(BaseModel):
     """
 
     drivingFields: list[DrivingField]
-    localDetuning: list[LocalDetuning] = Field(alias="shiftingFields")
+    localDetuning: list[LocalDetuning] = Field(default_factory=list, alias="shiftingFields")
 
     def __getattr__(self, name):
         return self.__dict__[name] if name != "shiftingFields" else self.__dict__["localDetuning"]

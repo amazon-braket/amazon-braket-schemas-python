@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic.v1 import BaseModel, confloat, conint, conlist, constr, root_validator
+from pydantic import BaseModel, Field, confloat, conint, conlist, constr, model_validator
 
 
 class SingleTarget(BaseModel):
@@ -41,7 +41,7 @@ class DoubleTarget(BaseModel):
         >>> DoubleTarget(targets=[0, 1])
     """
 
-    targets: conlist(conint(ge=0), min_items=2, max_items=2)
+    targets: conlist(conint(ge=0), min_length=2, max_length=2)
 
 
 class MultiTarget(BaseModel):
@@ -55,7 +55,7 @@ class MultiTarget(BaseModel):
         >>> MultiTarget(targets=[0, 1])
     """
 
-    targets: conlist(conint(ge=0), min_items=1)
+    targets: conlist(conint(ge=0), min_length=1)
 
 
 class OptionalMultiTarget(BaseModel):
@@ -63,13 +63,13 @@ class OptionalMultiTarget(BaseModel):
     Optional variable length target indices
 
     Attributes:
-        targets (Optional[List[int]]): A list with items that are all int >= 0.
+        targets (Optional[List[int] = Field(default=None)]): A list with items that are all int >= 0.
 
     Examples:
         >>> OptionalMultiTarget(targets=[0, 1])
     """
 
-    targets: Optional[conlist(conint(ge=0), min_items=1)]
+    targets: Optional[conlist(conint(ge=0), min_length=1)] = Field(default=None)
 
 
 class OptionalNestedMultiTarget(BaseModel):
@@ -77,24 +77,26 @@ class OptionalNestedMultiTarget(BaseModel):
     Optional variable length nested target indices for Hamiltonians
 
     Attributes:
-        targets (Optional[List[int]]): A two dimensional nested list with items that
+        targets (Optional[List[int] = Field(default=None)]): A two dimensional nested list with items that
             are all int >= 0.
 
     Examples:
         >>> OptionalNestedMultiTarget(targets=[[0, 1], [2]])
     """
 
-    targets: Optional[conlist(conlist(conint(ge=0), min_items=1), min_items=1)]
+    targets: Optional[conlist(conlist(conint(ge=0), min_length=1), min_length=1)] = Field(
+        default=None
+    )
 
 
 class OptionalMultiParameter(BaseModel):
     """
     Variable length parameter names.
     Attributes:
-        parameters (Optional[List[str]]): A list of parameter names.
+        parameters (Optional[List[str] = Field(default=None)]): A list of parameter names.
     """
 
-    parameters: Optional[conlist(constr(min_length=1), min_items=0)]
+    parameters: Optional[conlist(constr(min_length=1), min_length=0)] = Field(default=None)
 
 
 class MultiControl(BaseModel):
@@ -108,7 +110,7 @@ class MultiControl(BaseModel):
         >>> MultiControl(controls=[0, 1])
     """
 
-    controls: conlist(conint(ge=0), min_items=1)
+    controls: conlist(conint(ge=0), min_length=1)
 
 
 class DoubleControl(BaseModel):
@@ -122,7 +124,7 @@ class DoubleControl(BaseModel):
         >>> DoubleControl(targets=[0, 1])
     """
 
-    controls: conlist(conint(ge=0), min_items=2, max_items=2)
+    controls: conlist(conint(ge=0), min_length=2, max_length=2)
 
 
 class SingleControl(BaseModel):
@@ -246,16 +248,16 @@ class TripleProbability(BaseModel):
     probY: confloat(ge=float("0.0"), le=float("1.0"))
     probZ: confloat(ge=float("0.0"), le=float("1.0"))
 
-    @root_validator
-    def validate_probabilities(cls, values):
+    @model_validator(mode="after")
+    def validate_probabilities(self):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has
         the purpose to ensure probX + probY + probZ <= 1.
         """
-        p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
+        p1, p2, p3 = self.probX, self.probY, self.probZ
         if p1 + p2 + p3 > 1:
             raise ValueError("Sum of probabilities cannot exceed 1.")
-        return values
+        return self
 
 
 class MultiProbability(BaseModel):
@@ -270,18 +272,18 @@ class MultiProbability(BaseModel):
     """
 
     probabilities: dict[
-        constr(regex="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
+        constr(pattern="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
     ]
 
-    @root_validator
-    def validate_probabilities(cls, values):
+    @model_validator(mode="after")
+    def validate_probabilities(self):
         """
         Pydantic uses the validation subsystem to create objects.
         This custom validator has the purpose to ensure sum(probabilities) <= 1
         and that the lengths of each Pauli string are equal.
         """
 
-        probabilities = values.get("probabilities")
+        probabilities = self.probabilities
         if not probabilities:
             raise ValueError("Pauli dictionary must not be empty.")
 
@@ -303,7 +305,7 @@ class MultiProbability(BaseModel):
                 f"Total probability must be a real number in the interval [0, 1]. Total probability was {total_prob}."  # noqa: E501
             )
 
-        return values
+        return self
 
 
 class TwoDimensionalMatrix(BaseModel):
@@ -322,10 +324,10 @@ class TwoDimensionalMatrix(BaseModel):
 
     matrix: conlist(
         conlist(
-            conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-            min_items=1,
+            conlist(confloat(gt=float("-inf"), lt=float("inf")), min_length=2, max_length=2),
+            min_length=1,
         ),
-        min_items=1,
+        min_length=1,
     )
 
 
@@ -350,15 +352,15 @@ class TwoDimensionalMatrixList(BaseModel):
     matrices: conlist(
         conlist(
             conlist(
-                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-                min_items=1,
-                max_items=4,
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_length=2, max_length=2),
+                min_length=1,
+                max_length=4,
             ),
-            min_items=1,
-            max_items=4,
+            min_length=1,
+            max_length=4,
         ),
-        min_items=1,
-        max_items=16,
+        min_length=1,
+        max_length=16,
     )
 
 
@@ -389,20 +391,20 @@ class Observable(BaseModel):
     observable: Union[
         conlist(
             Union[
-                constr(regex="(x|y|z|h|i)"),
+                constr(pattern="(x|y|z|h|i)"),
                 conlist(
                     conlist(
                         conlist(
-                            confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2
+                            confloat(gt=float("-inf"), lt=float("inf")), min_length=2, max_length=2
                         ),
-                        min_items=2,
+                        min_length=2,
                     ),
-                    min_items=2,
+                    min_length=2,
                 ),
             ],
-            min_items=1,
+            min_length=1,
         ),
-        constr(regex=_hamiltonian_regex),
+        constr(pattern=_hamiltonian_regex),
     ]
 
 
@@ -418,7 +420,7 @@ class MultiState(BaseModel):
         >>> lMultiState(states=["10", "10"])
     """
 
-    states: conlist(constr(regex="^[01]+$", min_length=1), min_items=1)
+    states: conlist(constr(pattern="^[01]+$", min_length=1), min_length=1)
 
 
 class CompilerDirective(BaseModel):
@@ -434,4 +436,4 @@ class CompilerDirective(BaseModel):
         >>> CompilerDirective (directive="EndVerbatimBlock")
     """
 
-    directive: constr(regex="^(Start|End)VerbatimBlock$")
+    directive: constr(pattern="^(Start|End)VerbatimBlock$")

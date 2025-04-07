@@ -13,7 +13,7 @@
 
 from typing import Optional, Union
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, Field
 
 from braket.ir.ahs import Program as AHSProgram
 from braket.ir.annealing import Problem
@@ -36,7 +36,7 @@ class AdditionalMetadata(BaseModel):
 
     Attributes:
         action (Union[Program, Problem]): The action of the task
-        dwaveMetadata (Optional[DWaveMetadata]): Additional metadata for tasks that ran on D-Wave
+        dwaveMetadata (Optional[DWaveMetadata] = Field(default=None)): Additional metadata for tasks that ran on D-Wave
             devices. Default: None.
         ionqMetadata (Optional[IonQMetadata): Additional metadata for tasks that ran on IonQ
             devices. Default: None.
@@ -57,11 +57,11 @@ class AdditionalMetadata(BaseModel):
     """
 
     action: Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]
-    dwaveMetadata: Optional[DwaveMetadata]
-    ionqMetadata: Optional[IonQMetadata]
-    rigettiMetadata: Optional[RigettiMetadata]
-    oqcMetadata: Optional[OqcMetadata]
-    xanaduMetadata: Optional[XanaduMetadata]
-    queraMetadata: Optional[QueraMetadata]
-    simulatorMetadata: Optional[SimulatorMetadata]
-    iqmMetadata: Optional[IqmMetadata]
+    dwaveMetadata: Optional[DwaveMetadata] = Field(default=None)
+    ionqMetadata: Optional[IonQMetadata] = Field(default=None)
+    rigettiMetadata: Optional[RigettiMetadata] = Field(default=None)
+    oqcMetadata: Optional[OqcMetadata] = Field(default=None)
+    xanaduMetadata: Optional[XanaduMetadata] = Field(default=None)
+    queraMetadata: Optional[QueraMetadata] = Field(default=None)
+    simulatorMetadata: Optional[SimulatorMetadata] = Field(default=None)
+    iqmMetadata: Optional[IqmMetadata] = Field(default=None)

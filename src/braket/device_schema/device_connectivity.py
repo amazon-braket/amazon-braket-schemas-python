@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class DeviceConnectivity(BaseModel):
@@ -34,7 +34,7 @@ class DeviceConnectivity(BaseModel):
         ...    "fullyConnected": False,
         ...    "connectivityGraph": {"1": ["2", "3"]},
         ... }
-        >>> DeviceConnectivity.parse_raw(json.dumps(input_json))
+        >>> DeviceConnectivity.model_validate_json(json.dumps(input_json))
     """
 
     fullyConnected: bool

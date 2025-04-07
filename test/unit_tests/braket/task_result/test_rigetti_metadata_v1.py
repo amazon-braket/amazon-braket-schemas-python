@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
 
@@ -28,8 +28,8 @@ def test_rigetti_metadata_correct(compiled_program, native_quil_metadata):
     )
     assert metadata.compiledProgram == compiled_program
     assert metadata.nativeQuilMetadata == native_quil_metadata
-    assert RigettiMetadata.parse_raw(metadata.json()) == metadata
-    assert metadata == RigettiMetadata.parse_raw_schema(metadata.json())
+    assert RigettiMetadata.model_validate_json(metadata.json()) == metadata
+    assert metadata == RigettiMetadata.model_validate_json_schema(metadata.json())
 
 
 @pytest.mark.parametrize("compiled_program", [(""), (["random string"])])

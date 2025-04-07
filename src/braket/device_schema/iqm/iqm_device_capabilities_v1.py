@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -37,7 +37,7 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         action(dict[Union[DeviceActionType, str],
             Union[OpenQASMDeviceActionProperties]]): Actions that an IQM device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
-        provider(Optional[IqmProviderProperties]): IQM provider specific properties
+        provider(Optional[IqmProviderProperties] = Field(default=None)): IQM provider specific properties
         standardized
             (StandardizedGateModelQpuDeviceProperties): Braket standarized device
             properties for IQM
@@ -46,11 +46,13 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.iqm.iqm_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     action: dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties],
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[IqmProviderProperties]
-    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
+    provider: Optional[IqmProviderProperties] = Field(default=None)
+    standardized: Optional[StandardizedGateModelQpuDeviceProperties] = Field(default=None)

@@ -13,7 +13,7 @@
 
 from typing import Any, Optional
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Frame(BaseModel):
@@ -34,8 +34,8 @@ class Frame(BaseModel):
     frameId: str
     portId: str
     frequency: float
-    centerFrequency: Optional[float]
+    centerFrequency: Optional[float] = Field(default=None)
     phase: float
-    associatedGate: Optional[str]
-    qubitMappings: Optional[list[int]]
-    qhpSpecificProperties: Optional[dict[str, Any]]
+    associatedGate: Optional[str] = Field(default=None)
+    qubitMappings: Optional[list[int]] = Field(default=None)
+    qhpSpecificProperties: Optional[dict[str, Any]] = Field(default=None)

@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import constr
+from pydantic import Field, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -58,22 +58,22 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
         ...    "supportsPartialVerbatimBox": False
         ...    "supportsUnassignedMeasurements": True
         ... }
-        >>> OpenQASMDeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> OpenQASMDeviceActionProperties.model_validate_json(json.dumps(input_json))
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
+    actionType: constr(pattern=r"^braket\.ir\.openqasm\.program$")
     supportedOperations: list[str]
-    supportedModifiers: Optional[list[Modifier]] = []
-    supportedPragmas: Optional[list[str]] = []
-    forbiddenPragmas: Optional[list[str]] = []
-    maximumQubitArrays: Optional[int] = None  # None indicates no limit
-    maximumClassicalArrays: Optional[int] = None  # None indicates no limit
-    forbiddenArrayOperations: Optional[list[str]] = []
-    requiresAllQubitsMeasurement: Optional[bool] = False
-    supportPhysicalQubits: Optional[bool] = False
-    requiresContiguousQubitIndices: Optional[bool] = False
-    supportsPartialVerbatimBox: Optional[bool] = True
-    supportsUnassignedMeasurements: Optional[bool] = True
-    disabledQubitRewiringSupported: Optional[bool] = False
-    supportedResultTypes: Optional[list[ResultType]]
+    supportedModifiers: Optional[list[Modifier]] = Field(default=[])
+    supportedPragmas: Optional[list[str]] = Field(default=[])
+    forbiddenPragmas: Optional[list[str]] = Field(default=[])
+    maximumQubitArrays: Optional[int] = Field(default=None)  # None indicates no limit
+    maximumClassicalArrays: Optional[int] = Field(default=None)  # None indicates no limit
+    forbiddenArrayOperations: Optional[list[str]] = Field(default=[])
+    requiresAllQubitsMeasurement: Optional[bool] = Field(default=False)
+    supportPhysicalQubits: Optional[bool] = Field(default=False)
+    requiresContiguousQubitIndices: Optional[bool] = Field(default=False)
+    supportsPartialVerbatimBox: Optional[bool] = Field(default=True)
+    supportsUnassignedMeasurements: Optional[bool] = Field(default=True)
+    disabledQubitRewiringSupported: Optional[bool] = Field(default=True)
+    supportedResultTypes: Optional[list[ResultType]] = Field(default=[])

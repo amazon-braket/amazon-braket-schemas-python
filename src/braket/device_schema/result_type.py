@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ResultType(BaseModel):
@@ -35,10 +35,10 @@ class ResultType(BaseModel):
         ...     "minShots": 0,
         ...     "maxShots": 4,
         ... }
-        >>> ResultType.parse_raw(json.dumps(input_json))
+        >>> ResultType.model_validate_json(json.dumps(input_json))
     """
 
     name: str
-    observables: Optional[list[str]]
-    minShots: Optional[int]
-    maxShots: Optional[int]
+    observables: Optional[list[str]] = Field(default=None)
+    minShots: Optional[int] = Field(default=None)
+    maxShots: Optional[int] = Field(default=None)

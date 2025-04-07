@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import re
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
 
@@ -29,6 +29,7 @@ class BraketSchemaBase(BaseModel):
     """
 
     braketSchemaHeader: BraketSchemaHeader
+    model_config = {"frozen": True}
 
     @staticmethod
     def import_schema_module(schema: BraketSchemaBase):
@@ -46,14 +47,14 @@ class BraketSchemaBase(BaseModel):
             schema header
 
         Examples:
-            >> schema = BraketSchemaBase.parse_raw(json_string)
+            >> schema = BraketSchemaBase.model_validate_json(json_string)
             >> module = import_schema_module(schema)
-            >> module.AnnealingTaskResult.parse_raw(json_string)
+            >> module.AnnealingTaskResult.model_validate_json(json_string)
         """
         return schema.braketSchemaHeader.import_schema_module()
 
     @staticmethod
-    def parse_raw_schema(json_str: str) -> BraketSchemaBase:
+    def model_validate_json_schema(json_str: str) -> BraketSchemaBase:
         """
         Return schema object given JSON string
 
@@ -64,11 +65,11 @@ class BraketSchemaBase(BaseModel):
             BraketSchemaBase: The schema object. This can also be an
             instance of a subclass of BraketSchemaBase.
         """
-        schema = BraketSchemaBase.parse_raw(json_str)
+        schema = BraketSchemaBase.model_validate_json(json_str)
         module = BraketSchemaBase.import_schema_module(schema)
         name = schema.braketSchemaHeader.name
         schema_class = BraketSchemaBase.get_schema_class(module, name)
-        return schema_class.parse_raw(json_str)
+        return schema_class.model_validate_json(json_str)
 
     @staticmethod
     def get_schema_class(module, name):

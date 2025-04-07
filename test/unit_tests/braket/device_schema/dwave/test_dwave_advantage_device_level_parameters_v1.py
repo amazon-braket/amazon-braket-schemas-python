@@ -15,7 +15,7 @@ import json
 
 import pytest
 from jsonschema import validate
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.dwave import (
     DwaveAdvantageDeviceLevelParameters,
@@ -55,7 +55,7 @@ def test_valid(annealing_duration, max_results):
         "resultFormat": "RAW",
         "spinReversalTransformCount": 100,
     }
-    assert DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+    assert DwaveProviderLevelParameters.model_validate_json_schema(json.dumps(input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
@@ -68,7 +68,7 @@ def test_invalid_attribute():
         "annealingOffsets": 1,
     }
     # annealingOffsets should be List[int]
-    DwaveProviderLevelParameters.parse_raw_schema(json.dumps(input))
+    DwaveProviderLevelParameters.model_validate_json_schema(json.dumps(input))
 
 
 # to demonstrate that validation ignore unkown fields
@@ -82,7 +82,9 @@ def test_invalid_attribute_name():
         "beta": 123.456,
     }
     # annealingOffsets should be List[int]
-    device_level_params = DwaveAdvantageDeviceLevelParameters.parse_raw_schema(json.dumps(input))
+    device_level_params = DwaveAdvantageDeviceLevelParameters.model_validate_json_schema(
+        json.dumps(input)
+    )
     try:
         assert device_level_params.beta
         raise Exception("beta should not be parsed into the model")

@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     PostProcessingType,
@@ -33,7 +33,7 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
         annealingDuration (Optional[int] = Field(gt=1)): Sets the duration (in microseconds) of
             quantum annealing time, per read.
         autoScale (Optional[bool]): Indicates whether h and J values are rescaled.
-        beta (Optional[float]): Provides a value for the Boltzmann distribution parameter.
+        beta (Optional[float] = Field(default=None)): Provides a value for the Boltzmann distribution parameter.
             Used when sampling postprocessing is enabled on D-Wave 2000Q and earlier systems.
         chains (Optional[List[List[int]]]): Defines which qubits represent the same logical
             variable. Used only when postprocessing is enabled on D-Wave 2000Q and earlier systems.
@@ -72,28 +72,30 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
         ...    },
         ...    "beta": 1
         ... }
-        >>> Dwave2000QDeviceLevelParameters.parse_raw_schema(json.dumps(input_json))
+        >>> Dwave2000QDeviceLevelParameters.model_validate_json_schema(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_2000Q_device_level_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: Optional[list[float]]
-    annealingSchedule: Optional[list[list[float]]]
-    annealingDuration: Optional[float] = Field(gt=0)
-    autoScale: Optional[bool]
-    beta: Optional[float]
-    chains: Optional[list[list[int]]]
-    compensateFluxDrift: Optional[bool]
-    fluxBiases: Optional[list[float]]
-    initialState: Optional[list[int]]
-    maxResults: Optional[int] = Field(gt=0)
-    postprocessingType: Optional[Union[PostProcessingType, str]]
-    programmingThermalizationDuration: Optional[int]
-    readoutThermalizationDuration: Optional[int]
-    reduceIntersampleCorrelation: Optional[bool]
-    reinitializeState: Optional[bool]
-    resultFormat: Optional[ResultFormat]
-    spinReversalTransformCount: Optional[int] = Field(gt=0)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
+    annealingOffsets: Optional[list[float]] = Field(default=None)
+    annealingSchedule: Optional[list[list[float]]] = Field(default=None)
+    annealingDuration: Optional[float] = Field(default=None, gt=0)
+    autoScale: Optional[bool] = Field(default=None)
+    beta: Optional[float] = Field(default=None)
+    chains: Optional[list[list[int]]] = Field(default=None)
+    compensateFluxDrift: Optional[bool] = Field(default=None)
+    fluxBiases: Optional[list[float]] = Field(default=None)
+    initialState: Optional[list[int]] = Field(default=None)
+    maxResults: Optional[int] = Field(default=None, gt=0)
+    postprocessingType: Optional[Union[PostProcessingType, str]] = Field(default=None)
+    programmingThermalizationDuration: Optional[int] = Field(default=None)
+    readoutThermalizationDuration: Optional[int] = Field(default=None)
+    reduceIntersampleCorrelation: Optional[bool] = Field(default=None)
+    reinitializeState: Optional[bool] = Field(default=None)
+    resultFormat: Optional[ResultFormat] = Field(default=None)
+    spinReversalTransformCount: Optional[int] = Field(default=None, gt=0)

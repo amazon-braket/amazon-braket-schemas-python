@@ -14,7 +14,7 @@
 from decimal import Decimal
 from typing import Union
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from braket.ir.ahs.time_series import TimeSeries
 

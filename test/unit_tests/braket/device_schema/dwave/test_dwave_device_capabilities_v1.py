@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.dwave import DwaveDeviceCapabilities
 
@@ -101,17 +101,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DwaveDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = DwaveDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
     assert result.provider.qubitCount == 1
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    DwaveDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_qubitCount(valid_input):
     valid_input.pop("provider")
-    DwaveDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    DwaveDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))

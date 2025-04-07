@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.rigetti.rigetti_device_capabilities_v1 import RigettiDeviceCapabilities
 
@@ -168,7 +168,7 @@ openqasm_valid_input = {
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 def test_valid(valid_input):
-    result = RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
     assert (
         result.braketSchemaHeader.name == "braket.device_schema.rigetti.rigetti_device_capabilities"
     )
@@ -178,32 +178,32 @@ def test_valid(valid_input):
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_paradigm(valid_input):
     valid_input.pop("paradigm")
-    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_deviceParameters(valid_input):
     valid_input.pop("deviceParameters")
-    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")
-    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_service(valid_input):
     valid_input.pop("service")
-    RigettiDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    RigettiDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))

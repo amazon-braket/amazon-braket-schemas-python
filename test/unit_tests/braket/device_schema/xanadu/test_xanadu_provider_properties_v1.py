@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.xanadu.xanadu_provider_properties_v1 import XanaduProviderProperties
 
@@ -58,7 +58,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = XanaduProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    result = XanaduProviderProperties.model_validate_json_schema(json.dumps(valid_input))
     assert (
         result.braketSchemaHeader.name == "braket.device_schema.xanadu.xanadu_provider_properties"
     )
@@ -67,7 +67,7 @@ def test_valid(valid_input):
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    XanaduProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    XanaduProviderProperties.model_validate_json_schema(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize(
@@ -84,4 +84,4 @@ def test__missing_schemaHeader(valid_input):
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_keys(valid_input, missing_key):
     valid_input.pop(missing_key)
-    XanaduProviderProperties.parse_raw_schema(json.dumps(valid_input))
+    XanaduProviderProperties.model_validate_json_schema(json.dumps(valid_input))

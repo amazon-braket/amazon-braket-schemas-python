@@ -12,9 +12,9 @@
 # language governing permissions and limitations under the License.
 
 from datetime import datetime
-from typing import Optional
+from typing import Annotated, Optional
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.device_schema.device_execution_window import DeviceExecutionWindow
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -34,7 +34,7 @@ class DeviceCost(BaseModel):
         ...     "price": 0.25,
         ...     "unit": "minute"
         ... }
-        >>> DeviceCost.parse_raw(json.dumps(input_json))
+        >>> DeviceCost.model_validate_json(json.dumps(input_json))
     """
 
     price: float
@@ -47,9 +47,9 @@ class DeviceDocumentation(BaseModel):
     summary of it and external documentation.
 
     Attributes:
-        imageUrl (Optional[str]): URL for the image of the device
-        summary (Optional[str]): brief description on the device
-        externalDocumentationUrl (Optional[str]): external documentation URL
+        imageUrl (Optional[str] = Field(default=None)): URL for the image of the device
+        summary (Optional[str] = Field(default=None)): brief description on the device
+        externalDocumentationUrl (Optional[str] = Field(default=None)): external documentation URL
 
     Examples:
         >>> import json
@@ -58,12 +58,12 @@ class DeviceDocumentation(BaseModel):
         ...     "summary": "Summary on the device",
         ...     "externalDocumentationUrl": "exter doc link",
         ... }
-        >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
+        >>> DeviceDocumentation.model_validate_json(json.dumps(input_json))
     """
 
-    imageUrl: Optional[str]
-    summary: Optional[str]
-    externalDocumentationUrl: Optional[str]
+    imageUrl: Optional[str] = Field(default=None)
+    summary: Optional[str] = Field(default=None)
+    externalDocumentationUrl: Optional[str] = Field(default=None)
 
 
 class DeviceServiceProperties(BraketSchemaBase):
@@ -74,12 +74,12 @@ class DeviceServiceProperties(BraketSchemaBase):
         executionWindows (list[DeviceExecutionWindow]): List of the execution windows,
             it tells us which days the device can execute a task.
         shotsRange (tuple[int, int]): range of the shots for a given device.
-        deviceCost (Optional[DeviceCost]): cost of the device to run the quantum circuits
-        deviceDocumentation (Optional[DeviceDocumentation]): provides device specific
+        deviceCost (Optional[DeviceCost] = Field(default=None)): cost of the device to run the quantum circuits
+        deviceDocumentation (Optional[DeviceDocumentation] = Field(default=None)): provides device specific
             details like image, summary etc.
-        deviceLocation (Optional[str]): location fo the device
-        updatedAt (Optional[datetime]): time when the device properties are last updated.
-        getTaskPollIntervalMillis (Optional[int]): (suggested) interval between polling tasks
+        deviceLocation (Optional[str] = Field(default=None)): location fo the device
+        updatedAt (Optional[datetime] = Field(default=None)): time when the device properties are last updated.
+        getTaskPollIntervalMillis (Optional[int] = Field(default=None)): (suggested) interval between polling tasks
             in milliseconds.
 
     Examples:
@@ -110,18 +110,20 @@ class DeviceServiceProperties(BraketSchemaBase):
         ...    "updatedAt": "2020-06-16T19:28:02.869136",
         ...    "getTaskPollIntervalMillis": 200,
         ... }
-        >>> DeviceServiceProperties.parse_raw_schema(json.dumps(input_json))
+        >>> DeviceServiceProperties.model_validate_json_schema(json.dumps(input_json))
 
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_service_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(default=_PROGRAM_HEADER)] = Field(
+        default=_PROGRAM_HEADER
+    )
     executionWindows: list[DeviceExecutionWindow]
     shotsRange: tuple[int, int]
-    deviceCost: Optional[DeviceCost]
-    deviceDocumentation: Optional[DeviceDocumentation]
-    deviceLocation: Optional[str]
-    updatedAt: Optional[datetime]
-    getTaskPollIntervalMillis: Optional[int]
+    deviceCost: Optional[DeviceCost] = Field(default=None)
+    deviceDocumentation: Optional[DeviceDocumentation] = Field(default=None)
+    deviceLocation: Optional[str] = Field(default=None)
+    updatedAt: Optional[datetime] = Field(default=None)
+    getTaskPollIntervalMillis: Optional[int] = Field(default=None)

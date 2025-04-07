@@ -15,7 +15,7 @@ import json
 import math
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.quera import QueraDeviceCapabilities
 
@@ -181,11 +181,11 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = QueraDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    result = QueraDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.quera.quera_device_capabilities"
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
-    QueraDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    QueraDeviceCapabilities.model_validate_json_schema(json.dumps(valid_input))

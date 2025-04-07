@@ -13,7 +13,7 @@
 
 from typing import Optional
 
-from pydantic.v1 import BaseModel, Field, conint, conlist, constr
+from pydantic import Annotated, BaseModel, Field, conint, conlist, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -36,17 +36,17 @@ class AnalogHamiltonianSimulationShotResult(BaseModel):
     The analog hamiltonian simulation shot result schema.
 
     Attributes:
-        preSequence (Optional[conlist(conint(ge=0, le=1), min_items=1)]): Pre-sequence measurement
+        preSequence (Optional[conlist(conint(ge=0, le=1), min_length=1)] = Field(default=None)): Pre-sequence measurement
             bits (one for each atomic site) for each shot: 0 if site is empty, 1 if site is filled,
             measured before the sequences of pulses that run the quantum evolution
-        postSequence (Optional[conlist(conint(ge=0, le=1), min_items=1)]): Post-sequence
+        postSequence (Optional[conlist(conint(ge=0, le=1), min_length=1)] = Field(default=None)): Post-sequence
             measurement bits for each shot: 0 if atom is in Rydberg state or site is empty, 1 if
             atom is in ground state, measured at the end of the sequences of pulses that run the
             quantum evolution
     """
 
-    preSequence: Optional[conlist(conint(ge=0, le=1), min_items=1)]
-    postSequence: Optional[conlist(conint(ge=0, le=1), min_items=1)]
+    preSequence: Optional[conlist(conint(ge=0, le=1), min_length=1)] = Field(default=None)
+    postSequence: Optional[conlist(conint(ge=0, le=1), min_length=1)] = Field(default=None)
 
 
 class AnalogHamiltonianSimulationShotMeasurement(BaseModel):
@@ -79,9 +79,9 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
     _AHS_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.analog_hamiltonian_simulation_task_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_AHS_TASK_RESULT_HEADER, const=_AHS_TASK_RESULT_HEADER
+    braketSchemaHeader: Annotated[BraketSchemaHeader, Field(default=_AHS_TASK_RESULT_HEADER)] = (
+        Field(default=_AHS_TASK_RESULT_HEADER)
     )
     taskMetadata: TaskMetadata
-    measurements: Optional[list[AnalogHamiltonianSimulationShotMeasurement]]
-    additionalMetadata: Optional[AdditionalMetadata]
+    measurements: Optional[list[AnalogHamiltonianSimulationShotMeasurement]] = Field(default=None)
+    additionalMetadata: Optional[AdditionalMetadata] = Field(default=None)

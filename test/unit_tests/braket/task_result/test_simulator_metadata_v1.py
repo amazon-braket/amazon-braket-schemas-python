@@ -10,9 +10,9 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-
+import json
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.task_result.simulator_metadata_v1 import SimulatorMetadata
 
@@ -25,8 +25,8 @@ def test_missing_properties():
 def test_simulator_metadata_correct(execution_duration):
     metadata = SimulatorMetadata(executionDuration=execution_duration)
     assert metadata.executionDuration == execution_duration
-    assert SimulatorMetadata.parse_raw(metadata.json()) == metadata
-    assert metadata == SimulatorMetadata.parse_raw_schema(metadata.json())
+    assert SimulatorMetadata.model_validate_json(json.dumps(metadata)) == metadata
+    assert metadata == SimulatorMetadata.model_validate_json_schema(metadata.json())
 
 
 @pytest.mark.xfail(raises=ValidationError)
