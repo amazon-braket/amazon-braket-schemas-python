@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.24.0 (2025-04-29)
+
+### Features
+
+ * add standardized v2
+
 ## v1.23.3 (2025-03-24)
 
 ### Bug Fixes and Other Changes
