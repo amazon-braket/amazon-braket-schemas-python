@@ -11,6 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -18,13 +19,12 @@ from pydantic.v1 import BaseModel, Field, confloat
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
-from datetime import datetime
-
 
 class TimeUnit(str, Enum):
     """
     Enum for time unit.
     """
+
     SECOND = "s"
     MILLISECOND = "ms"
     MICROSECOND = "us"
@@ -35,6 +35,7 @@ class FidelityUnit(str, Enum):
     """
     Enum for fidelity value unit.
     """
+
     FRACTION = "fraction"
 
 
@@ -42,6 +43,7 @@ class FidelityTypeName(str, Enum):
     """
     Enum for fidelity type.
     """
+
     RANDOMIZED_BENCHMARKING = "RANDOMIZED_BENCHMARKING"
 
 
@@ -69,10 +71,12 @@ class Fidelity(BaseModel):
             on the measurement
         unit (FidelityUnit): The expected unit for the fidelity
     """
+
     fidelityType: Optional[FidelityType]
     fidelity: confloat(ge=0, le=1)
     standardError: Optional[confloat(ge=0, le=1)] = None
     unit: FidelityUnit
+
 
 class Duration(BaseModel):
     """
@@ -82,6 +86,7 @@ class Duration(BaseModel):
         standardError (Optional[float]): The statistical error or uncertainty in the measured value
         unit (TimeUnit): The unit for the duration value
     """
+
     value: float
     standardError: Optional[float]
     unit: TimeUnit
@@ -95,6 +100,7 @@ class OneQubitProperties(BaseModel):
             This typically includes metrics like randomized benchmarking results that
             characterize the performance of single-qubit operations.
     """
+
     oneQubitFidelity: list[Fidelity]
 
 
