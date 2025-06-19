@@ -109,7 +109,7 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     Braket standarized gate model device qpu properties for the given quantum hardware
 
     Attributes:
-        oneQubitProperties (Dict[str, OneQubitProperties]): Dictionary mapping specific qubit
+        oneQubitProperties (dict[str, OneQubitProperties]): Dictionary mapping specific qubit
             identifiers (ex: '1') to their calibration property sets, including fidelity measurements.
         T1 (Optional[Duration]): The T1 time of the device.
         T2 (Optional[Duration]): The T2 time of the device.
