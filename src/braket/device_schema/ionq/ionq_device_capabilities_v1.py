@@ -24,6 +24,9 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
 from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
+from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 import (
+    StandardizedGateModelQpuDeviceProperties,
+)
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
@@ -54,6 +57,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
             IonQ device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties
         provider(Optional[IonqProviderProperties]): IonQ provider specific properties
+        standardized(Optional[StandardizedGateModelQpuDeviceProperties]): Braket standardized properties for gate model devices
 
     Examples:
         >>> import json
@@ -127,6 +131,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[IonqProviderProperties]
+    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
 
     class Config:
         # Pydantic does not use the custom encoders/decoders of nested models:
