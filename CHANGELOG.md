@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.24.1 (2025-06-23)
+
+### Bug Fixes and Other Changes
+
+ * Add standardized gate model QPU device properties v3
+
 ## v1.24.0 (2025-04-29)
 
 ### Features
