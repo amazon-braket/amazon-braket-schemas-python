@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.24.2 (2025-06-25)
+
+### Bug Fixes and Other Changes
+
+ * updating IonQ device capability schema to include standardized property
+
 ## v1.24.1 (2025-06-23)
 
 ### Bug Fixes and Other Changes
