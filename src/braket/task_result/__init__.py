@@ -25,8 +25,23 @@ from braket.task_result.gate_model_task_result_v1 import (  # noqa: F401
     ResultTypeValue,
 )
 from braket.task_result.ionq_metadata_v1 import IonQMetadata  # noqa: F401
+from braket.task_result.iqm_metadata_v1 import IqmMetadata  # noqa: F401
 from braket.task_result.oqc_metadata_v1 import OqcMetadata  # noqa: F401
 from braket.task_result.photonic_model_task_result_v1 import PhotonicModelTaskResult  # noqa: F401
+from braket.task_result.program_result_v1 import ProgramResult  # noqa: F401
+from braket.task_result.program_set_executable_cancellation_v1 import (  # noqa: F401
+    ProgramSetExecutableCancellationMetadata,
+)
+from braket.task_result.program_set_executable_failure_v1 import (  # noqa: F401
+    ProgramSetExecutableFailure,
+    ProgramSetExecutableFailureMetadata,
+)
+from braket.task_result.program_set_executable_result_v1 import (  # noqa: F401
+    ProgramSetExecutableResult,
+    ProgramSetExecutableResultMetadata,
+)
+from braket.task_result.program_set_task_metadata_v1 import ProgramSetTaskMetadata  # noqa: F401
+from braket.task_result.program_set_task_result_v1 import ProgramSetTaskResult  # noqa: F401
 from braket.task_result.quera_metadata_v1 import QueraMetadata  # noqa: F401
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata  # noqa: F401
 from braket.task_result.simulator_metadata_v1 import SimulatorMetadata  # noqa: F401

@@ -20,15 +20,19 @@ from braket.ir.jaqcd import CNot
 from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
 from braket.schema_common.schema_header import BraketSchemaHeader
-from braket.task_result import IonQMetadata
-from braket.task_result.additional_metadata import AdditionalMetadata
-from braket.task_result.dwave_metadata_v1 import DwaveMetadata, DwaveTiming
-from braket.task_result.iqm_metadata_v1 import IqmMetadata
-from braket.task_result.oqc_metadata_v1 import OqcMetadata
-from braket.task_result.quera_metadata_v1 import QueraMetadata
-from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata
-from braket.task_result.task_metadata_v1 import TaskMetadata
-from braket.task_result.xanadu_metadata_v1 import XanaduMetadata
+from braket.task_result import (
+    AdditionalMetadata,
+    DwaveMetadata,
+    DwaveTiming,
+    IonQMetadata,
+    IqmMetadata,
+    NativeQuilMetadata,
+    OqcMetadata,
+    QueraMetadata,
+    RigettiMetadata,
+    TaskMetadata,
+    XanaduMetadata,
+)
 
 
 @pytest.fixture

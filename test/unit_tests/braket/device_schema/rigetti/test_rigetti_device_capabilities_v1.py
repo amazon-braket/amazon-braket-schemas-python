@@ -151,7 +151,13 @@ openqasm_valid_input = {
             "requireContiguousQubitIndices": False,
             "supportsPartialVerbatimBox": True,
             "supportsUnassignedMeasurements": True,
-        }
+        },
+        "braket.ir.openqasm.program_set": {
+            "actionType": "braket.ir.openqasm.program_set",
+            "version": ["1"],
+            "maximumExecutables": 500,
+            "maximumTotalShots": 1_000_000,
+        },
     },
     "paradigm": {
         "braketSchemaHeader": {
