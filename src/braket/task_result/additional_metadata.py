@@ -35,7 +35,7 @@ class AdditionalMetadata(BaseModel):
     The additional metadata result schema.
 
     Attributes:
-        action (Union[Program, Problem]): The action of the task
+        action (Optional[Union[Program, Problem]]): The action of the task. Default: None.
         dwaveMetadata (Optional[DWaveMetadata]): Additional metadata for tasks that ran on D-Wave
             devices. Default: None.
         ionqMetadata (Optional[IonQMetadata): Additional metadata for tasks that ran on IonQ
@@ -56,7 +56,7 @@ class AdditionalMetadata(BaseModel):
         >>> AdditionalMetadata(action=OpenQASMProgram(source='OPENQASM3.0; cx $0, $1'))
     """
 
-    action: Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]
+    action: Optional[Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]]
     dwaveMetadata: Optional[DwaveMetadata]
     ionqMetadata: Optional[IonQMetadata]
     rigettiMetadata: Optional[RigettiMetadata]

@@ -17,11 +17,6 @@ from pydantic.v1 import ValidationError
 from braket.task_result.additional_metadata import AdditionalMetadata
 
 
-@pytest.mark.xfail(raises=ValidationError)
-def test_missing_properties():
-    AdditionalMetadata()
-
-
 def test_additional_metadata_correct_annealing(problem, dwave_metadata):
     metadata = AdditionalMetadata(action=problem, dwaveMetadata=dwave_metadata)
     assert metadata.action == problem
@@ -66,6 +61,12 @@ def test_additional_metadata_oqc(oqc_metadata, openqasm_program):
 
 def test_additional_metadata_iqm(iqm_metadata, openqasm_program):
     metadata = AdditionalMetadata(action=openqasm_program, iqmMetadata=iqm_metadata)
+    assert metadata.iqmMetadata == iqm_metadata
+    assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
+
+
+def test_additional_metadata_iqm_no_action(iqm_metadata):
+    metadata = AdditionalMetadata(iqmMetadata=iqm_metadata)
     assert metadata.iqmMetadata == iqm_metadata
     assert AdditionalMetadata.parse_raw(metadata.json()) == metadata
 
