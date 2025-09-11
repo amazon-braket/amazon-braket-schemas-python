@@ -27,7 +27,7 @@ from braket.device_schema.openqasm_device_action_properties import OpenQASMDevic
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 import (
     StandardizedGateModelQpuDeviceProperties,
 )
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader, LenientDict
 
 
 def _loads_with_provider(serialized: str) -> dict:
@@ -125,7 +125,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.ionq.ionq_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: dict[
+    action: LenientDict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
     ]
