@@ -22,6 +22,9 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
 )
 from braket.device_schema.iqm.iqm_provider_properties_v1 import IqmProviderProperties
 from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (
     StandardizedGateModelQpuDeviceProperties,
 )
@@ -47,7 +50,7 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: LenientDict[
         Union[DeviceActionType, str],
-        Union[OpenQASMDeviceActionProperties],
+        Union[OpenQASMDeviceActionProperties, OpenQASMProgramSetDeviceActionProperties],
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: Optional[IqmProviderProperties]

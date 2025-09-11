@@ -42,3 +42,9 @@ from braket.device_schema.result_type import ResultType  # noqa: F401
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (  # noqa: F401
     StandardizedGateModelQpuDeviceProperties,
 )
+from braket.device_schema.standardized_gate_model_qpu_device_properties_v2 import (  # noqa: F401
+    StandardizedGateModelQpuDeviceProperties as StandardizedGateModelQpuDevicePropertiesV2,
+)
+from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 import (  # noqa: F401
+    StandardizedGateModelQpuDeviceProperties as StandardizedGateModelQpuDevicePropertiesV3,
+)

@@ -9,10 +9,14 @@
 # or in the "license" file accompanying this file. This file is
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
-# language governing permissions and limitations under the License.
+# language governing permissions and limitations under the License
+from pydantic.v1 import BaseModel
 
-"""Version information.
-Version number (major.minor.patch[-label])
-"""
 
-__version__ = "1.26.1.dev0"
+class ProgramSetExecutableCancellationMetadata(BaseModel):
+    """
+    Attributes:
+        status (str): Status of the task; this should always be CANCELLED.
+    """
+
+    status: str

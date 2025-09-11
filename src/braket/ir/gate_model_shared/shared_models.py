@@ -293,7 +293,7 @@ class MultiProbability(BaseModel):
                 f"{i} is not allowed as a key. Please enter only non-identity Pauli strings."
             )
 
-        for pauli_string, prob in probabilities.items():
+        for pauli_string in probabilities.keys():
             if len(pauli_string) != qubit_count:
                 raise ValueError("Length of each Pauli string must be equal to number of qubits.")
 

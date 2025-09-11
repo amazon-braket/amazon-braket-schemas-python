@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Dict, List
 
 from pydantic.v1 import Field
 
@@ -59,9 +58,9 @@ class XanaduProviderProperties(BraketSchemaBase):
         name="braket.device_schema.xanadu.xanadu_provider_properties", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    loopPhases: List[float]
+    loopPhases: list[float]
     schmidtNumber: float
     commonEfficiency: float
-    squeezingParametersMean: Dict[str, float]
-    relativeChannelEfficiencies: List[float]
-    loopEfficiencies: List[float]
+    squeezingParametersMean: dict[str, float]
+    relativeChannelEfficiencies: list[float]
+    loopEfficiencies: list[float]

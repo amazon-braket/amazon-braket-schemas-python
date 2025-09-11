@@ -11,8 +11,20 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-"""Version information.
-Version number (major.minor.patch[-label])
-"""
+from pydantic.v1 import conint, constr
 
-__version__ = "1.26.1.dev0"
+from braket.device_schema.device_action_properties import DeviceActionProperties
+
+
+class OpenQASMProgramSetDeviceActionProperties(DeviceActionProperties):
+    """
+    Defines the properties for the Braket OpenQASM program set action.
+
+    Attributes:
+        maximumExecutables(int): The maximum number of executables
+            that can be in a single program set.
+    """
+
+    actionType: constr(regex=r"^braket\.ir\.openqasm\.program_set$")
+    maximumExecutables: conint(ge=0)
+    maximumTotalShots: conint(ge=0)

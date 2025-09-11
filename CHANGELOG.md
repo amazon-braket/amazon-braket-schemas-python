@@ -1,5 +1,51 @@
 # Changelog
 
+## v1.26.0 (2025-08-21)
+
+### Deprecations and Removals
+
+ * Drop Python 3.9, support 3.12, 3.13
+
+### Documentation Changes
+
+ * Add Python 3.12, 3.13 to supported versions
+
+## v1.25.0 (2025-08-13)
+
+### Features
+
+ * Program sets
+
+## v1.24.2 (2025-06-25)
+
+### Bug Fixes and Other Changes
+
+ * updating IonQ device capability schema to include standardized property
+
+## v1.24.1 (2025-06-23)
+
+### Bug Fixes and Other Changes
+
+ * Add standardized gate model QPU device properties v3
+
+## v1.24.0 (2025-04-29)
+
+### Features
+
+ * add standardized v2
+
+## v1.23.3 (2025-03-24)
+
+### Bug Fixes and Other Changes
+
+ * style: update linter to use UP rules
+
+## v1.23.2 (2025-03-08)
+
+### Bug Fixes and Other Changes
+
+ * Use builtins for type hints
+
 ## v1.23.1 (2025-01-28)
 
 ### Bug Fixes and Other Changes
