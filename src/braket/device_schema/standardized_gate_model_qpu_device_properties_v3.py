@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -19,12 +18,13 @@ from pydantic.v1 import BaseModel, Field, confloat
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
+from datetime import datetime
+
 
 class TimeUnit(str, Enum):
     """
     Enum for time unit.
     """
-
     SECOND = "s"
     MILLISECOND = "ms"
     MICROSECOND = "us"
@@ -35,7 +35,6 @@ class FidelityUnit(str, Enum):
     """
     Enum for fidelity value unit.
     """
-
     FRACTION = "fraction"
 
 
@@ -43,7 +42,6 @@ class FidelityTypeName(str, Enum):
     """
     Enum for fidelity type.
     """
-
     RANDOMIZED_BENCHMARKING = "RANDOMIZED_BENCHMARKING"
 
 
@@ -69,14 +67,14 @@ class Fidelity(BaseModel):
         fidelity (float): The measured fidelity value
         standardError (Optional[float]): The expected error value reported
             on the measurement
+        median (Optional[float]): Median of fidelity values
         unit (FidelityUnit): The expected unit for the fidelity
     """
-
     fidelityType: Optional[FidelityType]
     fidelity: confloat(ge=0, le=1)
     standardError: Optional[confloat(ge=0, le=1)] = None
+    median: Optional[confloat(ge=0, le=1)] = None
     unit: FidelityUnit
-
 
 class Duration(BaseModel):
     """
@@ -86,7 +84,6 @@ class Duration(BaseModel):
         standardError (Optional[float]): The statistical error or uncertainty in the measured value
         unit (TimeUnit): The unit for the duration value
     """
-
     value: float
     standardError: Optional[float]
     unit: TimeUnit
@@ -100,7 +97,6 @@ class OneQubitProperties(BaseModel):
             This typically includes metrics like randomized benchmarking results that
             characterize the performance of single-qubit operations.
     """
-
     oneQubitFidelity: list[Fidelity]
 
 
@@ -109,7 +105,7 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     Braket standarized gate model device qpu properties for the given quantum hardware
 
     Attributes:
-        oneQubitProperties (dict[str, OneQubitProperties]): Dictionary mapping specific qubit
+        oneQubitProperties (Dict[str, OneQubitProperties]): Dictionary mapping specific qubit
             identifiers (ex: '1') to their calibration property sets, including fidelity measurements.
         T1 (Optional[Duration]): The T1 time of the device.
         T2 (Optional[Duration]): The T2 time of the device.
@@ -185,6 +181,7 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
         ...         },
         ...         "fidelity": 0.9950,
         ...         "standardError": 0.0010,
+        ...         "median": 0.005,
         ...         "unit": "fraction"
         ...     }],
         ...     "twoQubitGateFidelity": [{
@@ -220,3 +217,4 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     twoQubitGateFidelity: Optional[list[Fidelity]]
     twoQubitGateDuration: Optional[Duration]
     updatedAt: Optional[datetime]
+    
