@@ -19,6 +19,9 @@ from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (
     GateModelSimulatorParadigmProperties,
 )
@@ -31,8 +34,8 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
 
     Attributes:
         action (dict[Union[DeviceActionType, str],
-            Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
-            gate model simulator device can support
+            Union[OpenQASMDeviceActionProperties, OpenQASMProgramSetDeviceActionProperties,
+            JaqcdDeviceActionProperties]]): Actions that a gate model simulator device can support
         paradigm (GateModelSimulatorParadigmProperties): Paradigm properties of a simulator
 
     Examples:
@@ -101,6 +104,10 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
         Union[DeviceActionType, str],
-        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+        Union[
+            OpenQASMDeviceActionProperties,
+            OpenQASMProgramSetDeviceActionProperties,
+            JaqcdDeviceActionProperties,
+        ],
     ]
     paradigm: GateModelSimulatorParadigmProperties
