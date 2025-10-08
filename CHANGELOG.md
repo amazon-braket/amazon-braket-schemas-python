@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.26.1 (2025-10-08)
+
+### Bug Fixes and Other Changes
+
+ * allow program set action type in simulator properties
+
 ## v1.26.0 (2025-08-21)
 
 ### Deprecations and Removals
