@@ -40,9 +40,7 @@ from braket.task_result.program_set_executable_result_v1 import (  # noqa: F401
     ProgramSetExecutableResult,
     ProgramSetExecutableResultMetadata,
 )
-from braket.task_result.program_set_task_metadata_v1 import (  # noqa: F401
-    ProgramMetadata,
-)
+from braket.task_result.program_set_task_metadata_v1 import ProgramSetTaskMetadata  # noqa: F401
 from braket.task_result.program_set_task_result_v1 import ProgramSetTaskResult  # noqa: F401
 from braket.task_result.quera_metadata_v1 import QueraMetadata  # noqa: F401
 from braket.task_result.rigetti_metadata_v1 import NativeQuilMetadata, RigettiMetadata  # noqa: F401
