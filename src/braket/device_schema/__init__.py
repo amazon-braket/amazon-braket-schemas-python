@@ -38,6 +38,9 @@ from braket.device_schema.jaqcd_device_action_properties import (  # noqa: F401
 from braket.device_schema.openqasm_device_action_properties import (  # noqa: F401
     OpenQASMDeviceActionProperties,
 )
+from braket.device_schema.openqasm_program_set_device_action_properties import (  # noqa: F401
+    OpenQASMProgramSetDeviceActionProperties,
+)
 from braket.device_schema.result_type import ResultType  # noqa: F401
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (  # noqa: F401
     StandardizedGateModelQpuDeviceProperties,
