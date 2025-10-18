@@ -97,4 +97,3 @@ def test_parse_success():
             copy = input.copy()
             copy.pop(key)
             assert StandardizedGateModelQpuDeviceProperties.parse_raw_schema(json.dumps(copy))
-
