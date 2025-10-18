@@ -217,4 +217,3 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     twoQubitGateFidelity: Optional[list[Fidelity]]
     twoQubitGateDuration: Optional[Duration]
     updatedAt: Optional[datetime]
-    
