@@ -15,6 +15,7 @@ from typing import Optional, Union
 
 from pydantic.v1 import Field, conint, constr
 
+from braket.device_schema.common.gate_model_device_parameters_v1 import GateModelDeviceParameters
 from braket.device_schema.dwave import (
     Dwave2000QDeviceParameters,
     DwaveAdvantageDeviceParameters,
@@ -77,6 +78,7 @@ class TaskMetadata(BraketSchemaBase):
             GateModelSimulatorDeviceParameters,
             XanaduDeviceParameters,
             IqmDeviceParameters,
+            GateModelDeviceParameters,
         ]
     ]
     createdAt: Optional[constr(min_length=1, max_length=24)]
