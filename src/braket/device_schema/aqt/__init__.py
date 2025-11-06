@@ -12,3 +12,4 @@
 # language governing permissions and limitations under the License
 
 from braket.device_schema.aqt.aqt_device_capabilities_v1 import AqtDeviceCapabilities
+from braket.device_schema.aqt.aqt_provider_properties_v1 import AqtProviderProperties
