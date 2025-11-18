@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.27.0 (2025-11-18)
+
+### Features
+
+ * AQT schemas
+
 ## v1.26.1 (2025-10-08)
 
 ### Bug Fixes and Other Changes
