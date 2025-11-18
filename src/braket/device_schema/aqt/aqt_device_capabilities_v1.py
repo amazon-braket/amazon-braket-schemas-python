@@ -11,26 +11,25 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Dict, Optional, Union, Any
+from typing import Union, dict
 
-from braket.device_schema.openqasm_program_set_device_action_properties import (
-    OpenQASMProgramSetDeviceActionProperties,
-)
 from pydantic.v1 import Field
 
+from braket.device_schema.aqt.aqt_provider_properties_v1 import AqtProviderProperties
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
     GateModelQpuParadigmProperties,
 )
 from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 import (
     StandardizedGateModelQpuDeviceProperties,
 )
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
-
-from braket.device_schema.aqt.aqt_provider_properties_v1 import AqtProviderProperties
 
 
 class AqtDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
@@ -50,7 +49,7 @@ class AqtDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         name="braket.device_schema.aqt.aqt_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: Dict[
+    action: dict[
         Union[DeviceActionType, str],
         Union[OpenQASMDeviceActionProperties, OpenQASMProgramSetDeviceActionProperties],
     ]

@@ -14,6 +14,7 @@
 from typing import Optional, Union
 
 from pydantic.v1 import BaseModel, Field, conint, constr
+
 from braket.device_schema.common.gate_model_device_parameters_v1 import GateModelDeviceParameters
 from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
 from braket.device_schema.iqm.iqm_device_parameters_v1 import IqmDeviceParameters

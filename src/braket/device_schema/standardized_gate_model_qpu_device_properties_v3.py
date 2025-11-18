@@ -11,14 +11,13 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
 from pydantic.v1 import BaseModel, Field, confloat
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
-
-from datetime import datetime
 
 
 class TimeUnit(str, Enum):

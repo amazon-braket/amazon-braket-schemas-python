@@ -12,9 +12,9 @@
 # language governing permissions and limitations under the License
 
 from datetime import datetime
-from typing import Annotated
 
 from pydantic.v1 import BaseModel, ConfigDict, Field
+
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
 
