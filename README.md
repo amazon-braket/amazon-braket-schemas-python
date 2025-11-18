@@ -12,6 +12,7 @@ Amazon Braket Python Schemas is an open source library that contains the schemas
 * schemas for the device capabilities of each device
 
 ## Installation
+Test here
 
 ### Prerequisites
 - Python 3.10+
