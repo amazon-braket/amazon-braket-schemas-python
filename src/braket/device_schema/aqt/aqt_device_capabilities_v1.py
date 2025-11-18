@@ -13,7 +13,9 @@
 
 from typing import Dict, Optional, Union, Any
 
-from braket.device_schema.openqasm_program_set_device_action_properties import OpenQASMProgramSetDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 from pydantic.v1 import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType

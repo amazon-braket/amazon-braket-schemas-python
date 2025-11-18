@@ -11,5 +11,5 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from braket.device_schema.aqt.aqt_device_capabilities_v1 import AqtDeviceCapabilities
-from braket.device_schema.aqt.aqt_provider_properties_v1 import AqtProviderProperties
+from braket.device_schema.aqt.aqt_device_capabilities_v1 import AqtDeviceCapabilities  # noqa: F401
+from braket.device_schema.aqt.aqt_provider_properties_v1 import AqtProviderProperties  # noqa: F401

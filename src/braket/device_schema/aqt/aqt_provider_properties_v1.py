@@ -19,7 +19,6 @@ from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
 
 
-
 class GateFidelity(BaseModel):
     """**Gate fidelity**
 
@@ -34,6 +33,7 @@ class GateFidelity(BaseModel):
 class PositiveFloatValueWithUncertainty(BaseModel):
     value: float = Field(gt=0)
     uncertainty: float = Field(ge=0)
+
 
 mean_two_qubit_gate_fidelity_description = """
 <b>The mean two-qubit gate fidelity</b>
@@ -128,7 +128,9 @@ class Characterisation(BaseModel):
         }
     )
 
-    single_qubit_gate_fidelity: dict[str, GateFidelity] = Field(..., description=single_qubit_gate_fidelity_description)
+    single_qubit_gate_fidelity: dict[str, GateFidelity] = Field(
+        ..., description=single_qubit_gate_fidelity_description
+    )
     mean_two_qubit_gate_fidelity: GateFidelity = Field(
         ..., description=mean_two_qubit_gate_fidelity_description
     )
@@ -141,7 +143,9 @@ class Characterisation(BaseModel):
     single_qubit_gate_duration_micros: float = Field(
         ge=0, description=single_qubit_gate_duration_description
     )
-    two_qubit_gate_duration_micros: float = Field(ge=0, description=two_qubit_gate_duration_description)
+    two_qubit_gate_duration_micros: float = Field(
+        ge=0, description=two_qubit_gate_duration_description
+    )
     updated_at: datetime = Field(..., description="Timestamp when this was last updated")
 
 

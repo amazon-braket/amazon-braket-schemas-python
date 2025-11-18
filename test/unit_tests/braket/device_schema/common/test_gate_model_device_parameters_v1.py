@@ -25,8 +25,9 @@ def test_common_gate_model_device_parameters():
         "paradigmParameters": {
             "braketSchemaHeader": {
                 "name": "braket.device_schema.gate_model_parameters",
-                "version": "1"
+                "version": "1",
             },
-            "qubitCount": 10},
-        }
+            "qubitCount": 10,
+        },
+    }
     GateModelDeviceParameters.parse_raw_schema(json.dumps(input_json))
