@@ -69,12 +69,14 @@ class Fidelity(BaseModel):
         fidelity (float): The measured fidelity value
         standardError (Optional[float]): The expected error value reported
             on the measurement
+        median (Optional[float]): Median of fidelity values
         unit (FidelityUnit): The expected unit for the fidelity
     """
 
     fidelityType: Optional[FidelityType]
     fidelity: confloat(ge=0, le=1)
     standardError: Optional[confloat(ge=0, le=1)] = None
+    median: Optional[confloat(ge=0, le=1)] = None
     unit: FidelityUnit
 
 
@@ -109,7 +111,7 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     Braket standarized gate model device qpu properties for the given quantum hardware
 
     Attributes:
-        oneQubitProperties (dict[str, OneQubitProperties]): Dictionary mapping specific qubit
+        oneQubitProperties (Dict[str, OneQubitProperties]): Dictionary mapping specific qubit
             identifiers (ex: '1') to their calibration property sets, including fidelity measurements.
         T1 (Optional[Duration]): The T1 time of the device.
         T2 (Optional[Duration]): The T2 time of the device.
@@ -185,6 +187,7 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
         ...         },
         ...         "fidelity": 0.9950,
         ...         "standardError": 0.0010,
+        ...         "median": 0.005,
         ...         "unit": "fraction"
         ...     }],
         ...     "twoQubitGateFidelity": [{

@@ -20,6 +20,7 @@ from braket.ir.annealing import Problem
 from braket.ir.blackbird import Program as BlackbirdProgram
 from braket.ir.jaqcd import Program as JaqcdProgram
 from braket.ir.openqasm import Program as OpenQASMProgram
+from braket.task_result.aqt_metadata_v1 import AqtMetadata
 from braket.task_result.dwave_metadata_v1 import DwaveMetadata
 from braket.task_result.ionq_metadata_v1 import IonQMetadata
 from braket.task_result.iqm_metadata_v1 import IqmMetadata
@@ -57,6 +58,7 @@ class AdditionalMetadata(BaseModel):
     """
 
     action: Optional[Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]]
+    aqtMetadata: Optional[AqtMetadata]
     dwaveMetadata: Optional[DwaveMetadata]
     ionqMetadata: Optional[IonQMetadata]
     rigettiMetadata: Optional[RigettiMetadata]

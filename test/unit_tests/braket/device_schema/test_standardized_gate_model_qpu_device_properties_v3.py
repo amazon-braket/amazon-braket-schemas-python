@@ -62,6 +62,7 @@ def test_parse_success():
                 "fidelity": 0.9950,
                 "standardError": 0.0010,
                 "unit": "fraction",
+                "median": 0.008,
             }
         ],
         "twoQubitGateFidelity": [

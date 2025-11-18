@@ -23,6 +23,7 @@ from braket.schema_common.schema_header import BraketSchemaHeader
 from braket.task_result import (
     AdditionalMetadata,
     DwaveMetadata,
+    AqtMetadata,
     DwaveTiming,
     IonQMetadata,
     IqmMetadata,
@@ -116,6 +117,11 @@ def oqc_metadata(compiled_program):
 @pytest.fixture
 def iqm_metadata(compiled_program):
     return IqmMetadata(compiledProgram=compiled_program)
+
+
+@pytest.fixture
+def aqt_metadata(compiled_program):
+    return AqtMetadata(compiledProgram=compiled_program)
 
 
 @pytest.fixture
