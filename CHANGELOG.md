@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.28.0 (2026-01-14)
+
+### Features
+
+ * adding active reset duration field to standard gate props v3
+
 ## v1.27.0 (2025-11-18)
 
 ### Features
