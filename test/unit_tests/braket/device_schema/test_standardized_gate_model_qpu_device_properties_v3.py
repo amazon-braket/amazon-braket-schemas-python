@@ -77,6 +77,11 @@ def test_parse_success():
             }
         ],
         "twoQubitGateDuration": {"value": 0.000200, "standardError": 0.000010, "unit": "s"},
+        "activeResetDuration": {
+            "value": 0.000100,
+            "standardError": 0.000005,
+            "unit": "s"
+        },
         "updatedAt": "2025-02-22T12:29:03Z",
     }
     assert StandardizedGateModelQpuDeviceProperties.parse_raw_schema(json.dumps(input))

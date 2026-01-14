@@ -120,6 +120,7 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
         SingleQubitGateDuration (Optional[Duration]): The typical duration of a single-qubit gate operation.
         TwoQubitGateFidelity (Optional[list[Fidelity]]): The fidelity of two-qubit gate operation.
         TwoQubitGateDuration (Optional[Duration]): The typical duration of a two-qubit gate operation.
+        ActiveResetDuration (Optional[Duration]): Fixed duration to active reset a qubit.
     Examples:
         >>> import json
         >>> valid_input = {
@@ -204,6 +205,11 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
         ...         "standardError": 0.000010,
         ...         "unit": "s"
         ...     },
+        ...     "activeResetDuration": {
+        ...         "value": 0.000100,
+        ...         "standardError": 0.000005,
+        ...         "unit": "s"
+        ...     },
         ...     "updatedAt": "2025-02-22T12:29:03Z"
         ... }
         >>> StandardizedGateModelQpuDeviceProperties.parse_raw_schema(json.dumps(valid_input))
@@ -222,4 +228,5 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     singleQubitFidelity: Optional[list[Fidelity]]
     twoQubitGateFidelity: Optional[list[Fidelity]]
     twoQubitGateDuration: Optional[Duration]
+    activeResetDuration: Optional[Duration]
     updatedAt: Optional[datetime]
