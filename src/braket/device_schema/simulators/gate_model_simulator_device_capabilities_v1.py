@@ -25,7 +25,7 @@ from braket.device_schema.openqasm_program_set_device_action_properties import (
 from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (
     GateModelSimulatorParadigmProperties,
 )
-from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.schema_common import BraketSchemaBase, BraketSchemaHeader, LenientDict
 
 
 class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
@@ -102,7 +102,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         name="braket.device_schema.simulators.gate_model_simulator_device_capabilities", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    action: dict[
+    action: LenientDict[
         Union[DeviceActionType, str],
         Union[
             OpenQASMDeviceActionProperties,

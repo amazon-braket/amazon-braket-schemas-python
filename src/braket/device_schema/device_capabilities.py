@@ -17,6 +17,7 @@ from pydantic.v1 import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
+from braket.schema_common import LenientDict
 
 
 class DeviceCapabilities(BaseModel):
@@ -72,5 +73,5 @@ class DeviceCapabilities(BaseModel):
     """
 
     service: DeviceServiceProperties
-    action: dict[Union[DeviceActionType, str], DeviceActionProperties]
+    action: LenientDict[Union[DeviceActionType, str], DeviceActionProperties]
     deviceParameters: dict
