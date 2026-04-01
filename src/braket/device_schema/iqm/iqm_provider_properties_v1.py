@@ -11,18 +11,18 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import TypeVar, Union
+from typing import TypeVar
 
 from pydantic.v1 import Field
 
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
 
-GateFidelityType = TypeVar("GateFidelityType", bound=dict[str, Union[str, float]])
-OneQubitType = TypeVar("OneQubitType", bound=Union[float, list[GateFidelityType]])
-TwoQubitType = TypeVar("TwoQubitType", bound=dict[str, Union[float, dict[str, int]]])
+GateFidelityType = TypeVar("GateFidelityType", bound=dict[str, str | float])
+OneQubitType = TypeVar("OneQubitType", bound=float | list[GateFidelityType])
+TwoQubitType = TypeVar("TwoQubitType", bound=dict[str, float | dict[str, int]])
 
-QubitType = TypeVar("QubitType", bound=dict[str, Union[OneQubitType, TwoQubitType]])
+QubitType = TypeVar("QubitType", bound=dict[str, OneQubitType | TwoQubitType])
 
 
 class IqmProviderProperties(BraketSchemaBase):

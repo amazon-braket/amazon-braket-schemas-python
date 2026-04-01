@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from importlib import import_module
-from typing import Optional
 
 from pydantic.v1 import Field, validator
 
@@ -54,7 +53,7 @@ class IonqDeviceParameters(BraketSchemaBase):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     paradigmParameters: GateModelParameters
-    errorMitigation: Optional[list[ErrorMitigationScheme]] = None
+    errorMitigation: list[ErrorMitigationScheme] | None = None
 
     @validator("errorMitigation", each_item=True, pre=True)
     def validate_em(cls, value, field):

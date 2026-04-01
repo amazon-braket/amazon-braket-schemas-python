@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
 
@@ -75,5 +74,5 @@ class RigettiMetadata(BraketSchemaBase):
         default=_RIGETTI_METADATA_HEADER, const=_RIGETTI_METADATA_HEADER
     )
 
-    nativeQuilMetadata: Optional[NativeQuilMetadata]
+    nativeQuilMetadata: NativeQuilMetadata | None
     compiledProgram: constr(min_length=2)

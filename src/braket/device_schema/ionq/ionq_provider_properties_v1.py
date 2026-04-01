@@ -13,7 +13,6 @@
 
 import json
 from importlib import import_module
-from typing import Optional
 
 from pydantic.v1 import Field
 
@@ -97,7 +96,7 @@ class IonqProviderProperties(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     fidelity: dict[str, dict[str, float]]
     timing: dict[str, float]
-    errorMitigation: Optional[dict[type[ErrorMitigationScheme], ErrorMitigationProperties]] = None
+    errorMitigation: dict[type[ErrorMitigationScheme], ErrorMitigationProperties] | None = None
 
     class Config:
         json_loads = _loads_with_error_mitigation

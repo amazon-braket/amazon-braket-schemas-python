@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import Annotated, Optional
+from typing import Annotated
 
 from pydantic.v1 import BaseModel, Field
 
@@ -151,7 +151,7 @@ class Rydberg(BaseModel):
 
     c6Coefficient: Decimal
     rydbergGlobal: RydbergGlobal
-    rydbergLocal: Optional[RydbergLocal] = None
+    rydbergLocal: RydbergLocal | None = None
 
 
 class PerformanceLattice(BaseModel):
@@ -375,7 +375,7 @@ class PerformanceRydberg(BaseModel):
     """
 
     rydbergGlobal: PerformanceRydbergGlobal
-    rydbergLocal: Optional[PerformanceRydbergLocal] = None
+    rydbergLocal: PerformanceRydbergLocal | None = None
 
 
 class Performance(BaseModel):

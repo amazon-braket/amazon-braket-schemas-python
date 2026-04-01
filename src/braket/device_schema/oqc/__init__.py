@@ -13,6 +13,6 @@
 
 from braket.device_schema.oqc.oqc_device_capabilities_v1 import OqcDeviceCapabilities  # noqa: F401
 from braket.device_schema.oqc.oqc_device_parameters_v1 import OqcDeviceParameters  # noqa: F401
-from braket.device_schema.oqc.oqc_provider_properties_v1 import (  # noqa: F401, E501
+from braket.device_schema.oqc.oqc_provider_properties_v1 import (  # noqa: F401
     OqcProviderProperties,
 )

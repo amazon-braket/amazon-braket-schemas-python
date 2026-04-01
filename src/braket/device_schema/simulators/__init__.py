@@ -12,12 +12,12 @@
 # language governing permissions and limitations under the License
 
 
-from braket.device_schema.simulators.gate_model_simulator_device_capabilities_v1 import (  # noqa: F401, E501
+from braket.device_schema.simulators.gate_model_simulator_device_capabilities_v1 import (  # noqa: F401
     GateModelSimulatorDeviceCapabilities,
 )
-from braket.device_schema.simulators.gate_model_simulator_device_parameters_v1 import (  # noqa: F401, E501
+from braket.device_schema.simulators.gate_model_simulator_device_parameters_v1 import (  # noqa: F401
     GateModelSimulatorDeviceParameters,
 )
-from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (  # noqa: F401, E501
+from braket.device_schema.simulators.gate_model_simulator_paradigm_properties_v1 import (  # noqa: F401
     GateModelSimulatorParadigmProperties,
 )

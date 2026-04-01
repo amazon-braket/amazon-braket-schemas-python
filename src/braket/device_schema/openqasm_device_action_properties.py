@@ -11,9 +11,8 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional
 
-from pydantic.v1 import constr
+from pydantic.v1 import Field, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -64,16 +63,16 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
 
     actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
     supportedOperations: list[str]
-    supportedModifiers: Optional[list[Modifier]] = []
-    supportedPragmas: Optional[list[str]] = []
-    forbiddenPragmas: Optional[list[str]] = []
-    maximumQubitArrays: Optional[int] = None  # None indicates no limit
-    maximumClassicalArrays: Optional[int] = None  # None indicates no limit
-    forbiddenArrayOperations: Optional[list[str]] = []
-    requiresAllQubitsMeasurement: Optional[bool] = False
-    supportPhysicalQubits: Optional[bool] = False
-    requiresContiguousQubitIndices: Optional[bool] = False
-    supportsPartialVerbatimBox: Optional[bool] = True
-    supportsUnassignedMeasurements: Optional[bool] = True
-    disabledQubitRewiringSupported: Optional[bool] = False
-    supportedResultTypes: Optional[list[ResultType]]
+    supportedModifiers: list[Modifier] | None = Field(default_factory=list)
+    supportedPragmas: list[str] | None = Field(default_factory=list)
+    forbiddenPragmas: list[str] | None = Field(default_factory=list)
+    maximumQubitArrays: int | None = None  # None indicates no limit
+    maximumClassicalArrays: int | None = None  # None indicates no limit
+    forbiddenArrayOperations: list[str] | None = Field(default_factory=list)
+    requiresAllQubitsMeasurement: bool | None = False
+    supportPhysicalQubits: bool | None = False
+    requiresContiguousQubitIndices: bool | None = False
+    supportsPartialVerbatimBox: bool | None = True
+    supportsUnassignedMeasurements: bool | None = True
+    disabledQubitRewiringSupported: bool | None = False
+    supportedResultTypes: list[ResultType] | None

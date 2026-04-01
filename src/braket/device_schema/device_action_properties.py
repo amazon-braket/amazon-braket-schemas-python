@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Union
 
 from pydantic.v1 import BaseModel
 
@@ -49,4 +48,4 @@ class DeviceActionProperties(BaseModel):
     """
 
     version: list[str]
-    actionType: Union[DeviceActionType, str]
+    actionType: DeviceActionType | str

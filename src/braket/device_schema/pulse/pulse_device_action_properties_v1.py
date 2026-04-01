@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import AnyUrl, Field
 
@@ -142,9 +141,9 @@ class PulseDeviceActionProperties(BraketSchemaBase):
     supportedQhpTemplateWaveforms: dict[str, PulseFunction]
     ports: dict[str, Port]
     supportedFunctions: dict[str, PulseFunction]
-    frames: Optional[dict[str, Frame]]
-    supportsLocalPulseElements: Optional[bool] = True
-    supportsDynamicFrames: Optional[bool] = True
-    supportsNonNativeGatesWithPulses: Optional[bool] = False
-    validationParameters: Optional[dict[str, float]]
-    nativeGateCalibrationsRef: Optional[AnyUrl]
+    frames: dict[str, Frame] | None
+    supportsLocalPulseElements: bool | None = True
+    supportsDynamicFrames: bool | None = True
+    supportsNonNativeGatesWithPulses: bool | None = False
+    validationParameters: dict[str, float] | None
+    nativeGateCalibrationsRef: AnyUrl | None

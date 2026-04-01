@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from datetime import datetime
-from typing import Optional
 
 from pydantic.v1 import BaseModel, Field
 
@@ -61,9 +60,9 @@ class DeviceDocumentation(BaseModel):
         >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
     """
 
-    imageUrl: Optional[str]
-    summary: Optional[str]
-    externalDocumentationUrl: Optional[str]
+    imageUrl: str | None
+    summary: str | None
+    externalDocumentationUrl: str | None
 
 
 class DeviceServiceProperties(BraketSchemaBase):
@@ -120,8 +119,8 @@ class DeviceServiceProperties(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     executionWindows: list[DeviceExecutionWindow]
     shotsRange: tuple[int, int]
-    deviceCost: Optional[DeviceCost]
-    deviceDocumentation: Optional[DeviceDocumentation]
-    deviceLocation: Optional[str]
-    updatedAt: Optional[datetime]
-    getTaskPollIntervalMillis: Optional[int]
+    deviceCost: DeviceCost | None
+    deviceDocumentation: DeviceDocumentation | None
+    deviceLocation: str | None
+    updatedAt: datetime | None
+    getTaskPollIntervalMillis: int | None

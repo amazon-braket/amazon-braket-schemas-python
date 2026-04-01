@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import BaseModel, Field, conint, conlist, constr
 
@@ -45,8 +44,8 @@ class AnalogHamiltonianSimulationShotResult(BaseModel):
             quantum evolution
     """
 
-    preSequence: Optional[conlist(conint(ge=0, le=1), min_items=1)]
-    postSequence: Optional[conlist(conint(ge=0, le=1), min_items=1)]
+    preSequence: conlist(conint(ge=0, le=1), min_items=1) | None
+    postSequence: conlist(conint(ge=0, le=1), min_items=1) | None
 
 
 class AnalogHamiltonianSimulationShotMeasurement(BaseModel):
@@ -83,5 +82,5 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
         default=_AHS_TASK_RESULT_HEADER, const=_AHS_TASK_RESULT_HEADER
     )
     taskMetadata: TaskMetadata
-    measurements: Optional[list[AnalogHamiltonianSimulationShotMeasurement]]
-    additionalMetadata: Optional[AdditionalMetadata]
+    measurements: list[AnalogHamiltonianSimulationShotMeasurement] | None
+    additionalMetadata: AdditionalMetadata | None

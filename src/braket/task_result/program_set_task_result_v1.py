@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -41,6 +40,6 @@ class ProgramSetTaskResult(BraketSchemaBase):
         default=_PROGRAM_SET_TASK_RESULT_HEADER, const=_PROGRAM_SET_TASK_RESULT_HEADER
     )
 
-    programResults: Union[list[str], list[ProgramResult]]
-    taskMetadata: Union[str, ProgramSetTaskMetadata]
-    s3Location: Optional[tuple[str, str]]
+    programResults: list[str] | list[ProgramResult]
+    taskMetadata: str | ProgramSetTaskMetadata
+    s3Location: tuple[str, str] | None
