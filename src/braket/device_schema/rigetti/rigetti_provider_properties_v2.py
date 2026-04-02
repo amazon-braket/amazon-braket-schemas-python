@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Union
 
 from pydantic.v1 import Field
 
@@ -156,4 +155,4 @@ class RigettiProviderProperties(BraketSchemaBase):
         name="braket.device_schema.rigetti.rigetti_provider_properties", version="2"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    specs: dict[str, Union[str, list, dict[str, Union[str, list]]]]
+    specs: dict[str, str | list | dict[str, str | list]]

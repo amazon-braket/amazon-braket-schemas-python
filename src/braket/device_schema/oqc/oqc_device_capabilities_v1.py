@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -115,10 +114,10 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
-        Union[DeviceActionType, str],
-        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+        DeviceActionType | str,
+        OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[OqcProviderProperties]
-    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
-    pulse: Optional[PulseDeviceActionProperties]
+    provider: OqcProviderProperties | None
+    standardized: StandardizedGateModelQpuDeviceProperties | None
+    pulse: PulseDeviceActionProperties | None

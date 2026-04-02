@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 from enum import Enum
-from typing import Any, Union
+from typing import Any
 
 from pydantic.v1 import Field
 
@@ -54,4 +54,4 @@ class PersistedJobData(BraketSchemaBase):
         default=_PERSISTED_JOB_DATA_HEADER, const=_PERSISTED_JOB_DATA_HEADER
     )
     dataDictionary: dict[str, Any]
-    dataFormat: Union[PersistedJobDataFormat, str]
+    dataFormat: PersistedJobDataFormat | str

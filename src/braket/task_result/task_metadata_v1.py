@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
 
 from pydantic.v1 import Field, conint, constr
 
@@ -67,21 +66,20 @@ class TaskMetadata(BraketSchemaBase):
     id: constr(min_length=1)
     shots: conint(ge=0)
     deviceId: constr(min_length=1)
-    deviceParameters: Optional[
-        Union[
-            DwaveDeviceParameters,
-            DwaveAdvantageDeviceParameters,
-            Dwave2000QDeviceParameters,
-            RigettiDeviceParameters,
-            IonqDeviceParameters,
-            OqcDeviceParameters,
-            GateModelSimulatorDeviceParameters,
-            XanaduDeviceParameters,
-            IqmDeviceParameters,
-            GateModelDeviceParameters,
-        ]
-    ]
-    createdAt: Optional[constr(min_length=1, max_length=24)]
-    endedAt: Optional[constr(min_length=1, max_length=24)]
-    status: Optional[constr(min_length=1, max_length=20)]
-    failureReason: Optional[constr(min_length=1)]
+    deviceParameters: (
+        DwaveDeviceParameters
+        | DwaveAdvantageDeviceParameters
+        | Dwave2000QDeviceParameters
+        | RigettiDeviceParameters
+        | IonqDeviceParameters
+        | OqcDeviceParameters
+        | GateModelSimulatorDeviceParameters
+        | XanaduDeviceParameters
+        | IqmDeviceParameters
+        | GateModelDeviceParameters
+        | None
+    )
+    createdAt: constr(min_length=1, max_length=24) | None
+    endedAt: constr(min_length=1, max_length=24) | None
+    status: constr(min_length=1, max_length=20) | None
+    failureReason: constr(min_length=1) | None

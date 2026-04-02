@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import BaseModel
 
@@ -30,7 +29,7 @@ class PulseFunctionArgument(BaseModel):
     name: str
     type: str
     optional: bool = False
-    description: Optional[str]
+    description: str | None
 
 
 class PulseFunction(BaseModel):
@@ -46,4 +45,4 @@ class PulseFunction(BaseModel):
 
     functionName: str
     arguments: list[PulseFunctionArgument]
-    returnType: Optional[str]
+    returnType: str | None

@@ -26,7 +26,10 @@ setup(
     python_requires=">= 3.11",
     packages=find_namespace_packages(where="src", exclude=("test",)),
     package_dir={"": "src"},
-    install_requires=["pydantic>2"],
+    install_requires=[
+        "pydantic>2",
+        "setuptools==81.0.0",  # pin until https://github.com/pypa/setuptools/issues/5174 is fixed
+    ],
     extras_require={
         "test": [
             "jsonschema",

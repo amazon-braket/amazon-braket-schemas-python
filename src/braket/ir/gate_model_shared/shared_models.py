@@ -11,8 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
-
 from pydantic.v1 import BaseModel, confloat, conint, conlist, constr, root_validator
 
 
@@ -69,7 +67,7 @@ class OptionalMultiTarget(BaseModel):
         >>> OptionalMultiTarget(targets=[0, 1])
     """
 
-    targets: Optional[conlist(conint(ge=0), min_items=1)]
+    targets: conlist(conint(ge=0), min_items=1) | None
 
 
 class OptionalNestedMultiTarget(BaseModel):
@@ -84,7 +82,7 @@ class OptionalNestedMultiTarget(BaseModel):
         >>> OptionalNestedMultiTarget(targets=[[0, 1], [2]])
     """
 
-    targets: Optional[conlist(conlist(conint(ge=0), min_items=1), min_items=1)]
+    targets: conlist(conlist(conint(ge=0), min_items=1), min_items=1) | None
 
 
 class OptionalMultiParameter(BaseModel):
@@ -94,7 +92,7 @@ class OptionalMultiParameter(BaseModel):
         parameters (Optional[List[str]]): A list of parameter names.
     """
 
-    parameters: Optional[conlist(constr(min_length=1), min_items=0)]
+    parameters: conlist(constr(min_length=1), min_items=0) | None
 
 
 class MultiControl(BaseModel):
@@ -285,22 +283,22 @@ class MultiProbability(BaseModel):
         if not probabilities:
             raise ValueError("Pauli dictionary must not be empty.")
 
-        qubit_count = len(list(probabilities)[0])
+        qubit_count = len(next(iter(probabilities)))
 
-        if qubit_count * "I" in probabilities.keys():
+        if qubit_count * "I" in probabilities:
             i = qubit_count * "I"
             raise ValueError(
                 f"{i} is not allowed as a key. Please enter only non-identity Pauli strings."
             )
 
-        for pauli_string in probabilities.keys():
+        for pauli_string in probabilities:
             if len(pauli_string) != qubit_count:
                 raise ValueError("Length of each Pauli string must be equal to number of qubits.")
 
         total_prob = sum(probabilities.values())
         if total_prob > 1.0 or total_prob < 0.0:
             raise ValueError(
-                f"Total probability must be a real number in the interval [0, 1]. Total probability was {total_prob}."  # noqa: E501
+                f"Total probability must be a real number in the interval [0, 1]. Total probability was {total_prob}."
             )
 
         return values
@@ -368,7 +366,7 @@ class Observable(BaseModel):
     of each operator in the list.
 
     Attributes:
-        observable (Union[List[Union[str, List[List[List[float]]]], str]): A list with at least
+        observable (list[str | list[list[list[float]]] | str): A list with at least
             one item and items are strings matching the observable regex
             or a two-dimensional hermitian matrix with complex entries.
             Each complex number is represented using a List[float] of size 2, with
@@ -386,24 +384,17 @@ class Observable(BaseModel):
     _obs_regex = r"[xyzhi]"
     _term_regex = rf"{_coef_regex}?{_obs_regex}(\s*@\s*{_obs_regex})*"
     _hamiltonian_regex = rf"{_term_regex}(\s*\+\s*{_term_regex})*"
-    observable: Union[
-        conlist(
-            Union[
-                constr(regex="(x|y|z|h|i)"),
-                conlist(
-                    conlist(
-                        conlist(
-                            confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2
-                        ),
-                        min_items=2,
-                    ),
-                    min_items=2,
-                ),
-            ],
-            min_items=1,
+    observable: conlist(
+        constr(regex="(x|y|z|h|i)")
+        | conlist(
+            conlist(
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
+                min_items=2,
+            ),
+            min_items=2,
         ),
-        constr(regex=_hamiltonian_regex),
-    ]
+        min_items=1,
+    ) | constr(regex=_hamiltonian_regex)
 
 
 class MultiState(BaseModel):

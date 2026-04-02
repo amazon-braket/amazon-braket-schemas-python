@@ -53,4 +53,4 @@ class Program(BraketSchemaBase):
     hamiltonian: Hamiltonian
 
     class Config:
-        json_encoders = {Decimal: str}
+        json_encoders = {Decimal: str}  # noqa: RUF012

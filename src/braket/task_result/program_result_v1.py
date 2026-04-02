@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Union
 
 from pydantic.v1 import Field
 
@@ -44,8 +43,6 @@ class ProgramResult(BraketSchemaBase):
         default=_PROGRAM_SET_PROGRAM_RESULT_HEADER, const=_PROGRAM_SET_PROGRAM_RESULT_HEADER
     )
 
-    executableResults: Union[
-        list[str], list[Union[ProgramSetExecutableResult, ProgramSetExecutableFailure]]
-    ]
-    source: Union[str, Program]
+    executableResults: list[str] | list[ProgramSetExecutableResult | ProgramSetExecutableFailure]
+    source: str | Program
     additionalMetadata: AdditionalMetadata

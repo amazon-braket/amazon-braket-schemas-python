@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import BaseModel, Field, conint, conlist
 
@@ -28,19 +27,19 @@ class DwaveTiming(BaseModel):
         >>> DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
     """
 
-    qpuSamplingTime: Optional[conint(ge=0)]
-    qpuAnnealTimePerSample: Optional[conint(ge=0)]
-    qpuAccessTime: Optional[conint(ge=0)]
-    qpuAccessOverheadTime: Optional[conint(ge=0)]
-    qpuReadoutTimePerSample: Optional[conint(ge=0)]
-    qpuProgrammingTime: Optional[conint(ge=0)]
-    qpuDelayTimePerSample: Optional[conint(ge=0)]
-    postProcessingOverheadTime: Optional[conint(ge=0)]
-    totalPostProcessingTime: Optional[conint(ge=0)]
-    totalRealTime: Optional[conint(ge=0)]
-    runTimeChip: Optional[conint(ge=0)]
-    annealTimePerRun: Optional[conint(ge=0)]
-    readoutTimePerRun: Optional[conint(ge=0)]
+    qpuSamplingTime: conint(ge=0) | None
+    qpuAnnealTimePerSample: conint(ge=0) | None
+    qpuAccessTime: conint(ge=0) | None
+    qpuAccessOverheadTime: conint(ge=0) | None
+    qpuReadoutTimePerSample: conint(ge=0) | None
+    qpuProgrammingTime: conint(ge=0) | None
+    qpuDelayTimePerSample: conint(ge=0) | None
+    postProcessingOverheadTime: conint(ge=0) | None
+    totalPostProcessingTime: conint(ge=0) | None
+    totalRealTime: conint(ge=0) | None
+    runTimeChip: conint(ge=0) | None
+    annealTimePerRun: conint(ge=0) | None
+    readoutTimePerRun: conint(ge=0) | None
 
 
 class DwaveMetadata(BraketSchemaBase):

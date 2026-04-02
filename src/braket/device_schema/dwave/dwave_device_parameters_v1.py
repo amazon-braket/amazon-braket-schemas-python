@@ -10,7 +10,6 @@
 # distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
-from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -54,7 +53,7 @@ class DwaveDeviceParameters(BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_device_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    providerLevelParameters: Optional[DwaveProviderLevelParameters]
-    deviceLevelParameters: Optional[
-        Union[DwaveAdvantageDeviceLevelParameters, Dwave2000QDeviceLevelParameters]
-    ]
+    providerLevelParameters: DwaveProviderLevelParameters | None
+    deviceLevelParameters: (
+        DwaveAdvantageDeviceLevelParameters | Dwave2000QDeviceLevelParameters | None
+    )

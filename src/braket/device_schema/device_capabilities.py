@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Union
 
 from pydantic.v1 import BaseModel
 
@@ -72,5 +71,5 @@ class DeviceCapabilities(BaseModel):
     """
 
     service: DeviceServiceProperties
-    action: dict[Union[DeviceActionType, str], DeviceActionProperties]
+    action: dict[DeviceActionType | str, DeviceActionProperties]
     deviceParameters: dict
