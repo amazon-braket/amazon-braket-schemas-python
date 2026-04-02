@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.29.1 (2026-04-02)
+
+### Bug Fixes and Other Changes
+
+ * Update syntax to Python 3.10
+
 ## v1.29.0 (2026-01-30)
 
 ### Deprecations and Removals
