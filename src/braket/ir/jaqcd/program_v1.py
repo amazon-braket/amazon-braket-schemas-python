@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Any, Optional, Union
+from typing import Any
 
 from pydantic.v1 import BaseModel, Field, validator
 
@@ -134,16 +134,16 @@ _valid_compiler_directives = {
     EndVerbatimBox.Type.end_verbatim_box: EndVerbatimBox,
 }
 
-Results = Union[
-    Amplitude,
-    Expectation,
-    Probability,
-    Sample,
-    StateVector,
-    DensityMatrix,
-    Variance,
-    AdjointGradient,
-]
+Results = (
+    Amplitude
+    | Expectation
+    | Probability
+    | Sample
+    | StateVector
+    | DensityMatrix
+    | Variance
+    | AdjointGradient
+)
 
 
 class Program(BraketSchemaBase):
@@ -218,8 +218,8 @@ class Program(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     instructions: list[Any]
-    results: Optional[list[Results]]
-    basis_rotation_instructions: Optional[list[Any]]
+    results: list[Results] | None
+    basis_rotation_instructions: list[Any] | None
 
     @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
     def validate_instructions(cls, value, field):

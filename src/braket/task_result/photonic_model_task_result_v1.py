@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import Field, conint, conlist
 
@@ -40,8 +39,9 @@ class PhotonicModelTaskResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(
         default=_PHOTONIC_MODEL_TASK_RESULT_HEADER, const=_PHOTONIC_MODEL_TASK_RESULT_HEADER
     )
-    measurements: Optional[
+    measurements: (
         conlist(conlist(conlist(conint(ge=0, le=256), min_items=1), min_items=1), min_items=1)
-    ]
+        | None
+    )
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
+# ruff: noqa: N999
 
 from pydantic.v1 import Field
 
@@ -80,20 +80,20 @@ class Dwave2000QDeviceLevelParameters(BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_2000Q_device_level_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: Optional[list[float]]
-    annealingSchedule: Optional[list[list[float]]]
-    annealingDuration: Optional[float] = Field(gt=0)
-    autoScale: Optional[bool]
-    beta: Optional[float]
-    chains: Optional[list[list[int]]]
-    compensateFluxDrift: Optional[bool]
-    fluxBiases: Optional[list[float]]
-    initialState: Optional[list[int]]
-    maxResults: Optional[int] = Field(gt=0)
-    postprocessingType: Optional[Union[PostProcessingType, str]]
-    programmingThermalizationDuration: Optional[int]
-    readoutThermalizationDuration: Optional[int]
-    reduceIntersampleCorrelation: Optional[bool]
-    reinitializeState: Optional[bool]
-    resultFormat: Optional[ResultFormat]
-    spinReversalTransformCount: Optional[int] = Field(gt=0)
+    annealingOffsets: list[float] | None
+    annealingSchedule: list[list[float]] | None
+    annealingDuration: float | None = Field(gt=0)
+    autoScale: bool | None
+    beta: float | None
+    chains: list[list[int]] | None
+    compensateFluxDrift: bool | None
+    fluxBiases: list[float] | None
+    initialState: list[int] | None
+    maxResults: int | None = Field(gt=0)
+    postprocessingType: PostProcessingType | str | None
+    programmingThermalizationDuration: int | None
+    readoutThermalizationDuration: int | None
+    reduceIntersampleCorrelation: bool | None
+    reinitializeState: bool | None
+    resultFormat: ResultFormat | None
+    spinReversalTransformCount: int | None = Field(gt=0)

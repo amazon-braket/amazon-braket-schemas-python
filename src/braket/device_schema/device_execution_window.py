@@ -13,7 +13,6 @@
 
 from datetime import time
 from enum import Enum
-from typing import Union
 
 from pydantic.v1 import BaseModel
 
@@ -67,6 +66,6 @@ class DeviceExecutionWindow(BaseModel):
 
     """
 
-    executionDay: Union[ExecutionDay, str]
+    executionDay: ExecutionDay | str
     windowStartHour: time
     windowEndHour: time

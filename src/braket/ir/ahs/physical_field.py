@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from decimal import Decimal
-from typing import Union
 
 from pydantic.v1 import BaseModel
 
@@ -33,4 +32,4 @@ class PhysicalField(BaseModel):
     """
 
     time_series: TimeSeries
-    pattern: Union[str, list[Decimal]]
+    pattern: str | list[Decimal]

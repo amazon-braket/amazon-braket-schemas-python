@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional
 
 from pydantic.v1 import Field
 
@@ -69,17 +68,17 @@ class DwaveAdvantageDeviceLevelParameters(BraketSchemaBase):
         name="braket.device_schema.dwave.dwave_advantage_device_level_parameters", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: Optional[list[float]]
-    annealingSchedule: Optional[list[list[float]]]
-    annealingDuration: Optional[float] = Field(gt=0)
-    autoScale: Optional[bool]
-    compensateFluxDrift: Optional[bool]
-    fluxBiases: Optional[list[float]]
-    initialState: Optional[list[int]]
-    maxResults: Optional[int] = Field(gt=0)
-    programmingThermalizationDuration: Optional[int]
-    readoutThermalizationDuration: Optional[int]
-    reduceIntersampleCorrelation: Optional[bool]
-    reinitializeState: Optional[bool]
-    resultFormat: Optional[ResultFormat]
-    spinReversalTransformCount: Optional[int] = Field(gt=0)
+    annealingOffsets: list[float] | None
+    annealingSchedule: list[list[float]] | None
+    annealingDuration: float | None = Field(gt=0)
+    autoScale: bool | None
+    compensateFluxDrift: bool | None
+    fluxBiases: list[float] | None
+    initialState: list[int] | None
+    maxResults: int | None = Field(gt=0)
+    programmingThermalizationDuration: int | None
+    readoutThermalizationDuration: int | None
+    reduceIntersampleCorrelation: bool | None
+    reinitializeState: bool | None
+    resultFormat: ResultFormat | None
+    spinReversalTransformCount: int | None = Field(gt=0)

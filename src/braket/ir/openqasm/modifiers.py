@@ -12,19 +12,18 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic.v1 import BaseModel, constr
 
 
 class Control(BaseModel):
     name: constr(regex=r"^ctrl$")
-    max_qubits: Optional[int] = None  # None indicates no limit
+    max_qubits: int | None = None  # None indicates no limit
 
 
 class NegControl(BaseModel):
     name: constr(regex=r"^negctrl$")
-    max_qubits: Optional[int] = None  # None indicates no limit
+    max_qubits: int | None = None  # None indicates no limit
 
 
 class ExponentType(str, Enum):
@@ -41,4 +40,4 @@ class Inverse(BaseModel):
     name: constr(regex=r"^inv$")
 
 
-Modifier = Union[Control, NegControl, Power, Inverse]
+Modifier = Control | NegControl | Power | Inverse

@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 from enum import Enum
-from typing import Any, Optional
+from typing import Any
 
 from pydantic.v1 import BaseModel
 
@@ -43,6 +43,6 @@ class Port(BaseModel):
     direction: Direction
     portType: str
     dt: float
-    qubitMappings: Optional[list[int]]
-    centerFrequencies: Optional[set[float]]
-    qhpSpecificProperties: Optional[dict[str, Any]]
+    qubitMappings: list[int] | None
+    centerFrequencies: set[float] | None
+    qhpSpecificProperties: dict[str, Any] | None

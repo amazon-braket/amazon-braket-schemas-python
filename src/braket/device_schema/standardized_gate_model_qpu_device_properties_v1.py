@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Optional
 
 from pydantic.v1 import BaseModel, Field, confloat
 
@@ -38,7 +37,7 @@ class FidelityType(BaseModel):
     """
 
     name: str
-    description: Optional[str]
+    description: str | None
 
 
 class GateFidelity2Q(BaseModel):
@@ -55,10 +54,10 @@ class GateFidelity2Q(BaseModel):
             for the presented value
     """
 
-    direction: Optional[dict[QubitDirection, int]] = None
+    direction: dict[QubitDirection, int] | None = None
     gateName: str
     fidelity: confloat(ge=0, le=1)
-    standardError: Optional[confloat(ge=0, le=1)] = None
+    standardError: confloat(ge=0, le=1) | None = None
     fidelityType: FidelityType
 
 
@@ -85,7 +84,7 @@ class Fidelity1Q(BaseModel):
 
     fidelityType: FidelityType
     fidelity: confloat(ge=0, le=1)
-    standardError: Optional[confloat(ge=0, le=1)] = None
+    standardError: confloat(ge=0, le=1) | None = None
 
 
 class CoherenceTime(BaseModel):
@@ -98,7 +97,7 @@ class CoherenceTime(BaseModel):
     """
 
     value: float
-    standardError: Optional[float]
+    standardError: float | None
     unit: str
 
 

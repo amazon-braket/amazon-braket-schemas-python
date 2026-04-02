@@ -70,7 +70,7 @@ class H(SingleTarget):
     type = Type.h
 
 
-class I(SingleTarget):  # noqa: E742, E261
+class I(SingleTarget):
     """
     Identity gate.
 

@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 import json
-from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -126,12 +125,12 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
-        Union[DeviceActionType, str],
-        Union[OpenQASMDeviceActionProperties, JaqcdDeviceActionProperties],
+        DeviceActionType | str,
+        OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[IonqProviderProperties]
-    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
+    provider: IonqProviderProperties | None
+    standardized: StandardizedGateModelQpuDeviceProperties | None
 
     class Config:
         # Pydantic does not use the custom encoders/decoders of nested models:

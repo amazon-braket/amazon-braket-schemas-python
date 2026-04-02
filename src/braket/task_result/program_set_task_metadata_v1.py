@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
 
 from pydantic.v1 import BaseModel, Field, conint, constr
 
@@ -43,11 +42,9 @@ class ProgramMetadata(BaseModel):
     """
 
     executables: list[
-        Union[
-            ProgramSetExecutableFailureMetadata,
-            ProgramSetExecutableResultMetadata,
-            ProgramSetExecutableCancellationMetadata,
-        ]
+        ProgramSetExecutableFailureMetadata
+        | ProgramSetExecutableResultMetadata
+        | ProgramSetExecutableCancellationMetadata
     ]
 
 
@@ -85,16 +82,15 @@ class ProgramSetTaskMetadata(BraketSchemaBase):
     requestedShots: conint(ge=0)
     successfulShots: conint(ge=0)
     programMetadata: list[ProgramMetadata]
-    deviceParameters: Optional[
-        Union[
-            GateModelSimulatorDeviceParameters,
-            IonqDeviceParameters,
-            IqmDeviceParameters,
-            RigettiDeviceParameters,
-            GateModelDeviceParameters,
-        ]
-    ]
-    createdAt: Optional[constr(min_length=1, max_length=24)]
-    endedAt: Optional[constr(min_length=1, max_length=24)]
-    status: Optional[constr(min_length=1, max_length=20)]
+    deviceParameters: (
+        GateModelSimulatorDeviceParameters
+        | IonqDeviceParameters
+        | IqmDeviceParameters
+        | RigettiDeviceParameters
+        | GateModelDeviceParameters
+        | None
+    )
+    createdAt: constr(min_length=1, max_length=24) | None
+    endedAt: constr(min_length=1, max_length=24) | None
+    status: constr(min_length=1, max_length=20) | None
     totalFailedExecutables: int

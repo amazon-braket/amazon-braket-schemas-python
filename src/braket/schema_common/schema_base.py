@@ -17,7 +17,7 @@ import re
 
 from pydantic.v1 import BaseModel
 
-from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
+from braket.schema_common.schema_header import BraketSchemaHeader
 
 
 class BraketSchemaBase(BaseModel):

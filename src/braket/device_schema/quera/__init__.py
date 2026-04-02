@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import (  # noqa: F401, E501
+from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import (  # noqa: F401
     QueraAhsParadigmProperties,
 )
 from braket.device_schema.quera.quera_device_capabilities_v1 import (  # noqa: F401

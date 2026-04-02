@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from typing import Optional, Union
 
 from pydantic.v1 import BaseModel
 
@@ -57,13 +56,13 @@ class AdditionalMetadata(BaseModel):
         >>> AdditionalMetadata(action=OpenQASMProgram(source='OPENQASM3.0; cx $0, $1'))
     """
 
-    action: Optional[Union[JaqcdProgram, OpenQASMProgram, BlackbirdProgram, Problem, AHSProgram]]
-    aqtMetadata: Optional[AqtMetadata]
-    dwaveMetadata: Optional[DwaveMetadata]
-    ionqMetadata: Optional[IonQMetadata]
-    rigettiMetadata: Optional[RigettiMetadata]
-    oqcMetadata: Optional[OqcMetadata]
-    xanaduMetadata: Optional[XanaduMetadata]
-    queraMetadata: Optional[QueraMetadata]
-    simulatorMetadata: Optional[SimulatorMetadata]
-    iqmMetadata: Optional[IqmMetadata]
+    action: JaqcdProgram | OpenQASMProgram | BlackbirdProgram | Problem | AHSProgram | None
+    aqtMetadata: AqtMetadata | None
+    dwaveMetadata: DwaveMetadata | None
+    ionqMetadata: IonQMetadata | None
+    rigettiMetadata: RigettiMetadata | None
+    oqcMetadata: OqcMetadata | None
+    xanaduMetadata: XanaduMetadata | None
+    queraMetadata: QueraMetadata | None
+    simulatorMetadata: SimulatorMetadata | None
+    iqmMetadata: IqmMetadata | None

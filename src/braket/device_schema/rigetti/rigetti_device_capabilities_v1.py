@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Optional, Union
 
 from pydantic.v1 import Field
 
@@ -119,14 +118,12 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
-        Union[DeviceActionType, str],
-        Union[
-            OpenQASMDeviceActionProperties,
-            OpenQASMProgramSetDeviceActionProperties,
-            JaqcdDeviceActionProperties,
-        ],
+        DeviceActionType | str,
+        OpenQASMDeviceActionProperties
+        | OpenQASMProgramSetDeviceActionProperties
+        | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: Optional[RigettiProviderProperties]
-    standardized: Optional[StandardizedGateModelQpuDeviceProperties]
-    pulse: Optional[PulseDeviceActionProperties]
+    provider: RigettiProviderProperties | None
+    standardized: StandardizedGateModelQpuDeviceProperties | None
+    pulse: PulseDeviceActionProperties | None
