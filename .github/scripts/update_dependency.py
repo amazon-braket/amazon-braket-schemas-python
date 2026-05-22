@@ -17,18 +17,22 @@ from pathlib import Path
 # Here we replace the `amazon-braket-schemas` dependency to point to the file
 # system; otherwise pip will install them separately, allowing it to override the version of
 # any mutual dependencies with the schemas. By pointing to the file system, pip will be
-# forced to reconcile the dependencies in setup.py with the dependencies of the schemas,
-# and raise an error if there are conflicts. While we can't do this for every upstream
-# dependency, we can do this for the ones we own to make sure that when the schema updates
-# its dependencies, these upstream github repos will not be impacted.
+# forced to reconcile the dependencies with the dependencies of the schemas,
+# and raise an error if there are conflicts.
 
 package = "amazon-braket-schemas"
 path = Path.cwd().parent.resolve()
 
-for line in fileinput.input("setup.py", inplace=True):
-    # Update the amazon-braket-default-simulator dependency in setup.py to use the local path. This
-    # would help catch conflicts during the installation process.
+# Determine which config file exists
+if Path("setup.py").exists():
+    config_file = "setup.py"
+elif Path("pyproject.toml").exists():
+    config_file = "pyproject.toml"
+else:
+    raise FileNotFoundError("Neither setup.py nor pyproject.toml found")
+
+for line in fileinput.input(config_file, inplace=True):
     replaced_line = (
-        line if package not in line else f'"{package} @ file://{path}/{package}-python",\n'
+        line if package not in line else f'    "{package} @ file://{path}/{package}-python",\n'
     )
     print(replaced_line, end="")
