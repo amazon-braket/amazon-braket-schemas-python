@@ -89,3 +89,14 @@ def test_error_mitigation_from_dict():
         errorMitigation=[{"type": "braket.device_schema.error_mitigation.debias.Debias"}],
     )
     assert len(params.errorMitigation) == 1
+
+
+def test_error_mitigation_none():
+    """Test that errorMitigation=None is handled (covers line 66)."""
+    from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
+
+    params = IonqDeviceParameters(
+        paradigmParameters={"braketSchemaHeader": {"name": "braket.device_schema.gate_model_parameters", "version": "1"}, "qubitCount": 1},
+        errorMitigation=None,
+    )
+    assert params.errorMitigation is None
