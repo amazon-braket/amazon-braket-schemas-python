@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.openqasm_program_set_device_action_properties import (
     OpenQASMProgramSetDeviceActionProperties,

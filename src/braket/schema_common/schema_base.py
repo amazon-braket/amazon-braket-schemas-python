@@ -18,7 +18,7 @@ import re
 
 from pydantic import BaseModel, ConfigDict
 
-from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
+from braket.schema_common.schema_header import BraketSchemaHeader
 
 
 class BraketSchemaBase(BaseModel):
@@ -68,9 +68,18 @@ class BraketSchemaBase(BaseModel):
             instance of a subclass of BraketSchemaBase.
         """
         raw = json.loads(json_str)
-        header = raw["braketSchemaHeader"]
-        schema_header = BraketSchemaHeader(name=header["name"], version=header["version"])
-        module = schema_header.import_schema_module()
+        header_raw = raw.get("braketSchemaHeader")
+        if not header_raw or not isinstance(header_raw, dict):
+            # Will raise ValidationError for missing required field
+            return BraketSchemaBase.model_validate(raw)
+        try:
+            schema_header = BraketSchemaHeader(
+                name=header_raw.get("name", ""), version=header_raw.get("version", "")
+            )
+            module = schema_header.import_schema_module()
+        except (ModuleNotFoundError, ValueError, KeyError):
+            # Fall back to base validation which will raise appropriate error
+            return BraketSchemaBase.model_validate(raw)
         name = schema_header.name
         schema_class = BraketSchemaBase.get_schema_class(module, name)
         return schema_class.model_validate(raw)

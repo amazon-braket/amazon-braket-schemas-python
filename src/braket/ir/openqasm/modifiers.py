@@ -12,9 +12,9 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-from typing import Annotated, Literal
+from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class Control(BaseModel):

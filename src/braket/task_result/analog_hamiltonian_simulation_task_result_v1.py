@@ -46,8 +46,12 @@ class AnalogHamiltonianSimulationShotResult(BaseModel):
             quantum evolution
     """
 
-    preSequence: Annotated[list[Annotated[int, Field(ge=0, le=1)]], Field(min_length=1)] | None = None
-    postSequence: Annotated[list[Annotated[int, Field(ge=0, le=1)]], Field(min_length=1)] | None = None
+    preSequence: Annotated[list[Annotated[int, Field(ge=0, le=1)]], Field(min_length=1)] | None = (
+        None
+    )
+    postSequence: Annotated[list[Annotated[int, Field(ge=0, le=1)]], Field(min_length=1)] | None = (
+        None
+    )
 
 
 class AnalogHamiltonianSimulationShotMeasurement(BaseModel):

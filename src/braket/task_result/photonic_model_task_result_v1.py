@@ -41,7 +41,12 @@ class PhotonicModelTaskResult(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PHOTONIC_MODEL_TASK_RESULT_HEADER)
     measurements: (
         Annotated[
-            list[Annotated[list[Annotated[list[Annotated[int, Field(ge=0, le=256)]], Field(min_length=1)]], Field(min_length=1)]],
+            list[
+                Annotated[
+                    list[Annotated[list[Annotated[int, Field(ge=0, le=256)]], Field(min_length=1)]],
+                    Field(min_length=1),
+                ]
+            ],
             Field(min_length=1),
         ]
         | None

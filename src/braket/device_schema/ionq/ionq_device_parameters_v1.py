@@ -55,7 +55,7 @@ class IonqDeviceParameters(BraketSchemaBase):
     paradigmParameters: GateModelParameters
     errorMitigation: list[ErrorMitigationScheme] | None = None
 
-    @field_validator("errorMitigation", mode='before')
+    @field_validator("errorMitigation", mode="before")
     @classmethod
     def validate_em(cls, value):
         """

@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 from enum import Enum
-
 from typing import Annotated
 
 from pydantic import BaseModel, Field

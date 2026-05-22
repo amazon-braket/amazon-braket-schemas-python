@@ -11,15 +11,13 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Annotated, Union
-
 from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 # support 1d array input for now
-leaf_io_type = Union[str, float, int]
-io_type = Union[leaf_io_type, list[leaf_io_type]]
+leaf_io_type = str | float | int
+io_type = leaf_io_type | list[leaf_io_type]
 
 
 class Program(BraketSchemaBase):

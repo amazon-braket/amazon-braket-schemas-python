@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Annotated, Literal, Union
+from typing import Annotated
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -95,7 +95,10 @@ class TripleProbability(BaseModel):
 
 
 class MultiProbability(BaseModel):
-    probabilities: dict[Annotated[str, Field(pattern=r"^[IXYZ]+$", min_length=1)], Annotated[float, Field(ge=0.0, le=1.0)]]
+    probabilities: dict[
+        Annotated[str, Field(pattern=r"^[IXYZ]+$", min_length=1)],
+        Annotated[float, Field(ge=0.0, le=1.0)],
+    ]
 
     @model_validator(mode="after")
     def validate_probabilities(self):
@@ -126,7 +129,11 @@ class MultiProbability(BaseModel):
 
 class TwoDimensionalMatrix(BaseModel):
     matrix: Annotated[
-        list[Annotated[list[Annotated[list[float], Field(min_length=2, max_length=2)]], Field(min_length=1)]],
+        list[
+            Annotated[
+                list[Annotated[list[float], Field(min_length=2, max_length=2)]], Field(min_length=1)
+            ]
+        ],
         Field(min_length=1),
     ]
 
@@ -149,23 +156,30 @@ class TwoDimensionalMatrixList(BaseModel):
 
 
 class Observable(BaseModel):
-    observable: Union[
+    observable: (
         Annotated[
-            list[Union[
-                Annotated[str, Field(pattern=r"^(x|y|z|h|i)$")],
-                Annotated[
-                    list[Annotated[list[Annotated[list[float], Field(min_length=2, max_length=2)]], Field(min_length=2)]],
+            list[
+                Annotated[str, Field(pattern=r"^(x|y|z|h|i)$")]
+                | Annotated[
+                    list[
+                        Annotated[
+                            list[Annotated[list[float], Field(min_length=2, max_length=2)]],
+                            Field(min_length=2),
+                        ]
+                    ],
                     Field(min_length=2),
-                ],
-            ]],
+                ]
+            ],
             Field(min_length=1),
-        ],
-        Annotated[str, Field(min_length=1)],
-    ]
+        ]
+        | Annotated[str, Field(min_length=1)]
+    )
 
 
 class MultiState(BaseModel):
-    states: Annotated[list[Annotated[str, Field(pattern=r"^[01]+$", min_length=1)]], Field(min_length=1)]
+    states: Annotated[
+        list[Annotated[str, Field(pattern=r"^[01]+$", min_length=1)]], Field(min_length=1)
+    ]
 
 
 class CompilerDirective(BaseModel):

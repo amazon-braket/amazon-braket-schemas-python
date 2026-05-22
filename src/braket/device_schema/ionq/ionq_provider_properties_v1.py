@@ -11,9 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import json
-from importlib import import_module
-
 from pydantic import Field
 
 from braket.device_schema.error_mitigation.error_mitigation_properties import (
@@ -21,24 +18,6 @@ from braket.device_schema.error_mitigation.error_mitigation_properties import (
 )
 from braket.device_schema.error_mitigation.error_mitigation_scheme import ErrorMitigationScheme
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
-
-
-def _loads_with_error_mitigation(serialized: str) -> dict:
-    deserialized = json.loads(serialized)
-    em = deserialized.get("errorMitigation") or {}
-    em_with_types = {}
-    for k, v in em.items():
-        split = k.rsplit(".", 1)
-        em_with_types[getattr(import_module(split[0]), split[1])] = v
-    deserialized["errorMitigation"] = em_with_types or None
-    return deserialized
-
-
-def _dumps_with_error_mitigation(payload: dict, **kwargs):
-    em = payload.get("errorMitigation") or {}
-    em_serialized = {f"{k.__module__}.{k.__name__}": v for k, v in em.items()}
-    payload["errorMitigation"] = em_serialized or None
-    return json.dumps(payload, **kwargs)
 
 
 class IonqProviderProperties(BraketSchemaBase):

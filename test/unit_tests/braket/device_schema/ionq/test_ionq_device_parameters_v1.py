@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema import GateModelParameters
 from braket.device_schema.error_mitigation import Debias
@@ -72,3 +72,20 @@ def test__missing_schemaHeader(valid_input):
 def test__missing_paradigmProperties(valid_input):
     valid_input.pop("paradigmParameters")
     IonqDeviceParameters.parse_raw_schema(json.dumps(valid_input))
+
+
+def test_error_mitigation_from_dict():
+    """Test that errorMitigation can be deserialized from dict format."""
+    from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
+
+    params = IonqDeviceParameters(
+        paradigmParameters={
+            "braketSchemaHeader": {
+                "name": "braket.device_schema.gate_model_parameters",
+                "version": "1",
+            },
+            "qubitCount": 1,
+        },
+        errorMitigation=[{"type": "braket.device_schema.error_mitigation.debias.Debias"}],
+    )
+    assert len(params.errorMitigation) == 1

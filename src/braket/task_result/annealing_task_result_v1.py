@@ -42,7 +42,9 @@ class AnnealingTaskResult(BraketSchemaBase):
         name="braket.task_result.annealing_task_result", version="1"
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_ANNEALING_TASK_RESULT_HEADER)
-    solutions: list[Annotated[list[Annotated[int, Field(ge=-1, le=3)]], Field(min_length=1)]] | None = None
+    solutions: (
+        list[Annotated[list[Annotated[int, Field(ge=-1, le=3)]], Field(min_length=1)]] | None
+    ) = None
     solutionCounts: list[Annotated[int, Field(ge=0)]] | None = None
     values: list[float] | None = None
     variableCount: Annotated[int, Field(ge=0)] | None = None

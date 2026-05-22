@@ -11,7 +11,6 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import json
 
 from pydantic import Field
 
@@ -27,23 +26,6 @@ from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 impor
     StandardizedGateModelQpuDeviceProperties,
 )
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
-
-
-def _loads_with_provider(serialized: str) -> dict:
-    deserialized = json.loads(serialized)
-    provider = deserialized.get("provider")
-    deserialized["provider"] = (
-        IonqProviderProperties.parse_raw(json.dumps(provider)).dict() if provider else None
-    )
-    return deserialized
-
-
-def _dumps_with_provider(payload: dict, **kwargs):
-    provider = payload.get("provider")
-    payload["provider"] = (
-        json.loads(IonqProviderProperties.parse_obj(provider).json()) if provider else None
-    )
-    return json.dumps(payload, **kwargs)
 
 
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
