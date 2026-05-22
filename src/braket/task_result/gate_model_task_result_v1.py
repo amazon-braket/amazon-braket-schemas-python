@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
+from pydantic import BaseModel, Field
 
 from braket.ir.jaqcd.program_v1 import Results
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -59,16 +59,10 @@ class GateModelTaskResult(BraketSchemaBase):
         name="braket.task_result.gate_model_task_result", version="1"
     )
 
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_GATE_MODEL_TASK_RESULT_HEADER, const=_GATE_MODEL_TASK_RESULT_HEADER
-    )
-    # fmt: off
-    measurements: conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1) | None
-    # fmt: on
-    measurementProbabilities: (
-        dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)] | None
-    )
-    resultTypes: list[ResultTypeValue] | None
-    measuredQubits: conlist(conint(ge=0), min_items=1) | None
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_GATE_MODEL_TASK_RESULT_HEADER)
+    measurements: list[list[int]] | None = None
+    measurementProbabilities: dict[str, float] | None = None
+    resultTypes: list[ResultTypeValue] | None = None
+    measuredQubits: list[int] | None = None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

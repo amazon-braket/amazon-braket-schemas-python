@@ -13,11 +13,12 @@
 
 from __future__ import annotations
 
+import json
 import re
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, ConfigDict
 
-from braket.schema_common.schema_header import BraketSchemaHeader
+from braket.schema_common.schema_header import BraketSchemaHeader  # noqa: F401
 
 
 class BraketSchemaBase(BaseModel):
@@ -27,6 +28,8 @@ class BraketSchemaBase(BaseModel):
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header
     """
+
+    model_config = ConfigDict(populate_by_name=True)
 
     braketSchemaHeader: BraketSchemaHeader
 
@@ -64,11 +67,13 @@ class BraketSchemaBase(BaseModel):
             BraketSchemaBase: The schema object. This can also be an
             instance of a subclass of BraketSchemaBase.
         """
-        schema = BraketSchemaBase.parse_raw(json_str)
-        module = BraketSchemaBase.import_schema_module(schema)
-        name = schema.braketSchemaHeader.name
+        raw = json.loads(json_str)
+        header = raw["braketSchemaHeader"]
+        schema_header = BraketSchemaHeader(name=header["name"], version=header["version"])
+        module = schema_header.import_schema_module()
+        name = schema_header.name
         schema_class = BraketSchemaBase.get_schema_class(module, name)
-        return schema_class.parse_raw(json_str)
+        return schema_class.model_validate(raw)
 
     @staticmethod
     def get_schema_class(module, name):
@@ -77,3 +82,27 @@ class BraketSchemaBase(BaseModel):
 
         class_name = "".join([capitalize_first_alpha(s) for s in name.split(".")[-1].split("_")])
         return getattr(module, class_name)
+
+    # Backward-compatible aliases for downstream code using v1 API
+    @classmethod
+    def parse_raw(cls, json_str: str, **kwargs) -> BraketSchemaBase:
+        """Backward-compatible alias for model_validate_json."""
+        return cls.model_validate_json(json_str)
+
+    @classmethod
+    def parse_obj(cls, obj: dict, **kwargs) -> BraketSchemaBase:
+        """Backward-compatible alias for model_validate."""
+        return cls.model_validate(obj)
+
+    def dict(self, **kwargs) -> dict:
+        """Backward-compatible alias for model_dump."""
+        return self.model_dump(**kwargs)
+
+    def json(self, **kwargs) -> str:
+        """Backward-compatible alias for model_dump_json."""
+        return self.model_dump_json(**kwargs)
+
+    @classmethod
+    def construct(cls, **kwargs):
+        """Backward-compatible alias for model_construct."""
+        return cls.model_construct(**kwargs)

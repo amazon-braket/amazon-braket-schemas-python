@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -95,21 +95,21 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_provider_level_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
-    annealingOffsets: list[float] | None
-    annealingSchedule: list[list[float]] | None
-    annealingDuration: int | None = Field(gt=0)
-    autoScale: bool | None
-    beta: float | None
-    chains: list[list[int]] | None
-    compensateFluxDrift: bool | None
-    fluxBiases: list[float] | None
-    initialState: list[int] | None
-    maxResults: int | None = Field(gt=0)
-    postprocessingType: PostProcessingType | str | None
-    programmingThermalizationDuration: int | None
-    readoutThermalizationDuration: int | None
-    reduceIntersampleCorrelation: bool | None
-    reinitializeState: bool | None
-    resultFormat: ResultFormat | None
-    spinReversalTransformCount: int | None = Field(gt=0)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    annealingOffsets: list[float] | None = None
+    annealingSchedule: list[list[float]] | None = None
+    annealingDuration: int | None = Field(default=None, gt=0)
+    autoScale: bool | None = None
+    beta: float | None = None
+    chains: list[list[int]] | None = None
+    compensateFluxDrift: bool | None = None
+    fluxBiases: list[float] | None = None
+    initialState: list[int] | None = None
+    maxResults: int | None = Field(default=None, gt=0)
+    postprocessingType: PostProcessingType | str | None = None
+    programmingThermalizationDuration: int | None = None
+    readoutThermalizationDuration: int | None = None
+    reduceIntersampleCorrelation: bool | None = None
+    reinitializeState: bool | None = None
+    resultFormat: ResultFormat | None = None
+    spinReversalTransformCount: int | None = Field(default=None, gt=0)

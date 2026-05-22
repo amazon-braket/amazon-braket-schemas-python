@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from braket.ir.ahs import Program as AHSProgram
 from braket.ir.annealing import Problem
@@ -56,13 +56,13 @@ class AdditionalMetadata(BaseModel):
         >>> AdditionalMetadata(action=OpenQASMProgram(source='OPENQASM3.0; cx $0, $1'))
     """
 
-    action: JaqcdProgram | OpenQASMProgram | BlackbirdProgram | Problem | AHSProgram | None
-    aqtMetadata: AqtMetadata | None
-    dwaveMetadata: DwaveMetadata | None
-    ionqMetadata: IonQMetadata | None
-    rigettiMetadata: RigettiMetadata | None
-    oqcMetadata: OqcMetadata | None
-    xanaduMetadata: XanaduMetadata | None
-    queraMetadata: QueraMetadata | None
-    simulatorMetadata: SimulatorMetadata | None
-    iqmMetadata: IqmMetadata | None
+    action: JaqcdProgram | OpenQASMProgram | BlackbirdProgram | Problem | AHSProgram | None = None
+    aqtMetadata: AqtMetadata | None = None
+    dwaveMetadata: DwaveMetadata | None = None
+    ionqMetadata: IonQMetadata | None = None
+    rigettiMetadata: RigettiMetadata | None = None
+    oqcMetadata: OqcMetadata | None = None
+    xanaduMetadata: XanaduMetadata | None = None
+    queraMetadata: QueraMetadata | None = None
+    simulatorMetadata: SimulatorMetadata | None = None
+    iqmMetadata: IqmMetadata | None = None

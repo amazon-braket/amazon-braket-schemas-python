@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, conint, conlist
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -27,19 +29,19 @@ class DwaveTiming(BaseModel):
         >>> DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
     """
 
-    qpuSamplingTime: conint(ge=0) | None
-    qpuAnnealTimePerSample: conint(ge=0) | None
-    qpuAccessTime: conint(ge=0) | None
-    qpuAccessOverheadTime: conint(ge=0) | None
-    qpuReadoutTimePerSample: conint(ge=0) | None
-    qpuProgrammingTime: conint(ge=0) | None
-    qpuDelayTimePerSample: conint(ge=0) | None
-    postProcessingOverheadTime: conint(ge=0) | None
-    totalPostProcessingTime: conint(ge=0) | None
-    totalRealTime: conint(ge=0) | None
-    runTimeChip: conint(ge=0) | None
-    annealTimePerRun: conint(ge=0) | None
-    readoutTimePerRun: conint(ge=0) | None
+    qpuSamplingTime: Annotated[int, Field(ge=0)] | None = None
+    qpuAnnealTimePerSample: Annotated[int, Field(ge=0)] | None = None
+    qpuAccessTime: Annotated[int, Field(ge=0)] | None = None
+    qpuAccessOverheadTime: Annotated[int, Field(ge=0)] | None = None
+    qpuReadoutTimePerSample: Annotated[int, Field(ge=0)] | None = None
+    qpuProgrammingTime: Annotated[int, Field(ge=0)] | None = None
+    qpuDelayTimePerSample: Annotated[int, Field(ge=0)] | None = None
+    postProcessingOverheadTime: Annotated[int, Field(ge=0)] | None = None
+    totalPostProcessingTime: Annotated[int, Field(ge=0)] | None = None
+    totalRealTime: Annotated[int, Field(ge=0)] | None = None
+    runTimeChip: Annotated[int, Field(ge=0)] | None = None
+    annealTimePerRun: Annotated[int, Field(ge=0)] | None = None
+    readoutTimePerRun: Annotated[int, Field(ge=0)] | None = None
 
 
 class DwaveMetadata(BraketSchemaBase):
@@ -60,8 +62,6 @@ class DwaveMetadata(BraketSchemaBase):
     _DWAVE_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.dwave_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_DWAVE_METADATA_HEADER, const=_DWAVE_METADATA_HEADER
-    )
-    activeVariables: conlist(conint(ge=0))
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_DWAVE_METADATA_HEADER)
+    activeVariables: list[Annotated[int, Field(ge=0)]]
     timing: DwaveTiming

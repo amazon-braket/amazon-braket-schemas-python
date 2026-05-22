@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from braket.ir.ahs.driving_field import DrivingField
 from braket.ir.ahs.local_detuning import LocalDetuning
@@ -47,5 +47,4 @@ class Hamiltonian(BaseModel):
             name = "localDetuning"
         del self.__dict__[name]
 
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)

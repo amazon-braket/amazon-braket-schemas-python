@@ -14,7 +14,7 @@
 import json
 from importlib import import_module
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.error_mitigation.error_mitigation_properties import (
     ErrorMitigationProperties,
@@ -93,11 +93,10 @@ class IonqProviderProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_provider_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     fidelity: dict[str, dict[str, float]]
     timing: dict[str, float]
     errorMitigation: dict[type[ErrorMitigationScheme], ErrorMitigationProperties] | None = None
 
-    class Config:
-        json_loads = _loads_with_error_mitigation
-        json_dumps = _dumps_with_error_mitigation
+    # Note: Custom json_loads/json_dumps removed in pydantic v2 migration.
+    # Error mitigation serialization is handled by the parse_raw_schema path.

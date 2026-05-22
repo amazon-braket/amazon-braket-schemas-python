@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, conint, constr
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from braket.device_schema.common.gate_model_device_parameters_v1 import GateModelDeviceParameters
 from braket.device_schema.ionq.ionq_device_parameters_v1 import IonqDeviceParameters
@@ -73,14 +75,12 @@ class ProgramSetTaskMetadata(BraketSchemaBase):
     _PROGRAM_SET_TASK_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.program_set_task_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_PROGRAM_SET_TASK_METADATA_HEADER, const=_PROGRAM_SET_TASK_METADATA_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_SET_TASK_METADATA_HEADER)
 
-    id: constr(min_length=1)
-    deviceId: constr(min_length=1)
-    requestedShots: conint(ge=0)
-    successfulShots: conint(ge=0)
+    id: Annotated[str, Field(min_length=1)]
+    deviceId: Annotated[str, Field(min_length=1)]
+    requestedShots: Annotated[int, Field(ge=0)]
+    successfulShots: Annotated[int, Field(ge=0)]
     programMetadata: list[ProgramMetadata]
     deviceParameters: (
         GateModelSimulatorDeviceParameters
@@ -89,8 +89,8 @@ class ProgramSetTaskMetadata(BraketSchemaBase):
         | RigettiDeviceParameters
         | GateModelDeviceParameters
         | None
-    )
-    createdAt: constr(min_length=1, max_length=24) | None
-    endedAt: constr(min_length=1, max_length=24) | None
-    status: constr(min_length=1, max_length=20) | None
+    ) = None
+    createdAt: Annotated[str, Field(min_length=1, max_length=24)] | None = None
+    endedAt: Annotated[str, Field(min_length=1, max_length=24)] | None = None
+    status: Annotated[str, Field(min_length=1, max_length=20)] | None = None
     totalFailedExecutables: int

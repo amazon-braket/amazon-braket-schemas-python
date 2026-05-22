@@ -13,7 +13,7 @@
 
 import json
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -123,19 +123,13 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
         OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: IonqProviderProperties | None
-    standardized: StandardizedGateModelQpuDeviceProperties | None
+    provider: IonqProviderProperties | None = None
+    standardized: StandardizedGateModelQpuDeviceProperties | None = None
 
-    class Config:
-        # Pydantic does not use the custom encoders/decoders of nested models:
-        # https://github.com/pydantic/pydantic/issues/2277#issuecomment-1236369282
-        # This should be fixed in Pydantic v2:
-        # https://github.com/pydantic/pydantic/discussions/4456
-        json_loads = _loads_with_provider
-        json_dumps = _dumps_with_provider
+    # Note: Custom json_loads/json_dumps removed in pydantic v2 migration.

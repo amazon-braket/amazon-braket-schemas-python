@@ -13,7 +13,7 @@
 
 from datetime import datetime
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.device_schema.device_execution_window import DeviceExecutionWindow
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -60,9 +60,9 @@ class DeviceDocumentation(BaseModel):
         >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
     """
 
-    imageUrl: str | None
-    summary: str | None
-    externalDocumentationUrl: str | None
+    imageUrl: str | None = None
+    summary: str | None = None
+    externalDocumentationUrl: str | None = None
 
 
 class DeviceServiceProperties(BraketSchemaBase):
@@ -116,11 +116,11 @@ class DeviceServiceProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_service_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     executionWindows: list[DeviceExecutionWindow]
     shotsRange: tuple[int, int]
-    deviceCost: DeviceCost | None
-    deviceDocumentation: DeviceDocumentation | None
-    deviceLocation: str | None
-    updatedAt: datetime | None
-    getTaskPollIntervalMillis: int | None
+    deviceCost: DeviceCost | None = None
+    deviceDocumentation: DeviceDocumentation | None = None
+    deviceLocation: str | None = None
+    updatedAt: datetime | None = None
+    getTaskPollIntervalMillis: int | None = None

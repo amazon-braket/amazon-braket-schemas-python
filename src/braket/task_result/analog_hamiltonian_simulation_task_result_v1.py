@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, conint, conlist, constr
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -27,7 +29,7 @@ class AnalogHamiltonianSimulationShotMetadata(BaseModel):
         shotStatus (str): The status of the shot.
     """
 
-    shotStatus: constr(min_length=1)
+    shotStatus: Annotated[str, Field(min_length=1)]
 
 
 class AnalogHamiltonianSimulationShotResult(BaseModel):
@@ -44,8 +46,8 @@ class AnalogHamiltonianSimulationShotResult(BaseModel):
             quantum evolution
     """
 
-    preSequence: conlist(conint(ge=0, le=1), min_items=1) | None
-    postSequence: conlist(conint(ge=0, le=1), min_items=1) | None
+    preSequence: Annotated[list[Annotated[int, Field(ge=0, le=1)]], Field(min_length=1)] | None = None
+    postSequence: Annotated[list[Annotated[int, Field(ge=0, le=1)]], Field(min_length=1)] | None = None
 
 
 class AnalogHamiltonianSimulationShotMeasurement(BaseModel):
@@ -78,9 +80,7 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
     _AHS_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.analog_hamiltonian_simulation_task_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_AHS_TASK_RESULT_HEADER, const=_AHS_TASK_RESULT_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_AHS_TASK_RESULT_HEADER)
     taskMetadata: TaskMetadata
-    measurements: list[AnalogHamiltonianSimulationShotMeasurement] | None
-    additionalMetadata: AdditionalMetadata | None
+    measurements: list[AnalogHamiltonianSimulationShotMeasurement] | None = None
+    additionalMetadata: AdditionalMetadata | None = None

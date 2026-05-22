@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -33,14 +35,14 @@ class NativeQuilMetadata(BaseModel):
                               topologicalSwaps=0)
     """
 
-    finalRewiring: conlist(int)
-    gateDepth: conint(ge=0)
-    gateVolume: conint(ge=0)
-    multiQubitGateDepth: conint(ge=0)
-    programDuration: confloat(ge=0)
-    programFidelity: confloat(gt=0)
-    qpuRuntimeEstimation: confloat(gt=0)
-    topologicalSwaps: conint(ge=0)
+    finalRewiring: list[int]
+    gateDepth: Annotated[int, Field(ge=0)]
+    gateVolume: Annotated[int, Field(ge=0)]
+    multiQubitGateDepth: Annotated[int, Field(ge=0)]
+    programDuration: Annotated[float, Field(ge=0)]
+    programFidelity: Annotated[float, Field(gt=0)]
+    qpuRuntimeEstimation: Annotated[float, Field(gt=0)]
+    topologicalSwaps: Annotated[int, Field(ge=0)]
 
 
 class RigettiMetadata(BraketSchemaBase):
@@ -70,9 +72,7 @@ class RigettiMetadata(BraketSchemaBase):
     _RIGETTI_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.rigetti_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_RIGETTI_METADATA_HEADER, const=_RIGETTI_METADATA_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_RIGETTI_METADATA_HEADER)
 
-    nativeQuilMetadata: NativeQuilMetadata | None
-    compiledProgram: constr(min_length=2)
+    nativeQuilMetadata: NativeQuilMetadata | None = None
+    compiledProgram: Annotated[str, Field(min_length=2)]

@@ -14,7 +14,7 @@
 from decimal import Decimal
 from typing import Annotated
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -518,7 +518,7 @@ class QueraAhsParadigmProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.quera.quera_ahs_paradigm_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     qubitCount: int
     lattice: Lattice
     rydberg: Rydberg

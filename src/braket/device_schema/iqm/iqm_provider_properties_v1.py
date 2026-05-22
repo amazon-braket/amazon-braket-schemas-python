@@ -13,7 +13,7 @@
 
 from typing import TypeVar
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
@@ -37,5 +37,5 @@ class IqmProviderProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.iqm.iqm_provider_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     properties: dict[str, dict[str, QubitType]]

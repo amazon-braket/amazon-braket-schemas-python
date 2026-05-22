@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class ResultType(BaseModel):
@@ -38,6 +38,6 @@ class ResultType(BaseModel):
     """
 
     name: str
-    observables: list[str] | None
-    minShots: int | None
-    maxShots: int | None
+    observables: list[str] | None = None
+    minShots: int | None = None
+    maxShots: int | None = None

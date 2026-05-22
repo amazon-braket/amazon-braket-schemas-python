@@ -13,39 +13,21 @@
 
 from enum import Enum
 
-from pydantic.v1 import Field, conint
+from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
 
 class ProblemType(str, Enum):
-    """The type of annealing problem.
-
-    QUBO: Quadratic Unconstrained Binary Optimization, with values 1 and 0
-    ISING: Ising model, with values +/-1
-    """
-
     QUBO = "QUBO"
     ISING = "ISING"
 
 
 class Problem(BraketSchemaBase):
-    """Specifies a quantum annealing problem.
-
-    Attributes:
-        braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
-            to set this value. Only default is allowed.
-        type (Union[ProblemType, str]): The type of problem; can be either "QUBO" or "ISING"
-        linear (Dict[int, float]): Linear terms of the model.
-        quadratic (Dict[str, float]): Quadratic terms of the model, keyed on comma-separated
-            variables as strings
-
-    Examples:
-        >>> Problem(type=ProblemType.QUBO, linear={0: 0.3, 4: -0.3}, quadratic={"0,5": 0.667})
-    """
+    """Specifies a quantum annealing problem."""
 
     _PROBLEM_HEADER = BraketSchemaHeader(name="braket.ir.annealing.problem", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER, const=_PROBLEM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER)
     type: ProblemType | str
-    linear: dict[conint(ge=0), float]
+    linear: dict[int, float]
     quadratic: dict[str, float]

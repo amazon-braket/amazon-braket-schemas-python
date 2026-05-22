@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import conlist, constr
+from typing import Annotated
+
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -40,6 +42,6 @@ class BlackbirdDeviceActionProperties(DeviceActionProperties):
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.blackbird\.program$")
+    actionType: Annotated[str, Field(pattern=r"^braket\.ir\.blackbird\.program$")]
     supportedOperations: list[str]
-    supportedResultTypes: conlist(ResultType, max_items=0)
+    supportedResultTypes: Annotated[list[ResultType], Field(max_length=0)]

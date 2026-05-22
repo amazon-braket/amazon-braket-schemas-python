@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.blackbird_device_action_properties import BlackbirdDeviceActionProperties
 from braket.device_schema.continuous_variable_qpu_paradigm_properties_v1 import (
@@ -96,10 +96,10 @@ class XanaduDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.xanadu.xanadu_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
         BlackbirdDeviceActionProperties,
     ]
     paradigm: ContinuousVariableQpuParadigmProperties
-    provider: XanaduProviderProperties | None
+    provider: XanaduProviderProperties | None = None

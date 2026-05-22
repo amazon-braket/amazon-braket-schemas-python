@@ -12,8 +12,9 @@
 # language governing permissions and limitations under the License
 
 from importlib import import_module
+from typing import Annotated
 
-from pydantic.v1 import BaseModel, constr
+from pydantic import BaseModel, Field
 
 
 class BraketSchemaHeader(BaseModel):
@@ -28,8 +29,8 @@ class BraketSchemaHeader(BaseModel):
         >>> BraketSchemaHeader(name="braket.task_result.annealing_task_result", version="1.0")
     """
 
-    name: constr(min_length=1)
-    version: constr(min_length=1, max_length=50)
+    name: Annotated[str, Field(min_length=1)]
+    version: Annotated[str, Field(min_length=1, max_length=50)]
 
     def get_module_name(self):
         return self.name + "_v" + self.version

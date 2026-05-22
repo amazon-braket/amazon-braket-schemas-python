@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -154,5 +154,5 @@ class RigettiProviderProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.rigetti.rigetti_provider_properties", version="2"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     specs: dict[str, str | list | dict[str, str | list]]

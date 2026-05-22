@@ -11,275 +11,95 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import BaseModel, confloat, conint, conlist, constr, root_validator
+from typing import Annotated, Literal, Union
+
+from pydantic import BaseModel, Field, model_validator
 
 
 class SingleTarget(BaseModel):
-    """
-    Single target index.
-
-    Attributes:
-        target (int): The target index. This is an int >= 0.
-
-    Examples:
-        >>> SingleTarget(target=0)
-    """
-
-    target: conint(ge=0)
+    target: Annotated[int, Field(ge=0)]
 
 
 class DoubleTarget(BaseModel):
-    """
-    Target indices of length 2.
-
-    Attributes:
-        targets (List[int]): A list with two items and all items are int >= 0.
-
-    Examples:
-        >>> DoubleTarget(targets=[0, 1])
-    """
-
-    targets: conlist(conint(ge=0), min_items=2, max_items=2)
+    targets: Annotated[list[Annotated[int, Field(ge=0)]], Field(min_length=2, max_length=2)]
 
 
 class MultiTarget(BaseModel):
-    """
-    Variable length target indices.
-
-    Attributes:
-        targets (List[int]): A list with items that are all int >= 0.
-
-    Examples:
-        >>> MultiTarget(targets=[0, 1])
-    """
-
-    targets: conlist(conint(ge=0), min_items=1)
+    targets: Annotated[list[Annotated[int, Field(ge=0)]], Field(min_length=1)]
 
 
 class OptionalMultiTarget(BaseModel):
-    """
-    Optional variable length target indices
-
-    Attributes:
-        targets (Optional[List[int]]): A list with items that are all int >= 0.
-
-    Examples:
-        >>> OptionalMultiTarget(targets=[0, 1])
-    """
-
-    targets: conlist(conint(ge=0), min_items=1) | None
+    targets: Annotated[list[Annotated[int, Field(ge=0)]], Field(min_length=1)] | None = None
 
 
 class OptionalNestedMultiTarget(BaseModel):
-    """
-    Optional variable length nested target indices for Hamiltonians
-
-    Attributes:
-        targets (Optional[List[int]]): A two dimensional nested list with items that
-            are all int >= 0.
-
-    Examples:
-        >>> OptionalNestedMultiTarget(targets=[[0, 1], [2]])
-    """
-
-    targets: conlist(conlist(conint(ge=0), min_items=1), min_items=1) | None
+    targets: (
+        Annotated[
+            list[Annotated[list[Annotated[int, Field(ge=0)]], Field(min_length=1)]],
+            Field(min_length=1),
+        ]
+        | None
+    ) = None
 
 
 class OptionalMultiParameter(BaseModel):
-    """
-    Variable length parameter names.
-    Attributes:
-        parameters (Optional[List[str]]): A list of parameter names.
-    """
-
-    parameters: conlist(constr(min_length=1), min_items=0) | None
+    parameters: list[Annotated[str, Field(min_length=1)]] | None = None
 
 
 class MultiControl(BaseModel):
-    """
-    Variable length control indices.
-
-    Attributes:
-        controls (List[int]): A list with at least two items and all items are int >= 0.
-
-    Examples:
-        >>> MultiControl(controls=[0, 1])
-    """
-
-    controls: conlist(conint(ge=0), min_items=1)
+    controls: Annotated[list[Annotated[int, Field(ge=0)]], Field(min_length=1)]
 
 
 class DoubleControl(BaseModel):
-    """
-    Control indices of length 2.
-
-    Attributes:
-        controls (List[int]): A list with two items and all items are int >= 0.
-
-    Examples:
-        >>> DoubleControl(targets=[0, 1])
-    """
-
-    controls: conlist(conint(ge=0), min_items=2, max_items=2)
+    controls: Annotated[list[Annotated[int, Field(ge=0)]], Field(min_length=2, max_length=2)]
 
 
 class SingleControl(BaseModel):
-    """
-    Single control index.
-
-    Attributes:
-        control (int): The control index. This is an int >= 0.
-
-    Examples:
-        >>> SingleControl(control=0)
-    """
-
-    control: conint(ge=0)
+    control: Annotated[int, Field(ge=0)]
 
 
 class Angle(BaseModel):
-    """
-    Single angle in radians (floating point).
-
-    Attributes:
-        angle (float): The angle in radians.
-            inf, -inf, and NaN are not allowable inputs.
-
-    Examples:
-        >>> Angle(angle=0.15)
-    """
-
-    angle: confloat(gt=float("-inf"), lt=float("inf"))
+    angle: float
 
 
 class SingleProbability(BaseModel):
-    """
-    A single probability parameter for bit/phase flip noise channel.
-    The probability range is [0,0.5] to make the channel meaningful.
-
-    Attributes:
-        probability (float): The probability for noise channel.
-            NaN is not an allowable input.
-
-    Examples:
-        >>> SingleProbability(probability=0.1)
-    """
-
-    probability: confloat(ge=float("0.0"), le=float("0.5"))
+    probability: Annotated[float, Field(ge=0.0, le=0.5)]
 
 
 class SingleProbability_34(BaseModel):
-    """
-    A single probability parameter for depolarizing/two-qubit-dephasing noise channel.
-    The probability range is [0,3/4], as the channel is fully mixing at p = 3/4.
-
-    Attributes:
-        probability (float): The probability for noise channel.
-            NaN is not an allowable input.
-
-    Examples:
-        >>> SingleProbability_34(probability=0.5)
-    """
-
-    probability: confloat(ge=float("0.0"), le=float("0.75"))
+    probability: Annotated[float, Field(ge=0.0, le=0.75)]
 
 
 class SingleProbability_1516(BaseModel):
-    """
-    A single probability parameter for two-qubit-depolarizing noise channel.
-    The probability range is [0,15/16], as the channel is fully mixing at p = 15/16.
-
-    Attributes:
-        probability (float): The probability for noise channel.
-            NaN is not an allowable input.
-
-    Examples:
-        >>> SingleProbability_1516(probability=0.1)
-    """
-
-    probability: confloat(ge=float("0.0"), le=float("0.9375"))
+    probability: Annotated[float, Field(ge=0.0, le=0.9375)]
 
 
 class DampingProbability(BaseModel):
-    """
-    The parameter for the amplitude/phase damping channel
-
-    Attributes:
-        gamma (float): The probability of damping
-
-    Examples:
-        >>> DampingProbability(gamma=0.1)
-    """
-
-    gamma: confloat(ge=float("0.0"), le=float("1.0"))
+    gamma: Annotated[float, Field(ge=0.0, le=1.0)]
 
 
 class DampingSingleProbability(BaseModel):
-    """
-    The parameter for the generalized amplitude damping channel
-
-    Attributes:
-        gamma (float): The probability of damping
-
-    Examples:
-        >>> DampingSingleProbability(probability=0.1)
-    """
-
-    probability: confloat(ge=float("0.0"), le=float("1.0"))
+    probability: Annotated[float, Field(ge=0.0, le=1.0)]
 
 
 class TripleProbability(BaseModel):
-    """
-    A triple-probability parameter set for the Pauli noise channel.
+    probX: Annotated[float, Field(ge=0.0, le=1.0)]
+    probY: Annotated[float, Field(ge=0.0, le=1.0)]
+    probZ: Annotated[float, Field(ge=0.0, le=1.0)]
 
-    Attributes:
-        probX (float), probY (float), probZ (float): The coefficients of the
-        Pauli channel
-
-    Examples:
-        >>> TripleProbability(probX=0.1, probY=0.2, probZ=0.3)
-    """
-
-    probX: confloat(ge=float("0.0"), le=float("1.0"))
-    probY: confloat(ge=float("0.0"), le=float("1.0"))
-    probZ: confloat(ge=float("0.0"), le=float("1.0"))
-
-    @root_validator
-    def validate_probabilities(cls, values):
-        """
-        Pydantic uses the validation subsystem to create objects. This custom validator has
-        the purpose to ensure probX + probY + probZ <= 1.
-        """
-        p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
-        if p1 + p2 + p3 > 1:
+    @model_validator(mode="after")
+    def validate_probabilities(self):
+        if self.probX + self.probY + self.probZ > 1:
             raise ValueError("Sum of probabilities cannot exceed 1.")
-        return values
+        return self
 
 
 class MultiProbability(BaseModel):
-    """A multi-value-probability parameter set for the Pauli noise channel.
+    probabilities: dict[Annotated[str, Field(pattern=r"^[IXYZ]+$", min_length=1)], Annotated[float, Field(ge=0.0, le=1.0)]]
 
-    Attributes:
-        probabilities [dict[str, float]]: The coefficients of the Pauli channel
-
-    Examples:
-        >>> MultiProbability(probabilities={"X": 0.1})
-        >>> MultiProbability(probabilities={"XY": 0.1, "YX": 0.01})
-    """
-
-    probabilities: dict[
-        constr(regex="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
-    ]
-
-    @root_validator
-    def validate_probabilities(cls, values):
-        """
-        Pydantic uses the validation subsystem to create objects.
-        This custom validator has the purpose to ensure sum(probabilities) <= 1
-        and that the lengths of each Pauli string are equal.
-        """
-
-        probabilities = values.get("probabilities")
+    @model_validator(mode="after")
+    def validate_probabilities(self):
+        probabilities = self.probabilities
         if not probabilities:
             raise ValueError("Pauli dictionary must not be empty.")
 
@@ -301,128 +121,52 @@ class MultiProbability(BaseModel):
                 f"Total probability must be a real number in the interval [0, 1]. Total probability was {total_prob}."
             )
 
-        return values
+        return self
 
 
 class TwoDimensionalMatrix(BaseModel):
-    """
-    Two-dimensional non-empty matrix.
-
-    Attributes:
-        matrix (List[List[List[float]]]): Two-dimensional matrix with complex entries.
-            Each complex number is represented using a List[float] of size 2, with
-            element[0] being the real part and element[1] imaginary.
-            inf, -inf, and NaN are not allowable inputs for the element.
-
-    Examples:
-        >>> TwoDimensionalMatrix(matrix=[[[0, 0], [1, 0]], [[1, 0], [0, 0]]])
-    """
-
-    matrix: conlist(
-        conlist(
-            conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-            min_items=1,
-        ),
-        min_items=1,
-    )
+    matrix: Annotated[
+        list[Annotated[list[Annotated[list[float], Field(min_length=2, max_length=2)]], Field(min_length=1)]],
+        Field(min_length=1),
+    ]
 
 
 class TwoDimensionalMatrixList(BaseModel):
-    """
-    List of two-dimensional non-empty matrices.
-
-    Attributes:
-        matrix (List[List[List[List[float]]]]): Two-dimensional matrix with complex entries.
-            Each complex number is represented using a List[float] of size 2, with
-            element[0] being the real part and element[1] imaginary.
-            inf, -inf, and NaN are not allowable inputs for the element.
-            The number of matrices is limited to 16 and the size of each matrix is limited to 4*4.
-
-    Examples:
-        >>> TwoDimensionalMatrixList(matrices=[[[[1, 0], [0, 0]], [[0, 0], [1, 0]]],
-                                               [[[0, 0], [1, 0]], [[1, 0], [0, 0]]]
-                                              ]
-                                    )
-    """
-
-    matrices: conlist(
-        conlist(
-            conlist(
-                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-                min_items=1,
-                max_items=4,
-            ),
-            min_items=1,
-            max_items=4,
-        ),
-        min_items=1,
-        max_items=16,
-    )
+    matrices: Annotated[
+        list[
+            Annotated[
+                list[
+                    Annotated[
+                        list[Annotated[list[float], Field(min_length=2, max_length=2)]],
+                        Field(min_length=1, max_length=4),
+                    ]
+                ],
+                Field(min_length=1, max_length=4),
+            ]
+        ],
+        Field(min_length=1, max_length=16),
+    ]
 
 
 class Observable(BaseModel):
-    """
-    An observable. If given list is more than one element, this is the tensor product
-    of each operator in the list.
-
-    Attributes:
-        observable (list[str | list[list[list[float]]] | str): A list with at least
-            one item and items are strings matching the observable regex
-            or a two-dimensional hermitian matrix with complex entries.
-            Each complex number is represented using a List[float] of size 2, with
-            element[0] being the real part and element[1] imaginary.
-            inf, -inf, and NaN are not allowable inputs for the element.
-            Alternatively, a string constructing an observable in Hamiltonian format.
-
-    Examples:
-        >>> Observable(observable=["x"])
-        >>> Observable(observable=[[[0, 0], [1, 0]], [[1, 0], [0, 0]]])
-        >>> Observable(observable="2 * x @ y + 3 * z")
-    """
-
-    _coef_regex = r"(-?\d*\.?\d*\s*\*\s*)"
-    _obs_regex = r"[xyzhi]"
-    _term_regex = rf"{_coef_regex}?{_obs_regex}(\s*@\s*{_obs_regex})*"
-    _hamiltonian_regex = rf"{_term_regex}(\s*\+\s*{_term_regex})*"
-    observable: conlist(
-        constr(regex="(x|y|z|h|i)")
-        | conlist(
-            conlist(
-                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-                min_items=2,
-            ),
-            min_items=2,
-        ),
-        min_items=1,
-    ) | constr(regex=_hamiltonian_regex)
+    observable: Union[
+        Annotated[
+            list[Union[
+                Annotated[str, Field(pattern=r"^(x|y|z|h|i)$")],
+                Annotated[
+                    list[Annotated[list[Annotated[list[float], Field(min_length=2, max_length=2)]], Field(min_length=2)]],
+                    Field(min_length=2),
+                ],
+            ]],
+            Field(min_length=1),
+        ],
+        Annotated[str, Field(min_length=1)],
+    ]
 
 
 class MultiState(BaseModel):
-    """
-    A list of states in bitstring form.
-
-    Attributes:
-        states (List[string]): Variable length list with all strings matching the
-            state regex
-
-    Examples:
-        >>> lMultiState(states=["10", "10"])
-    """
-
-    states: conlist(constr(regex="^[01]+$", min_length=1), min_items=1)
+    states: Annotated[list[Annotated[str, Field(pattern=r"^[01]+$", min_length=1)]], Field(min_length=1)]
 
 
 class CompilerDirective(BaseModel):
-    """
-    A Compiler Directive to preserve a block of code between StartVerbatimBlock
-    and EndVerbatimBlock directives.
-
-    Attributes:
-        directive (List [StartVerbatimBlock | EndVerbatimBlock])
-
-    Examples:
-        >>> CompilerDirective (directive="StartVerbatimBlock")
-        >>> CompilerDirective (directive="EndVerbatimBlock")
-    """
-
-    directive: constr(regex="^(Start|End)VerbatimBlock$")
+    directive: Annotated[str, Field(pattern=r"^(Start|End)VerbatimBlock$")]

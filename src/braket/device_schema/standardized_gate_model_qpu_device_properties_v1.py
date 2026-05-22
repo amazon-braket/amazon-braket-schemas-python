@@ -13,7 +13,9 @@
 
 from enum import Enum
 
-from pydantic.v1 import BaseModel, Field, confloat
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -37,7 +39,7 @@ class FidelityType(BaseModel):
     """
 
     name: str
-    description: str | None
+    description: str | None = None
 
 
 class GateFidelity2Q(BaseModel):
@@ -56,8 +58,8 @@ class GateFidelity2Q(BaseModel):
 
     direction: dict[QubitDirection, int] | None = None
     gateName: str
-    fidelity: confloat(ge=0, le=1)
-    standardError: confloat(ge=0, le=1) | None = None
+    fidelity: Annotated[float, Field(ge=0, le=1)]
+    standardError: Annotated[float, Field(ge=0, le=1)] | None = None
     fidelityType: FidelityType
 
 
@@ -83,8 +85,8 @@ class Fidelity1Q(BaseModel):
     """
 
     fidelityType: FidelityType
-    fidelity: confloat(ge=0, le=1)
-    standardError: confloat(ge=0, le=1) | None = None
+    fidelity: Annotated[float, Field(ge=0, le=1)]
+    standardError: Annotated[float, Field(ge=0, le=1)] | None = None
 
 
 class CoherenceTime(BaseModel):
@@ -97,7 +99,7 @@ class CoherenceTime(BaseModel):
     """
 
     value: float
-    standardError: float | None
+    standardError: float | None = None
     unit: str
 
 
@@ -199,6 +201,6 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.standardized_gate_model_qpu_device_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     oneQubitProperties: dict[str, OneQubitProperties]
     twoQubitProperties: dict[str, TwoQubitProperties]

@@ -11,7 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import conint, constr
+from typing import Annotated
+
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 
@@ -25,6 +27,6 @@ class OpenQASMProgramSetDeviceActionProperties(DeviceActionProperties):
             that can be in a single program set.
     """
 
-    actionType: constr(regex=r"^braket\.ir\.openqasm\.program_set$")
-    maximumExecutables: conint(ge=0)
-    maximumTotalShots: conint(ge=0)
+    actionType: Annotated[str, Field(pattern=r"^braket\.ir\.openqasm\.program_set$")]
+    maximumExecutables: Annotated[int, Field(ge=0)]
+    maximumTotalShots: Annotated[int, Field(ge=0)]

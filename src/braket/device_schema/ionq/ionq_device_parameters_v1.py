@@ -13,7 +13,7 @@
 
 from importlib import import_module
 
-from pydantic.v1 import Field, validator
+from pydantic import Field, field_validator
 
 from braket.device_schema.error_mitigation.error_mitigation_scheme import ErrorMitigationScheme
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
@@ -51,19 +51,26 @@ class IonqDeviceParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_device_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     paradigmParameters: GateModelParameters
     errorMitigation: list[ErrorMitigationScheme] | None = None
 
-    @validator("errorMitigation", each_item=True, pre=True)
-    def validate_em(cls, value, field):
+    @field_validator("errorMitigation", mode='before')
+    @classmethod
+    def validate_em(cls, value):
         """
         Pydantic uses the validation subsystem to create objects.
         This custom validator ensures O(1) deserialization
         """
-        if isinstance(value, ErrorMitigationScheme):
+        if value is None:
             return value
-        if value is not None and "type" in value:
-            split = value["type"].rsplit(".", 1)
-            return getattr(import_module(split[0]), split[1])(**value)
-        raise ValueError(f"Invalid type or value specified: {value} for field: {field}")
+        result = []
+        for item in value:
+            if isinstance(item, ErrorMitigationScheme):
+                result.append(item)
+            elif item is not None and "type" in item:
+                split = item["type"].rsplit(".", 1)
+                result.append(getattr(import_module(split[0]), split[1])(**item))
+            else:
+                raise ValueError(f"Invalid type or value specified: {item}")
+        return result

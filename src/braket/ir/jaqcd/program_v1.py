@@ -11,9 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from typing import Any
+from typing import Any, Union
 
-from pydantic.v1 import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 from braket.ir.jaqcd.instructions import (
     CV,
@@ -75,10 +75,6 @@ from braket.ir.jaqcd.results import (
 )
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
-"""
-The pydantic validator requires a constant lookup function. A plain Union[] results
-in an O(n) lookup cost for arbitrary payloads, which has a negative impact on model parsing times.
-"""
 _valid_gates = {
     CCNot.Type.ccnot: CCNot,
     CNot.Type.cnot: CNot,
@@ -134,16 +130,16 @@ _valid_compiler_directives = {
     EndVerbatimBox.Type.end_verbatim_box: EndVerbatimBox,
 }
 
-Results = (
-    Amplitude
-    | Expectation
-    | Probability
-    | Sample
-    | StateVector
-    | DensityMatrix
-    | Variance
-    | AdjointGradient
-)
+Results = Union[
+    Amplitude,
+    Expectation,
+    Probability,
+    Sample,
+    StateVector,
+    DensityMatrix,
+    Variance,
+    AdjointGradient,
+]
 
 
 class Program(BraketSchemaBase):
@@ -156,96 +152,34 @@ class Program(BraketSchemaBase):
         instructions (List[Any]): List of instructions.
         basis_rotation_instructions (List[Any]): List of instructions for
             rotation to desired measurement bases. Default is None.
-        results (List[Union[Amplitude, Expectation, Probability, Sample, StateVector,
-        DensityMatrix, Variance]]):
-            List of requested results. Default is None.
-
-    Examples:
-        >>> Program(instructions=[H(target=0), Rz(angle=0.15, target=1)])
-        >>> Program(instructions=[H(target=0), CNot(control=0, target=1)],
-        ...     results=[Expectation(targets=[0], observable=['x'])],
-        ...     basis_rotation_instructions=[H(target=0)])
-
-
-    Note:
-        The following instructions are supported:
-        AmplitudeDamping,
-        BitFlip,
-        CCNot,
-        CNot,
-        CPhaseShift,
-        CPhaseShift00,
-        CPhaseShift01,
-        CPhaseShift10,
-        CSwap,
-        CV,
-        CY,
-        CZ,
-        ECR,
-        Depolarizing,
-        GeneralizedAmplitudeDamping,
-        Pauli_channel,
-        H,
-        I,
-        ISwap,
-        Kraus,
-        PhaseDamping
-        PhaseFlip,
-        PhaseShift,
-        PSwap,
-        Rx,
-        Ry,
-        Rz,
-        S,
-        Swap,
-        Si,
-        T,
-        Ti,
-        TwoQubitDephasing,
-        TwoQubitDepolarizing,
-        Unitary,
-        V,
-        Vi,
-        X,
-        XX,
-        XY,
-        Y,
-        YY,
-        Z,
-        ZZ
+        results (List[Results]): List of requested results. Default is None.
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     instructions: list[Any]
-    results: list[Results] | None
-    basis_rotation_instructions: list[Any] | None
+    results: list[Results] | None = None
+    basis_rotation_instructions: list[Any] | None = None
 
-    @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
-    def validate_instructions(cls, value, field):
-        """
-        Pydantic uses the validation subsystem to create objects. This custom validator has
-        2 purposes:
-        1. Implement O(1) deserialization
-        2. Validate that the input instructions are supported
-        """
-        if isinstance(value, BaseModel):
-            if (
-                (value.type not in _valid_gates)
-                and (value.type not in _valid_noise_channels)
-                and (value.type not in _valid_compiler_directives)
-            ):
-                raise ValueError(f"Invalid value.type specified: {value} for field: {field}")
+    @field_validator("instructions", "basis_rotation_instructions", mode="before")
+    @classmethod
+    def validate_instructions(cls, value):
+        """O(1) deserialization via type-based dispatch."""
+        if value is None:
             return value
+        return [cls._validate_single_instruction(item) for item in value]
 
-        if value is not None and "type" in value:
-            if value["type"] in _valid_gates:
-                return _valid_gates[value["type"]](**value)
-            elif value["type"] in _valid_noise_channels:
-                return _valid_noise_channels[value["type"]](**value)
-            elif value["type"] in _valid_compiler_directives:
-                return _valid_compiler_directives[value["type"]](**value)
-            else:
-                raise ValueError(f"Invalid instruction specified: {value} for field: {field}")
-        else:
-            raise ValueError(f"Invalid type or value specified: {value} for field: {field}")
+    @classmethod
+    def _validate_single_instruction(cls, value):
+        if isinstance(value, BaseModel):
+            return value
+        if isinstance(value, dict) and "type" in value:
+            type_val = value["type"]
+            if type_val in _valid_gates:
+                return _valid_gates[type_val].model_validate(value)
+            if type_val in _valid_noise_channels:
+                return _valid_noise_channels[type_val].model_validate(value)
+            if type_val in _valid_compiler_directives:
+                return _valid_compiler_directives[type_val].model_validate(value)
+            raise ValueError(f"Invalid instruction type: {type_val}")
+        raise ValueError(f"Invalid instruction: {value}")

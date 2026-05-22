@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import Field, constr
+from typing import Annotated
+
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -61,7 +63,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.openqasm\.program$")
+    actionType: Annotated[str, Field(pattern=r"^braket\.ir\.openqasm\.program$")]
     supportedOperations: list[str]
     supportedModifiers: list[Modifier] | None = Field(default_factory=list)
     supportedPragmas: list[str] | None = Field(default_factory=list)
@@ -75,4 +77,4 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
     supportsPartialVerbatimBox: bool | None = True
     supportsUnassignedMeasurements: bool | None = True
     disabledQubitRewiringSupported: bool | None = False
-    supportedResultTypes: list[ResultType] | None
+    supportedResultTypes: list[ResultType] | None = None

@@ -11,7 +11,9 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import Field, conlist, validator
+from typing import Annotated
+
+from pydantic import Field, field_validator
 
 from braket.ir.openqasm.program_v1 import Program
 from braket.schema_common import BraketSchemaHeader
@@ -34,28 +36,14 @@ class ProgramSet(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.openqasm.program_set", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=True)
-    programs: conlist(Program, min_items=1)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    programs: Annotated[list[Program], Field(min_length=1)]
 
     @classmethod
     def _get_and_validate_program_executable_count(cls, program) -> int:
         """
         Returns the number of executables in this program based on the length of
         the inputs' values.
-
-        The Program is executed once using the kth item from each inputs' list.
-        If the inputs' lists are unequal lengths, the Program is invalid and
-        won't be executed.
-
-        Args:
-            program (Program): One Program item from the programs list
-
-        Returns:
-            program (Program): The same Program, but the inputs have been
-                validated to be correct for a ProgramSet
-
-        Raises:
-            ValueError: If inputs aren't lists or have unequal lengths.
         """
         if not program.inputs:
             return 1
@@ -64,62 +52,29 @@ class ProgramSet(BraketSchemaBase):
             len(value) if isinstance(value, list) else -1
             for value in (program.inputs or {}).values()
         }
-        # Check for non-iterable inputs
         if -1 in input_lengths:
             raise ValueError("All Program inputs must be lists when using ProgramSet")
-
-        # Check for uniform length using set size
         if len(input_lengths) > 1:
             raise ValueError("All Program inputs must have the same length when using ProgramSet")
 
         return input_lengths.pop()
 
-    @validator("programs", each_item=True)
-    def validate_program_inputs(cls, program) -> Program:
-        """
-        Validates program input lists for uniform length and type.
-
-        Args:
-            program (Program): One Program item from the programs list.
-
-        Returns:
-            program (Program): The same Program, but the inputs have been
-                validated to be correct for a ProgramSet
-
-        Raises:
-            ValueError: If inputs aren't lists or have unequal lengths.
-
-        Note:
-            Used by Pydantic's validation system to ensure:
-            1. All inputs are lists
-            2. All input lists have equal length
-        """
-        cls._get_and_validate_program_executable_count(program)
-        return program
+    @field_validator("programs")
+    @classmethod
+    def validate_program_inputs(cls, programs: list[Program]) -> list[Program]:
+        """Validates program input lists for uniform length and type."""
+        for program in programs:
+            cls._get_and_validate_program_executable_count(program)
+        return programs
 
     @property
     def num_executables_per_program(self) -> list[int]:
-        """
-        Returns
-            num_executables_per_program (list[int]): A list of the number of
-                executables for each program in the same order as the programs.
-
-        Raises:
-            ValueError: If inputs aren't lists or have unequal lengths.
-        """
         return [
             self._get_and_validate_program_executable_count(program) for program in self.programs
         ]
 
     @property
     def num_executables(self) -> int:
-        """
-        Returns
-            num_executables (int): Number of total program executions
-
-        Raises:
-            ValueError: If inputs aren't lists or have unequal lengths.
-        """
         return sum(self.num_executables_per_program)
 
     @property

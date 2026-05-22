@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
@@ -51,9 +51,7 @@ class ProgramSetExecutableFailure(BraketSchemaBase):
     _EXECUTABLE_FAILURE_HEADER = BraketSchemaHeader(
         name="braket.task_result.program_set_executable_failure", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_EXECUTABLE_FAILURE_HEADER, const=_EXECUTABLE_FAILURE_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_EXECUTABLE_FAILURE_HEADER)
 
     inputsIndex: int
     failureMetadata: ProgramSetExecutableFailureMetadata

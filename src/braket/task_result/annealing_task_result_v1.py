@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import Field, conint, conlist
+from typing import Annotated
+
+from pydantic import Field
 
 from braket.schema_common.schema_base import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -39,12 +41,10 @@ class AnnealingTaskResult(BraketSchemaBase):
     _ANNEALING_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.annealing_task_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_ANNEALING_TASK_RESULT_HEADER, const=_ANNEALING_TASK_RESULT_HEADER
-    )
-    solutions: list[conlist(conint(ge=-1, le=3), min_items=1)] | None
-    solutionCounts: list[conint(ge=0)] | None
-    values: list[float] | None
-    variableCount: conint(ge=0) | None
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_ANNEALING_TASK_RESULT_HEADER)
+    solutions: list[Annotated[list[Annotated[int, Field(ge=-1, le=3)]], Field(min_length=1)]] | None = None
+    solutionCounts: list[Annotated[int, Field(ge=0)]] | None = None
+    values: list[float] | None = None
+    variableCount: Annotated[int, Field(ge=0)] | None = None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

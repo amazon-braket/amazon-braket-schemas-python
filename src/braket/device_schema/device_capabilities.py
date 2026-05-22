@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties

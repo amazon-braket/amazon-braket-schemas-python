@@ -13,7 +13,7 @@
 
 from typing import Any
 
-from pydantic.v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -46,7 +46,7 @@ class Instruction(BaseModel):
     """
 
     name: str
-    arguments: list[InstructionArgument] | None
+    arguments: list[InstructionArgument] | None = None
 
 
 class PulseFunctionArgument(BaseModel):
@@ -200,6 +200,6 @@ class NativeGateCalibrations(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.pulse.native_gate_calibrations", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     gates: dict[str, dict[str, list[NativeGate]]]
     waveforms: dict[str, TemplateWaveform | ArbitraryWaveform]

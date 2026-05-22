@@ -13,7 +13,7 @@
 
 from typing import Any
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class Frame(BaseModel):
@@ -34,8 +34,8 @@ class Frame(BaseModel):
     frameId: str
     portId: str
     frequency: float
-    centerFrequency: float | None
+    centerFrequency: float | None = None
     phase: float
-    associatedGate: str | None
-    qubitMappings: list[int] | None
-    qhpSpecificProperties: dict[str, Any] | None
+    associatedGate: str | None = None
+    qubitMappings: list[int] | None = None
+    qhpSpecificProperties: dict[str, Any] | None = None
