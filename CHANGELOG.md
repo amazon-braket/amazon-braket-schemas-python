@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.29.2 (2026-05-30)
+
+### Bug Fixes and Other Changes
+
+ * dependent tests to open pyproject
+
 ## v1.29.1 (2026-04-02)
 
 ### Bug Fixes and Other Changes
