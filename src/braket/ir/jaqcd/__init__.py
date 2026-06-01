@@ -11,6 +11,17 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+"""
+JAQCD intermediate representation.
+
+.. deprecated:: 1.29.3
+    The ``braket.ir.jaqcd`` module is deprecated. Amazon Braket service
+    devices no longer accept JAQCD program submissions; use the OpenQASM 3
+    intermediate representation in :mod:`braket.ir.openqasm` instead. This
+    module is retained so historical task results that contain
+    ``braket.ir.jaqcd.program`` payloads continue to deserialize.
+"""
+
 from braket.ir.jaqcd.instructions import (  # noqa: F401
     CV,
     CY,

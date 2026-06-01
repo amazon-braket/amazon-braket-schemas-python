@@ -19,6 +19,12 @@ from pydantic.v1 import BaseModel
 class DeviceActionType(str, Enum):
     """
     These are the actions supported by Braket.
+
+    .. deprecated:: 1.29.3
+        ``JAQCD`` is deprecated. Amazon Braket service devices no longer accept
+        JAQCD program submissions; use ``OPENQASM`` (OpenQASM 3) instead. The
+        ``JAQCD`` enum member is retained so historical task results and cached
+        capability documents continue to deserialize.
     """
 
     OPENQASM = "braket.ir.openqasm.program"

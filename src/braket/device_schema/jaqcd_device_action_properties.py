@@ -22,6 +22,12 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
     """
     Defines the schema for properties for the actions that can be supported by JAQCD devices.
 
+    .. deprecated:: 1.29.3
+        ``JaqcdDeviceActionProperties`` is deprecated. Amazon Braket service
+        devices no longer advertise the ``braket.ir.jaqcd.program`` action type;
+        use the OpenQASM action properties instead. This class is retained so
+        cached capability documents continue to deserialize.
+
     Attributes:
         supportedOperations: Operations supported by the JAQCD action.
         supportedResultTypes: Result types that are supported by the JAQCD action.

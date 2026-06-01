@@ -11,6 +11,16 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+"""
+JAQCD instruction definitions.
+
+.. deprecated:: 1.29.3
+    The instruction classes in this module are deprecated alongside the rest
+    of :mod:`braket.ir.jaqcd`. Amazon Braket service devices no longer accept
+    JAQCD program submissions; use OpenQASM 3 instead. These classes remain
+    importable so historical task results continue to deserialize.
+"""
+
 from enum import Enum
 
 from braket.ir.jaqcd.shared_models import (

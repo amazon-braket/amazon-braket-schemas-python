@@ -150,6 +150,13 @@ class Program(BraketSchemaBase):
     """
     Root object of the JsonAwsQuantumCircuitDescription IR.
 
+    .. deprecated:: 1.29.3
+        ``Program`` (the JAQCD program type) is deprecated. Amazon Braket
+        service devices no longer accept JAQCD program submissions; submit
+        an OpenQASM 3 program (:class:`braket.ir.openqasm.Program`) instead.
+        This class is retained so historical task results stored as
+        ``braket.ir.jaqcd.program`` payloads continue to deserialize.
+
     Attributes:
         braketSchemaHeader (BraketSchemaHeader): Schema header. Users do not need
             to set this value. Only default is allowed.
