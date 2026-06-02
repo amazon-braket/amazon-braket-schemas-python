@@ -12,12 +12,17 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
+from typing import TypeAlias
+
+from pydantic.v1 import BaseModel, Field, StrictBool, confloat, conint, conlist, constr
 
 from braket.ir.jaqcd.program_v1 import Results
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
+
+ScalarValue: TypeAlias = StrictBool | conint(strict=True) | confloat(ge=-float("inf"), strict=True)
+OutputValue: TypeAlias = ScalarValue | list[ScalarValue]
 
 
 class ResultTypeValue(BaseModel):
@@ -70,5 +75,6 @@ class GateModelTaskResult(BraketSchemaBase):
     )
     resultTypes: list[ResultTypeValue] | None
     measuredQubits: conlist(conint(ge=0), min_items=1) | None
+    outputs: conlist(dict[constr(min_length=1), OutputValue], min_items=1) | None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

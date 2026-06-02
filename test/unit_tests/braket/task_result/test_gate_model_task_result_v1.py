@@ -182,3 +182,133 @@ def test_incorrect_result_type_attribute_type():
 @pytest.mark.xfail(raises=ValidationError)
 def test_incorrect_result_type_attribute_value():
     ResultTypeValue(type={"type": "unknown"}, value=1)
+
+
+def test_outputs_only_two_shots_multiple_registers(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+):
+    outputs = [
+        {"c1": 1, "c2": [0, 1], "float_variable": 1.57},
+        {"c1": 0, "c2": [0, 0], "float_variable": 1.57},
+    ]
+    result = GateModelTaskResult(
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.outputs == outputs
+    assert result.measurements is None
+    assert result.measurementProbabilities is None
+    assert GateModelTaskResult.parse_raw(result.json()) == result
+
+
+def test_outputs_loop_same_qubit_measured_repeatedly(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+):
+    outputs = [{"mcm_abc": [1, 0, 0]}]
+    result = GateModelTaskResult(
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.outputs == outputs
+
+
+def test_outputs_negative_integer_value(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+):
+    outputs = [{"mcm": [-1, 1, 0]}]
+    result = GateModelTaskResult(
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.outputs == outputs
+    assert GateModelTaskResult.parse_raw(result.json()).outputs == outputs
+
+
+def test_outputs_undefined_value_omitted_from_shot_dict(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+):
+    outputs = [
+        {"c1": 1, "c2": [0, 1]},
+        {"c1": 0},
+    ]
+    result = GateModelTaskResult(
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.outputs == outputs
+
+
+def test_outputs_alongside_measurements(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+    measurements,
+):
+    outputs = [{"c": [m_q0, m_q1]} for m_q0, m_q1 in measurements]
+    result = GateModelTaskResult(
+        measurements=measurements,
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.measurements == measurements
+    assert result.outputs == outputs
+
+
+@pytest.mark.parametrize(
+    "outputs",
+    [
+        [],  # must contain at least one shot
+        [{"c1": "not-a-scalar"}],  # strings not allowed
+        [{"c1": [1, "0"]}],  # strings inside a list not allowed
+        [{"c1": [[0, 1]]}],  # nested lists not allowed
+        [{"c1": {"nested": "dict"}}],  # dict values not allowed
+        [{"c1": None}],  # None not allowed (omit key instead)
+        [{"": 1}],  # empty variable name not allowed
+    ],
+)
+@pytest.mark.xfail(raises=ValidationError)
+def test_incorrect_outputs(
+    outputs,
+    measured_qubits,
+    task_metadata,
+    additional_metadata_gate_model,
+):
+    GateModelTaskResult(
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+
+
+def test_outputs_default_is_none(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+    measurements,
+):
+    result = GateModelTaskResult(
+        measurements=measurements,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.outputs is None
