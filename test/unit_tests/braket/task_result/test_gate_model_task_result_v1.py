@@ -236,14 +236,14 @@ def test_outputs_negative_integer_value(
     assert GateModelTaskResult.parse_raw(result.json()).outputs == outputs
 
 
-def test_outputs_undefined_value_omitted_from_shot_dict(
+def test_outputs_undefined_value_represented_as_none(
     task_metadata,
     additional_metadata_gate_model,
     measured_qubits,
 ):
     outputs = [
         {"c1": 1, "c2": [0, 1]},
-        {"c1": 0},
+        {"c1": 0, "c2": [None, 1]},
     ]
     result = GateModelTaskResult(
         outputs=outputs,
@@ -252,6 +252,22 @@ def test_outputs_undefined_value_omitted_from_shot_dict(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.outputs == outputs
+
+
+def test_outputs_bool_value(
+    task_metadata,
+    additional_metadata_gate_model,
+    measured_qubits,
+):
+    outputs = [{"flag": True}, {"flag": False}]
+    result = GateModelTaskResult(
+        outputs=outputs,
+        measuredQubits=measured_qubits,
+        taskMetadata=task_metadata,
+        additionalMetadata=additional_metadata_gate_model,
+    )
+    assert result.outputs == outputs
+    assert GateModelTaskResult.parse_raw(result.json()).outputs == outputs
 
 
 def test_outputs_alongside_measurements(
@@ -276,11 +292,12 @@ def test_outputs_alongside_measurements(
     "outputs",
     [
         [],  # must contain at least one shot
+        [{}],  # shot dict must not be empty
         [{"c1": "not-a-scalar"}],  # strings not allowed
         [{"c1": [1, "0"]}],  # strings inside a list not allowed
+        [{"c1": [1, 1.5]}],  # mixed types within a list not allowed
         [{"c1": [[0, 1]]}],  # nested lists not allowed
         [{"c1": {"nested": "dict"}}],  # dict values not allowed
-        [{"c1": None}],  # None not allowed (omit key instead)
         [{"": 1}],  # empty variable name not allowed
     ],
 )

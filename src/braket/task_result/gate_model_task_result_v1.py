@@ -14,15 +14,22 @@
 
 from typing import TypeAlias
 
-from pydantic.v1 import BaseModel, Field, StrictBool, confloat, conint, conlist, constr
+from pydantic.v1 import BaseModel, Field, StrictBool, confloat, conint, conlist, constr, validator
 
 from braket.ir.jaqcd.program_v1 import Results
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
 from braket.task_result.task_metadata_v1 import TaskMetadata
 
-ScalarValue: TypeAlias = StrictBool | conint(strict=True) | confloat(ge=-float("inf"), strict=True)
-OutputValue: TypeAlias = ScalarValue | list[ScalarValue]
+StrictInt = conint(strict=True)
+StrictFloat = confloat(allow_inf_nan=False, strict=True)
+
+ScalarValue: TypeAlias = StrictBool | StrictInt | StrictFloat
+ScalarOrNull: TypeAlias = ScalarValue | None
+
+OutputValue: TypeAlias = (
+    ScalarOrNull | list[StrictBool | None] | list[StrictInt | None] | list[StrictFloat | None]
+)
 
 
 class ResultTypeValue(BaseModel):
@@ -56,6 +63,11 @@ class GateModelTaskResult(BraketSchemaBase):
             Indicates which qubits are in `measurements`. Default is `None`.
         resultTypes (list[ResultTypeValue]): Requested result types and their values.
             Default is `None`.
+        outputs (list[dict[str, OutputValue]]): Per-shot values of OpenQASM 3
+            ``output``-declared variables. Each element is one shot, mapping each
+            output variable name to its value (a scalar, or a homogeneous list for
+            registers). An undefined value is represented by ``None``. Default is
+            `None`.
         taskMetadata (TaskMetadata): The task metadata
         additionalMetadata (AdditionalMetadata): Additional metadata of the task
     """
@@ -78,3 +90,22 @@ class GateModelTaskResult(BraketSchemaBase):
     outputs: conlist(dict[constr(min_length=1), OutputValue], min_items=1) | None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata
+
+    @validator("outputs", each_item=True)
+    def validate_non_empty_shot(cls, shot):
+        """
+        Rejects empty per-shot dicts. Every declared output variable appears in
+        each shot (its value or None), so an empty shot signals malformed data.
+
+        Args:
+            shot (dict): One per-shot output dict from the outputs list.
+
+        Returns:
+            dict: The same shot, validated to be non-empty.
+
+        Raises:
+            ValueError: If the shot dict is empty.
+        """
+        if not shot:
+            raise ValueError("each output shot must contain at least one variable")
+        return shot
