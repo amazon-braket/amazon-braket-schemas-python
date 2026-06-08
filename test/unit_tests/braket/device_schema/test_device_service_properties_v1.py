@@ -82,3 +82,17 @@ def test_parse_valid_input_with_getTaskPollInterval(valid_input_with_getTaskPoll
         json.dumps(valid_input_with_getTaskPollInterval)
     )
     assert service_props.getTaskPollIntervalMillis == 200
+
+
+@pytest.mark.parametrize(
+    "input_value, expected",
+    [
+        (None, None),
+        ([1, 5000], (1, 5000)),
+    ],
+)
+def test_reservation_shots_range(valid_input, input_value, expected):
+    if input_value is not None:
+        valid_input["reservationShotsRange"] = input_value
+    service_props = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    assert service_props.reservationShotsRange == expected

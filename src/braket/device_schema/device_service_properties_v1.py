@@ -73,6 +73,9 @@ class DeviceServiceProperties(BraketSchemaBase):
         executionWindows (list[DeviceExecutionWindow]): List of the execution windows,
             it tells us which days the device can execute a task.
         shotsRange (tuple[int, int]): range of the shots for a given device.
+        reservationShotsRange (tuple[int, int] | None): per-circuit shots
+            range that overrides ``shotsRange`` when the task is submitted via
+            a Braket Direct reservation. Defaults to ``None``.
         deviceCost (Optional[DeviceCost]): cost of the device to run the quantum circuits
         deviceDocumentation (Optional[DeviceDocumentation]): provides device specific
             details like image, summary etc.
@@ -119,6 +122,7 @@ class DeviceServiceProperties(BraketSchemaBase):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     executionWindows: list[DeviceExecutionWindow]
     shotsRange: tuple[int, int]
+    reservationShotsRange: tuple[int, int] | None = None
     deviceCost: DeviceCost | None
     deviceDocumentation: DeviceDocumentation | None
     deviceLocation: str | None

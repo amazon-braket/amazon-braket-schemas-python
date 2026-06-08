@@ -23,8 +23,15 @@ class OpenQASMProgramSetDeviceActionProperties(DeviceActionProperties):
     Attributes:
         maximumExecutables(int): The maximum number of executables
             that can be in a single program set.
+        maximumTotalShots(int): The maximum allowed total shots across all
+            executables in a single program set.
+        minimumTotalShots(int | None): The minimum allowed total shots
+            across all executables in a single program set. When unset, no
+            task-level minimum is enforced. Devices opt in by setting this
+            field to a value > 1.
     """
 
     actionType: constr(regex=r"^braket\.ir\.openqasm\.program_set$")
     maximumExecutables: conint(ge=0)
     maximumTotalShots: conint(ge=0)
+    minimumTotalShots: conint(ge=1) | None = None
