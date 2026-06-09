@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.30.0 (2026-06-09)
+
+### Features
+
+ * add outputs field to support mid-circuit measurements
+
 ## v1.29.2 (2026-05-30)
 
 ### Bug Fixes and Other Changes
