@@ -18,6 +18,7 @@ from pydantic.v1 import ValidationError
 
 from braket.device_schema.error_mitigation import Debias
 from braket.device_schema.ionq.ionq_device_capabilities_v1 import IonqDeviceCapabilities
+from braket.device_schema.openqasm_program_set_device_action_properties import OpenQASMProgramSetDeviceActionProperties
 
 jaqcd_valid_input = {
     "braketSchemaHeader": {
@@ -133,6 +134,22 @@ openqasm_valid_input = {
 def test_valid(valid_input):
     result = IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
+
+
+def test_valid_program_set():
+    valid_input = dict(openqasm_valid_input)
+    valid_input["action"] = dict(valid_input["action"])
+    valid_input["action"]["braket.ir.openqasm.program_set"] = {
+        "actionType": "braket.ir.openqasm.program_set",
+        "version": ["1"],
+        "maximumExecutables": 100,
+        "maximumTotalShots": 100000,
+    }
+    result = IonqDeviceCapabilities.parse_raw_schema(json.dumps(valid_input))
+    action = result.action["braket.ir.openqasm.program_set"]
+    assert isinstance(action, OpenQASMProgramSetDeviceActionProperties)
+    assert action.maximumExecutables == 100
+    assert action.maximumTotalShots == 100000
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])

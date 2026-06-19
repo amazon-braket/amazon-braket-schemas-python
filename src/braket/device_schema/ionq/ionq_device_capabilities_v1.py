@@ -23,6 +23,9 @@ from braket.device_schema.gate_model_qpu_paradigm_properties_v1 import (
 from braket.device_schema.ionq.ionq_provider_properties_v1 import IonqProviderProperties
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 from braket.device_schema.openqasm_device_action_properties import OpenQASMDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 import (
     StandardizedGateModelQpuDeviceProperties,
 )
@@ -126,7 +129,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
-        OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties,
+        OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties | OpenQASMProgramSetDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: IonqProviderProperties | None

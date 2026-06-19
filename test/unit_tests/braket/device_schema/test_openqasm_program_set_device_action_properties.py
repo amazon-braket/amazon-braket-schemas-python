@@ -57,3 +57,25 @@ def test_missing_field(valid_input, field):
 def test_negative_field(valid_input, field):
     valid_input[field] = -1
     OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
+
+
+@pytest.mark.parametrize(
+    "input_value, expected",
+    [
+        (None, None),
+        (1, 1),
+        (100, 100),
+    ],
+)
+def test_minimum_total_shots(valid_input, input_value, expected):
+    if input_value is not None:
+        valid_input["minimumTotalShots"] = input_value
+    result = OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.minimumTotalShots == expected
+
+
+@pytest.mark.parametrize("invalid_value", [0, -1])
+@pytest.mark.xfail(raises=ValidationError, reason="ensure this value is greater than or equal to 1")
+def test_minimum_total_shots_invalid(valid_input, invalid_value):
+    valid_input["minimumTotalShots"] = invalid_value
+    OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
