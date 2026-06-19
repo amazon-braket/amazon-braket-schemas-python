@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.31.0 (2026-06-19)
+
+### Features
+
+ * add IonQ program_set support with task-level shot floor and reservation shots range
+
 ## v1.30.0 (2026-06-09)
 
 ### Features
