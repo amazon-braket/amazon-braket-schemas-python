@@ -11,12 +11,28 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
+import copy
 import json
 
 import pytest
 from pydantic.v1 import ValidationError
 
 from braket.device_schema.rigetti.rigetti_device_capabilities_v2 import RigettiDeviceCapabilities
+from braket.device_schema.rigetti.rigetti_device_parameters_v1 import RigettiDeviceParameters
+
+rigetti_device_parameters_instance = {
+    "braketSchemaHeader": {
+        "name": "braket.device_schema.rigetti.rigetti_device_parameters",
+        "version": "1",
+    },
+    "paradigmParameters": {
+        "braketSchemaHeader": {
+            "name": "braket.device_schema.gate_model_parameters",
+            "version": "1",
+        },
+        "qubitCount": 32,
+    },
+}
 
 device_properties_data = {
     "braketSchemaHeader": {
@@ -102,7 +118,7 @@ jaqcd_valid_input = {
         "nativeGateSet": ["ccnot", "cy"],
         "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
     },
-    "deviceParameters": {},
+    "deviceParameters": rigetti_device_parameters_instance,
     "standardized": device_properties_data,
 }
 
@@ -168,8 +184,13 @@ openqasm_valid_input = {
         "nativeGateSet": ["ccnot", "cy"],
         "connectivity": {"fullyConnected": False, "connectivityGraph": {"1": ["2", "3"]}},
     },
-    "deviceParameters": {},
+    "deviceParameters": rigetti_device_parameters_instance,
 }
+
+
+# Captured before the mutation-based tests below run so the backwards-compatibility
+# test always has an unmodified capabilities document to build on.
+_pristine_openqasm_input = copy.deepcopy(openqasm_valid_input)
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])
@@ -178,6 +199,20 @@ def test_valid(valid_input):
     assert (
         result.braketSchemaHeader.name == "braket.device_schema.rigetti.rigetti_device_capabilities"
     )
+    assert isinstance(result.deviceParameters, RigettiDeviceParameters)
+    assert result.deviceParameters.paradigmParameters.qubitCount == 32
+
+
+def test_legacy_schema_device_parameters_parses_as_dict():
+    # Existing V2 capability documents store the JSON-schema form of the device
+    # parameters (RigettiDeviceParameters.schema_json()). These must keep parsing,
+    # falling back to a plain dict instead of a RigettiDeviceParameters instance.
+    legacy_input = copy.deepcopy(_pristine_openqasm_input)
+    legacy_input["deviceParameters"] = json.loads(RigettiDeviceParameters.schema_json())
+    result = RigettiDeviceCapabilities.parse_raw_schema(json.dumps(legacy_input))
+    assert not isinstance(result.deviceParameters, RigettiDeviceParameters)
+    assert isinstance(result.deviceParameters, dict)
+    assert result.deviceParameters["title"] == "RigettiDeviceParameters"
 
 
 @pytest.mark.parametrize("valid_input", [openqasm_valid_input, jaqcd_valid_input])

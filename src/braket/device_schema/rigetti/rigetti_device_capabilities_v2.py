@@ -25,6 +25,7 @@ from braket.device_schema.openqasm_program_set_device_action_properties import (
     OpenQASMProgramSetDeviceActionProperties,
 )
 from braket.device_schema.pulse.pulse_device_action_properties_v1 import PulseDeviceActionProperties
+from braket.device_schema.rigetti.rigetti_device_parameters_v1 import RigettiDeviceParameters
 from braket.device_schema.rigetti.rigetti_provider_properties_v2 import RigettiProviderProperties
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v1 import (
     StandardizedGateModelQpuDeviceProperties,
@@ -41,6 +42,10 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
             Union[OpenQASMDeviceActionProperties, OpenQASMProgramSetDeviceActionProperties, JaqcdDeviceActionProperties]]): Actions that a
             Rigetti device can support
         paradigm(GateModelQpuParadigmProperties): Paradigm properties of a Rigetti
+        deviceParameters(RigettiDeviceParameters | dict): The device parameters for a
+            Rigetti device. A parameter-instance payload (a ``paradigmParameters`` block)
+            deserializes into a ``RigettiDeviceParameters`` object; the legacy JSON-schema
+            representation stored by earlier capability documents falls back to ``dict``.
         provider(Optional[RigettiProviderProperties]): Rigetti provider specific properties
         standardized
             (StandardizedGateModelQpuDeviceProperties): Braket standarized device
@@ -104,7 +109,19 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {RigettiDeviceParameters.schema_json()},
+        ...    "deviceParameters": {
+        ...        "braketSchemaHeader": {
+        ...            "name": "braket.device_schema.rigetti.rigetti_device_parameters",
+        ...            "version": "1",
+        ...        },
+        ...        "paradigmParameters": {
+        ...            "braketSchemaHeader": {
+        ...                "name": "braket.device_schema.gate_model_parameters",
+        ...                "version": "1",
+        ...            },
+        ...            "qubitCount": 32,
+        ...        },
+        ...    },
         ...    "standardized": \
         ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},
         ...    "pulse": {PulseDeviceActionProperties.schema_json()},
@@ -124,6 +141,7 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
+    deviceParameters: RigettiDeviceParameters | dict
     provider: RigettiProviderProperties | None
     standardized: StandardizedGateModelQpuDeviceProperties | None
     pulse: PulseDeviceActionProperties | None
