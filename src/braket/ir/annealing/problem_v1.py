@@ -46,6 +46,6 @@ class Problem(BraketSchemaBase):
 
     _PROBLEM_HEADER = BraketSchemaHeader(name="braket.ir.annealing.problem", version="1")
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER)
-    type: ProblemType | str
+    type: ProblemType | str = Field(union_mode="left_to_right")
     linear: dict[conint(ge=0), float]
     quadratic: dict[str, float]

@@ -52,4 +52,4 @@ class PersistedJobData(BraketSchemaBase):
 
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PERSISTED_JOB_DATA_HEADER)
     dataDictionary: dict[str, Any]
-    dataFormat: PersistedJobDataFormat | str
+    dataFormat: PersistedJobDataFormat | str = Field(union_mode="left_to_right")

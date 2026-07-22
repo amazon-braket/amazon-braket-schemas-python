@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class DeviceActionType(str, Enum):
@@ -48,4 +48,4 @@ class DeviceActionProperties(BaseModel):
     """
 
     version: list[str]
-    actionType: DeviceActionType | str
+    actionType: DeviceActionType | str = Field(union_mode="left_to_right")

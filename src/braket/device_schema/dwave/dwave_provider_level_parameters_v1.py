@@ -106,7 +106,9 @@ class DwaveProviderLevelParameters(BraketSchemaBase):
     fluxBiases: list[float] | None = None
     initialState: list[int] | None = None
     maxResults: int | None = Field(default=None, gt=0)
-    postprocessingType: PostProcessingType | str | None = None
+    postprocessingType: PostProcessingType | str | None = Field(
+        default=None, union_mode="left_to_right"
+    )
     programmingThermalizationDuration: int | None = None
     readoutThermalizationDuration: int | None = None
     reduceIntersampleCorrelation: bool | None = None

@@ -14,7 +14,7 @@
 from datetime import time
 from enum import Enum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ExecutionDay(str, Enum):
@@ -66,6 +66,6 @@ class DeviceExecutionWindow(BaseModel):
 
     """
 
-    executionDay: ExecutionDay | str
+    executionDay: ExecutionDay | str = Field(union_mode="left_to_right")
     windowStartHour: time
     windowEndHour: time

@@ -12,6 +12,8 @@
 # language governing permissions and limitations under the License
 
 
+from typing import Annotated
+
 from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
@@ -50,7 +52,7 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     )
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     action: dict[
-        DeviceActionType | str,
+        Annotated[DeviceActionType | str, Field(union_mode="left_to_right")],
         OpenQASMDeviceActionProperties | OpenQASMProgramSetDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties

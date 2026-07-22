@@ -12,7 +12,9 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic import BaseModel
+from typing import Annotated
+
+from pydantic import BaseModel, Field
 
 from braket.device_schema.device_action_properties import DeviceActionProperties, DeviceActionType
 from braket.device_schema.device_service_properties_v1 import DeviceServiceProperties
@@ -71,5 +73,8 @@ class DeviceCapabilities(BaseModel):
     """
 
     service: DeviceServiceProperties
-    action: dict[DeviceActionType | str, DeviceActionProperties]
+    action: dict[
+        Annotated[DeviceActionType | str, Field(union_mode="left_to_right")],
+        DeviceActionProperties,
+    ]
     deviceParameters: dict
