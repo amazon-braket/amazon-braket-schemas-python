@@ -13,7 +13,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.openqasm.program_set_v1 import ProgramSet
 from braket.ir.openqasm.program_v1 import Program
@@ -158,65 +158,82 @@ def test_load_program_set():
 
 
 def test_json_schema():
-    schema = ProgramSet.schema()
-    schema["properties"]["braketSchemaHeader"].pop("default", None)
+    schema = ProgramSet.model_json_schema()
     schema.pop("description", None)
-    schema["definitions"]["Program"].pop("description", None)
+    schema["$defs"]["Program"].pop("description", None)
+    schema["$defs"]["BraketSchemaHeader"].pop("description", None)
+    program_inputs = {
+        "title": "Inputs",
+        "default": None,
+        "anyOf": [
+            {
+                "type": "object",
+                "propertyNames": {"minLength": 1},
+                "additionalProperties": {
+                    "anyOf": [
+                        {"type": "string", "minLength": 1, "pattern": "^[01]+$"},
+                        {"type": "number"},
+                        {"type": "integer"},
+                        {
+                            "type": "array",
+                            "items": {
+                                "anyOf": [
+                                    {"type": "string", "minLength": 1, "pattern": "^[01]+$"},
+                                    {"type": "number"},
+                                    {"type": "integer"},
+                                ]
+                            },
+                        },
+                    ]
+                },
+            },
+            {"type": "null"},
+        ],
+    }
     assert schema == {
         "title": "ProgramSet",
         "type": "object",
         "properties": {
             "braketSchemaHeader": {
-                "title": "Braketschemaheader",
-                "const": BraketSchemaHeader(name="braket.ir.openqasm.program_set", version="1"),
+                "$ref": "#/$defs/BraketSchemaHeader",
+                "default": {"name": "braket.ir.openqasm.program_set", "version": "1"},
             },
             "programs": {
                 "title": "Programs",
                 "type": "array",
-                "items": {"$ref": "#/definitions/Program"},
+                "items": {"$ref": "#/$defs/Program"},
                 "minItems": 1,
             },
         },
         "required": ["programs"],
-        "definitions": {
+        "$defs": {
+            "BraketSchemaHeader": {
+                "title": "BraketSchemaHeader",
+                "type": "object",
+                "properties": {
+                    "name": {"title": "Name", "type": "string", "minLength": 1},
+                    "version": {
+                        "title": "Version",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 50,
+                    },
+                },
+                "required": ["name", "version"],
+            },
             "Program": {
                 "title": "Program",
                 "type": "object",
                 "properties": {
                     "braketSchemaHeader": {
-                        "title": "Braketschemaheader",
+                        "$ref": "#/$defs/BraketSchemaHeader",
                         "default": {"name": "braket.ir.openqasm.program", "version": "1"},
-                        "const": BraketSchemaHeader(name="braket.ir.openqasm.program", version="1"),
                     },
                     "source": {"title": "Source", "type": "string"},
-                    "inputs": {
-                        "title": "Inputs",
-                        "type": "object",
-                        "additionalProperties": {
-                            "anyOf": [
-                                {"type": "string", "minLength": 1, "pattern": "^[01]+$"},
-                                {"type": "number"},
-                                {"type": "integer"},
-                                {
-                                    "type": "array",
-                                    "items": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "pattern": "^[01]+$",
-                                            },
-                                            {"type": "number"},
-                                            {"type": "integer"},
-                                        ]
-                                    },
-                                },
-                            ]
-                        },
-                    },
+                    "inputs": program_inputs,
                 },
                 "required": ["source"],
-            }
+            },
         },
     }
 

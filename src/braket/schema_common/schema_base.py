@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import re
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel, field_validator
 
 from braket.schema_common.schema_header import BraketSchemaHeader
 
@@ -29,6 +29,23 @@ class BraketSchemaBase(BaseModel):
     """
 
     braketSchemaHeader: BraketSchemaHeader
+
+    @field_validator("braketSchemaHeader")
+    @classmethod
+    def _validate_braket_schema_header(cls, value: BraketSchemaHeader) -> BraketSchemaHeader:
+        """
+        Enforces that a provided ``braketSchemaHeader`` matches the fixed header defined
+        by the concrete schema class.
+
+        This reproduces the behavior of Pydantic v1's ``Field(const=...)``, which was
+        removed in Pydantic v2. Subclasses pin ``braketSchemaHeader`` to a specific
+        default header; providing any other value is rejected. The base class itself
+        declares no default, so it accepts any header.
+        """
+        field = cls.model_fields.get("braketSchemaHeader")
+        if field is not None and not field.is_required() and value != field.default:
+            raise ValueError(f"braketSchemaHeader must be {field.default!r}, but got {value!r}")
+        return value
 
     @staticmethod
     def import_schema_module(schema: BraketSchemaBase):
@@ -46,9 +63,9 @@ class BraketSchemaBase(BaseModel):
             schema header
 
         Examples:
-            >> schema = BraketSchemaBase.parse_raw(json_string)
+            >> schema = BraketSchemaBase.model_validate_json(json_string)
             >> module = import_schema_module(schema)
-            >> module.AnnealingTaskResult.parse_raw(json_string)
+            >> module.AnnealingTaskResult.model_validate_json(json_string)
         """
         return schema.braketSchemaHeader.import_schema_module()
 
@@ -64,11 +81,11 @@ class BraketSchemaBase(BaseModel):
             BraketSchemaBase: The schema object. This can also be an
             instance of a subclass of BraketSchemaBase.
         """
-        schema = BraketSchemaBase.parse_raw(json_str)
+        schema = BraketSchemaBase.model_validate_json(json_str)
         module = BraketSchemaBase.import_schema_module(schema)
         name = schema.braketSchemaHeader.name
         schema_class = BraketSchemaBase.get_schema_class(module, name)
-        return schema_class.parse_raw(json_str)
+        return schema_class.model_validate_json(json_str)
 
     @staticmethod
     def get_schema_class(module, name):

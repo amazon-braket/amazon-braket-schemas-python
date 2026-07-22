@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import Field, conint, conlist
+from pydantic import Field, conint, conlist
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -36,12 +36,10 @@ class PhotonicModelTaskResult(BraketSchemaBase):
         name="braket.task_result.photonic_model_task_result", version="1"
     )
 
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_PHOTONIC_MODEL_TASK_RESULT_HEADER, const=_PHOTONIC_MODEL_TASK_RESULT_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PHOTONIC_MODEL_TASK_RESULT_HEADER)
     measurements: (
-        conlist(conlist(conlist(conint(ge=0, le=256), min_items=1), min_items=1), min_items=1)
+        conlist(conlist(conlist(conint(ge=0, le=256), min_length=1), min_length=1), min_length=1)
         | None
-    )
+    ) = None
     taskMetadata: TaskMetadata
     additionalMetadata: AdditionalMetadata

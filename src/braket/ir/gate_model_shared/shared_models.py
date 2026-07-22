@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic.v1 import BaseModel, confloat, conint, conlist, constr, root_validator
+from pydantic import BaseModel, confloat, conint, conlist, constr, model_validator
 
 
 class SingleTarget(BaseModel):
@@ -39,7 +39,7 @@ class DoubleTarget(BaseModel):
         >>> DoubleTarget(targets=[0, 1])
     """
 
-    targets: conlist(conint(ge=0), min_items=2, max_items=2)
+    targets: conlist(conint(ge=0), min_length=2, max_length=2)
 
 
 class MultiTarget(BaseModel):
@@ -53,7 +53,7 @@ class MultiTarget(BaseModel):
         >>> MultiTarget(targets=[0, 1])
     """
 
-    targets: conlist(conint(ge=0), min_items=1)
+    targets: conlist(conint(ge=0), min_length=1)
 
 
 class OptionalMultiTarget(BaseModel):
@@ -67,7 +67,7 @@ class OptionalMultiTarget(BaseModel):
         >>> OptionalMultiTarget(targets=[0, 1])
     """
 
-    targets: conlist(conint(ge=0), min_items=1) | None
+    targets: conlist(conint(ge=0), min_length=1) | None = None
 
 
 class OptionalNestedMultiTarget(BaseModel):
@@ -82,7 +82,7 @@ class OptionalNestedMultiTarget(BaseModel):
         >>> OptionalNestedMultiTarget(targets=[[0, 1], [2]])
     """
 
-    targets: conlist(conlist(conint(ge=0), min_items=1), min_items=1) | None
+    targets: conlist(conlist(conint(ge=0), min_length=1), min_length=1) | None = None
 
 
 class OptionalMultiParameter(BaseModel):
@@ -92,7 +92,7 @@ class OptionalMultiParameter(BaseModel):
         parameters (Optional[List[str]]): A list of parameter names.
     """
 
-    parameters: conlist(constr(min_length=1), min_items=0) | None
+    parameters: conlist(constr(min_length=1), min_length=0) | None = None
 
 
 class MultiControl(BaseModel):
@@ -106,7 +106,7 @@ class MultiControl(BaseModel):
         >>> MultiControl(controls=[0, 1])
     """
 
-    controls: conlist(conint(ge=0), min_items=1)
+    controls: conlist(conint(ge=0), min_length=1)
 
 
 class DoubleControl(BaseModel):
@@ -120,7 +120,7 @@ class DoubleControl(BaseModel):
         >>> DoubleControl(targets=[0, 1])
     """
 
-    controls: conlist(conint(ge=0), min_items=2, max_items=2)
+    controls: conlist(conint(ge=0), min_length=2, max_length=2)
 
 
 class SingleControl(BaseModel):
@@ -244,16 +244,15 @@ class TripleProbability(BaseModel):
     probY: confloat(ge=float("0.0"), le=float("1.0"))
     probZ: confloat(ge=float("0.0"), le=float("1.0"))
 
-    @root_validator
-    def validate_probabilities(cls, values):
+    @model_validator(mode="after")
+    def validate_probabilities(self):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has
         the purpose to ensure probX + probY + probZ <= 1.
         """
-        p1, p2, p3 = values.get("probX"), values.get("probY"), values.get("probZ")
-        if p1 + p2 + p3 > 1:
+        if self.probX + self.probY + self.probZ > 1:
             raise ValueError("Sum of probabilities cannot exceed 1.")
-        return values
+        return self
 
 
 class MultiProbability(BaseModel):
@@ -268,18 +267,18 @@ class MultiProbability(BaseModel):
     """
 
     probabilities: dict[
-        constr(regex="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
+        constr(pattern="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
     ]
 
-    @root_validator
-    def validate_probabilities(cls, values):
+    @model_validator(mode="after")
+    def validate_probabilities(self):
         """
         Pydantic uses the validation subsystem to create objects.
         This custom validator has the purpose to ensure sum(probabilities) <= 1
         and that the lengths of each Pauli string are equal.
         """
 
-        probabilities = values.get("probabilities")
+        probabilities = self.probabilities
         if not probabilities:
             raise ValueError("Pauli dictionary must not be empty.")
 
@@ -301,7 +300,7 @@ class MultiProbability(BaseModel):
                 f"Total probability must be a real number in the interval [0, 1]. Total probability was {total_prob}."
             )
 
-        return values
+        return self
 
 
 class TwoDimensionalMatrix(BaseModel):
@@ -320,10 +319,10 @@ class TwoDimensionalMatrix(BaseModel):
 
     matrix: conlist(
         conlist(
-            conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-            min_items=1,
+            conlist(confloat(gt=float("-inf"), lt=float("inf")), min_length=2, max_length=2),
+            min_length=1,
         ),
-        min_items=1,
+        min_length=1,
     )
 
 
@@ -348,15 +347,15 @@ class TwoDimensionalMatrixList(BaseModel):
     matrices: conlist(
         conlist(
             conlist(
-                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-                min_items=1,
-                max_items=4,
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_length=2, max_length=2),
+                min_length=1,
+                max_length=4,
             ),
-            min_items=1,
-            max_items=4,
+            min_length=1,
+            max_length=4,
         ),
-        min_items=1,
-        max_items=16,
+        min_length=1,
+        max_length=16,
     )
 
 
@@ -385,16 +384,16 @@ class Observable(BaseModel):
     _term_regex = rf"{_coef_regex}?{_obs_regex}(\s*@\s*{_obs_regex})*"
     _hamiltonian_regex = rf"{_term_regex}(\s*\+\s*{_term_regex})*"
     observable: conlist(
-        constr(regex="(x|y|z|h|i)")
+        constr(pattern="^(x|y|z|h|i)")
         | conlist(
             conlist(
-                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
-                min_items=2,
+                conlist(confloat(gt=float("-inf"), lt=float("inf")), min_length=2, max_length=2),
+                min_length=2,
             ),
-            min_items=2,
+            min_length=2,
         ),
-        min_items=1,
-    ) | constr(regex=_hamiltonian_regex)
+        min_length=1,
+    ) | constr(pattern=_hamiltonian_regex)
 
 
 class MultiState(BaseModel):
@@ -409,7 +408,7 @@ class MultiState(BaseModel):
         >>> lMultiState(states=["10", "10"])
     """
 
-    states: conlist(constr(regex="^[01]+$", min_length=1), min_items=1)
+    states: conlist(constr(pattern="^[01]+$", min_length=1), min_length=1)
 
 
 class CompilerDirective(BaseModel):
@@ -425,4 +424,4 @@ class CompilerDirective(BaseModel):
         >>> CompilerDirective (directive="EndVerbatimBlock")
     """
 
-    directive: constr(regex="^(Start|End)VerbatimBlock$")
+    directive: constr(pattern="^(Start|End)VerbatimBlock$")

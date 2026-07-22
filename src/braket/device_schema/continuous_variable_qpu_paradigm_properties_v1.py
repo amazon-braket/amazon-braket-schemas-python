@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -61,7 +61,7 @@ class ContinuousVariableQpuParadigmProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.continuous_variable_qpu_paradigm_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     modes: dict[str, float]
     layout: str
     compiler: list[str]

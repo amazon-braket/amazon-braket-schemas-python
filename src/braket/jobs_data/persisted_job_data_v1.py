@@ -14,7 +14,7 @@
 from enum import Enum
 from typing import Any
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -50,8 +50,6 @@ class PersistedJobData(BraketSchemaBase):
         name="braket.jobs_data.persisted_job_data", version="1"
     )
 
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_PERSISTED_JOB_DATA_HEADER, const=_PERSISTED_JOB_DATA_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PERSISTED_JOB_DATA_HEADER)
     dataDictionary: dict[str, Any]
     dataFormat: PersistedJobDataFormat | str

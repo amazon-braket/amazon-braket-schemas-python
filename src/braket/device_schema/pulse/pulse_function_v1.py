@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class PulseFunctionArgument(BaseModel):
@@ -29,7 +29,7 @@ class PulseFunctionArgument(BaseModel):
     name: str
     type: str
     optional: bool = False
-    description: str | None
+    description: str | None = None
 
 
 class PulseFunction(BaseModel):
@@ -45,4 +45,4 @@ class PulseFunction(BaseModel):
 
     functionName: str
     arguments: list[PulseFunctionArgument]
-    returnType: str | None
+    returnType: str | None = None

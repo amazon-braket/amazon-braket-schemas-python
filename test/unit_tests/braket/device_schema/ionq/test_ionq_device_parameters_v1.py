@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema import GateModelParameters
 from braket.device_schema.error_mitigation import Debias

@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.ir.openqasm import Program
 from braket.schema_common.schema_base import BraketSchemaBase
@@ -39,9 +39,7 @@ class ProgramResult(BraketSchemaBase):
     _PROGRAM_SET_PROGRAM_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.program_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_PROGRAM_SET_PROGRAM_RESULT_HEADER, const=_PROGRAM_SET_PROGRAM_RESULT_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_SET_PROGRAM_RESULT_HEADER)
 
     executableResults: list[str] | list[ProgramSetExecutableResult | ProgramSetExecutableFailure]
     source: str | Program

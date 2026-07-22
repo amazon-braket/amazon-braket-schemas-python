@@ -11,9 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-import json
-
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -30,23 +28,6 @@ from braket.device_schema.standardized_gate_model_qpu_device_properties_v3 impor
     StandardizedGateModelQpuDeviceProperties,
 )
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
-
-
-def _loads_with_provider(serialized: str) -> dict:
-    deserialized = json.loads(serialized)
-    provider = deserialized.get("provider")
-    deserialized["provider"] = (
-        IonqProviderProperties.parse_raw(json.dumps(provider)).dict() if provider else None
-    )
-    return deserialized
-
-
-def _dumps_with_provider(payload: dict, **kwargs):
-    provider = payload.get("provider")
-    payload["provider"] = (
-        json.loads(IonqProviderProperties.parse_obj(provider).json()) if provider else None
-    )
-    return json.dumps(payload, **kwargs)
 
 
 class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
@@ -118,7 +99,7 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {IonqDeviceParameters.schema_json()},
+        ...    "deviceParameters": {IonqDeviceParameters.model_json_schema()},
         ... }
         >>> IonqDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
@@ -126,19 +107,13 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.ionq.ionq_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
-        OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties | OpenQASMProgramSetDeviceActionProperties,
+        OpenQASMDeviceActionProperties
+        | JaqcdDeviceActionProperties
+        | OpenQASMProgramSetDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: IonqProviderProperties | None
-    standardized: StandardizedGateModelQpuDeviceProperties | None
-
-    class Config:
-        # Pydantic does not use the custom encoders/decoders of nested models:
-        # https://github.com/pydantic/pydantic/issues/2277#issuecomment-1236369282
-        # This should be fixed in Pydantic v2:
-        # https://github.com/pydantic/pydantic/discussions/4456
-        json_loads = _loads_with_provider
-        json_dumps = _dumps_with_provider
+    provider: IonqProviderProperties | None = None
+    standardized: StandardizedGateModelQpuDeviceProperties | None = None

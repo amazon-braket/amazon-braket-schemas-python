@@ -13,7 +13,7 @@
 
 from decimal import Decimal
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 
 class TimeSeries(BaseModel):

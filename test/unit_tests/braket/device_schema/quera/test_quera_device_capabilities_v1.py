@@ -15,7 +15,7 @@ import json
 import math
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.quera import QueraDeviceCapabilities
 
@@ -55,7 +55,7 @@ def valid_input():
                 "version": ["1"],
             }
         },
-        "deviceParameters": "",
+        "deviceParameters": {},
         "paradigm": {
             "braketSchemaHeader": {
                 "name": "braket.device_schema.quera.quera_ahs_paradigm_properties",

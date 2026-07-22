@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -48,11 +48,11 @@ class IqmDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.iqm.iqm_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
         OpenQASMDeviceActionProperties | OpenQASMProgramSetDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: IqmProviderProperties | None
-    standardized: StandardizedGateModelQpuDeviceProperties | None
+    provider: IqmProviderProperties | None = None
+    standardized: StandardizedGateModelQpuDeviceProperties | None = None

@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -102,9 +102,9 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {OqcDeviceParameters.schema_json()},
+        ...    "deviceParameters": {OqcDeviceParameters.model_json_schema()},
         ...    "standardized": \
-        ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},,
+        ...            {StandardizedGateModelQpuDeviceProperties.model_json_schema()},,
         ... }
         >>> OqcDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
@@ -112,12 +112,12 @@ class OqcDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.oqc.oqc_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
         OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: OqcProviderProperties | None
-    standardized: StandardizedGateModelQpuDeviceProperties | None
-    pulse: PulseDeviceActionProperties | None
+    provider: OqcProviderProperties | None = None
+    standardized: StandardizedGateModelQpuDeviceProperties | None = None
+    pulse: PulseDeviceActionProperties | None = None

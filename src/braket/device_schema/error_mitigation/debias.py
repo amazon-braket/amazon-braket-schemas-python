@@ -24,4 +24,4 @@ class Debias(ErrorMitigationScheme):
     class Type(str, Enum):
         debias = "braket.device_schema.error_mitigation.debias.Debias"
 
-    type = Type.debias
+    type: Type = Type.debias

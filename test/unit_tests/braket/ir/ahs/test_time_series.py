@@ -14,7 +14,7 @@
 from decimal import Decimal
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.ahs.time_series import TimeSeries
 

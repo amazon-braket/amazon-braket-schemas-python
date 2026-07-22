@@ -14,11 +14,13 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.error_mitigation import Debias
 from braket.device_schema.ionq.ionq_device_capabilities_v1 import IonqDeviceCapabilities
-from braket.device_schema.openqasm_program_set_device_action_properties import OpenQASMProgramSetDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 
 jaqcd_valid_input = {
     "braketSchemaHeader": {
@@ -171,9 +173,9 @@ def test_valid_provider(valid_input):
         },
         "errorMitigation": {Debias: {"minimumShots": 2500}},
     }
-    result = IonqDeviceCapabilities.parse_obj(valid_input)
+    result = IonqDeviceCapabilities.model_validate(valid_input)
     assert result.braketSchemaHeader.name == "braket.device_schema.ionq.ionq_device_capabilities"
-    assert result == IonqDeviceCapabilities.parse_raw(result.json())
+    assert result == IonqDeviceCapabilities.model_validate_json(result.model_dump_json())
 
 
 def test_valid_standardized():

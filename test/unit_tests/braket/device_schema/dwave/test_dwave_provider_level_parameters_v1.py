@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
     DwaveProviderLevelParameters,

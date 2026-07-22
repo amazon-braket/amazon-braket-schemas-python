@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from pydantic.v1 import Field
+from pydantic import Field
 
 from braket.device_schema.dwave.dwave_advantage_device_level_parameters_v1 import (
     DwaveAdvantageDeviceLevelParameters,
@@ -30,5 +30,5 @@ class DwaveAdvantageDeviceParameters(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_advantage_device_parameters", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     deviceLevelParameters: DwaveAdvantageDeviceLevelParameters

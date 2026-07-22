@@ -14,7 +14,7 @@
 from decimal import Decimal
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.ahs.physical_field import PhysicalField
 
@@ -32,13 +32,13 @@ valid_pattern_list = [
 
 def test_valid_default_pattern():
     physical_field = PhysicalField(time_series=valid_time_series, pattern=valid_pattern_str)
-    assert physical_field.time_series == valid_time_series
+    assert physical_field.time_series.model_dump() == valid_time_series
     assert physical_field.pattern == valid_pattern_str
 
 
 def test_valid_list_pattern():
     physical_field = PhysicalField(time_series=valid_time_series, pattern=valid_pattern_list)
-    assert physical_field.time_series == valid_time_series
+    assert physical_field.time_series.model_dump() == valid_time_series
     assert physical_field.pattern == valid_pattern_list
 
 

@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
 
@@ -61,4 +61,4 @@ def test_string_for_int_value():
     }
     with pytest.raises(ValidationError) as e:
         GateModelParameters.parse_raw_schema(json.dumps(input))
-    assert "value is not a valid integer" in str(e.value)
+    assert "valid integer" in str(e.value)

@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic.v1 import conlist, constr
+from pydantic import conlist, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -36,10 +36,10 @@ class BlackbirdDeviceActionProperties(DeviceActionProperties):
         ...    "supportedOperations": [ BSGate, XGate, ZGate],
         ...    "supportedResultTypes": [],
         ... }
-        >>> BlackbirdDeviceActionProperties.parse_raw(json.dumps(input_json))
+        >>> BlackbirdDeviceActionProperties.model_validate_json(json.dumps(input_json))
 
     """
 
-    actionType: constr(regex=r"^braket\.ir\.blackbird\.program$")
+    actionType: constr(pattern=r"^braket\.ir\.blackbird\.program$")
     supportedOperations: list[str]
-    supportedResultTypes: conlist(ResultType, max_items=0)
+    supportedResultTypes: conlist(ResultType, max_length=0)

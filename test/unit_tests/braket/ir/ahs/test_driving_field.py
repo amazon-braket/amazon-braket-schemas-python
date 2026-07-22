@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.ahs.driving_field import DrivingField
 
@@ -23,9 +23,9 @@ def test_valid():
     driving_field = DrivingField(
         amplitude=valid_atom_field, phase=valid_atom_field, detuning=valid_atom_field
     )
-    assert driving_field.amplitude == valid_atom_field
-    assert driving_field.phase == valid_atom_field
-    assert driving_field.detuning == valid_atom_field
+    assert driving_field.amplitude.model_dump() == valid_atom_field
+    assert driving_field.phase.model_dump() == valid_atom_field
+    assert driving_field.detuning.model_dump() == valid_atom_field
 
 
 @pytest.mark.xfail(raises=ValidationError)

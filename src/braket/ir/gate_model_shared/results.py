@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from pydantic.v1 import BaseModel
+from pydantic import BaseModel
 
 from braket.ir.gate_model_shared.shared_models import (
     MultiState,
@@ -49,7 +49,7 @@ class Expectation(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         expectation = "expectation"
 
-    type = Type.expectation
+    type: Type = Type.expectation
 
 
 class AdjointGradient(OptionalNestedMultiTarget, Observable, OptionalMultiParameter):
@@ -78,7 +78,7 @@ class AdjointGradient(OptionalNestedMultiTarget, Observable, OptionalMultiParame
     class Type(str, Enum):
         adjoint_gradient = "adjoint_gradient"
 
-    type = Type.adjoint_gradient
+    type: Type = Type.adjoint_gradient
 
 
 class Sample(OptionalMultiTarget, Observable):
@@ -106,7 +106,7 @@ class Sample(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         sample = "sample"
 
-    type = Type.sample
+    type: Type = Type.sample
 
 
 class Variance(OptionalMultiTarget, Observable):
@@ -134,7 +134,7 @@ class Variance(OptionalMultiTarget, Observable):
     class Type(str, Enum):
         variance = "variance"
 
-    type = Type.variance
+    type: Type = Type.variance
 
 
 class StateVector(BaseModel):
@@ -152,7 +152,7 @@ class StateVector(BaseModel):
     class Type(str, Enum):
         statevector = "statevector"
 
-    type = Type.statevector
+    type: Type = Type.statevector
 
 
 class DensityMatrix(OptionalMultiTarget):
@@ -172,7 +172,7 @@ class DensityMatrix(OptionalMultiTarget):
     class Type(str, Enum):
         densitymatrix = "densitymatrix"
 
-    type = Type.densitymatrix
+    type: Type = Type.densitymatrix
 
 
 class Amplitude(MultiState):
@@ -192,7 +192,7 @@ class Amplitude(MultiState):
     class Type(str, Enum):
         amplitude = "amplitude"
 
-    type = Type.amplitude
+    type: Type = Type.amplitude
 
 
 class Probability(OptionalMultiTarget):
@@ -212,4 +212,4 @@ class Probability(OptionalMultiTarget):
     class Type(str, Enum):
         probability = "probability"
 
-    type = Type.probability
+    type: Type = Type.probability

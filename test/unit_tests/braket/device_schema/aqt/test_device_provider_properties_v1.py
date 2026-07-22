@@ -48,6 +48,6 @@ def test_schema_parse_obj():
             "updated_at": "2025-03-28T12:29:03",
         },
     }
-    assert BraketSchemaBase.parse_raw_schema(json.dumps(input)) == AqtProviderProperties.parse_obj(
-        input
-    )
+    assert BraketSchemaBase.parse_raw_schema(
+        json.dumps(input)
+    ) == AqtProviderProperties.model_validate(input)

@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 
@@ -29,23 +29,23 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = DeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = DeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.actionType == "braket.ir.jaqcd.program"
 
 
 def test_valid_str_invalid_enum(valid_input):
     valid_input["actionType"] = "blah"
-    result = DeviceActionProperties.parse_raw(json.dumps(valid_input))
+    result = DeviceActionProperties.model_validate_json(json.dumps(valid_input))
     assert result.actionType == "blah"
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_actionType(valid_input):
     valid_input.pop("actionType")
-    DeviceActionProperties.parse_raw(json.dumps(valid_input))
+    DeviceActionProperties.model_validate_json(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_version(valid_input):
     valid_input.pop("version")
-    DeviceActionProperties.parse_raw(json.dumps(valid_input))
+    DeviceActionProperties.model_validate_json(json.dumps(valid_input))

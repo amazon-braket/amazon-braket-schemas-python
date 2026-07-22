@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import AnyUrl, Field
+from pydantic import AnyUrl, Field
 
 from braket.device_schema.pulse.frame_v1 import Frame
 from braket.device_schema.pulse.port_v1 import Port
@@ -137,13 +137,13 @@ class PulseDeviceActionProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.pulse.pulse_device_action_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
     supportedQhpTemplateWaveforms: dict[str, PulseFunction]
     ports: dict[str, Port]
     supportedFunctions: dict[str, PulseFunction]
-    frames: dict[str, Frame] | None
+    frames: dict[str, Frame] | None = None
     supportsLocalPulseElements: bool | None = True
     supportsDynamicFrames: bool | None = True
     supportsNonNativeGatesWithPulses: bool | None = False
-    validationParameters: dict[str, float] | None
-    nativeGateCalibrationsRef: AnyUrl | None
+    validationParameters: dict[str, float] | None = None
+    nativeGateCalibrationsRef: AnyUrl | None = None

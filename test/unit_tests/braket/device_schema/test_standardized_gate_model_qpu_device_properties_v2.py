@@ -1,7 +1,7 @@
 import json
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.device_schema.standardized_gate_model_qpu_device_properties_v2 import (
     StandardizedGateModelQpuDeviceProperties,

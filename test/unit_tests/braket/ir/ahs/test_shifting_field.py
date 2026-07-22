@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.ahs.shifting_field import ShiftingField
 
@@ -21,7 +21,7 @@ valid_atom_field = {"time_series": {"values": [], "times": []}, "pattern": ""}
 
 def test_valid():
     shifting_field = ShiftingField(magnitude=valid_atom_field)
-    assert shifting_field.magnitude == valid_atom_field
+    assert shifting_field.magnitude.model_dump() == valid_atom_field
 
 
 @pytest.mark.xfail(raises=ValidationError)

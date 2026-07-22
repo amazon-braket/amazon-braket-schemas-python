@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
+from pydantic import BaseModel, Field, confloat, conint, conlist, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -70,9 +70,7 @@ class RigettiMetadata(BraketSchemaBase):
     _RIGETTI_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.rigetti_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(
-        default=_RIGETTI_METADATA_HEADER, const=_RIGETTI_METADATA_HEADER
-    )
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_RIGETTI_METADATA_HEADER)
 
-    nativeQuilMetadata: NativeQuilMetadata | None
+    nativeQuilMetadata: NativeQuilMetadata | None = None
     compiledProgram: constr(min_length=2)

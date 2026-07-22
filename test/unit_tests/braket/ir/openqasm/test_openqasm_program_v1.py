@@ -11,7 +11,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic.v1 import ValidationError
+from pydantic import ValidationError
 
 from braket.ir.openqasm.program_v1 import Program as OpenQASMProgram
 
@@ -29,12 +29,12 @@ def test_arbitrary_openqasm_program():
 
 def test_parse_obj():
     obj = OpenQASMProgram(source="this is a string.")
-    assert obj == OpenQASMProgram.parse_obj(obj.dict())
+    assert obj == OpenQASMProgram.model_validate(obj.model_dump())
 
 
 def test_parse_raw():
     obj = OpenQASMProgram(source="this is a string.")
-    assert obj == OpenQASMProgram.parse_raw(obj.json())
+    assert obj == OpenQASMProgram.model_validate_json(obj.model_dump_json())
 
 
 @pytest.mark.parametrize(

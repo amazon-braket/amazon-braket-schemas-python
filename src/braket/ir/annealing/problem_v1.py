@@ -13,7 +13,7 @@
 
 from enum import Enum
 
-from pydantic.v1 import Field, conint
+from pydantic import Field, conint
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -45,7 +45,7 @@ class Problem(BraketSchemaBase):
     """
 
     _PROBLEM_HEADER = BraketSchemaHeader(name="braket.ir.annealing.problem", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER, const=_PROBLEM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROBLEM_HEADER)
     type: ProblemType | str
     linear: dict[conint(ge=0), float]
     quadratic: dict[str, float]
