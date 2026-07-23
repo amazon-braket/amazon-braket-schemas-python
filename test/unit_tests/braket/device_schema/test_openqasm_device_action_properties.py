@@ -119,6 +119,12 @@ def test_default_supported_modifiers(valid_input):
     assert result.supportedModifiers == []
 
 
+def test_default_maximum_output(valid_input):
+    valid_input.pop("maximumOutputs", None)
+    result = OpenQASMDeviceActionProperties.parse_raw(json.dumps(valid_input))
+    assert result.maximumOutputs == None
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action_type(valid_input):
     valid_input.pop("actionType")
