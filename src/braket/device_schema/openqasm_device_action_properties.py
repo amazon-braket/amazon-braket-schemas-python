@@ -35,6 +35,9 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
             OpenQASM action.
         requiresContiguousQubitIndices: Whether used qubit indices of qubit arrays
             are required to be contiguous.
+        maximumOutputs: Maximum number of output declarations allowed by the device.
+            A value of 0 indicates no output declarations are allowed, and None
+            indicates no limit.
 
     Examples:
         >>> import json
@@ -52,10 +55,11 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
         ...    "supportedPragmas": ["braket_bit_flip_noise"],
         ...    "forbiddenPragmas": ["braket_kraus_operator"],
         ...    "forbiddenArrayOperations": ["concatenation", "range", "slicing"],
-        ...    "requiresAllQubitsMeasurement": False
-        ...    "requiresContiguousQubitIndices": False
-        ...    "supportsPartialVerbatimBox": False
-        ...    "supportsUnassignedMeasurements": True
+        ...    "requiresAllQubitsMeasurement": False,
+        ...    "requiresContiguousQubitIndices": False,
+        ...    "supportsPartialVerbatimBox": False,
+        ...    "supportsUnassignedMeasurements": True,
+        ...    "maximumOutputs": 0,
         ... }
         >>> OpenQASMDeviceActionProperties.parse_raw(json.dumps(input_json))
 
@@ -68,6 +72,7 @@ class OpenQASMDeviceActionProperties(DeviceActionProperties):
     forbiddenPragmas: list[str] | None = Field(default_factory=list)
     maximumQubitArrays: int | None = None  # None indicates no limit
     maximumClassicalArrays: int | None = None  # None indicates no limit
+    maximumOutputs: int | None = None  # None indicates no limit
     forbiddenArrayOperations: list[str] | None = Field(default_factory=list)
     requiresAllQubitsMeasurement: bool | None = False
     supportPhysicalQubits: bool | None = False
