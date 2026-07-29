@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.32.0 (2026-07-29)
+
+### Features
+
+ * add maximumOutput to OpenQASMDeviceActionProperties
+
 ## v1.31.0 (2026-06-19)
 
 ### Features
