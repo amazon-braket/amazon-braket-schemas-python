@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import Field, conlist, field_validator
+from pydantic.v1 import Field, conlist, validator
 
 from braket.ir.openqasm.program_v1 import Program
 from braket.schema_common import BraketSchemaHeader
@@ -34,8 +34,8 @@ class ProgramSet(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.openqasm.program_set", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
-    programs: conlist(Program, min_length=1)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=True)
+    programs: conlist(Program, min_items=1)
 
     @classmethod
     def _get_and_validate_program_executable_count(cls, program) -> int:
@@ -74,18 +74,17 @@ class ProgramSet(BraketSchemaBase):
 
         return input_lengths.pop()
 
-    @field_validator("programs")
-    @classmethod
-    def validate_program_inputs(cls, programs) -> list[Program]:
+    @validator("programs", each_item=True)
+    def validate_program_inputs(cls, program) -> Program:
         """
         Validates program input lists for uniform length and type.
 
         Args:
-            programs (list[Program]): The programs list.
+            program (Program): One Program item from the programs list.
 
         Returns:
-            programs (list[Program]): The same programs, but each program's inputs have
-                been validated to be correct for a ProgramSet
+            program (Program): The same Program, but the inputs have been
+                validated to be correct for a ProgramSet
 
         Raises:
             ValueError: If inputs aren't lists or have unequal lengths.
@@ -95,9 +94,8 @@ class ProgramSet(BraketSchemaBase):
             1. All inputs are lists
             2. All input lists have equal length
         """
-        for program in programs:
-            cls._get_and_validate_program_executable_count(program)
-        return programs
+        cls._get_and_validate_program_executable_count(program)
+        return program
 
     @property
     def num_executables_per_program(self) -> list[int]:

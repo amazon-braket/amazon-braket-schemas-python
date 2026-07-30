@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic import Field, conint, constr
+from pydantic.v1 import Field, conint, constr
 
 from braket.device_schema.common.gate_model_device_parameters_v1 import GateModelDeviceParameters
 from braket.device_schema.dwave import (
@@ -60,7 +60,9 @@ class TaskMetadata(BraketSchemaBase):
 
     _TASK_METADATA_HEADER = BraketSchemaHeader(name="braket.task_result.task_metadata", version="1")
 
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_TASK_METADATA_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=_TASK_METADATA_HEADER, const=_TASK_METADATA_HEADER
+    )
     id: constr(min_length=1)
     shots: conint(ge=0)
     deviceId: constr(min_length=1)
@@ -76,8 +78,8 @@ class TaskMetadata(BraketSchemaBase):
         | IqmDeviceParameters
         | GateModelDeviceParameters
         | None
-    ) = None
-    createdAt: constr(min_length=1, max_length=24) | None = None
-    endedAt: constr(min_length=1, max_length=24) | None = None
-    status: constr(min_length=1, max_length=20) | None = None
-    failureReason: constr(min_length=1) | None = None
+    )
+    createdAt: constr(min_length=1, max_length=24) | None
+    endedAt: constr(min_length=1, max_length=24) | None
+    status: constr(min_length=1, max_length=20) | None
+    failureReason: constr(min_length=1) | None

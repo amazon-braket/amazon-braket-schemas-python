@@ -12,9 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from typing import Annotated
-
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -93,7 +91,7 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
         ...        },
         ...        "qubitCount": 31
         ...    },
-        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.model_json_schema()},
+        ...    "deviceParameters": {GateModelSimulatorDeviceParameters.schema_json()},
         ... }
         >>> GateModelSimulatorDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
@@ -102,9 +100,9 @@ class GateModelSimulatorDeviceCapabilities(BraketSchemaBase, DeviceCapabilities)
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.simulators.gate_model_simulator_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
-        Annotated[DeviceActionType | str, Field(union_mode="left_to_right")],
+        DeviceActionType | str,
         OpenQASMDeviceActionProperties
         | OpenQASMProgramSetDeviceActionProperties
         | JaqcdDeviceActionProperties,

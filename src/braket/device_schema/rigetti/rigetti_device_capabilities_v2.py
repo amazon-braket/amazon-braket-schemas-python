@@ -12,9 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from typing import Annotated
-
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.device_action_properties import DeviceActionType
 from braket.device_schema.device_capabilities import DeviceCapabilities
@@ -106,10 +104,10 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
         ...            "connectivityGraph": {"1": ["2", "3"]},
         ...        },
         ...    },
-        ...    "deviceParameters": {RigettiDeviceParameters.model_json_schema()},
+        ...    "deviceParameters": {RigettiDeviceParameters.schema_json()},
         ...    "standardized": \
-        ...            {StandardizedGateModelQpuDeviceProperties.model_json_schema()},
-        ...    "pulse": {PulseDeviceActionProperties.model_json_schema()},
+        ...            {StandardizedGateModelQpuDeviceProperties.schema_json()},
+        ...    "pulse": {PulseDeviceActionProperties.schema_json()},
         ... }
         >>> RigettiDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
 
@@ -118,14 +116,14 @@ class RigettiDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.rigetti.rigetti_device_capabilities", version="2"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
-        Annotated[DeviceActionType | str, Field(union_mode="left_to_right")],
+        DeviceActionType | str,
         OpenQASMDeviceActionProperties
         | OpenQASMProgramSetDeviceActionProperties
         | JaqcdDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
-    provider: RigettiProviderProperties | None = None
-    standardized: StandardizedGateModelQpuDeviceProperties | None = None
-    pulse: PulseDeviceActionProperties | None = None
+    provider: RigettiProviderProperties | None
+    standardized: StandardizedGateModelQpuDeviceProperties | None
+    pulse: PulseDeviceActionProperties | None

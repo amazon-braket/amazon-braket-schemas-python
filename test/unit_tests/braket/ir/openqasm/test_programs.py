@@ -11,7 +11,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1.error_wrappers import ValidationError
 
 from braket.ir.openqasm.program_v1 import Program
 from braket.schema_common.schema_header import BraketSchemaHeader
@@ -53,65 +53,38 @@ def test_openqasm_program_set_with_invalid_input_value_should_raise_validation_e
 
 
 def test_json_schema():
-    schema = Program.model_json_schema()
+    schema = Program.schema()
     schema.pop("description", None)
-    schema["$defs"]["BraketSchemaHeader"].pop("description", None)
     assert schema == {
-        "$defs": {
-            "BraketSchemaHeader": {
-                "title": "BraketSchemaHeader",
-                "type": "object",
-                "properties": {
-                    "name": {"title": "Name", "type": "string", "minLength": 1},
-                    "version": {
-                        "title": "Version",
-                        "type": "string",
-                        "minLength": 1,
-                        "maxLength": 50,
-                    },
-                },
-                "required": ["name", "version"],
-            }
-        },
         "title": "Program",
         "type": "object",
         "properties": {
             "braketSchemaHeader": {
-                "$ref": "#/$defs/BraketSchemaHeader",
+                "title": "Braketschemaheader",
                 "default": {"name": "braket.ir.openqasm.program", "version": "1"},
+                "const": BraketSchemaHeader(name="braket.ir.openqasm.program", version="1"),
             },
             "source": {"title": "Source", "type": "string"},
             "inputs": {
                 "title": "Inputs",
-                "default": None,
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "propertyNames": {"minLength": 1},
-                        "additionalProperties": {
-                            "anyOf": [
-                                {"type": "string", "minLength": 1, "pattern": "^[01]+$"},
-                                {"type": "number"},
-                                {"type": "integer"},
-                                {
-                                    "type": "array",
-                                    "items": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string",
-                                                "minLength": 1,
-                                                "pattern": "^[01]+$",
-                                            },
-                                            {"type": "number"},
-                                            {"type": "integer"},
-                                        ]
-                                    },
-                                },
-                            ]
+                "type": "object",
+                "additionalProperties": {
+                    "anyOf": [
+                        {"type": "string", "minLength": 1, "pattern": "^[01]+$"},
+                        {"type": "number"},
+                        {"type": "integer"},
+                        {
+                            "type": "array",
+                            "items": {
+                                "anyOf": [
+                                    {"type": "string", "minLength": 1, "pattern": "^[01]+$"},
+                                    {"type": "number"},
+                                    {"type": "integer"},
+                                ]
+                            },
                         },
-                    },
-                    {"type": "null"},
-                ],
+                    ]
+                },
             },
         },
         "required": ["source"],

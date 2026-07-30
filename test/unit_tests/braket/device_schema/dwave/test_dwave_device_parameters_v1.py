@@ -15,7 +15,7 @@ import json
 
 import pytest
 from jsonschema import validate
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.dwave.dwave_device_parameters_v1 import DwaveDeviceParameters
 
@@ -57,4 +57,4 @@ def test_validation():
         },
     }
     assert DwaveDeviceParameters.parse_raw_schema(json.dumps(input))
-    validate(input, DwaveDeviceParameters.model_json_schema())
+    validate(input, DwaveDeviceParameters.schema())

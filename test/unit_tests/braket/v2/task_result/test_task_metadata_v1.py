@@ -1,0 +1,110 @@
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"). You
+# may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+#     http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file. This file is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+# ANY KIND, either express or implied. See the License for the specific
+# language governing permissions and limitations under the License.
+
+import pytest
+from pydantic import ValidationError
+
+from braket.v2.task_result.task_metadata_v1 import TaskMetadata
+
+
+def test_missing_properties():
+    with pytest.raises(ValidationError):
+        TaskMetadata()
+
+
+def test_incorrect_header(braket_schema_header, id, device_id, shots):
+    with pytest.raises(ValidationError):
+        TaskMetadata(
+            braketSchemaHeader=braket_schema_header, id=id, deviceId=device_id, shots=shots
+        )
+
+
+def test_correct_metadata_minimum(id, device_id, shots):
+    metadata = TaskMetadata(id=id, deviceId=device_id, shots=shots)
+    assert metadata.id == id
+    assert metadata.deviceId == device_id
+    assert metadata.shots == shots
+    assert TaskMetadata.model_validate_json(metadata.model_dump_json()) == metadata
+
+
+@pytest.mark.parametrize(
+    "device_parameters",
+    [
+        {
+            "braketSchemaHeader": {
+                "name": "braket.v2.device_schema.rigetti.rigetti_device_parameters",
+                "version": "1",
+            },
+            "paradigmParameters": {
+                "braketSchemaHeader": {
+                    "name": "braket.v2.device_schema.gate_model_parameters",
+                    "version": "1",
+                },
+                "qubitCount": 1,
+                "disableQubitRewiring": True,
+            },
+        },
+        {
+            "braketSchemaHeader": {
+                "name": "braket.v2.device_schema.xanadu.xanadu_device_parameters",
+                "version": "1",
+            },
+        },
+        {
+            "braketSchemaHeader": {
+                "name": "braket.v2.device_schema.iqm.iqm_device_parameters",
+                "version": "1",
+            },
+            "paradigmParameters": {
+                "braketSchemaHeader": {
+                    "name": "braket.v2.device_schema.gate_model_parameters",
+                    "version": "1",
+                },
+                "qubitCount": 1,
+                "disableQubitRewiring": False,
+            },
+        },
+    ],
+)
+def test_correct_metadata_all(device_parameters, id, device_id, shots):
+    createdAt = "2020-01-02T03:04:05.006Z"
+    endedAt = "2020-01-03T03:04:05.006Z"
+    status = "COMPLETED"
+    failureReason = "Foo"
+
+    metadata = TaskMetadata(
+        id=id,
+        deviceId=device_id,
+        shots=shots,
+        deviceParameters=device_parameters,
+        createdAt=createdAt,
+        endedAt=endedAt,
+        status=status,
+        failureReason=failureReason,
+    )
+    assert metadata.id == id
+    assert metadata.deviceId == device_id
+    assert metadata.shots == shots
+    assert metadata.deviceParameters.model_dump() == device_parameters
+    assert metadata.createdAt == createdAt
+    assert metadata.endedAt == endedAt
+    assert metadata.status == status
+    assert metadata.failureReason == failureReason
+    assert TaskMetadata.model_validate_json(metadata.model_dump_json()) == metadata
+    assert metadata == TaskMetadata.parse_raw_schema(metadata.model_dump_json())
+
+
+@pytest.mark.parametrize("shots", [([1, 2]), (-1)])
+def test_incorrect_shots(id, device_id, shots):
+    with pytest.raises(ValidationError):
+        TaskMetadata(id=id, deviceId=device_id, shots=shots)

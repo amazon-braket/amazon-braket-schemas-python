@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 
 class ResultType(BaseModel):
@@ -34,10 +34,10 @@ class ResultType(BaseModel):
         ...     "minShots": 0,
         ...     "maxShots": 4,
         ... }
-        >>> ResultType.model_validate_json(json.dumps(input_json))
+        >>> ResultType.parse_raw(json.dumps(input_json))
     """
 
     name: str
-    observables: list[str] | None = None
-    minShots: int | None = None
-    maxShots: int | None = None
+    observables: list[str] | None
+    minShots: int | None
+    maxShots: int | None

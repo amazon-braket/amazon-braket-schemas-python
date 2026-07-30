@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
 from braket.device_schema.dwave.dwave_provider_properties_v1 import DwaveProviderProperties
@@ -91,7 +91,7 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
         ...            "version": ["1"],
         ...        }
         ...    },
-        ...    "deviceParameters": {DwaveDeviceParameters.model_json_schema()},
+        ...    "deviceParameters": {DwaveDeviceParameters.schema_json()},
         ... }
         >>> DwaveDeviceCapabilities.parse_raw_schema(json.dumps(input_json))
     """
@@ -99,5 +99,5 @@ class DwaveDeviceCapabilities(DeviceCapabilities, BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.dwave.dwave_device_capabilities", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     provider: DwaveProviderProperties

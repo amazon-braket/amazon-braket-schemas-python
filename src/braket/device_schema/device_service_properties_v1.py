@@ -13,7 +13,7 @@
 
 from datetime import datetime
 
-from pydantic import BaseModel, Field
+from pydantic.v1 import BaseModel, Field
 
 from braket.device_schema.device_execution_window import DeviceExecutionWindow
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
@@ -33,7 +33,7 @@ class DeviceCost(BaseModel):
         ...     "price": 0.25,
         ...     "unit": "minute"
         ... }
-        >>> DeviceCost.model_validate_json(json.dumps(input_json))
+        >>> DeviceCost.parse_raw(json.dumps(input_json))
     """
 
     price: float
@@ -57,12 +57,12 @@ class DeviceDocumentation(BaseModel):
         ...     "summary": "Summary on the device",
         ...     "externalDocumentationUrl": "exter doc link",
         ... }
-        >>> DeviceDocumentation.model_validate_json(json.dumps(input_json))
+        >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
     """
 
-    imageUrl: str | None = None
-    summary: str | None = None
-    externalDocumentationUrl: str | None = None
+    imageUrl: str | None
+    summary: str | None
+    externalDocumentationUrl: str | None
 
 
 class DeviceServiceProperties(BraketSchemaBase):
@@ -119,12 +119,12 @@ class DeviceServiceProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.device_service_properties", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     executionWindows: list[DeviceExecutionWindow]
     shotsRange: tuple[int, int]
     reservationShotsRange: tuple[int, int] | None = None
-    deviceCost: DeviceCost | None = None
-    deviceDocumentation: DeviceDocumentation | None = None
-    deviceLocation: str | None = None
-    updatedAt: datetime | None = None
-    getTaskPollIntervalMillis: int | None = None
+    deviceCost: DeviceCost | None
+    deviceDocumentation: DeviceDocumentation | None
+    deviceLocation: str | None
+    updatedAt: datetime | None
+    getTaskPollIntervalMillis: int | None

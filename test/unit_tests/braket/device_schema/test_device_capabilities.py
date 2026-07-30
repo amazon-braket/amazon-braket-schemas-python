@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.device_capabilities import DeviceCapabilities
 
@@ -49,23 +49,23 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    assert DeviceCapabilities.model_validate_json(json.dumps(valid_input))
+    assert DeviceCapabilities.parse_raw(json.dumps(valid_input))
 
 
 def test_valid_action_str(valid_input):
     action = valid_input["action"]
     action["blah"] = action["braket.ir.jaqcd.program"]
     action.pop("braket.ir.jaqcd.program")
-    assert DeviceCapabilities.model_validate_json(json.dumps(valid_input))
+    assert DeviceCapabilities.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action(valid_input):
     valid_input.pop("action")
-    DeviceCapabilities.model_validate_json(json.dumps(valid_input))
+    DeviceCapabilities.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_service(valid_input):
     valid_input.pop("service")
-    DeviceCapabilities.model_validate_json(json.dumps(valid_input))
+    DeviceCapabilities.parse_raw(json.dumps(valid_input))

@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.jaqcd_device_action_properties import JaqcdDeviceActionProperties
 
@@ -34,17 +34,17 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = JaqcdDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    result = JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.actionType == "braket.ir.jaqcd.program"
     assert result.supportedOperations == ["x", "y"]
-    assert [rt.model_dump() for rt in result.supportedResultTypes] == [
+    assert result.supportedResultTypes == [
         {"name": "resultType1", "observables": ["observable1"], "minShots": 2, "maxShots": 4}
     ]
     assert result.disabledQubitRewiringSupported
 
 
 def test_no_qubit_rewiring_unsupported():
-    result = JaqcdDeviceActionProperties.model_validate_json(
+    result = JaqcdDeviceActionProperties.parse_raw(
         json.dumps(
             {
                 "actionType": "braket.ir.jaqcd.program",
@@ -66,7 +66,7 @@ def test_no_qubit_rewiring_unsupported():
 
 
 def test_no_qubit_rewiring_unspecified():
-    result = JaqcdDeviceActionProperties.model_validate_json(
+    result = JaqcdDeviceActionProperties.parse_raw(
         json.dumps(
             {
                 "actionType": "braket.ir.jaqcd.program",
@@ -89,10 +89,10 @@ def test_no_qubit_rewiring_unspecified():
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action_type(valid_input):
     valid_input.pop("actionType")
-    JaqcdDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.xfail(raises=ValidationError)
 def test_invalid_supported_operations(valid_input):
     valid_input.pop("supportedOperations")
-    JaqcdDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    JaqcdDeviceActionProperties.parse_raw(json.dumps(valid_input))

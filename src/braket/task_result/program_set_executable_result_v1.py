@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic import BaseModel, Field, confloat, conint, conlist, constr
+from pydantic.v1 import BaseModel, Field, confloat, conint, conlist, constr
 
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
@@ -41,11 +41,13 @@ class ProgramSetExecutableResult(BraketSchemaBase):
     _PROGRAM_SET_EXECUTABLE_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.program_set_executable_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_SET_EXECUTABLE_RESULT_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=_PROGRAM_SET_EXECUTABLE_RESULT_HEADER, const=_PROGRAM_SET_EXECUTABLE_RESULT_HEADER
+    )
 
     inputsIndex: int
-    measurements: conlist(conlist(conint(ge=0, le=1), min_length=1), min_length=1) | None = None
+    measurements: conlist(conlist(conint(ge=0, le=1), min_items=1), min_items=1) | None
     measurementProbabilities: (
-        dict[constr(pattern="^[01]+$", min_length=1), confloat(ge=0, le=1)] | None
-    ) = None
-    measuredQubits: conlist(conint(ge=0), min_length=1) | None = None
+        dict[constr(regex="^[01]+$", min_length=1), confloat(ge=0, le=1)] | None
+    )
+    measuredQubits: conlist(conint(ge=0), min_items=1) | None

@@ -14,7 +14,7 @@
 from datetime import datetime
 from enum import Enum
 
-from pydantic import BaseModel, Field, confloat
+from pydantic.v1 import BaseModel, Field, confloat
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -56,7 +56,7 @@ class FidelityType(BaseModel):
     """
 
     name: FidelityTypeName
-    description: str | None = None
+    description: str | None
 
 
 class Fidelity(BaseModel):
@@ -72,7 +72,7 @@ class Fidelity(BaseModel):
         unit (FidelityUnit): The expected unit for the fidelity
     """
 
-    fidelityType: FidelityType | None = None
+    fidelityType: FidelityType | None
     fidelity: confloat(ge=0, le=1)
     standardError: confloat(ge=0, le=1) | None = None
     median: confloat(ge=0, le=1) | None = None
@@ -89,7 +89,7 @@ class Duration(BaseModel):
     """
 
     value: float
-    standardError: float | None = None
+    standardError: float | None
     unit: TimeUnit
 
 
@@ -217,15 +217,15 @@ class StandardizedGateModelQpuDeviceProperties(BraketSchemaBase):
     _PROGRAM_HEADER = BraketSchemaHeader(
         name="braket.device_schema.standardized_gate_model_qpu_device_properties", version="3"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
-    oneQubitProperties: dict[str, OneQubitProperties] | None = None
-    T1: Duration | None = None
-    T2: Duration | None = None
-    readoutFidelity: list[Fidelity] | None = None
-    readoutDuration: Duration | None = None
-    singleQubitGateDuration: Duration | None = None
-    singleQubitFidelity: list[Fidelity] | None = None
-    twoQubitGateFidelity: list[Fidelity] | None = None
-    twoQubitGateDuration: Duration | None = None
-    activeResetDuration: Duration | None = None
-    updatedAt: datetime | None = None
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
+    oneQubitProperties: dict[str, OneQubitProperties] | None
+    T1: Duration | None
+    T2: Duration | None
+    readoutFidelity: list[Fidelity] | None
+    readoutDuration: Duration | None
+    singleQubitGateDuration: Duration | None
+    singleQubitFidelity: list[Fidelity] | None
+    twoQubitGateFidelity: list[Fidelity] | None
+    twoQubitGateDuration: Duration | None
+    activeResetDuration: Duration | None
+    updatedAt: datetime | None

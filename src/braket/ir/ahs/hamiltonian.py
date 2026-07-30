@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic.v1 import BaseModel, Field
 
 from braket.ir.ahs.driving_field import DrivingField
 from braket.ir.ahs.local_detuning import LocalDetuning
@@ -31,20 +31,21 @@ class Hamiltonian(BaseModel):
         >>> Hamiltonian(drivingFields=[DrivingField],localDetuning=[LocalDetuning])
     """
 
-    model_config = ConfigDict(populate_by_name=True)
-
     drivingFields: list[DrivingField]
     localDetuning: list[LocalDetuning] = Field(alias="shiftingFields")
 
-    @property
-    def shiftingFields(self) -> list[LocalDetuning]:
-        """Deprecated alias for :attr:`localDetuning`."""
-        return self.localDetuning
+    def __getattr__(self, name):
+        return self.__dict__[name] if name != "shiftingFields" else self.__dict__["localDetuning"]
 
-    @shiftingFields.setter
-    def shiftingFields(self, value: list[LocalDetuning]) -> None:
-        self.localDetuning = value
+    def __setattr__(self, name, value):
+        if name == "shiftingFields":
+            name = "localDetuning"
+        self.__dict__[name] = value
 
-    @shiftingFields.deleter
-    def shiftingFields(self) -> None:
-        del self.localDetuning
+    def __delattr__(self, name):
+        if name == "shiftingFields":
+            name = "localDetuning"
+        del self.__dict__[name]
+
+    class Config:
+        allow_population_by_field_name = True

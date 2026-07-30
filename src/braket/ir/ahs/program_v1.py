@@ -14,7 +14,7 @@
 
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic.v1 import BaseModel, Field
 
 from braket.ir.ahs.atom_arrangement import AtomArrangement
 from braket.ir.ahs.hamiltonian import Hamiltonian
@@ -48,8 +48,9 @@ class Program(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.ahs.program", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     setup: Setup
     hamiltonian: Hamiltonian
 
-    model_config = ConfigDict(json_encoders={Decimal: str})
+    class Config:
+        json_encoders = {Decimal: str}  # noqa: RUF012

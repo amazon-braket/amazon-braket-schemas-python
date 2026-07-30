@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License
 
-from pydantic import Field, constr
+from pydantic.v1 import Field, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -32,6 +32,8 @@ class XanaduMetadata(BraketSchemaBase):
     _XANADU_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.xanadu_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_XANADU_METADATA_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=_XANADU_METADATA_HEADER, const=_XANADU_METADATA_HEADER
+    )
 
     compiledProgram: constr(min_length=2)

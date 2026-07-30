@@ -15,7 +15,7 @@ import json
 import math
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.quera.quera_ahs_paradigm_properties_v1 import (
     Area,

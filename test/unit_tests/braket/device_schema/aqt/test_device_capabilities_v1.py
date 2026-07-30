@@ -281,6 +281,6 @@ def test_schema_parse_obj():
             "TwoQubitGateDuration": {"value": 0.000200, "standardError": 0.000010, "unit": "s"},
         },
     }
-    assert BraketSchemaBase.parse_raw_schema(
-        json.dumps(input)
-    ) == AqtDeviceCapabilities.model_validate(input)
+    assert BraketSchemaBase.parse_raw_schema(json.dumps(input)) == AqtDeviceCapabilities.parse_obj(
+        input
+    )

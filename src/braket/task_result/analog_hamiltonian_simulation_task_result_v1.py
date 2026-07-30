@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic import BaseModel, Field, conint, conlist, constr
+from pydantic.v1 import BaseModel, Field, conint, conlist, constr
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 from braket.task_result.additional_metadata import AdditionalMetadata
@@ -35,17 +35,17 @@ class AnalogHamiltonianSimulationShotResult(BaseModel):
     The analog hamiltonian simulation shot result schema.
 
     Attributes:
-        preSequence (Optional[conlist(conint(ge=0, le=1), min_length=1)]): Pre-sequence measurement
+        preSequence (Optional[conlist(conint(ge=0, le=1), min_items=1)]): Pre-sequence measurement
             bits (one for each atomic site) for each shot: 0 if site is empty, 1 if site is filled,
             measured before the sequences of pulses that run the quantum evolution
-        postSequence (Optional[conlist(conint(ge=0, le=1), min_length=1)]): Post-sequence
+        postSequence (Optional[conlist(conint(ge=0, le=1), min_items=1)]): Post-sequence
             measurement bits for each shot: 0 if atom is in Rydberg state or site is empty, 1 if
             atom is in ground state, measured at the end of the sequences of pulses that run the
             quantum evolution
     """
 
-    preSequence: conlist(conint(ge=0, le=1), min_length=1) | None = None
-    postSequence: conlist(conint(ge=0, le=1), min_length=1) | None = None
+    preSequence: conlist(conint(ge=0, le=1), min_items=1) | None
+    postSequence: conlist(conint(ge=0, le=1), min_items=1) | None
 
 
 class AnalogHamiltonianSimulationShotMeasurement(BaseModel):
@@ -78,7 +78,9 @@ class AnalogHamiltonianSimulationTaskResult(BraketSchemaBase):
     _AHS_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.analog_hamiltonian_simulation_task_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_AHS_TASK_RESULT_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=_AHS_TASK_RESULT_HEADER, const=_AHS_TASK_RESULT_HEADER
+    )
     taskMetadata: TaskMetadata
-    measurements: list[AnalogHamiltonianSimulationShotMeasurement] | None = None
-    additionalMetadata: AdditionalMetadata | None = None
+    measurements: list[AnalogHamiltonianSimulationShotMeasurement] | None
+    additionalMetadata: AdditionalMetadata | None

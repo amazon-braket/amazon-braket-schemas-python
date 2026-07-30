@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic import BaseModel, Field, conint, conlist
+from pydantic.v1 import BaseModel, Field, conint, conlist
 
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
 
@@ -27,19 +27,19 @@ class DwaveTiming(BaseModel):
         >>> DwaveTiming(qpuSamplingTime=1575, qpuAnnealTimePerSample=20)
     """
 
-    qpuSamplingTime: conint(ge=0) | None = None
-    qpuAnnealTimePerSample: conint(ge=0) | None = None
-    qpuAccessTime: conint(ge=0) | None = None
-    qpuAccessOverheadTime: conint(ge=0) | None = None
-    qpuReadoutTimePerSample: conint(ge=0) | None = None
-    qpuProgrammingTime: conint(ge=0) | None = None
-    qpuDelayTimePerSample: conint(ge=0) | None = None
-    postProcessingOverheadTime: conint(ge=0) | None = None
-    totalPostProcessingTime: conint(ge=0) | None = None
-    totalRealTime: conint(ge=0) | None = None
-    runTimeChip: conint(ge=0) | None = None
-    annealTimePerRun: conint(ge=0) | None = None
-    readoutTimePerRun: conint(ge=0) | None = None
+    qpuSamplingTime: conint(ge=0) | None
+    qpuAnnealTimePerSample: conint(ge=0) | None
+    qpuAccessTime: conint(ge=0) | None
+    qpuAccessOverheadTime: conint(ge=0) | None
+    qpuReadoutTimePerSample: conint(ge=0) | None
+    qpuProgrammingTime: conint(ge=0) | None
+    qpuDelayTimePerSample: conint(ge=0) | None
+    postProcessingOverheadTime: conint(ge=0) | None
+    totalPostProcessingTime: conint(ge=0) | None
+    totalRealTime: conint(ge=0) | None
+    runTimeChip: conint(ge=0) | None
+    annealTimePerRun: conint(ge=0) | None
+    readoutTimePerRun: conint(ge=0) | None
 
 
 class DwaveMetadata(BraketSchemaBase):
@@ -60,6 +60,8 @@ class DwaveMetadata(BraketSchemaBase):
     _DWAVE_METADATA_HEADER = BraketSchemaHeader(
         name="braket.task_result.dwave_metadata", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_DWAVE_METADATA_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=_DWAVE_METADATA_HEADER, const=_DWAVE_METADATA_HEADER
+    )
     activeVariables: conlist(conint(ge=0))
     timing: DwaveTiming

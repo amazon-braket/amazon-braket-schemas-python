@@ -11,7 +11,7 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from pydantic import conint, constr
+from pydantic.v1 import conint, constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 
@@ -31,7 +31,7 @@ class OpenQASMProgramSetDeviceActionProperties(DeviceActionProperties):
             field to a value > 1.
     """
 
-    actionType: constr(pattern=r"^braket\.ir\.openqasm\.program_set$")
+    actionType: constr(regex=r"^braket\.ir\.openqasm\.program_set$")
     maximumExecutables: conint(ge=0)
     maximumTotalShots: conint(ge=0)
     minimumTotalShots: conint(ge=1) | None = None

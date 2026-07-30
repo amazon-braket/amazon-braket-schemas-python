@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 
-from pydantic import constr
+from pydantic.v1 import constr
 
 from braket.device_schema.device_action_properties import DeviceActionProperties
 from braket.device_schema.result_type import ResultType
@@ -43,11 +43,11 @@ class JaqcdDeviceActionProperties(DeviceActionProperties):
         ...     }],
         ...    "disabledQubitRewiringSupported": True
         ... }
-        >>> JaqcdDeviceActionProperties.model_validate_json(json.dumps(input_json))
+        >>> JaqcdDeviceActionProperties.parse_raw(json.dumps(input_json))
 
     """
 
-    actionType: constr(pattern=r"^braket\.ir\.jaqcd\.program$")
+    actionType: constr(regex=r"^braket\.ir\.jaqcd\.program$")
     supportedOperations: list[str]
-    supportedResultTypes: list[ResultType] | None = None
+    supportedResultTypes: list[ResultType] | None
     disabledQubitRewiringSupported: bool | None = None

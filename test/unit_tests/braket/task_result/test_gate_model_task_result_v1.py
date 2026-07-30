@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.ir.jaqcd.results import Probability
 from braket.task_result.gate_model_task_result_v1 import GateModelTaskResult, ResultTypeValue
@@ -79,8 +79,8 @@ def test_correct_result_measurements(
     assert result.measuredQubits == measured_qubits
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_gate_model
-    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
-    assert result == GateModelTaskResult.parse_raw_schema(result.model_dump_json())
+    assert GateModelTaskResult.parse_raw(result.json()) == result
+    assert result == GateModelTaskResult.parse_raw_schema(result.json())
 
 
 def test_correct_result_measurement_probabilities(
@@ -96,7 +96,7 @@ def test_correct_result_measurement_probabilities(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.measurementProbabilities == measurement_probabilities
-    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
+    assert GateModelTaskResult.parse_raw(result.json()) == result
 
 
 def test_correct_result_types(
@@ -112,7 +112,7 @@ def test_correct_result_types(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.resultTypes == result_types
-    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
+    assert GateModelTaskResult.parse_raw(result.json()) == result
 
 
 @pytest.mark.parametrize("measured_qubits", [([]), ([-1])])
@@ -202,7 +202,7 @@ def test_outputs_only_two_shots_multiple_registers(
     assert result.outputs == outputs
     assert result.measurements is None
     assert result.measurementProbabilities is None
-    assert GateModelTaskResult.model_validate_json(result.model_dump_json()) == result
+    assert GateModelTaskResult.parse_raw(result.json()) == result
 
 
 def test_outputs_loop_same_qubit_measured_repeatedly(
@@ -233,7 +233,7 @@ def test_outputs_negative_integer_value(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.outputs == outputs
-    assert GateModelTaskResult.model_validate_json(result.model_dump_json()).outputs == outputs
+    assert GateModelTaskResult.parse_raw(result.json()).outputs == outputs
 
 
 def test_outputs_undefined_value_represented_as_none(
@@ -267,7 +267,7 @@ def test_outputs_bool_value(
         additionalMetadata=additional_metadata_gate_model,
     )
     assert result.outputs == outputs
-    assert GateModelTaskResult.model_validate_json(result.model_dump_json()).outputs == outputs
+    assert GateModelTaskResult.parse_raw(result.json()).outputs == outputs
 
 
 def test_outputs_alongside_measurements(
@@ -295,6 +295,7 @@ def test_outputs_alongside_measurements(
         [{}],  # shot dict must not be empty
         [{"c1": "not-a-scalar"}],  # strings not allowed
         [{"c1": [1, "0"]}],  # strings inside a list not allowed
+        [{"c1": [1, 1.5]}],  # mixed types within a list not allowed
         [{"c1": [[0, 1]]}],  # nested lists not allowed
         [{"c1": {"nested": "dict"}}],  # dict values not allowed
         [{"": 1}],  # empty variable name not allowed

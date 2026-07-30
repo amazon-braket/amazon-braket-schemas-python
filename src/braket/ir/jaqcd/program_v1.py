@@ -13,7 +13,7 @@
 
 from typing import Any
 
-from pydantic import BaseModel, Field, ValidationInfo, field_validator
+from pydantic.v1 import BaseModel, Field, validator
 
 from braket.ir.jaqcd.instructions import (
     CV,
@@ -216,26 +216,19 @@ class Program(BraketSchemaBase):
     """
 
     _PROGRAM_HEADER = BraketSchemaHeader(name="braket.ir.jaqcd.program", version="1")
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     instructions: list[Any]
-    results: list[Results] | None = None
-    basis_rotation_instructions: list[Any] | None = None
+    results: list[Results] | None
+    basis_rotation_instructions: list[Any] | None
 
-    @field_validator("instructions", "basis_rotation_instructions", mode="before")
-    @classmethod
-    def validate_instructions(cls, value, info: ValidationInfo):
+    @validator("instructions", "basis_rotation_instructions", each_item=True, pre=True)
+    def validate_instructions(cls, value, field):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has
         2 purposes:
         1. Implement O(1) deserialization
         2. Validate that the input instructions are supported
         """
-        if value is None:
-            return value
-        return [cls._validate_instruction(item, info.field_name) for item in value]
-
-    @staticmethod
-    def _validate_instruction(value, field):
         if isinstance(value, BaseModel):
             if (
                 (value.type not in _valid_gates)

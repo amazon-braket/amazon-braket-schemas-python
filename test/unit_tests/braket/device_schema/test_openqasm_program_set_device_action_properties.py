@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.openqasm_program_set_device_action_properties import (
     OpenQASMProgramSetDeviceActionProperties,
@@ -33,7 +33,7 @@ def valid_input():
 
 
 def test_valid(valid_input):
-    result = OpenQASMProgramSetDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    result = OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.actionType == "braket.ir.openqasm.program_set"
     assert result.maximumExecutables == 500
     assert result.maximumTotalShots == 1_000_000
@@ -42,21 +42,21 @@ def test_valid(valid_input):
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_action_type(valid_input):
     valid_input.pop("actionType")
-    OpenQASMProgramSetDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("field", ["maximumExecutables", "maximumTotalShots"])
 @pytest.mark.xfail(raises=ValidationError)
 def test_missing_field(valid_input, field):
     valid_input.pop(field)
-    OpenQASMProgramSetDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize("field", ["maximumExecutables", "maximumTotalShots"])
 @pytest.mark.xfail(raises=ValidationError, reason="ensure this value is greater than or equal to 0")
 def test_negative_field(valid_input, field):
     valid_input[field] = -1
-    OpenQASMProgramSetDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
 
 
 @pytest.mark.parametrize(
@@ -70,7 +70,7 @@ def test_negative_field(valid_input, field):
 def test_minimum_total_shots(valid_input, input_value, expected):
     if input_value is not None:
         valid_input["minimumTotalShots"] = input_value
-    result = OpenQASMProgramSetDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    result = OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))
     assert result.minimumTotalShots == expected
 
 
@@ -78,4 +78,4 @@ def test_minimum_total_shots(valid_input, input_value, expected):
 @pytest.mark.xfail(raises=ValidationError, reason="ensure this value is greater than or equal to 1")
 def test_minimum_total_shots_invalid(valid_input, invalid_value):
     valid_input["minimumTotalShots"] = invalid_value
-    OpenQASMProgramSetDeviceActionProperties.model_validate_json(json.dumps(valid_input))
+    OpenQASMProgramSetDeviceActionProperties.parse_raw(json.dumps(valid_input))

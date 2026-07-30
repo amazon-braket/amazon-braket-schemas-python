@@ -15,7 +15,7 @@ import json
 
 import pytest
 from jsonschema import validate
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.dwave import Dwave2000QDeviceLevelParameters, Dwave2000QDeviceParameters
 from braket.device_schema.dwave.dwave_provider_level_parameters_v1 import (
@@ -86,4 +86,4 @@ def test_2000Q_attribute():
         },
         "deviceLevelParameters": input,
     }
-    validate(device_parameters, Dwave2000QDeviceParameters.model_json_schema())
+    validate(device_parameters, Dwave2000QDeviceParameters.schema())

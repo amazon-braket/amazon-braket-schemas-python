@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.task_result.annealing_task_result_v1 import AnnealingTaskResult
 
@@ -64,8 +64,8 @@ def test_correct_result(
     assert result.variableCount == variable_count
     assert result.taskMetadata == task_metadata
     assert result.additionalMetadata == additional_metadata_annealing
-    assert AnnealingTaskResult.model_validate_json(result.model_dump_json()) == result
-    assert result == AnnealingTaskResult.parse_raw_schema(result.model_dump_json())
+    assert AnnealingTaskResult.parse_raw(result.json()) == result
+    assert result == AnnealingTaskResult.parse_raw_schema(result.json())
 
 
 @pytest.mark.xfail(raises=ValidationError)

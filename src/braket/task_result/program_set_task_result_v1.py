@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License
 
 
-from pydantic import Field
+from pydantic.v1 import Field
 
 from braket.schema_common.schema_base import BraketSchemaBase
 from braket.schema_common.schema_header import BraketSchemaHeader
@@ -36,8 +36,10 @@ class ProgramSetTaskResult(BraketSchemaBase):
     _PROGRAM_SET_TASK_RESULT_HEADER = BraketSchemaHeader(
         name="braket.task_result.program_set_task_result", version="1"
     )
-    braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_SET_TASK_RESULT_HEADER)
+    braketSchemaHeader: BraketSchemaHeader = Field(
+        default=_PROGRAM_SET_TASK_RESULT_HEADER, const=_PROGRAM_SET_TASK_RESULT_HEADER
+    )
 
     programResults: list[str] | list[ProgramResult]
     taskMetadata: str | ProgramSetTaskMetadata
-    s3Location: tuple[str, str] | None = None
+    s3Location: tuple[str, str] | None

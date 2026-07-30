@@ -14,7 +14,7 @@
 import json
 
 import pytest
-from pydantic import ValidationError
+from pydantic.v1 import ValidationError
 
 from braket.device_schema.rigetti.rigetti_device_parameters_v1 import RigettiDeviceParameters
 
