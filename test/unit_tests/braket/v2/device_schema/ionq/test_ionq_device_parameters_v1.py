@@ -54,6 +54,12 @@ def test_error_mitigation(valid_input):
     assert params.errorMitigation == result.errorMitigation
 
 
+@pytest.mark.parametrize("error_mitigation", [None, []])
+def test_empty_error_mitigation(error_mitigation):
+    params = IonqDeviceParameters(paradigmParameters=PARADIGM, errorMitigation=error_mitigation)
+    assert params.errorMitigation == error_mitigation
+
+
 @pytest.mark.parametrize(
     "extra", ["blah", GateModelParameters.parse_raw_schema(json.dumps(PARADIGM))]
 )

@@ -57,6 +57,17 @@ def test_error_mitigation(valid_input):
     assert json.loads(result.model_dump_json())["errorMitigation"] == em_json
 
 
+@pytest.mark.parametrize("error_mitigation", [None, {}])
+def test_empty_error_mitigation(error_mitigation):
+    result = IonqProviderProperties(
+        fidelity={"1Q": {"mean": 0.99717}},
+        timing={"T1": 10000000000.0},
+        errorMitigation=error_mitigation,
+    )
+    assert result.errorMitigation == error_mitigation
+    assert json.loads(result.model_dump_json())["errorMitigation"] == error_mitigation
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
