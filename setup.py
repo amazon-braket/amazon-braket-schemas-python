@@ -28,7 +28,6 @@ setup(
     package_dir={"": "src"},
     install_requires=[
         "pydantic>2",
-        "setuptools==81.0.0",  # pin until https://github.com/pypa/setuptools/issues/5174 is fixed
     ],
     extras_require={
         "test": [
