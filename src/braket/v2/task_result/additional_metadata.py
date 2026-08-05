@@ -1,0 +1,68 @@
+# Copyright Amazon.com Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"). You
+# may not use this file except in compliance with the License. A copy of
+# the License is located at
+#
+#     http://aws.amazon.com/apache2.0/
+#
+# or in the "license" file accompanying this file. This file is
+# distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+# ANY KIND, either express or implied. See the License for the specific
+# language governing permissions and limitations under the License
+
+
+from pydantic import BaseModel
+
+from braket.v2.ir.ahs import Program as AHSProgram
+from braket.v2.ir.annealing import Problem
+from braket.v2.ir.blackbird import Program as BlackbirdProgram
+from braket.v2.ir.jaqcd import Program as JaqcdProgram
+from braket.v2.ir.openqasm import Program as OpenQASMProgram
+from braket.v2.task_result.aqt_metadata_v1 import AqtMetadata
+from braket.v2.task_result.dwave_metadata_v1 import DwaveMetadata
+from braket.v2.task_result.ionq_metadata_v1 import IonQMetadata
+from braket.v2.task_result.iqm_metadata_v1 import IqmMetadata
+from braket.v2.task_result.oqc_metadata_v1 import OqcMetadata
+from braket.v2.task_result.quera_metadata_v1 import QueraMetadata
+from braket.v2.task_result.rigetti_metadata_v1 import RigettiMetadata
+from braket.v2.task_result.simulator_metadata_v1 import SimulatorMetadata
+from braket.v2.task_result.xanadu_metadata_v1 import XanaduMetadata
+
+
+class AdditionalMetadata(BaseModel):
+    """
+    The additional metadata result schema.
+
+    Attributes:
+        action (Optional[Union[Program, Problem]]): The action of the task. Default: None.
+        dwaveMetadata (Optional[DWaveMetadata]): Additional metadata for tasks that ran on D-Wave
+            devices. Default: None.
+        ionqMetadata (Optional[IonQMetadata): Additional metadata for tasks that ran on IonQ
+            devices. Default: None.
+        rigettiMetadata (Optional[RigettiMetadata): Additional metadata for tasks that ran on
+            Rigetti devices. Default: None.
+        oqcMetadata (Optional[OqcMetadata): Additional metadata for tasks that ran on Oxforc Quantum
+            Computing devices. Default: None.
+        xanaduMetadata (Optional[XanaduMetadata): Additional metadata for tasks that ran on Xanadu
+            devices. Default: None.
+        queraMetadata (Optional[QueraMetadata): Additional metadata for tasks that ran on QuEra
+            devices. Default: None.
+        simulatorMetadata (Optional[SimulatorQMetadata): Additional metadata for tasks that ran on
+            simulator devices. Default: None.
+        iqmMetadata (Optional[IqmMetadata): Additional metadata for tasks that ran on IQM.
+
+    Examples:
+        >>> AdditionalMetadata(action=OpenQASMProgram(source='OPENQASM3.0; cx $0, $1'))
+    """
+
+    action: JaqcdProgram | OpenQASMProgram | BlackbirdProgram | Problem | AHSProgram | None = None
+    aqtMetadata: AqtMetadata | None = None
+    dwaveMetadata: DwaveMetadata | None = None
+    ionqMetadata: IonQMetadata | None = None
+    rigettiMetadata: RigettiMetadata | None = None
+    oqcMetadata: OqcMetadata | None = None
+    xanaduMetadata: XanaduMetadata | None = None
+    queraMetadata: QueraMetadata | None = None
+    simulatorMetadata: SimulatorMetadata | None = None
+    iqmMetadata: IqmMetadata | None = None

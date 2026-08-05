@@ -129,7 +129,9 @@ class IonqDeviceCapabilities(BraketSchemaBase, DeviceCapabilities):
     braketSchemaHeader: BraketSchemaHeader = Field(default=_PROGRAM_HEADER, const=_PROGRAM_HEADER)
     action: dict[
         DeviceActionType | str,
-        OpenQASMDeviceActionProperties | JaqcdDeviceActionProperties | OpenQASMProgramSetDeviceActionProperties,
+        OpenQASMDeviceActionProperties
+        | JaqcdDeviceActionProperties
+        | OpenQASMProgramSetDeviceActionProperties,
     ]
     paradigm: GateModelQpuParadigmProperties
     provider: IonqProviderProperties | None

@@ -27,7 +27,7 @@ setup(
     packages=find_namespace_packages(where="src", exclude=("test",)),
     package_dir={"": "src"},
     install_requires=[
-        "pydantic>2",
+        "pydantic>2.5",
     ],
     extras_require={
         "test": [
