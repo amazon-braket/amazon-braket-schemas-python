@@ -15,6 +15,7 @@ from itertools import product
 
 import numpy as np
 import pytest
+from pydantic.v1 import ValidationError
 
 from braket.ir.jaqcd.shared_models import MultiProbability
 
@@ -85,3 +86,11 @@ class TestMultiProbability:
         paulis = dict(zip(pauli_strings(n_qubits), random_noise(n_qubits)))
         paulis["Z" * n_qubits] = -0.9
         MultiProbability(probabilities=paulis)
+
+
+def test_out_of_range_probability_reports_only_that_error():
+    # Same guard as TripleProbability: a failed field must not also trigger the
+    # sum validator, which previously reported "Pauli dictionary must not be empty".
+    with pytest.raises(ValidationError) as exc:
+        MultiProbability(probabilities={"X": 1.5, "Y": 0.1})
+    assert [e["loc"] for e in exc.value.errors()] == [("probabilities", "X")]

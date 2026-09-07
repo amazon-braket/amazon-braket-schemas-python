@@ -244,7 +244,7 @@ class TripleProbability(BaseModel):
     probY: confloat(ge=float("0.0"), le=float("1.0"))
     probZ: confloat(ge=float("0.0"), le=float("1.0"))
 
-    @root_validator
+    @root_validator(skip_on_failure=True)
     def validate_probabilities(cls, values):
         """
         Pydantic uses the validation subsystem to create objects. This custom validator has
@@ -271,7 +271,7 @@ class MultiProbability(BaseModel):
         constr(regex="^[IXYZ]+$", min_length=1), confloat(ge=float("0.0"), le=float("1.0"))
     ]
 
-    @root_validator
+    @root_validator(skip_on_failure=True)
     def validate_probabilities(cls, values):
         """
         Pydantic uses the validation subsystem to create objects.
