@@ -69,3 +69,11 @@ def test_float():
 
 def test_extra_params():
     TripleProbability(probX=0, probY=0, probZ=0, foo="bar")
+
+
+def test_out_of_range_field_reports_only_that_error():
+    # The sum check must not run when a field already failed its own range check;
+    # before skip_on_failure it added a spurious "__root__" TypeError to the report.
+    with pytest.raises(ValidationError) as exc:
+        TripleProbability(probX=1.5, probY=0.1, probZ=0.1)
+    assert [e["loc"] for e in exc.value.errors()] == [("probX",)]
