@@ -385,7 +385,7 @@ class Observable(BaseModel):
     _term_regex = rf"{_coef_regex}?{_obs_regex}(\s*@\s*{_obs_regex})*"
     _hamiltonian_regex = rf"{_term_regex}(\s*\+\s*{_term_regex})*"
     observable: conlist(
-        constr(regex="(x|y|z|h|i)")
+        constr(regex="^(x|y|z|h|i)$")
         | conlist(
             conlist(
                 conlist(confloat(gt=float("-inf"), lt=float("inf")), min_items=2, max_items=2),
