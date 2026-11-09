@@ -12,7 +12,6 @@
 # language governing permissions and limitations under the License.
 
 import json
-from importlib import import_module
 
 from pydantic.v1 import Field
 
@@ -21,6 +20,7 @@ from braket.device_schema.error_mitigation.error_mitigation_properties import (
 )
 from braket.device_schema.error_mitigation.error_mitigation_scheme import ErrorMitigationScheme
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.schema_common.schema_header import import_braket_module
 
 
 def _loads_with_error_mitigation(serialized: str) -> dict:
@@ -28,8 +28,11 @@ def _loads_with_error_mitigation(serialized: str) -> dict:
     em = deserialized.get("errorMitigation") or {}
     em_with_types = {}
     for k, v in em.items():
-        split = k.rsplit(".", 1)
-        em_with_types[getattr(import_module(split[0]), split[1])] = v
+        module_name, class_name = k.rsplit(".", 1)
+        module = import_braket_module(
+            module_name, namespace="braket.device_schema.error_mitigation"
+        )
+        em_with_types[getattr(module, class_name)] = v
     deserialized["errorMitigation"] = em_with_types or None
     return deserialized
 
