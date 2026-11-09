@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.32.2 (2026-11-09)
+
+### Bug Fixes and Other Changes
+
+ * Resolve EM via allowlist instead of `import_module`
+
 ## v1.32.1.post0 (2026-09-02)
 
 ### Documentation Changes
