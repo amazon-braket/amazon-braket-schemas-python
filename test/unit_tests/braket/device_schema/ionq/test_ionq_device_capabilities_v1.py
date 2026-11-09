@@ -18,7 +18,9 @@ from pydantic.v1 import ValidationError
 
 from braket.device_schema.error_mitigation import Debias
 from braket.device_schema.ionq.ionq_device_capabilities_v1 import IonqDeviceCapabilities
-from braket.device_schema.openqasm_program_set_device_action_properties import OpenQASMProgramSetDeviceActionProperties
+from braket.device_schema.openqasm_program_set_device_action_properties import (
+    OpenQASMProgramSetDeviceActionProperties,
+)
 
 jaqcd_valid_input = {
     "braketSchemaHeader": {
