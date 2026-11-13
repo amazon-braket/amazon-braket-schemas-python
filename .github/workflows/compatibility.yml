@@ -1,0 +1,42 @@
+name: Schema compatibility
+
+on:
+  pull_request:
+    branches:
+      - main
+      - feature/**
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e .
+      - name: Compare schemas with the base branch
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          REVIEWED: ${{ contains(github.event.pull_request.labels.*.name, 'schema compatibility reviewed') }}
+        run: |
+          git worktree add ../base "$BASE_SHA"
+          if python .github/scripts/schema_compatibility.py ../base/src src; then
+            exit 0
+          fi
+          if [ "$REVIEWED" = "true" ]; then
+            echo "::warning::Incompatible schema changes accepted with the 'schema compatibility reviewed' label."
+            exit 0
+          fi
+          echo "::error::Incompatible schema changes found. Add a new schema version instead, or have a maintainer add the 'schema compatibility reviewed' label."
+          exit 1
