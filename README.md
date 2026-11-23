@@ -89,7 +89,6 @@ print(program)
 """
 braketSchemaHeader=BraketSchemaHeader(name='braket.ir.openqasm.program', version='1') source='OPENQASM 3.0; cnot $0, $1;' inputs=None
 """
-
 ```
 
 ## Documentation

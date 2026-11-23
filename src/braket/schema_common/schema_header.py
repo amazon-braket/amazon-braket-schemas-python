@@ -12,8 +12,40 @@
 # language governing permissions and limitations under the License
 
 from importlib import import_module
+from types import ModuleType
 
 from pydantic.v1 import BaseModel, constr
+
+# Versions are dotted numeric strings, e.g. "1" or "1.0".
+_SCHEMA_VERSION_PATTERN = r"^\d+(\.\d+)*$"
+
+
+def import_braket_module(
+    module_name: str, package: str | None = None, namespace: str = "braket"
+) -> ModuleType:
+    """Imports a module, requiring it to be under the given `braket` namespace.
+
+    We import only modules within the allowed namespace, since module names
+    come from untrusted schema documents. Callers that only need a narrow
+    subtree (e.g. error mitigation schemes) should pass a more specific
+    `namespace` so the allowed set stays as small as possible.
+
+    Args:
+        module_name (str): The name of the module to import.
+        package (str | None): The package to use as the anchor point for a
+            relative import. Default: None.
+        namespace (str): The namespace the module must be under. Default: "braket".
+
+    Returns:
+        ModuleType: The imported module.
+
+    Raises:
+        ValueError: If `module_name` is not under `namespace`.
+        ModuleNotFoundError: If the module cannot be found.
+    """
+    if not (module_name == namespace or module_name.startswith(f"{namespace}.")):
+        raise ValueError(f"Module '{module_name}' is not in the '{namespace}' namespace.")
+    return import_module(module_name, package=package)
 
 
 class BraketSchemaHeader(BaseModel):
@@ -29,7 +61,7 @@ class BraketSchemaHeader(BaseModel):
     """
 
     name: constr(min_length=1)
-    version: constr(min_length=1, max_length=50)
+    version: constr(min_length=1, max_length=50, regex=_SCHEMA_VERSION_PATTERN)
 
     def get_module_name(self):
         return self.name + "_v" + self.version
@@ -51,7 +83,7 @@ class BraketSchemaHeader(BaseModel):
         module_name = self.get_module_name()
         package_name = self.get_package_name()
         try:
-            return import_module(module_name, package=package_name)
+            return import_braket_module(module_name, package=package_name)
         except ModuleNotFoundError:
             raise ModuleNotFoundError(
                 f"Amazon Braket could not find the module, {module_name}. "
