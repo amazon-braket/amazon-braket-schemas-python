@@ -40,6 +40,27 @@ class DeviceCost(BaseModel):
     unit: str
 
 
+class QHPAssets(BaseModel):
+    """
+    This class provides the assets supplied by the quantum hardware provider.
+
+    Attributes:
+        logoLight (Optional[str]): URL for the light-mode provider logo
+        logoDark (Optional[str]): URL for the dark-mode provider logo
+
+    Examples:
+        >>> import json
+        >>> input_json = {
+        ...     "logoLight": "logo_light_url",
+        ...     "logoDark": "logo_dark_url",
+        ... }
+        >>> QHPAssets.parse_raw(json.dumps(input_json))
+    """
+
+    logoLight: str | None
+    logoDark: str | None
+
+
 class DeviceDocumentation(BaseModel):
     """
     This class provides the device documentations like image,
@@ -49,6 +70,7 @@ class DeviceDocumentation(BaseModel):
         imageUrl (Optional[str]): URL for the image of the device
         summary (Optional[str]): brief description on the device
         externalDocumentationUrl (Optional[str]): external documentation URL
+        qhpAssets (Optional[QHPAssets]): assets supplied by the quantum hardware provider
 
     Examples:
         >>> import json
@@ -56,6 +78,10 @@ class DeviceDocumentation(BaseModel):
         ...     "imageUrl": "image_url",
         ...     "summary": "Summary on the device",
         ...     "externalDocumentationUrl": "exter doc link",
+        ...     "qhpAssets": {
+        ...         "logoLight": "logo_light_url",
+        ...         "logoDark": "logo_dark_url",
+        ...     },
         ... }
         >>> DeviceDocumentation.parse_raw(json.dumps(input_json))
     """
@@ -63,6 +89,7 @@ class DeviceDocumentation(BaseModel):
     imageUrl: str | None
     summary: str | None
     externalDocumentationUrl: str | None
+    qhpAssets: QHPAssets | None
 
 
 class DeviceServiceProperties(BraketSchemaBase):

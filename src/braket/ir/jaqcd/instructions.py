@@ -372,7 +372,7 @@ class PSwap(DoubleTarget, Angle):
 
 
 class XY(DoubleTarget, Angle):
-    """
+    r"""
     Rotates between \\|01> and \\|10> by the given angle.
 
     Attributes:
@@ -394,7 +394,7 @@ class XY(DoubleTarget, Angle):
 
 
 class PhaseShift(SingleTarget, Angle):
-    """
+    r"""
     Phase shift gate. Shifts the phase between \\|0> and \\|1> by a given angle.
 
     Attributes:
@@ -437,7 +437,7 @@ class CPhaseShift(SingleTarget, SingleControl, Angle):
 
 
 class CPhaseShift00(SingleTarget, SingleControl, Angle):
-    """
+    r"""
     Controlled phase shift gate that phases the \\|00> state.
 
     Attributes:
@@ -459,7 +459,7 @@ class CPhaseShift00(SingleTarget, SingleControl, Angle):
 
 
 class CPhaseShift01(SingleTarget, SingleControl, Angle):
-    """
+    r"""
     Controlled phase shift gate that phases the \\|01> state.
 
     Attributes:
@@ -481,7 +481,7 @@ class CPhaseShift01(SingleTarget, SingleControl, Angle):
 
 
 class CPhaseShift10(SingleTarget, SingleControl, Angle):
-    """
+    r"""
     Controlled phase shift gate that phases the \\|10> state.
 
     Attributes:

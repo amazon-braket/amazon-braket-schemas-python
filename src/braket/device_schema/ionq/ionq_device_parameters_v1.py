@@ -11,13 +11,12 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-from importlib import import_module
-
 from pydantic.v1 import Field, validator
 
 from braket.device_schema.error_mitigation.error_mitigation_scheme import ErrorMitigationScheme
 from braket.device_schema.gate_model_parameters_v1 import GateModelParameters
 from braket.schema_common import BraketSchemaBase, BraketSchemaHeader
+from braket.schema_common.schema_header import import_braket_module
 
 
 class IonqDeviceParameters(BraketSchemaBase):
@@ -64,6 +63,9 @@ class IonqDeviceParameters(BraketSchemaBase):
         if isinstance(value, ErrorMitigationScheme):
             return value
         if value is not None and "type" in value:
-            split = value["type"].rsplit(".", 1)
-            return getattr(import_module(split[0]), split[1])(**value)
+            module_name, class_name = value["type"].rsplit(".", 1)
+            module = import_braket_module(
+                module_name, namespace="braket.device_schema.error_mitigation"
+            )
+            return getattr(module, class_name)(**value)
         raise ValueError(f"Invalid type or value specified: {value} for field: {field}")

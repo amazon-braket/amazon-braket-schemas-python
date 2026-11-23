@@ -96,3 +96,24 @@ def test_reservation_shots_range(valid_input, input_value, expected):
         valid_input["reservationShotsRange"] = input_value
     service_props = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
     assert service_props.reservationShotsRange == expected
+
+
+@pytest.mark.parametrize(
+    "input_value, expected",
+    [
+        (None, None),
+        (
+            {"logoLight": "logo_light_url", "logoDark": "logo_dark_url"},
+            ("logo_light_url", "logo_dark_url"),
+        ),
+        ({"logoLight": "logo_light_url"}, ("logo_light_url", None)),
+        ({"logoDark": "logo_dark_url"}, (None, "logo_dark_url")),
+    ],
+)
+def test_qhp_assets(valid_input, input_value, expected):
+    if input_value is not None:
+        valid_input["deviceDocumentation"]["qhpAssets"] = input_value
+    service_props = DeviceServiceProperties.parse_raw_schema(json.dumps(valid_input))
+    qhp_assets = service_props.deviceDocumentation.qhpAssets
+    actual = None if qhp_assets is None else (qhp_assets.logoLight, qhp_assets.logoDark)
+    assert actual == expected

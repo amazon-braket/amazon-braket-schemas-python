@@ -57,6 +57,28 @@ def test_error_mitigation(valid_input):
     assert json.loads(result.json())["errorMitigation"] == em_json
 
 
+@pytest.mark.parametrize(
+    "malicious_key",
+    [
+        "os.system",
+        "subprocess.run",
+        "sympy.utilities._compilation.compile_link_import_strings",
+        "not_a_real_module.NotARealClass",
+        # braket.* gadgets: reachable under the broad braket namespace, but must
+        # be rejected since error mitigation is pinned to the
+        # braket.device_schema.error_mitigation subtree.
+        "braket.schema_common.schema_header.import_module",
+        "braket.schema_common.schema_header.ModuleType",
+        "braket.device_schema.gate_model_parameters_v1.GateModelParameters",
+    ],
+)
+def test_error_mitigation_rejects_non_braket_key(valid_input, malicious_key):
+    valid_input = dict(valid_input)
+    valid_input["errorMitigation"] = {malicious_key: {"minimumShots": 2500}}
+    with pytest.raises(ValueError):
+        IonqProviderProperties.parse_raw_schema(json.dumps(valid_input))
+
+
 @pytest.mark.xfail(raises=ValidationError)
 def test__missing_schemaHeader(valid_input):
     valid_input.pop("braketSchemaHeader")
