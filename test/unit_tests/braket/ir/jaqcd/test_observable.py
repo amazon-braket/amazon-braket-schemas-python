@@ -33,6 +33,13 @@ def test_list_non_matching_regex():
 
 
 @pytest.mark.xfail(raises=ValidationError)
+def test_list_valid_prefix_with_trailing_garbage():
+    # The single-character observable regex was unanchored at the end, so a string
+    # starting with a valid letter followed by anything else was wrongly accepted.
+    Observable(observable=["xfoo"])
+
+
+@pytest.mark.xfail(raises=ValidationError)
 def test_list_partial_non_matching_regex():
     Observable(observable=["fooh", "h"])
 
